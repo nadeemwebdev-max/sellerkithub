@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+backend/__pycache__/
+backend/app/__pycache__/
+backend/app/routers/__pycache__/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Build & Dist
+frontend/dist/
+dist/
+build/
+
+# Local database & environment
+*.db
+*.sqlite3
+.env
+.env.local
+
+# Logs & temp
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
