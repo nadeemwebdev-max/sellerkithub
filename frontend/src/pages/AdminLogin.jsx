@@ -5,8 +5,8 @@ import { useAuth } from '../context/AuthContext';
 import SeoHead from '../components/SeoHead';
 
 export default function AdminLogin() {
-  const [username, setUsername] = useState('travel_with.nj');
-  const [password, setPassword] = useState('TravelNJ@2026');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -66,7 +66,8 @@ export default function AdminLogin() {
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
+                placeholder="Enter admin username"
+                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 placeholder:text-slate-400 dark:placeholder:text-slate-500"
               />
             </div>
           </div>
@@ -82,16 +83,12 @@ export default function AdminLogin() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
+                placeholder="••••••••"
+                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 placeholder:text-slate-400 dark:placeholder:text-slate-500"
               />
             </div>
           </div>
 
-          <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-400">
-            <p className="font-semibold text-slate-800 dark:text-slate-300">🔑 Default Creator Credentials:</p>
-            <p>Username: <code className="text-emerald-600 dark:text-emerald-400 font-bold">travel_with.nj</code></p>
-            <p>Password: <code className="text-emerald-600 dark:text-emerald-400 font-bold">TravelNJ@2026</code></p>
-          </div>
 
           <button
             type="submit"
