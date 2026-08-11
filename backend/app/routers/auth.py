@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from ..database import get_db
 from ..models import User, BlogPost, StayExperience, LeadInquiry, Announcement, Reel
 from ..schemas import UserLogin, TokenResponse, UserProfile, DashboardStats
@@ -10,14 +11,18 @@ router = APIRouter(prefix="/api/auth", tags=["Authentication"])
 
 @router.post("/login", response_model=TokenResponse)
 def login_json(user_data: UserLogin, db: Session = Depends(get_db)):
+    input_identifier = user_data.username.strip().lower()
+    input_password = user_data.password.strip()
+
     user = db.query(User).filter(
-        (User.username == user_data.username) | (User.email == user_data.username)
+        (func.lower(User.username) == input_identifier) | 
+        (func.lower(User.email) == input_identifier)
     ).first()
     
-    if not user or not verify_password(user_data.password, user.hashed_password):
+    if not user or not verify_password(input_password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="Incorrect username or password. Please check your credentials.",
             headers={"WWW-Authenticate": "Bearer"},
         )
     
@@ -31,11 +36,15 @@ def login_json(user_data: UserLogin, db: Session = Depends(get_db)):
 
 @router.post("/token", response_model=TokenResponse)
 def login_form(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    input_identifier = form_data.username.strip().lower()
+    input_password = form_data.password.strip()
+
     user = db.query(User).filter(
-        (User.username == form_data.username) | (User.email == form_data.username)
+        (func.lower(User.username) == input_identifier) | 
+        (func.lower(User.email) == input_identifier)
     ).first()
     
-    if not user or not verify_password(form_data.password, user.hashed_password):
+    if not user or not verify_password(input_password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
@@ -71,4 +80,3 @@ def get_admin_stats(db: Session = Depends(get_db), current_user: User = Depends(
         "total_reels": total_reels,
         "announcement_active": active_banner
     }
-

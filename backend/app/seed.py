@@ -10,7 +10,9 @@ def seed_database():
 
     try:
         # 1. Admin User (@travel_with.nj)
-        admin_user = db.query(User).filter(User.username == settings.ADMIN_USERNAME).first()
+        admin_user = db.query(User).filter(
+            (User.username == settings.ADMIN_USERNAME) | (User.email == settings.ADMIN_EMAIL)
+        ).first()
         if not admin_user:
             admin_user = User(
                 username=settings.ADMIN_USERNAME,
@@ -20,6 +22,12 @@ def seed_database():
                 is_admin=True
             )
             db.add(admin_user)
+        else:
+            admin_user.username = settings.ADMIN_USERNAME
+            admin_user.email = settings.ADMIN_EMAIL
+            admin_user.hashed_password = get_password_hash(settings.ADMIN_PASSWORD)
+            db.add(admin_user)
+        db.commit()
 
         # 2. Announcement Banner
         announcement = db.query(Announcement).first()
