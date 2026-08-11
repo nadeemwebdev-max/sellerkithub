@@ -93,14 +93,14 @@ export default function StayDetailPage() {
         <div className="flex items-center justify-between gap-4 mb-6">
           <Link
             to="/stays"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4" /> Back to All Stays
           </Link>
 
           <button
             onClick={handleShare}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl glass-panel text-xs text-slate-300 hover:text-white border border-slate-700 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl glass-panel text-xs text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700 transition-colors shadow-sm"
           >
             <Share2 className="w-3.5 h-3.5" />
             <span>{copied ? 'Link Copied!' : 'Share Stay'}</span>
@@ -110,29 +110,29 @@ export default function StayDetailPage() {
         {/* Title & Location Header */}
         <div className="mb-8 space-y-2">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+            <span className="bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
               <ShieldCheck className="w-3.5 h-3.5" /> NJ Verified Property
             </span>
-            <span className="bg-slate-800 text-slate-300 text-xs font-semibold px-3 py-1 rounded-full">
+            <span className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold px-3 py-1 rounded-full border border-slate-200 dark:border-transparent">
               {stay.category}
             </span>
-            <span className="text-amber-400 text-xs font-bold flex items-center gap-1 px-2">
+            <span className="text-amber-500 dark:text-amber-400 text-xs font-bold flex items-center gap-1 px-2">
               <Star className="w-3.5 h-3.5 fill-amber-400" /> {stay.rating} ({stay.review_count}+ traveler reviews)
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-display">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display">
             {stay.title}
           </h1>
 
-          <p className="text-sm text-slate-400 flex items-center gap-1.5">
-            <MapPin className="w-4 h-4 text-emerald-400" /> {stay.location}, North Karnataka, India
+          <p className="text-sm text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
+            <MapPin className="w-4 h-4 text-emerald-500 dark:text-emerald-400" /> {stay.location}, North Karnataka, India
           </p>
         </div>
 
         {/* Media Gallery */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-10">
-          <div className="lg:col-span-2 aspect-[16/10] rounded-3xl overflow-hidden glass-panel border border-slate-800 bg-slate-900">
+          <div className="lg:col-span-2 aspect-[16/10] rounded-3xl overflow-hidden glass-panel border border-slate-200 dark:border-slate-800 bg-slate-900 shadow-lg">
             <img
               src={stay.cover_image}
               alt={stay.title}
@@ -142,12 +142,12 @@ export default function StayDetailPage() {
           <div className="grid grid-cols-2 lg:grid-cols-1 gap-4">
             {gallery.length > 0 ? (
               gallery.slice(0, 2).map((img, idx) => (
-                <div key={idx} className="aspect-[16/10] rounded-2xl overflow-hidden glass-panel border border-slate-800 bg-slate-900">
+                <div key={idx} className="aspect-[16/10] rounded-2xl overflow-hidden glass-panel border border-slate-200 dark:border-slate-800 bg-slate-900 shadow-md">
                   <img src={img} alt={`${stay.title} photo ${idx + 1}`} className="w-full h-full object-cover" />
                 </div>
               ))
             ) : (
-              <div className="aspect-[16/10] rounded-2xl overflow-hidden glass-panel border border-slate-800 bg-slate-900 flex items-center justify-center text-slate-500 text-xs">
+              <div className="aspect-[16/10] rounded-2xl overflow-hidden glass-panel border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-slate-500 text-xs">
                 Verified On-Site Inspection by NJ
               </div>
             )}
@@ -162,14 +162,14 @@ export default function StayDetailPage() {
             
             {/* Highlights */}
             {highlightsList.length > 0 && (
-              <div className="glass-panel p-6 rounded-3xl border border-emerald-500/20 bg-emerald-950/10 space-y-3">
-                <h3 className="text-base font-bold text-white font-display flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-emerald-400" /> Why Travel with NJ Recommends This:
+              <div className="glass-panel p-6 rounded-3xl border border-emerald-500/20 bg-emerald-500/05 space-y-3 shadow-md">
+                <h3 className="text-base font-bold text-slate-900 dark:text-white font-display flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-emerald-500 dark:text-emerald-400" /> Why Travel with NJ Recommends This:
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {highlightsList.map((hl, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-xs sm:text-sm text-slate-200">
-                      <div className="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                    <div key={idx} className="flex items-center gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-200">
+                      <div className="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
                         ✓
                       </div>
                       <span>{hl.trim()}</span>
@@ -181,19 +181,19 @@ export default function StayDetailPage() {
 
             {/* Overview */}
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-white font-display">About the Property</h2>
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed whitespace-pre-line">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white font-display">About the Property</h2>
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">
                 {stay.description}
               </p>
             </div>
 
             {/* Included Amenities & Activities */}
-            <div className="space-y-4 pt-6 border-t border-slate-800">
-              <h2 className="text-xl font-bold text-white font-display">Included Amenities & Activities</h2>
+            <div className="space-y-4 pt-6 border-t border-slate-200 dark:border-slate-800">
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white font-display">Included Amenities & Activities</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {amenitiesList.map((amenity, idx) => (
-                  <div key={idx} className="glass-panel p-3.5 rounded-2xl border border-slate-800 flex items-center gap-3 text-xs sm:text-sm text-slate-200">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <div key={idx} className="glass-panel p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center gap-3 text-xs sm:text-sm text-slate-700 dark:text-slate-200 shadow-sm bg-white/90 dark:bg-slate-900/60">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
                     <span>{amenity.trim()}</span>
                   </div>
                 ))}
@@ -204,33 +204,33 @@ export default function StayDetailPage() {
 
           {/* Right Sticky Booking / Direct Inquiry Box */}
           <div className="lg:col-span-4">
-            <div className="sticky top-28 glass-panel p-6 sm:p-8 rounded-3xl border border-slate-700/80 shadow-2xl bg-[#0c1322] space-y-6">
+            <div className="sticky top-28 glass-panel p-6 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-2xl bg-white dark:bg-[#0c1322] space-y-6">
               
-              <div className="space-y-1 pb-4 border-b border-slate-800">
-                <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider">
+              <div className="space-y-1 pb-4 border-b border-slate-200 dark:border-slate-800">
+                <div className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wider">
                   Community Discount Price
                 </div>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white font-display">
+                  <span className="text-3xl font-black text-slate-900 dark:text-white font-display">
                     ₹{stay.price_per_night?.toLocaleString('en-IN')}
                   </span>
-                  <span className="text-xs text-slate-400">
+                  <span className="text-xs text-slate-500 dark:text-slate-400">
                     {stay.price_unit}
                   </span>
                 </div>
               </div>
 
-              <div className="space-y-3 text-xs text-slate-300">
+              <div className="space-y-3 text-xs text-slate-700 dark:text-slate-300">
                 <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-emerald-400" />
+                  <Check className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
                   <span>Direct Host Rates (No Middleman Fee)</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-emerald-400" />
+                  <Check className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
                   <span>Free Itinerary & Route Guidance from NJ</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-emerald-400" />
+                  <Check className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
                   <span>Instant WhatsApp Confirmation</span>
                 </div>
               </div>
@@ -251,6 +251,7 @@ export default function StayDetailPage() {
 
             </div>
           </div>
+
 
         </div>
 

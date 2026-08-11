@@ -66,36 +66,36 @@ export default function StaysPage() {
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
             <ShieldCheck className="w-4 h-4" /> 100% Inspected & Direct Host Deals
           </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight font-display">
+          <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display">
             Curated Stays & <span className="text-gradient">Weekend Retreats</span>
           </h1>
-          <p className="text-sm sm:text-base text-slate-300">
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">
             Handpicked riverfront camps in Dandeli, 100-year-old areca plantations in Sirsi, cliffside glamping in Gokarna, and forest chalets in Yellapur.
           </p>
         </div>
 
         {/* Filter & Search Bar */}
-        <div className="glass-panel p-4 sm:p-6 rounded-3xl border border-slate-800 space-y-4 mb-10">
+        <div className="glass-panel p-4 sm:p-6 rounded-3xl border border-slate-200/80 dark:border-slate-800 space-y-4 mb-10 shadow-lg">
           
           {/* Search Input */}
           <div className="relative">
-            <Search className="w-5 h-5 text-slate-500 absolute left-4 top-3.5" />
+            <Search className="w-5 h-5 text-slate-400 dark:text-slate-500 absolute left-4 top-3.5" />
             <input
               type="text"
               placeholder="Search by resort name, activity (rafting, campfire), or town..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-slate-900/90 border border-slate-700/80 rounded-2xl pl-12 pr-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors"
+              className="w-full bg-slate-100 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700/80 rounded-2xl pl-12 pr-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors"
             />
           </div>
 
           {/* Location Tabs */}
           <div>
-            <div className="text-xs font-semibold text-slate-400 mb-2 flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-emerald-400" /> Filter by Location:
+            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" /> Filter by Location:
             </div>
             <div className="flex flex-wrap gap-2">
               {locations.map((loc) => (
@@ -105,7 +105,7 @@ export default function StaysPage() {
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
                     selectedLocation === loc
                       ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20 scale-105'
-                      : 'bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700'
+                      : 'bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700'
                   }`}
                 >
                   {loc}
@@ -132,10 +132,10 @@ export default function StaysPage() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 glass-panel rounded-3xl border border-slate-800 space-y-4">
-            <Compass className="w-12 h-12 text-slate-600 mx-auto" />
-            <h3 className="text-lg font-bold text-white">No Stays Found</h3>
-            <p className="text-xs text-slate-400 max-w-sm mx-auto">
+          <div className="text-center py-16 glass-panel rounded-3xl border border-slate-200 dark:border-slate-800 space-y-4">
+            <Compass className="w-12 h-12 text-slate-400 dark:text-slate-600 mx-auto" />
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">No Stays Found</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
               We couldn't find any stays matching your filter. Try changing the location or search term.
             </p>
             <button
@@ -146,6 +146,7 @@ export default function StaysPage() {
             </button>
           </div>
         )}
+
 
       </div>
 

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from .database import engine, SessionLocal, Base
-from .models import User, Announcement, BlogPost, StayExperience, LeadInquiry
+from .models import User, Announcement, BlogPost, StayExperience, LeadInquiry, Reel
 from .auth import get_password_hash
 from .config import settings
 
@@ -281,8 +281,63 @@ Have a favorite food spot you want us to feature next? Reach out on [Instagram @
         ]
         db.add_all(stays)
 
+        # 5. Instagram Reels Showcase
+        if db.query(Reel).count() == 0:
+            initial_reels = [
+                Reel(
+                    title="Top 3 Hidden Gems near Hubli-Dharwad You Must Visit!",
+                    location="Hubballi & Dharwad",
+                    views_count="280K",
+                    likes_count="26.4K",
+                    thumbnail_url="/images/reels/hubli_dharwad_top3_cover.jpg",
+                    fallback_thumbnail_url="/images/reels/hubli_dharwad_top3_cover.jpg",
+                    video_url="/videos/hubli_dharwad_top3_hidden_gems.mp4",
+                    instagram_url="https://www.instagram.com/reel/DMc-4yxTWnD/?igsh=a3kzcWdlY2E2YzNh",
+                    is_active=True,
+                    order_index=1
+                ),
+                Reel(
+                    title="Monsoon Paradise Found Just 100km from Hubballi!",
+                    location="Western Ghats (100km from Hubli)",
+                    views_count="340K",
+                    likes_count="35.1K",
+                    thumbnail_url="/images/reels/just_100km_cover.jpg",
+                    fallback_thumbnail_url="/images/reels/just_100km_cover.jpg",
+                    video_url="/videos/just_100km.mp4",
+                    instagram_url="https://www.instagram.com/travel_with.nj",
+                    is_active=True,
+                    order_index=2
+                ),
+                Reel(
+                    title="Belagavi Road Trip: Secret Nature Spots Just 121km from Hubli",
+                    location="Belagavi (121km from Hubli)",
+                    views_count="195K",
+                    likes_count="18.9K",
+                    thumbnail_url="/images/reels/belgavi_121km_cover.jpg",
+                    fallback_thumbnail_url="/images/reels/belgavi_121km_cover.jpg",
+                    video_url="/videos/belgavi_121km.mp4",
+                    instagram_url="https://www.instagram.com/travel_with.nj",
+                    is_active=True,
+                    order_index=3
+                ),
+                Reel(
+                    title="Unseen Waterfall & Rainforest Trek • 125km from Hubballi",
+                    location="Uttara Kannada (125km from Hubli)",
+                    views_count="410K",
+                    likes_count="42.8K",
+                    thumbnail_url="/images/reels/hero_section_cover.jpg",
+                    fallback_thumbnail_url="/images/reels/hero_section_cover.jpg",
+                    video_url="/videos/hero_section_video.mp4",
+                    instagram_url="https://www.instagram.com/travel_with.nj",
+                    is_active=True,
+                    order_index=4
+                )
+            ]
+            db.add_all(initial_reels)
+
         db.commit()
-        print("Database updated with verified reliable imagery!")
+        print("Database updated with verified reliable imagery and reels!")
+
     except Exception as e:
         db.rollback()
         print(f"Error updating database: {e}")

@@ -198,6 +198,70 @@ export async function deleteLead(leadId) {
   return await res.json();
 }
 
+// Reels & Video Stories
+export async function getPublicReels() {
+  try {
+    const res = await fetch(`${API_BASE}/reels/`);
+    if (!res.ok) return [];
+    return await res.json();
+  } catch (err) {
+    console.warn('Fetch reels fallback', err);
+    return [];
+  }
+}
+
+export async function getAdminAllReels() {
+  const res = await fetch(`${API_BASE}/reels/admin/all`, {
+    headers: getAuthHeaders()
+  });
+  if (!res.ok) throw new Error('Failed to fetch reels');
+  return await res.json();
+}
+
+export async function createReel(reelData) {
+  const res = await fetch(`${API_BASE}/reels/`, {
+    method: 'POST',
+    headers: getAuthHeaders(),
+    body: JSON.stringify(reelData)
+  });
+  if (!res.ok) throw new Error('Failed to create reel');
+  return await res.json();
+}
+
+export async function updateReel(reelId, reelData) {
+  const res = await fetch(`${API_BASE}/reels/${reelId}`, {
+    method: 'PUT',
+    headers: getAuthHeaders(),
+    body: JSON.stringify(reelData)
+  });
+  if (!res.ok) throw new Error('Failed to update reel');
+  return await res.json();
+}
+
+export async function uploadReelMedia(file) {
+  const token = localStorage.getItem('nj_admin_token');
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const res = await fetch(`${API_BASE}/reels/upload`, {
+    method: 'POST',
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    body: formData
+  });
+  if (!res.ok) throw new Error('Failed to upload video media');
+  return await res.json();
+}
+
+export async function deleteReel(reelId) {
+  const res = await fetch(`${API_BASE}/reels/${reelId}`, {
+    method: 'DELETE',
+    headers: getAuthHeaders()
+  });
+  if (!res.ok) throw new Error('Failed to delete reel');
+  return await res.json();
+}
+
+
 // Auth & Dashboard Stats
 export async function loginUser(username, password) {
   const res = await fetch(`${API_BASE}/auth/login`, {
@@ -219,3 +283,4 @@ export async function getAdminStats() {
   if (!res.ok) throw new Error('Failed to fetch stats');
   return await res.json();
 }
+
