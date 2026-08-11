@@ -1160,11 +1160,16 @@ export default function AdminDashboard() {
                     onChange={(e) => setStayFormData({ ...stayFormData, category: e.target.value })}
                     className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
                   >
-                    <option>Riverfront Resort</option>
-                    <option>Heritage Homestay</option>
-                    <option>Beach Camp</option>
-                    <option>Jungle Retreat</option>
-                    <option>Boutique Villa</option>
+                    <option value="Riverfront Resort">Riverfront Resort</option>
+                    <option value="Heritage Homestay">Heritage Homestay</option>
+                    <option value="Beach Glamping">Beach Glamping</option>
+                    <option value="Treehouse Resort">Treehouse Resort</option>
+                    <option value="Riverside Camping">Riverside Camping</option>
+                    <option value="Weekend Group Trip">Weekend Group Trip</option>
+                    <option value="Jungle Retreat">Jungle Retreat</option>
+                    <option value="Eco-Homestay">Eco-Homestay</option>
+                    <option value="Heritage Villa">Heritage Villa</option>
+                    <option value="Riverside Huts">Riverside Huts</option>
                   </select>
                 </div>
                 <div>

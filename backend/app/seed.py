@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from .database import engine, SessionLocal, Base
-from .models import User, Announcement, BlogPost, StayExperience, LeadInquiry
+from .models import User, Announcement, BlogPost, StayExperience, LeadInquiry, Reel
 from .auth import get_password_hash
 from .config import settings
 
@@ -442,8 +442,62 @@ Have a favorite food spot you want us to feature next? Reach out on [Instagram @
             ]
             db.add_all(stays)
 
+        # 5. Reels & Video Stories
+        if db.query(Reel).count() == 0:
+            reels_seed = [
+                Reel(
+                    title="Top 3 Hidden Gems near Hubli-Dharwad You Must Visit!",
+                    location="Hubballi & Dharwad",
+                    views_count="280K",
+                    likes_count="26.4K",
+                    thumbnail_url="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=800&q=80",
+                    fallback_thumbnail_url="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=800&q=80",
+                    video_url="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+                    instagram_url="https://www.instagram.com/travel_with.nj",
+                    is_active=True,
+                    order_index=1
+                ),
+                Reel(
+                    title="Monsoon Paradise Found Just 100km from Hubballi! 🌿",
+                    location="Western Ghats (100km from Hubli)",
+                    views_count="340K",
+                    likes_count="35.1K",
+                    thumbnail_url="https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=800&q=80",
+                    fallback_thumbnail_url="https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=800&q=80",
+                    video_url="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+                    instagram_url="https://www.instagram.com/travel_with.nj",
+                    is_active=True,
+                    order_index=2
+                ),
+                Reel(
+                    title="Belagavi Road Trip: Secret Nature Spots Just 121km from Hubli",
+                    location="Belagavi (121km from Hubli)",
+                    views_count="195K",
+                    likes_count="18.9K",
+                    thumbnail_url="https://images.unsplash.com/photo-1587061949409-02df41d5e562?auto=format&fit=crop&w=800&q=80",
+                    fallback_thumbnail_url="https://images.unsplash.com/photo-1587061949409-02df41d5e562?auto=format&fit=crop&w=800&q=80",
+                    video_url="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4",
+                    instagram_url="https://www.instagram.com/travel_with.nj",
+                    is_active=True,
+                    order_index=3
+                ),
+                Reel(
+                    title="Unseen Waterfall & Rainforest Trek • 125km from Hubballi",
+                    location="Uttara Kannada (125km from Hubli)",
+                    views_count="410K",
+                    likes_count="42.8K",
+                    thumbnail_url="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80",
+                    fallback_thumbnail_url="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80",
+                    video_url="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+                    instagram_url="https://www.instagram.com/travel_with.nj",
+                    is_active=True,
+                    order_index=4
+                )
+            ]
+            db.add_all(reels_seed)
+
         db.commit()
-        print("Database updated with rich catalog of 12+ Stays and Curated Group Trips!")
+        print("Database updated with rich catalog of 12+ Stays, Blog Posts, and Reels!")
     except Exception as e:
         db.rollback()
         print(f"Error updating database: {e}")

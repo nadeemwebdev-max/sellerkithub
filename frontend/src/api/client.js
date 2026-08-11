@@ -287,6 +287,61 @@ export const DEFAULT_POSTS = [
   }
 ];
 
+export const DEFAULT_REELS = [
+  {
+    id: 1,
+    title: "Top 3 Hidden Gems near Hubli-Dharwad You Must Visit!",
+    location: "Hubballi & Dharwad",
+    views_count: "280K",
+    likes_count: "26.4K",
+    thumbnail_url: "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=800&q=80",
+    fallback_thumbnail_url: "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=800&q=80",
+    video_url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    instagram_url: "https://www.instagram.com/travel_with.nj",
+    is_active: true,
+    order_index: 1
+  },
+  {
+    id: 2,
+    title: "Monsoon Paradise Found Just 100km from Hubballi! 🌿",
+    location: "Western Ghats (100km from Hubli)",
+    views_count: "340K",
+    likes_count: "35.1K",
+    thumbnail_url: "https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=800&q=80",
+    fallback_thumbnail_url: "https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=800&q=80",
+    video_url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    instagram_url: "https://www.instagram.com/travel_with.nj",
+    is_active: true,
+    order_index: 2
+  },
+  {
+    id: 3,
+    title: "Belagavi Road Trip: Secret Nature Spots Just 121km from Hubli",
+    location: "Belagavi (121km from Hubli)",
+    views_count: "195K",
+    likes_count: "18.9K",
+    thumbnail_url: "https://images.unsplash.com/photo-1587061949409-02df41d5e562?auto=format&fit=crop&w=800&q=80",
+    fallback_thumbnail_url: "https://images.unsplash.com/photo-1587061949409-02df41d5e562?auto=format&fit=crop&w=800&q=80",
+    video_url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4",
+    instagram_url: "https://www.instagram.com/travel_with.nj",
+    is_active: true,
+    order_index: 3
+  },
+  {
+    id: 4,
+    title: "Unseen Waterfall & Rainforest Trek • 125km from Hubballi",
+    location: "Uttara Kannada (125km from Hubli)",
+    views_count: "410K",
+    likes_count: "42.8K",
+    thumbnail_url: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80",
+    fallback_thumbnail_url: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80",
+    video_url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+    instagram_url: "https://www.instagram.com/travel_with.nj",
+    is_active: true,
+    order_index: 4
+  }
+];
+
 function getAuthHeaders() {
   const token = localStorage.getItem('nj_admin_token');
   return {
@@ -324,11 +379,32 @@ export async function getActiveAnnouncement() {
 }
 
 export async function getAdminAnnouncement() {
-  const res = await fetch(`${API_BASE}/announcements/`, {
-    headers: getAuthHeaders()
-  });
-  if (!res.ok) throw new Error('Failed to fetch announcement');
-  return await res.json();
+  try {
+    const res = await fetch(`${API_BASE}/announcements/`, {
+      headers: getAuthHeaders()
+    });
+    if (!res.ok) throw new Error('Failed to fetch announcement');
+    const data = await res.json();
+    return data || {
+      id: 1,
+      message: "🌿 Dandeli & Yellapur Waterfalls Weekend Batch Open! 18 Slots Only • Flat 15% Early Bird Off",
+      badge_text: "BATCH OPEN",
+      link_text: "Book Your Slot",
+      link_url: "/stays",
+      bg_gradient: "from-emerald-600 to-teal-700",
+      is_active: true
+    };
+  } catch (err) {
+    return {
+      id: 1,
+      message: "🌿 Dandeli & Yellapur Waterfalls Weekend Batch Open! 18 Slots Only • Flat 15% Early Bird Off",
+      badge_text: "BATCH OPEN",
+      link_text: "Book Your Slot",
+      link_url: "/stays",
+      bg_gradient: "from-emerald-600 to-teal-700",
+      is_active: true
+    };
+  }
 }
 
 export async function updateAnnouncement(data) {
@@ -372,11 +448,17 @@ export async function getPostBySlug(slug) {
 }
 
 export async function getAdminAllPosts() {
-  const res = await fetch(`${API_BASE}/posts/admin/all`, {
-    headers: getAuthHeaders()
-  });
-  if (!res.ok) throw new Error('Failed to fetch posts');
-  return await res.json();
+  try {
+    const res = await fetch(`${API_BASE}/posts/admin/all`, {
+      headers: getAuthHeaders()
+    });
+    if (!res.ok) throw new Error('Failed to fetch posts');
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) return data;
+    return DEFAULT_POSTS;
+  } catch (err) {
+    return DEFAULT_POSTS;
+  }
 }
 
 export async function createPost(postData) {
@@ -463,11 +545,17 @@ export async function getStayBySlug(slug) {
 }
 
 export async function getAdminAllStays() {
-  const res = await fetch(`${API_BASE}/stays/admin/all`, {
-    headers: getAuthHeaders()
-  });
-  if (!res.ok) throw new Error('Failed to fetch stays');
-  return await res.json();
+  try {
+    const res = await fetch(`${API_BASE}/stays/admin/all`, {
+      headers: getAuthHeaders()
+    });
+    if (!res.ok) throw new Error('Failed to fetch stays');
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) return data;
+    return DEFAULT_STAYS;
+  } catch (err) {
+    return DEFAULT_STAYS;
+  }
 }
 
 export async function createStay(stayData) {
@@ -515,12 +603,16 @@ export async function submitLeadInquiry(leadData) {
 }
 
 export async function getAdminLeads(status = 'All') {
-  const query = status !== 'All' ? `?status=${status}` : '';
-  const res = await fetch(`${API_BASE}/leads/${query}`, {
-    headers: getAuthHeaders()
-  });
-  if (!res.ok) throw new Error('Failed to fetch leads');
-  return await res.json();
+  try {
+    const query = status !== 'All' ? `?status=${status}` : '';
+    const res = await fetch(`${API_BASE}/leads/${query}`, {
+      headers: getAuthHeaders()
+    });
+    if (!res.ok) throw new Error('Failed to fetch leads');
+    return await res.json();
+  } catch (err) {
+    return [];
+  }
 }
 
 export async function updateLeadStatus(leadId, data) {
@@ -546,19 +638,27 @@ export async function deleteLead(leadId) {
 export async function getPublicReels() {
   try {
     const res = await fetch(`${API_BASE}/reels/`);
-    if (!res.ok) return [];
-    return await res.json();
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) return data;
+    return DEFAULT_REELS;
   } catch (err) {
-    return [];
+    return DEFAULT_REELS;
   }
 }
 
 export async function getAdminAllReels() {
-  const res = await fetch(`${API_BASE}/reels/admin/all`, {
-    headers: getAuthHeaders()
-  });
-  if (!res.ok) throw new Error('Failed to fetch reels');
-  return await res.json();
+  try {
+    const res = await fetch(`${API_BASE}/reels/admin/all`, {
+      headers: getAuthHeaders()
+    });
+    if (!res.ok) throw new Error('Failed to fetch reels');
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) return data;
+    return DEFAULT_REELS;
+  } catch (err) {
+    return DEFAULT_REELS;
+  }
 }
 
 export async function createReel(reelData) {
@@ -619,9 +719,28 @@ export async function loginUser(username, password) {
 }
 
 export async function getAdminStats() {
-  const res = await fetch(`${API_BASE}/auth/stats`, {
-    headers: getAuthHeaders()
-  });
-  if (!res.ok) throw new Error('Failed to fetch stats');
-  return await res.json();
+  try {
+    const res = await fetch(`${API_BASE}/auth/stats`, {
+      headers: getAuthHeaders()
+    });
+    if (!res.ok) throw new Error('Failed to fetch stats');
+    const data = await res.json();
+    return {
+      total_posts: data.total_posts || DEFAULT_POSTS.length,
+      total_stays: data.total_stays || DEFAULT_STAYS.length,
+      total_leads: data.total_leads || 0,
+      new_leads: data.new_leads || 0,
+      total_reels: data.total_reels || DEFAULT_REELS.length,
+      announcement_active: data.announcement_active !== undefined ? data.announcement_active : true
+    };
+  } catch (err) {
+    return {
+      total_posts: DEFAULT_POSTS.length,
+      total_stays: DEFAULT_STAYS.length,
+      total_leads: 0,
+      new_leads: 0,
+      total_reels: DEFAULT_REELS.length,
+      announcement_active: true
+    };
+  }
 }
