@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Compass, Sparkles, Menu, X, Instagram, ShieldCheck, MapPin, User, LogOut } from 'lucide-react';
+import { Compass, Sparkles, Menu, X, Instagram, User, LogOut, ArrowUpRight, Sun, Moon } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { isAuthenticated, logout } = useAuth();
+  const { isDark, toggleTheme } = useTheme();
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Curated Stays & Trips', path: '/stays', badge: 'Hot' },
-    { name: 'Travel Guides & Blog', path: '/blog' },
-    { name: 'Brand Collabs & Media Kit', path: '/collab' },
+    { name: 'Stays & Trips', path: '/stays' },
+    { name: 'Travel Guides', path: '/blog' },
+    { name: 'Collaborate', path: '/collab' },
   ];
 
   const isActive = (path) => {
@@ -22,87 +24,88 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full glass-panel border-b border-slate-800/80">
+    <header className="sticky top-0 z-50 w-full backdrop-blur-xl bg-white/80 dark:bg-[#050811]/85 border-b border-slate-200/80 dark:border-white/[0.06] transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16 sm:h-18">
           
-          {/* Brand Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-amber-400 p-[2px] shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform duration-300">
-              <div className="w-full h-full bg-[#090e1a] rounded-[14px] flex items-center justify-center">
-                <Compass className="w-6 h-6 text-emerald-400 group-hover:rotate-45 transition-transform duration-500" />
+          {/* Clean Brand Logo */}
+          <Link to="/" className="flex items-center gap-2.5 group">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-400 to-teal-400 p-[1.5px] shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform duration-300">
+              <div className="w-full h-full bg-white dark:bg-[#050811] rounded-[10px] flex items-center justify-center">
+                <Compass className="w-5 h-5 text-emerald-500 dark:text-emerald-400 group-hover:rotate-45 transition-transform duration-500" />
               </div>
             </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-xl tracking-tight text-white font-display">
-                  Travel with <span className="text-gradient">NJ</span>
-                </span>
-                <span className="bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold px-1.5 py-0.5 rounded-full flex items-center gap-0.5">
-                  <ShieldCheck className="w-3 h-3" /> 25k+
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-400 tracking-wide font-medium flex items-center gap-1">
-                <MapPin className="w-3 h-3 text-emerald-400" /> Hubli-Dharwad & Beyond
-              </p>
-            </div>
+            <span className="font-extrabold text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white font-display">
+              Travel with <span className="text-gradient">NJ</span>
+            </span>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={`relative px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 ${
-                  isActive(link.path)
-                    ? 'text-white bg-slate-800/80 shadow-inner border border-slate-700/60'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-800/40'
-                }`}
-              >
-                {link.name}
-                {link.badge && (
-                  <span className="ml-1.5 bg-rose-500 text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full animate-pulse">
-                    {link.badge}
-                  </span>
-                )}
-              </Link>
-            ))}
+          {/* Clean Desktop Navigation Links */}
+          <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 dark:bg-white/[0.03] p-1 rounded-full border border-slate-200/80 dark:border-white/[0.06] backdrop-blur-md">
+            {navLinks.map((link) => {
+              const active = isActive(link.path);
+              return (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+                    active
+                      ? 'text-slate-950 dark:text-white bg-white dark:bg-white/[0.1] shadow-sm font-bold'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/[0.05]'
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
           </nav>
 
-          {/* Action CTAs & Social / Admin */}
-          <div className="hidden lg:flex items-center gap-3">
+          {/* Right Action CTAs */}
+          <div className="hidden md:flex items-center gap-2.5">
+            {/* Day / Night Mode Switcher Button */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-300 bg-slate-100 dark:bg-white/[0.04] hover:bg-slate-200/80 dark:hover:bg-white/[0.08] border border-slate-200 dark:border-white/10 transition-all duration-300 shadow-sm"
+              title={isDark ? "Switch to Day (Light) Mode" : "Switch to Night (Dark) Mode"}
+              aria-label="Toggle Day and Night Mode"
+            >
+              {isDark ? (
+                <Sun className="w-4 h-4 text-amber-400 animate-pulse" />
+              ) : (
+                <Moon className="w-4 h-4 text-slate-700" />
+              )}
+            </button>
+
             <a
               href="https://www.instagram.com/travel_with.nj"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-gradient-to-r from-pink-500/10 to-purple-500/10 hover:from-pink-500/20 hover:to-purple-500/20 border border-pink-500/20 text-pink-300 transition-all hover:scale-105"
+              className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:text-pink-600 dark:hover:text-pink-300 hover:bg-pink-50 dark:hover:bg-pink-500/10 transition-all"
+              title="25k+ Followers on Instagram"
             >
-              <Instagram className="w-4 h-4 text-pink-400" />
+              <Instagram className="w-4 h-4 text-pink-500 dark:text-pink-400" />
               <span>@travel_with.nj</span>
             </a>
 
             <Link
               to="/stays"
-              className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-xs font-bold rounded-xl group bg-gradient-to-br from-emerald-400 to-teal-600 group-hover:from-emerald-400 group-hover:to-teal-600 hover:text-white text-white shadow-lg shadow-emerald-500/25 transition-all duration-300 hover:scale-105"
+              className="btn-shimmer flex items-center gap-1.5 px-4 py-2 text-xs font-bold rounded-xl text-slate-950 bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 shadow-md shadow-emerald-500/20 transition-all hover:scale-105"
             >
-              <span className="relative px-4 py-2.5 transition-all ease-in duration-75 bg-[#090e1a] rounded-[10px] group-hover:bg-opacity-0 flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-emerald-400 group-hover:text-white" />
-                Book Verified Stay
-              </span>
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Book Stays</span>
             </Link>
 
             {isAuthenticated ? (
-              <div className="flex items-center gap-1.5 ml-1 pl-2 border-l border-slate-800">
+              <div className="flex items-center gap-1 ml-1 pl-2 border-l border-slate-200 dark:border-white/10">
                 <Link
                   to="/admin"
-                  className="px-3 py-2 rounded-xl text-xs font-bold bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/25 transition-colors flex items-center gap-1.5"
+                  className="px-3 py-1.5 rounded-xl text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 transition-colors flex items-center gap-1.5"
                 >
                   <User className="w-3.5 h-3.5" /> Dashboard
                 </Link>
                 <button
                   onClick={logout}
-                  className="p-2 rounded-xl text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+                  className="p-1.5 rounded-xl text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors"
                   title="Logout"
                 >
                   <LogOut className="w-4 h-4" />
@@ -111,28 +114,37 @@ export default function Navbar() {
             ) : (
               <Link
                 to="/admin/login"
-                className="text-xs text-slate-500 hover:text-slate-300 font-medium px-2 py-1 transition-colors"
+                className="text-xs text-slate-500 hover:text-slate-900 dark:hover:text-slate-300 font-medium px-2 py-1 transition-colors"
                 title="Creator Login"
               >
-                Creator Login
+                Login
               </Link>
             )}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Actions */}
           <div className="flex md:hidden items-center gap-2">
+            {/* Mobile Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-xl text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10"
+              title="Toggle Day/Night Mode"
+            >
+              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-700" />}
+            </button>
+
             <Link
               to="/stays"
-              className="text-xs font-bold bg-emerald-500 text-slate-950 px-3 py-1.5 rounded-lg flex items-center gap-1"
+              className="text-xs font-bold bg-emerald-400 text-slate-950 px-3 py-1.5 rounded-xl flex items-center gap-1 shadow-sm"
             >
-              Stays
+              Book Stays
             </Link>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-xl bg-slate-800/80 text-slate-200 hover:text-white border border-slate-700/60"
+              className="p-2 rounded-xl text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10"
               aria-label="Toggle menu"
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
 
@@ -141,62 +153,58 @@ export default function Navbar() {
 
       {/* Mobile Dropdown Menu */}
       {isOpen && (
-        <div className="md:hidden glass-panel border-t border-slate-800 px-4 pt-3 pb-6 space-y-3">
+        <div className="md:hidden bg-white/95 dark:bg-[#070c18]/95 backdrop-blur-2xl border-t border-slate-200 dark:border-white/[0.08] px-4 pt-3 pb-6 space-y-3 animate-fade-in shadow-xl">
           <div className="flex flex-col space-y-1">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
-                className={`px-4 py-3 rounded-xl text-sm font-semibold flex items-center justify-between ${
+                className={`px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between ${
                   isActive(link.path)
-                    ? 'text-white bg-slate-800 border border-slate-700'
-                    : 'text-slate-300 hover:bg-slate-800/40'
+                    ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 font-bold'
+                    : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.04]'
                 }`}
               >
                 <span>{link.name}</span>
-                {link.badge && (
-                  <span className="bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-                    {link.badge}
-                  </span>
-                )}
+                <ArrowUpRight className="w-4 h-4 text-slate-400 dark:text-slate-500" />
               </Link>
             ))}
           </div>
 
-          <div className="pt-2 border-t border-slate-800/80 flex flex-col gap-2">
+          <div className="pt-3 border-t border-slate-200 dark:border-white/[0.06] flex flex-col gap-2">
             <a
               href="https://www.instagram.com/travel_with.nj"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-pink-500/10 border border-pink-500/30 text-pink-300 text-sm font-semibold"
+              className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-pink-500/10 text-pink-600 dark:text-pink-300 text-xs font-bold"
             >
               <Instagram className="w-4 h-4" /> Follow @travel_with.nj (25k)
             </a>
 
             {isAuthenticated ? (
-              <div className="flex items-center gap-2 pt-2">
+              <div className="flex items-center gap-2 pt-1">
                 <Link
                   to="/admin"
                   onClick={() => setIsOpen(false)}
-                  className="flex-1 text-center py-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-sm font-bold"
+                  className="flex-1 text-center py-2.5 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold"
                 >
                   Creator Dashboard
                 </Link>
                 <button
                   onClick={() => { logout(); setIsOpen(false); }}
-                  className="p-2.5 rounded-xl bg-rose-500/10 text-rose-400 border border-rose-500/20"
+                  className="p-2.5 rounded-xl bg-rose-500/10 text-rose-500 dark:text-rose-400"
                 >
-                  <LogOut className="w-5 h-5" />
+                  <LogOut className="w-4 h-4" />
                 </button>
               </div>
             ) : (
               <Link
                 to="/admin/login"
                 onClick={() => setIsOpen(false)}
-                className="text-center py-2 text-xs text-slate-400 hover:text-white"
+                className="text-center py-1.5 text-xs text-slate-500 hover:text-slate-900 dark:hover:text-slate-300"
               >
-                Admin / Creator Sign In
+                Creator Login
               </Link>
             )}
           </div>
@@ -205,3 +213,5 @@ export default function Navbar() {
     </header>
   );
 }
+
+

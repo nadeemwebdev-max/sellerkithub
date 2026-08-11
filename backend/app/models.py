@@ -88,3 +88,22 @@ class LeadInquiry(Base):
     status = Column(String(50), default="New") # "New", "Contacted", "Confirmed", "Closed"
     notes = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+
+class Reel(Base):
+    __tablename__ = "reels"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String(255), nullable=False)
+    location = Column(String(255), default="Hubli-Dharwad & Western Ghats")
+    views_count = Column(String(50), default="100K")
+    likes_count = Column(String(50), default="10K")
+    thumbnail_url = Column(String(500), nullable=False)
+    fallback_thumbnail_url = Column(String(500), nullable=True)
+    video_url = Column(String(500), nullable=True) # Optional MP4
+    instagram_url = Column(String(500), nullable=False) # e.g. https://www.instagram.com/reel/CODE/
+    is_active = Column(Boolean, default=True)
+    order_index = Column(Integer, default=0)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
+

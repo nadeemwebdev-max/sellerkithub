@@ -165,10 +165,49 @@ class LeadInquiryOut(LeadInquiryCreate):
         from_attributes = True
 
 
+# ---- Reels ----
+class ReelBase(BaseModel):
+    title: str
+    location: str = "Hubli-Dharwad & Western Ghats"
+    views_count: str = "100K"
+    likes_count: str = "10K"
+    thumbnail_url: str
+    fallback_thumbnail_url: Optional[str] = None
+    video_url: Optional[str] = None
+    instagram_url: str
+    is_active: bool = True
+    order_index: int = 0
+
+class ReelCreate(ReelBase):
+    pass
+
+class ReelUpdate(BaseModel):
+    title: Optional[str] = None
+    location: Optional[str] = None
+    views_count: Optional[str] = None
+    likes_count: Optional[str] = None
+    thumbnail_url: Optional[str] = None
+    fallback_thumbnail_url: Optional[str] = None
+    video_url: Optional[str] = None
+    instagram_url: Optional[str] = None
+    is_active: Optional[bool] = None
+    order_index: Optional[int] = None
+
+class ReelOut(ReelBase):
+    id: int
+    created_at: datetime.datetime
+    updated_at: Optional[datetime.datetime] = None
+
+    class Config:
+        from_attributes = True
+
+
 # ---- Dashboard Stats ----
 class DashboardStats(BaseModel):
     total_posts: int
     total_stays: int
     total_leads: int
     new_leads: int
+    total_reels: int = 0
     announcement_active: bool
+

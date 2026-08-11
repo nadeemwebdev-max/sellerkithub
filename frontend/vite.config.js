@@ -6,11 +6,19 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
+    watch: {
+      ignored: ['**/*.mp4', '**/*.webm', '**/*.mov', '**/*.mkv', '**/uploads/**']
+    },
     proxy: {
       '/api': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true,
+      },
+      '/uploads': {
         target: 'http://127.0.0.1:8000',
         changeOrigin: true,
       }
     }
   }
+
 })

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import AnnouncementBanner from './components/AnnouncementBanner';
@@ -26,40 +27,43 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <ScrollToTop />
-        <div className="min-h-screen flex flex-col bg-[#060a12] text-slate-100 selection:bg-emerald-500 selection:text-slate-950">
-          
-          {/* Live Dynamic Top Banner */}
-          <AnnouncementBanner />
-          
-          {/* Main Navigation Header */}
-          <Navbar />
+    <ThemeProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 dark:bg-[#050811] dark:text-slate-100 selection:bg-emerald-500 selection:text-slate-950 transition-colors duration-300">
+            
+            {/* Live Dynamic Top Banner */}
+            <AnnouncementBanner />
+            
+            {/* Main Navigation Header */}
+            <Navbar />
 
-          {/* Page Routing */}
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/stays" element={<StaysPage />} />
-              <Route path="/stays/:slug" element={<StayDetailPage />} />
-              <Route path="/blog" element={<BlogPage />} />
-              <Route path="/blog/:slug" element={<BlogPostPage />} />
-              <Route path="/collab" element={<CollabPage />} />
-              <Route path="/admin/login" element={<AdminLogin />} />
+            {/* Page Routing */}
+            <main className="flex-1">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/stays" element={<StaysPage />} />
+                <Route path="/stays/:slug" element={<StayDetailPage />} />
+                <Route path="/blog" element={<BlogPage />} />
+                <Route path="/blog/:slug" element={<BlogPostPage />} />
+                <Route path="/collab" element={<CollabPage />} />
+                <Route path="/admin/login" element={<AdminLogin />} />
 
-              {/* Protected Creator Admin Routes */}
-              <Route element={<ProtectedRoute />}>
-                <Route path="/admin" element={<AdminDashboard />} />
-              </Route>
-            </Routes>
-          </main>
+                {/* Protected Creator Admin Routes */}
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/admin" element={<AdminDashboard />} />
+                </Route>
+              </Routes>
+            </main>
 
-          {/* Global Footer */}
-          <Footer />
+            {/* Global Footer */}
+            <Footer />
 
-        </div>
-      </BrowserRouter>
-    </AuthProvider>
+          </div>
+        </BrowserRouter>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
+

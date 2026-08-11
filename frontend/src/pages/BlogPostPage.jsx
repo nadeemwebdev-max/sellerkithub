@@ -97,14 +97,14 @@ export default function BlogPostPage() {
         <div className="flex items-center justify-between gap-4 mb-6">
           <Link
             to="/blog"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4" /> Back to Guides
           </Link>
 
           <button
             onClick={handleShare}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl glass-panel text-xs text-slate-300 hover:text-white border border-slate-700 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl glass-panel text-xs text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700 transition-colors shadow-sm"
           >
             <Share2 className="w-3.5 h-3.5" />
             <span>{copied ? 'Link Copied!' : 'Share Story'}</span>
@@ -117,29 +117,29 @@ export default function BlogPostPage() {
             <span className="bg-emerald-500/90 text-slate-950 font-bold text-xs px-3 py-1 rounded-full shadow-md">
               {post.category || 'Travel Guide'}
             </span>
-            <span className="text-slate-400 text-xs flex items-center gap-1">
-              <Clock className="w-3.5 h-3.5 text-emerald-400" /> {post.read_time || '5 min read'}
+            <span className="text-slate-500 dark:text-slate-400 text-xs flex items-center gap-1">
+              <Clock className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> {post.read_time || '5 min read'}
             </span>
-            <span className="text-slate-500">•</span>
-            <span className="text-slate-400 text-xs flex items-center gap-1">
+            <span className="text-slate-400 dark:text-slate-500">•</span>
+            <span className="text-slate-500 dark:text-slate-400 text-xs flex items-center gap-1">
               <Eye className="w-3.5 h-3.5 text-slate-400" /> {(post.views || 1200).toLocaleString()} Views
             </span>
-            <span className="text-slate-500">•</span>
-            <span className="text-slate-400 text-xs flex items-center gap-1">
+            <span className="text-slate-400 dark:text-slate-500">•</span>
+            <span className="text-slate-500 dark:text-slate-400 text-xs flex items-center gap-1">
               <Calendar className="w-3.5 h-3.5 text-slate-400" /> {formattedDate}
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-display leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display leading-tight">
             {post.title}
           </h1>
 
-          <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-medium">
+          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
             {post.excerpt}
           </p>
 
           {/* Author Card */}
-          <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+          <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-pink-500 to-amber-400 p-[2px]">
                 <img
@@ -149,10 +149,10 @@ export default function BlogPostPage() {
                 />
               </div>
               <div>
-                <div className="text-sm font-bold text-white flex items-center gap-1">
-                  Written by NJ <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <div className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-1">
+                  Written by NJ <ShieldCheck className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" />
                 </div>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   Creator at @travel_with.nj (25k+ community)
                 </p>
               </div>
@@ -162,7 +162,7 @@ export default function BlogPostPage() {
               href="https://www.instagram.com/travel_with.nj"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-bold text-pink-400 hover:text-pink-300 flex items-center gap-1"
+              className="text-xs font-bold text-pink-600 dark:text-pink-400 hover:text-pink-500 flex items-center gap-1"
             >
               <Instagram className="w-4 h-4" /> Follow
             </a>
@@ -170,7 +170,7 @@ export default function BlogPostPage() {
         </div>
 
         {/* Hero Cover Photo */}
-        <div className="aspect-[16/9] rounded-3xl overflow-hidden glass-panel border border-slate-800 mb-10 bg-slate-900 shadow-2xl">
+        <div className="aspect-[16/9] rounded-3xl overflow-hidden glass-panel border border-slate-200 dark:border-slate-800 mb-10 bg-slate-900 shadow-2xl">
           <img
             src={post.cover_image}
             alt={post.title}
@@ -179,23 +179,23 @@ export default function BlogPostPage() {
         </div>
 
         {/* Post Content */}
-        <div className="prose prose-invert max-w-none space-y-6 text-slate-200 text-base sm:text-lg leading-relaxed font-light">
+        <div className="space-y-6 text-slate-800 dark:text-slate-200 text-base sm:text-lg leading-relaxed">
           {post.content.split('\n\n').map((paragraph, idx) => {
             if (paragraph.startsWith('# ')) {
-              return <h1 key={idx} className="text-2xl sm:text-3xl font-bold text-white font-display pt-6">{paragraph.replace('# ', '')}</h1>;
+              return <h1 key={idx} className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white font-display pt-6">{paragraph.replace('# ', '')}</h1>;
             }
             if (paragraph.startsWith('## ')) {
-              return <h2 key={idx} className="text-xl sm:text-2xl font-bold text-emerald-400 font-display pt-4">{paragraph.replace('## ', '')}</h2>;
+              return <h2 key={idx} className="text-xl sm:text-2xl font-bold text-emerald-600 dark:text-emerald-400 font-display pt-4">{paragraph.replace('## ', '')}</h2>;
             }
             if (paragraph.startsWith('### ')) {
-              return <h3 key={idx} className="text-lg sm:text-xl font-semibold text-white pt-2">{paragraph.replace('### ', '')}</h3>;
+              return <h3 key={idx} className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-white pt-2">{paragraph.replace('### ', '')}</h3>;
             }
             if (paragraph.startsWith('---')) {
-              return <hr key={idx} className="border-slate-800 my-6" />;
+              return <hr key={idx} className="border-slate-200 dark:border-slate-800 my-6" />;
             }
             if (paragraph.startsWith('- ')) {
               return (
-                <ul key={idx} className="space-y-1.5 list-disc list-inside text-sm sm:text-base text-slate-300">
+                <ul key={idx} className="space-y-1.5 list-disc list-inside text-sm sm:text-base text-slate-700 dark:text-slate-300">
                   {paragraph.split('\n').map((item, i) => (
                     <li key={i}>{item.replace(/^- /, '')}</li>
                   ))}
@@ -203,7 +203,7 @@ export default function BlogPostPage() {
               );
             }
             return (
-              <p key={idx} className="text-slate-300 whitespace-pre-line text-sm sm:text-base leading-relaxed">
+              <p key={idx} className="text-slate-700 dark:text-slate-300 whitespace-pre-line text-sm sm:text-base leading-relaxed">
                 {paragraph}
               </p>
             );
@@ -211,14 +211,14 @@ export default function BlogPostPage() {
         </div>
 
         {/* Bottom CTA Box */}
-        <div className="mt-14 glass-panel p-6 sm:p-8 rounded-3xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950/20 to-teal-950/20 text-center space-y-4">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+        <div className="mt-14 glass-panel p-6 sm:p-8 rounded-3xl border border-emerald-500/30 bg-emerald-50/50 dark:bg-gradient-to-r dark:from-emerald-950/20 dark:to-teal-950/20 text-center space-y-4 shadow-lg">
+          <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto">
             <Compass className="w-6 h-6" />
           </div>
-          <h3 className="text-xl sm:text-2xl font-bold text-white font-display">
+          <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-display">
             Planning this trip? Book verified stays nearby!
           </h3>
-          <p className="text-xs sm:text-sm text-slate-300 max-w-md mx-auto">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-md mx-auto">
             Get exclusive NJ community discounts on Dandeli camps, Sirsi plantations, and Gokarna pods.
           </p>
           <div className="pt-2 flex justify-center gap-3">
@@ -230,6 +230,7 @@ export default function BlogPostPage() {
             </Link>
           </div>
         </div>
+
 
       </div>
     </article>

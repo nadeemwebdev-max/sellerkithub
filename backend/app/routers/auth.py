@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from ..database import get_db
-from ..models import User, BlogPost, StayExperience, LeadInquiry, Announcement
+from ..models import User, BlogPost, StayExperience, LeadInquiry, Announcement, Reel
 from ..schemas import UserLogin, TokenResponse, UserProfile, DashboardStats
 from ..auth import verify_password, create_access_token, get_current_user
 
@@ -60,6 +60,7 @@ def get_admin_stats(db: Session = Depends(get_db), current_user: User = Depends(
     total_stays = db.query(StayExperience).filter(StayExperience.is_active == True).count()
     total_leads = db.query(LeadInquiry).count()
     new_leads = db.query(LeadInquiry).filter(LeadInquiry.status == "New").count()
+    total_reels = db.query(Reel).count()
     active_banner = db.query(Announcement).filter(Announcement.is_active == True).first() is not None
 
     return {
@@ -67,5 +68,7 @@ def get_admin_stats(db: Session = Depends(get_db), current_user: User = Depends(
         "total_stays": total_stays,
         "total_leads": total_leads,
         "new_leads": new_leads,
+        "total_reels": total_reels,
         "announcement_active": active_banner
     }
+

@@ -109,13 +109,13 @@ export default function CollabPage() {
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-pink-500/10 text-pink-400 border border-pink-500/30">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-pink-500/10 text-pink-600 dark:text-pink-400 border border-pink-500/30">
             <Sparkles className="w-4 h-4" /> Media Kit & Brand Partnerships
           </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight font-display">
+          <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight font-display">
             Grow Your Travel Business with <span className="text-gradient">@travel_with.nj</span>
           </h1>
-          <p className="text-sm sm:text-base text-slate-300">
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">
             We help homestays, adventure resorts, cafes, and travel brands turn social media attention into verified, direct bookings and long-term digital presence.
           </p>
         </div>
@@ -125,12 +125,12 @@ export default function CollabPage() {
           {stats.map((stat, idx) => {
             const Icon = stat.icon;
             return (
-              <div key={idx} className="glass-panel p-6 rounded-3xl border border-slate-800 space-y-2 text-center">
+              <div key={idx} className="glass-panel p-6 rounded-3xl border border-slate-200/80 dark:border-slate-800 space-y-2 text-center bg-white/90 dark:bg-slate-900/60 shadow-lg">
                 <Icon className={`w-6 h-6 ${stat.color} mx-auto`} />
-                <div className="text-2xl sm:text-3xl font-extrabold text-white font-display">
+                <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-display">
                   {stat.value}
                 </div>
-                <div className="text-xs text-slate-400 font-medium">
+                <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                   {stat.label}
                 </div>
               </div>
@@ -141,10 +141,10 @@ export default function CollabPage() {
         {/* Collaboration Packages */}
         <div className="space-y-8">
           <div className="text-center max-w-xl mx-auto space-y-2">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white font-display">
               Collaboration Packages
             </h2>
-            <p className="text-xs sm:text-sm text-slate-400">
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
               Transparent, high-ROI partnership options designed for local hospitality & food brands.
             </p>
           </div>
@@ -155,8 +155,8 @@ export default function CollabPage() {
                 key={idx}
                 className={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between relative transition-all duration-300 ${
                   pkg.popular
-                    ? 'glass-panel border-2 border-emerald-500 shadow-2xl shadow-emerald-500/10 scale-105 bg-[#0e1726]'
-                    : 'glass-panel border border-slate-800 bg-[#090e1a]'
+                    ? 'glass-panel border-2 border-emerald-500 shadow-2xl shadow-emerald-500/10 scale-105 bg-emerald-50/30 dark:bg-[#0e1726]'
+                    : 'glass-panel border border-slate-200/80 dark:border-slate-800 bg-white/90 dark:bg-[#090e1a] shadow-lg'
                 }`}
               >
                 {pkg.popular && (
@@ -167,22 +167,22 @@ export default function CollabPage() {
 
                 <div className="space-y-4">
                   <div>
-                    <h3 className="text-xl font-bold text-white font-display">
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white font-display">
                       {pkg.name}
                     </h3>
-                    <p className="text-xs text-slate-400 mt-1">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                       {pkg.tagline}
                     </p>
                   </div>
 
-                  <div className="text-2xl font-black text-emerald-400 font-display">
+                  <div className="text-2xl font-black text-emerald-600 dark:text-emerald-400 font-display">
                     {pkg.price}
                   </div>
 
-                  <div className="pt-4 border-t border-slate-800 space-y-2.5">
+                  <div className="pt-4 border-t border-slate-200/80 dark:border-slate-800 space-y-2.5">
                     {pkg.features.map((feat, i) => (
-                      <div key={i} className="flex items-start gap-2.5 text-xs text-slate-200">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                      <div key={i} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-200">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-500 dark:text-emerald-400 shrink-0 mt-0.5" />
                         <span>{feat}</span>
                       </div>
                     ))}
@@ -196,7 +196,7 @@ export default function CollabPage() {
                     className={`w-full py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all ${
                       pkg.popular
                         ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-md'
-                        : 'bg-slate-800 hover:bg-slate-700 text-white'
+                        : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-900 dark:text-white border border-slate-200 dark:border-transparent'
                     }`}
                   >
                     Select Package
@@ -209,12 +209,12 @@ export default function CollabPage() {
         </div>
 
         {/* Contact / Inquire Form */}
-        <div id="contact-form" className="max-w-2xl mx-auto glass-panel p-8 sm:p-10 rounded-3xl border border-slate-700/80 shadow-2xl bg-[#0c121e]">
+        <div id="contact-form" className="max-w-2xl mx-auto glass-panel p-8 sm:p-10 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-2xl bg-white dark:bg-[#0c121e]">
           <div className="text-center space-y-2 mb-8">
-            <h3 className="text-2xl font-bold text-white font-display">
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-white font-display">
               Request Collaboration
             </h3>
-            <p className="text-xs sm:text-sm text-slate-400">
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
               Tell us about your property or brand. NJ will review and connect with you on WhatsApp within 24 hours.
             </p>
           </div>
@@ -223,47 +223,47 @@ export default function CollabPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">Your Name *</label>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name *</label>
                   <input
                     type="text"
                     required
                     placeholder="e.g. Ramesh Hegde"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">Property / Business Name *</label>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Property / Business Name *</label>
                   <input
                     type="text"
                     required
                     placeholder="e.g. Kali River Resort, Dandeli"
                     value={formData.business_name}
                     onChange={(e) => setFormData({ ...formData, business_name: e.target.value })}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">WhatsApp Phone *</label>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">WhatsApp Phone *</label>
                   <input
                     type="tel"
                     required
                     placeholder="+91 98450 12345"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">Interested Package</label>
+                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Interested Package</label>
                   <select
                     value={formData.package_interested}
                     onChange={(e) => setFormData({ ...formData, package_interested: e.target.value })}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
                   >
                     <option>Reel & Story Spotlight</option>
                     <option>Verified Stay Listing & Lead Engine</option>
@@ -274,13 +274,13 @@ export default function CollabPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Tell us about your requirements</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Tell us about your requirements</label>
                 <textarea
                   rows="3"
                   placeholder="Share details about your location, property highlights, or dates you want us to visit..."
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
@@ -301,11 +301,11 @@ export default function CollabPage() {
             </form>
           ) : (
             <div className="text-center py-8 space-y-3">
-              <div className="w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+              <div className="w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-500 dark:text-emerald-400 flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
-              <h4 className="text-xl font-bold text-white">Proposal Sent!</h4>
-              <p className="text-xs text-slate-300">
+              <h4 className="text-xl font-bold text-slate-900 dark:text-white">Proposal Sent!</h4>
+              <p className="text-xs text-slate-600 dark:text-slate-300">
                 Opening WhatsApp to connect directly with NJ. We'll also reach out to your phone.
               </p>
             </div>
@@ -317,3 +317,5 @@ export default function CollabPage() {
     </div>
   );
 }
+
+
