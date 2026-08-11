@@ -2,7 +2,7 @@ import os
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "travelwithnj.com API"
+    PROJECT_NAME: str = "travelwithnj.kalebuddelogistics.in API"
     PROJECT_VERSION: str = "1.0.0"
     
     # Database: Supports PostgreSQL (e.g. postgresql://user:password@localhost/travelwithnj)
@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     ADMIN_PASSWORD: str = os.getenv("ADMIN_PASSWORD", "TravelNJ@2026")
     
     # Site details for SEO & WhatsApp
-    SITE_URL: str = os.getenv("SITE_URL", "https://travelwithnj.com")
+    SITE_URL: str = os.getenv("SITE_URL", "https://travelwithnj.kalebuddelogistics.in")
     DEFAULT_WHATSAPP_NUMBER: str = os.getenv("DEFAULT_WHATSAPP_NUMBER", "+919876543210")
     INSTAGRAM_HANDLE: str = "@travel_with.nj"
     INSTAGRAM_URL: str = "https://www.instagram.com/travel_with.nj"

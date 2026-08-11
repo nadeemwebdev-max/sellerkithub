@@ -3,12 +3,12 @@ import React, { useEffect } from 'react';
 export default function SeoHead({
   title = "Travel with NJ | Discover Hubli-Dharwad & Unseen North Karnataka",
   description = "Curated homestays, secret waterfall routes, Dandeli rafting camps, and weekend travel guides with direct WhatsApp booking discounts.",
-  image = "https://images.unsplash.com/photo-1511497584788-87676104235f?auto=format&fit=crop&w=1200&q=80",
+  image = "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=1200&q=80",
   type = "website",
   slug = "",
   schema = null
 }) {
-  const url = `https://travelwithnj.com${slug ? `/${slug}` : ''}`;
+  const url = `https://travelwithnj.kalebuddelogistics.in${slug ? `/${slug}` : ''}`;
 
   useEffect(() => {
     // 1. Update Title
@@ -54,13 +54,13 @@ export default function SeoHead({
       "@context": "https://schema.org",
       "@type": "TravelAgency",
       "name": "Travel with NJ",
-      "url": "https://travelwithnj.com",
-      "logo": "https://images.unsplash.com/photo-1511497584788-87676104235f?auto=format&fit=crop&w=300&q=80",
+      "url": "https://travelwithnj.kalebuddelogistics.in",
+      "logo": "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=300&q=80",
       "sameAs": [
         "https://www.instagram.com/travel_with.nj"
       ],
       "description": description,
-      "areaServed": "North Karnataka, Hubli, Dharwad, Dandeli, Sirsi, Gokarna, Badami"
+      "areaServed": "North Karnataka, Hubli, Dharwad, Dandeli, Sirsi, Gokarna, Badami, Honnavar, Hampi"
     };
 
     scriptElem.text = JSON.stringify(schema || defaultSchema);
