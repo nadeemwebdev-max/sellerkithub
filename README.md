@@ -1,22 +1,34 @@
-# TravelWithNJ.com 🌿 — North Karnataka Travel Discovery & Stays Lead-Gen Platform
+# TravelWithNJ 🌿 — North Karnataka Travel Discovery & Stays Lead-Gen Platform
 
 The official full-stack creator platform for **[@travel_with.nj](https://www.instagram.com/travel_with.nj)** (25,000+ Instagram community).
 
 ---
 
+## 🌐 Live Production Architecture
+
+- **Frontend (Vercel)**: [https://travelwithnj.kalebuddelogistics.in](https://travelwithnj.kalebuddelogistics.in)
+- **Backend API (Render)**: [https://travelwithnj.onrender.com](https://travelwithnj.onrender.com)
+- **Interactive API Docs**: [https://travelwithnj.onrender.com/docs](https://travelwithnj.onrender.com/docs)
+- **Dynamic XML Sitemap**: [https://travelwithnj.onrender.com/api/seo/sitemap.xml](https://travelwithnj.onrender.com/api/seo/sitemap.xml)
+- **GitHub Repository**: [https://github.com/nadeemwebdev-max/travelwithnj](https://github.com/nadeemwebdev-max/travelwithnj)
+
+---
+
 ## 🌟 Key Capabilities & Features
 
-1. **Creator-Grade Frontend (React + Tailwind CSS)**:
+1. **Creator-Grade Frontend (React 18 + Tailwind CSS)**:
    - **Hero Section**: Creator identity, live stats pills (25k+ Community, 50+ Hidden Spots, 100% Verified Deals).
    - **Top Live Announcement Banner**: Creator-managed top bar for upcoming weekend treks & discount announcements.
-   - **Curated Stays & Experiences Directory (`/stays`)**: Dandeli resorts, Sirsi heritage homestays, Gokarna beach camps, and Yellapur cabins with filters by location & category.
-   - **Instant WhatsApp Booking & Lead Modal**: Captures lead in database CRM and auto-redirects traveler to WhatsApp with pre-filled booking details.
+   - **Curated Stays & Experiences Directory (`/stays`)**: Dandeli resorts, Sirsi heritage homestays, Gokarna beach camps, and Yellapur cabins with filters by region & category.
+   - **NJ Weekend Group Trips Tab**: Dedicated batches with Hubli-Dharwad pickup & drop, drone reels by NJ, and all-inclusive logistics.
+   - **Instant WhatsApp Booking & Lead Modal**: Captures leads in PostgreSQL CRM and auto-redirects travelers to WhatsApp with pre-filled booking details.
    - **Travel Stories & Guides (`/blog`)**: Detailed itineraries for Sathodi/Magod waterfalls, Badami heritage, and Hubli-Dharwad street food.
    - **Brand Collabs & Media Kit (`/collab`)**: Transparent collaboration packages for local cafes, resorts, and tour operators.
    - **Dynamic Google SEO & Schema**: Real-time `sitemap.xml`, `robots.txt`, and Google JSON-LD structured data (`Article`, `LodgingBusiness`, `TravelAgency`).
 
 2. **FastAPI Backend & Database (PostgreSQL / SQLite)**:
-   - **JWT Authentication** for admin login.
+   - **JWT Authentication** with native bcrypt encryption.
+   - **PostgreSQL Connection Pooling** (`pool_pre_ping=True`, auto-reconnect).
    - **Live Announcement Banner API** (`/api/announcements`).
    - **Blog CRUD Engine** (`/api/posts`).
    - **Stays CRUD Engine** (`/api/stays`).
@@ -31,47 +43,21 @@ The official full-stack creator platform for **[@travel_with.nj](https://www.ins
 
 ---
 
-## 🚀 Quick Start Guide
-
-### 1. Start the Backend API (FastAPI)
-
-```bash
-# In the project root:
-cd backend
-python -m backend.app.main
-# Or run with uvicorn:
-uvicorn backend.app.main:app --reload --port 8000
-```
-- API Docs: `http://localhost:8000/docs`
-- XML Sitemap: `http://localhost:8000/api/seo/sitemap.xml`
-
-### 2. Start the Frontend (React + Vite)
-
-```bash
-# In another terminal:
-cd frontend
-npm run dev
-```
-- Open in browser: `http://localhost:3000`
-
----
-
 ## 🔑 Creator Admin Credentials
 
-- **Admin Login URL**: `http://localhost:3000/admin/login`
+- **Admin Login URL**: `https://travelwithnj.kalebuddelogistics.in/admin/login`
 - **Username**: `travel_with.nj`
-- **Password**: `TravelNJ@2026`
 - **Email**: `travelwithnj@gmail.com`
+- **Password**: `TravelNJ@2026`
 
 ---
 
-## 💾 PostgreSQL Database Configuration (Optional)
+## 💾 PostgreSQL Database Configuration
 
-By default, the backend automatically initializes a zero-setup SQLite database (`travelwithnj.db`). To connect to a live PostgreSQL database, set the `DATABASE_URL` environment variable:
+Set the `DATABASE_URL` environment variable in your Render dashboard:
 
 ```bash
-# In .env or system environment:
-DATABASE_URL=postgresql://username:password@localhost:5432/travelwithnj
+DATABASE_URL=postgresql://username:password@dpg-xxxx.singapore-postgres.render.com/travelwithnj
 ```
 
 ---
