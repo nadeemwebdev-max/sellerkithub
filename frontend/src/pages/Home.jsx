@@ -37,32 +37,37 @@ export default function Home() {
     {
       name: "Dandeli",
       tagline: "White Water Rafting & Kali Jungle Tents",
-      image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80",
+      image: "https://images.unsplash.com/photo-1530866495561-507c9faab2ed?auto=format&fit=crop&w=800&q=80",
+      fallback: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80",
       distance: "75 km from Hubli",
       filter: "Dandeli"
     },
     {
       name: "Sirsi & Yellapur",
       tagline: "Hidden Waterfalls & Ancient Areca Homestays",
-      image: "https://images.unsplash.com/photo-1511497584788-87676104235f?auto=format&fit=crop&w=600&q=80",
+      image: "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=800&q=80",
+      fallback: "https://images.unsplash.com/photo-1546587348-d12660c30c50?auto=format&fit=crop&w=800&q=80",
       distance: "90 km from Hubli",
       filter: "Sirsi"
     },
     {
       name: "Gokarna",
       tagline: "Cliffside Sunset Pods & Beach Bonfires",
-      image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+      image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+      fallback: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80",
       distance: "145 km from Hubli",
       filter: "Gokarna"
     },
     {
       name: "Badami & Aihole",
       tagline: "6th Century Rock-Cut Caves & Heritage Stays",
-      image: "https://images.unsplash.com/photo-1600100397608-f010f443b794?auto=format&fit=crop&w=600&q=80",
+      image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=800&q=80",
+      fallback: "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=800&q=80",
       distance: "105 km from Hubli",
       filter: "Badami"
     }
   ];
+
 
   return (
     <div>
@@ -106,8 +111,14 @@ export default function Home() {
                 <img
                   src={dest.image}
                   alt={dest.name}
+                  onError={(e) => {
+                    if (dest.fallback && e.target.src !== dest.fallback) {
+                      e.target.src = dest.fallback;
+                    }
+                  }}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                 />
+
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050811] via-black/35 to-transparent opacity-90 group-hover:opacity-75 transition-opacity" />
                 
                 <div className="absolute top-3 right-3 z-10">
