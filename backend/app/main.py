@@ -7,15 +7,26 @@ from .database import engine, Base
 from .seed import seed_database
 from .routers import auth, announcements, posts, stays, leads, seo, reels
 
-# Initialize database schema & seed initial data on boot
-Base.metadata.create_all(bind=engine)
-seed_database()
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Initialize database schema & seed initial data on boot
+    try:
+        Base.metadata.create_all(bind=engine)
+        seed_database()
+        print("Database tables verified and seed data checked.")
+    except Exception as e:
+        print(f"Startup database warning: {e}")
+    yield
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.PROJECT_VERSION,
-    description="Official API for travelwithnj.com creator platform & stays booking lead engine"
+    description="Official API for travelwithnj.com creator platform & stays booking lead engine",
+    lifespan=lifespan
 )
+
 
 # Upload directory setup
 UPLOAD_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "uploads")
