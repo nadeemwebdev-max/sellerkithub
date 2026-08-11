@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { MapPin, Star, ShieldCheck, Sparkles, Check, Phone, ArrowLeft, MessageCircle, Share2, Compass, Heart } from 'lucide-react';
+import { MapPin, Star, ShieldCheck, Sparkles, Check, Phone, ArrowLeft, MessageCircle, Share2, Compass, Heart, Users, Calendar } from 'lucide-react';
 import InquiryModal from '../components/InquiryModal';
 import SeoHead from '../components/SeoHead';
 import { getStayBySlug } from '../api/client';
@@ -47,6 +47,7 @@ export default function StayDetailPage() {
     );
   }
 
+  const isGroupTrip = stay.category === 'Weekend Group Trip';
   const amenitiesList = stay.amenities ? stay.amenities.split(',') : [];
   const highlightsList = stay.highlights ? stay.highlights.split(',') : [];
   const gallery = stay.gallery_images ? stay.gallery_images.split(',').filter(Boolean) : [];
@@ -95,7 +96,7 @@ export default function StayDetailPage() {
             to="/stays"
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" /> Back to All Stays
+            <ArrowLeft className="w-4 h-4" /> Back to All Stays & Trips
           </Link>
 
           <button
@@ -103,21 +104,28 @@ export default function StayDetailPage() {
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl glass-panel text-xs text-slate-300 hover:text-white border border-slate-700 transition-colors"
           >
             <Share2 className="w-3.5 h-3.5" />
-            <span>{copied ? 'Link Copied!' : 'Share Stay'}</span>
+            <span>{copied ? 'Link Copied!' : 'Share'}</span>
           </button>
         </div>
 
         {/* Title & Location Header */}
         <div className="mb-8 space-y-2">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5" /> NJ Verified Property
-            </span>
+            {isGroupTrip ? (
+              <span className="bg-gradient-to-r from-pink-500 to-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-md">
+                <Users className="w-3.5 h-3.5" /> NJ Official Weekend Batch
+              </span>
+            ) : (
+              <span className="bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+                <ShieldCheck className="w-3.5 h-3.5" /> NJ Verified Property
+              </span>
+            )}
+
             <span className="bg-slate-800 text-slate-300 text-xs font-semibold px-3 py-1 rounded-full">
               {stay.category}
             </span>
             <span className="text-amber-400 text-xs font-bold flex items-center gap-1 px-2">
-              <Star className="w-3.5 h-3.5 fill-amber-400" /> {stay.rating} ({stay.review_count}+ traveler reviews)
+              <Star className="w-3.5 h-3.5 fill-amber-400" /> {stay.rating} ({stay.review_count}+ reviews)
             </span>
           </div>
 
@@ -126,7 +134,7 @@ export default function StayDetailPage() {
           </h1>
 
           <p className="text-sm text-slate-400 flex items-center gap-1.5">
-            <MapPin className="w-4 h-4 text-emerald-400" /> {stay.location}, North Karnataka, India
+            <MapPin className="w-4 h-4 text-emerald-400" /> {stay.location}, North Karnataka
           </p>
         </div>
 
@@ -148,7 +156,7 @@ export default function StayDetailPage() {
               ))
             ) : (
               <div className="aspect-[16/10] rounded-2xl overflow-hidden glass-panel border border-slate-800 bg-slate-900 flex items-center justify-center text-slate-500 text-xs">
-                Verified On-Site Inspection by NJ
+                Verified Experience by NJ
               </div>
             )}
           </div>
@@ -181,15 +189,17 @@ export default function StayDetailPage() {
 
             {/* Overview */}
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-white font-display">About the Property</h2>
+              <h2 className="text-2xl font-bold text-white font-display">About the Experience</h2>
               <p className="text-sm sm:text-base text-slate-300 leading-relaxed whitespace-pre-line">
                 {stay.description}
               </p>
             </div>
 
-            {/* Included Amenities & Activities */}
+            {/* Included Amenities & Inclusions */}
             <div className="space-y-4 pt-6 border-t border-slate-800">
-              <h2 className="text-xl font-bold text-white font-display">Included Amenities & Activities</h2>
+              <h2 className="text-xl font-bold text-white font-display">
+                {isGroupTrip ? 'What Is Included in the Batch Package' : 'Included Amenities & Activities'}
+              </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {amenitiesList.map((amenity, idx) => (
                   <div key={idx} className="glass-panel p-3.5 rounded-2xl border border-slate-800 flex items-center gap-3 text-xs sm:text-sm text-slate-200">
@@ -208,13 +218,13 @@ export default function StayDetailPage() {
               
               <div className="space-y-1 pb-4 border-b border-slate-800">
                 <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider">
-                  Community Discount Price
+                  {isGroupTrip ? 'All-Inclusive Batch Ticket' : 'Community Discount Rate'}
                 </div>
                 <div className="flex items-baseline gap-2">
                   <span className="text-3xl font-black text-white font-display">
                     ₹{stay.price_per_night?.toLocaleString('en-IN')}
                   </span>
-                  <span className="text-xs text-slate-400">
+                  <span className="text-xs text-slate-400 truncate max-w-[150px]">
                     {stay.price_unit}
                   </span>
                 </div>
@@ -223,11 +233,11 @@ export default function StayDetailPage() {
               <div className="space-y-3 text-xs text-slate-300">
                 <div className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-emerald-400" />
-                  <span>Direct Host Rates (No Middleman Fee)</span>
+                  <span>{isGroupTrip ? 'Hubli-Dharwad Pickup & Drop' : 'Direct Host Rates (No Middleman)'}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-emerald-400" />
-                  <span>Free Itinerary & Route Guidance from NJ</span>
+                  <span>{isGroupTrip ? 'Drone Video Reel by NJ Included' : 'Free Route Map & Advice by NJ'}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-emerald-400" />
@@ -240,12 +250,12 @@ export default function StayDetailPage() {
                 className="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-sm shadow-xl shadow-emerald-500/25 transition-all flex items-center justify-center gap-2 hover:scale-[1.02]"
               >
                 <MessageCircle className="w-5 h-5" />
-                <span>Check Dates & Inquire Now</span>
+                <span>{isGroupTrip ? 'Reserve Batch Slot on WhatsApp' : 'Check Dates & Inquire Now'}</span>
               </button>
 
               <div className="text-center">
                 <p className="text-[11px] text-slate-500">
-                  🔒 Zero payment required on the website. Lock in your dates directly with host.
+                  🔒 No upfront card payment required on the website. Lock in your dates directly with NJ.
                 </p>
               </div>
 
