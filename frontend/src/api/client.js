@@ -510,7 +510,6 @@ export async function submitLeadInquiry(leadData) {
     if (!res.ok) throw new Error('Failed to submit inquiry to server');
     return await res.json();
   } catch (err) {
-    // Return graceful mock success so user is always routed to WhatsApp even if backend is offline
     return { success: true, message: "Inquiry registered. Redirecting to WhatsApp..." };
   }
 }
@@ -552,6 +551,57 @@ export async function getPublicReels() {
   } catch (err) {
     return [];
   }
+}
+
+export async function getAdminAllReels() {
+  const res = await fetch(`${API_BASE}/reels/admin/all`, {
+    headers: getAuthHeaders()
+  });
+  if (!res.ok) throw new Error('Failed to fetch reels');
+  return await res.json();
+}
+
+export async function createReel(reelData) {
+  const res = await fetch(`${API_BASE}/reels/`, {
+    method: 'POST',
+    headers: getAuthHeaders(),
+    body: JSON.stringify(reelData)
+  });
+  if (!res.ok) throw new Error('Failed to create reel');
+  return await res.json();
+}
+
+export async function updateReel(reelId, reelData) {
+  const res = await fetch(`${API_BASE}/reels/${reelId}`, {
+    method: 'PUT',
+    headers: getAuthHeaders(),
+    body: JSON.stringify(reelData)
+  });
+  if (!res.ok) throw new Error('Failed to update reel');
+  return await res.json();
+}
+
+export async function uploadReelMedia(file) {
+  const token = localStorage.getItem('nj_admin_token');
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const res = await fetch(`${API_BASE}/reels/upload`, {
+    method: 'POST',
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    body: formData
+  });
+  if (!res.ok) throw new Error('Failed to upload video media');
+  return await res.json();
+}
+
+export async function deleteReel(reelId) {
+  const res = await fetch(`${API_BASE}/reels/${reelId}`, {
+    method: 'DELETE',
+    headers: getAuthHeaders()
+  });
+  if (!res.ok) throw new Error('Failed to delete reel');
+  return await res.json();
 }
 
 // Auth & Dashboard Stats
