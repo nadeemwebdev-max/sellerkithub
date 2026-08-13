@@ -1,21 +1,109 @@
 import React, { useState, useMemo } from 'react';
-import { ShoppingBag, Copy, Check, RefreshCw, HelpCircle, Sparkles, AlertCircle, FileSpreadsheet } from 'lucide-react';
+import { ShoppingBag, Copy, Check, RefreshCw, HelpCircle, Sparkles, AlertCircle, FileSpreadsheet, PieChart as PieChartIcon } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { exportToCSV } from '../utils/calculations';
 import FAQSection from '../components/FAQSection';
 import SEOGuide from '../components/SEOGuide';
 import AdPlaceholder from '../components/AdPlaceholder';
 
+// SVG Revenue Donut Chart Component
+function RevenueDonutChart({ data, totalRevenue, currencySymbol }) {
+  // data: [ { label: 'Net Profit', value: 34.05, color: '#10b981' }, ... ]
+  const total = data.reduce((acc, item) => acc + Math.max(0, item.value), 0);
+  
+  if (total <= 0) return null;
+
+  const radius = 38;
+  const circumference = 2 * Math.PI * radius;
+  let accumulatedPercent = 0;
+
+  return (
+    <div className="flex flex-col sm:flex-row items-center gap-6 p-4 rounded-xl bg-slate-100/80 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10">
+      
+      {/* SVG Donut */}
+      <div className="relative w-28 h-28 shrink-0 flex items-center justify-center">
+        <svg className="w-full h-full -rotate-90 transform" viewBox="0 0 100 100">
+          <circle
+            cx="50"
+            cy="50"
+            r={radius}
+            className="stroke-slate-200 dark:stroke-white/10"
+            strokeWidth="14"
+            fill="transparent"
+          />
+          {data.map((slice, i) => {
+            if (slice.value <= 0) return null;
+            const percent = slice.value / total;
+            const strokeDasharray = `${percent * circumference} ${circumference}`;
+            const strokeDashoffset = -accumulatedPercent * circumference;
+            accumulatedPercent += percent;
+
+            return (
+              <circle
+                key={i}
+                cx="50"
+                cy="50"
+                r={radius}
+                stroke={slice.color}
+                strokeWidth="14"
+                strokeDasharray={strokeDasharray}
+                strokeDashoffset={strokeDashoffset}
+                fill="transparent"
+                className="transition-all duration-500 hover:opacity-90"
+              />
+            );
+          })}
+        </svg>
+
+        {/* Center Text */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
+          <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase">Margin</span>
+          <span className="font-mono text-xs font-extrabold text-slate-900 dark:text-white">
+            {totalRevenue > 0 ? `${((data[0].value / totalRevenue) * 100).toFixed(0)}%` : '0%'}
+          </span>
+        </div>
+      </div>
+
+      {/* Legend & Percentages */}
+      <div className="flex-1 w-full space-y-1.5 text-xs">
+        <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+          % Distribution of Revenue
+        </div>
+        {data.map((item, idx) => {
+          const pct = totalRevenue > 0 ? (item.value / totalRevenue) * 100 : 0;
+          return (
+            <div key={idx} className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
+                <span className="text-slate-700 dark:text-slate-300 truncate">{item.label}</span>
+              </div>
+              <div className="flex items-center gap-2 font-mono">
+                <span className="text-slate-900 dark:text-white font-semibold">
+                  {currencySymbol}{item.value.toFixed(2)}
+                </span>
+                <span className="text-slate-500 text-[11px] w-10 text-right">
+                  ({pct.toFixed(1)}%)
+                </span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+    </div>
+  );
+}
+
 export default function EtsyCalculator() {
   const { activeCurrency, format } = useCurrency();
   const [copied, setCopied] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
 
-  // Form States
-  const [itemPrice, setItemPrice] = useState(35.00);
-  const [shippingCharged, setShippingCharged] = useState(5.00); // charged to buyer
-  const [itemCost, setItemCost] = useState(10.00);
-  const [shippingCost, setShippingCost] = useState(4.50); // paid by seller
+  // Form States (Default $100 price & $56 cost for instant 1-click test)
+  const [itemPrice, setItemPrice] = useState(100.00);
+  const [shippingCharged, setShippingCharged] = useState(0.00); // charged to buyer
+  const [itemCost, setItemCost] = useState(56.00);
+  const [shippingCost, setShippingCost] = useState(0.00); // paid by seller
   const [offsiteAds, setOffsiteAds] = useState('none'); // 'none', '15', '12'
   const [regulatoryFee, setRegulatoryFee] = useState(false); // UK/EU 0.32% - 0.5%
 
@@ -50,6 +138,14 @@ export default function EtsyCalculator() {
     const profitMargin = totalRevenue > 0 ? (netProfit / totalRevenue) * 100 : 0;
     const roi = totalExpenses > 0 ? (netProfit / totalExpenses) * 100 : 0;
 
+    // Donut chart distribution data
+    const chartData = [
+      { label: 'Net Profit', value: Math.max(0, netProfit), color: '#10b981' },
+      { label: 'Etsy Fees', value: totalEtsyFees, color: '#f97316' },
+      { label: 'Product Cost', value: cost, color: '#6366f1' },
+      ...(shipPaid > 0 ? [{ label: 'Postage Paid', value: shipPaid, color: '#06b6d4' }] : [])
+    ];
+
     return {
       totalRevenue,
       listingFee,
@@ -62,7 +158,8 @@ export default function EtsyCalculator() {
       netProfit,
       profitMargin,
       roi,
-      feePercentage: totalRevenue > 0 ? (totalEtsyFees / totalRevenue) * 100 : 0
+      feePercentage: totalRevenue > 0 ? (totalEtsyFees / totalRevenue) * 100 : 0,
+      chartData
     };
   }, [itemPrice, shippingCharged, itemCost, shippingCost, offsiteAds, regulatoryFee, activeCurrency]);
 
@@ -99,7 +196,7 @@ TOTAL ETSY CUT: ${format(result.totalEtsyFees)} (${result.feePercentage.toFixed(
 --------------------------------
 NET PROFIT: ${format(result.netProfit)}
 NET MARGIN: ${result.profitMargin.toFixed(2)}%
-Calculated with SellerKit.tools`;
+Calculated with SellerKitHub.com`;
 
     navigator.clipboard.writeText(text);
     setCopied(true);
@@ -152,10 +249,10 @@ Calculated with SellerKit.tools`;
             </h2>
             <button
               onClick={() => {
-                setItemPrice(35.00);
-                setShippingCharged(5.00);
-                setItemCost(10.00);
-                setShippingCost(4.50);
+                setItemPrice(100.00);
+                setShippingCharged(0.00);
+                setItemCost(56.00);
+                setShippingCost(0.00);
               }}
               className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition"
             >
@@ -211,6 +308,7 @@ Calculated with SellerKit.tools`;
                 value={shippingCost || ''}
                 onChange={(e) => setShippingCost(parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-orange-500"
+                placeholder="0.00"
               />
             </div>
           </div>
@@ -265,6 +363,8 @@ Calculated with SellerKit.tools`;
         {/* Results Panel */}
         <div className="lg:col-span-5 space-y-6">
           <div className="rounded-2xl border border-orange-200 dark:border-orange-500/30 bg-orange-50/50 dark:bg-gradient-to-b dark:from-[#19100d] dark:to-[#0c0908] p-6 sm:p-8 space-y-6 shadow-2xl">
+            
+            {/* KPI Metric */}
             <div>
               <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
                 Estimated Etsy Net Profit
@@ -281,11 +381,22 @@ Calculated with SellerKit.tools`;
               </div>
             </div>
 
+            {/* Visual Revenue Donut Chart */}
+            <RevenueDonutChart 
+              data={result.chartData} 
+              totalRevenue={result.totalRevenue} 
+              currencySymbol={activeCurrency.symbol}
+            />
+
             {/* Detailed Fee Itemization */}
             <div className="space-y-2 text-xs border-t border-slate-200 dark:border-white/10 pt-4">
               <div className="flex justify-between text-slate-700 dark:text-slate-300">
                 <span>Total Customer Payment</span>
                 <span className="font-mono font-semibold text-slate-900 dark:text-white">{format(result.totalRevenue)}</span>
+              </div>
+              <div className="flex justify-between text-slate-600 dark:text-slate-400">
+                <span>Product / Crafting Cost</span>
+                <span className="font-mono text-slate-700 dark:text-slate-300">-{format(itemCost)}</span>
               </div>
               <div className="flex justify-between text-slate-600 dark:text-slate-400">
                 <span>Etsy Listing Fee</span>
