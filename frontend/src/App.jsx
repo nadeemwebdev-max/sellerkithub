@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { ThemeProvider } from './context/ThemeContext';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import AnnouncementBanner from './components/AnnouncementBanner';
-import ProtectedRoute from './components/ProtectedRoute';
 
-// Pages
+// Tool Pages
 import Home from './pages/Home';
-import StaysPage from './pages/StaysPage';
-import StayDetailPage from './pages/StayDetailPage';
-import BlogPage from './pages/BlogPage';
-import BlogPostPage from './pages/BlogPostPage';
-import CollabPage from './pages/CollabPage';
-import AdminLogin from './pages/AdminLogin';
-import AdminDashboard from './pages/AdminDashboard';
+import EtsyCalculator from './pages/EtsyCalculator';
+import AmazonCalculator from './pages/AmazonCalculator';
+import MarketplaceComparison from './pages/MarketplaceComparison';
+import BatchCalculator from './pages/BatchCalculator';
+import ImagePadder from './pages/ImagePadder';
+import BarcodeGenerator from './pages/BarcodeGenerator';
+import MarginMatrix from './pages/MarginMatrix';
+import FeeUpdates from './pages/FeeUpdates';
+
+// Legal & Company Pages (AdSense Compliance)
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import Terms from './pages/Terms';
+import About from './pages/About';
+import Contact from './pages/Contact';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -27,43 +30,30 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <BrowserRouter>
-          <ScrollToTop />
-          <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 dark:bg-[#050811] dark:text-slate-100 selection:bg-emerald-500 selection:text-slate-950 transition-colors duration-300">
-            
-            {/* Live Dynamic Top Banner */}
-            <AnnouncementBanner />
-            
-            {/* Main Navigation Header */}
-            <Navbar />
+    <div className="min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+      <ScrollToTop />
+      <Navbar />
+      <main className="flex-grow">
+        <Routes>
+          {/* Calculators & Utilities */}
+          <Route path="/" element={<Home />} />
+          <Route path="/etsy-fee-calculator" element={<EtsyCalculator />} />
+          <Route path="/amazon-fee-calculator" element={<AmazonCalculator />} />
+          <Route path="/marketplace-comparison" element={<MarketplaceComparison />} />
+          <Route path="/batch-calculator" element={<BatchCalculator />} />
+          <Route path="/product-image-resizer" element={<ImagePadder />} />
+          <Route path="/barcode-generator" element={<BarcodeGenerator />} />
+          <Route path="/margin-matrix" element={<MarginMatrix />} />
+          <Route path="/fee-updates" element={<FeeUpdates />} />
 
-            {/* Page Routing */}
-            <main className="flex-1">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/stays" element={<StaysPage />} />
-                <Route path="/stays/:slug" element={<StayDetailPage />} />
-                <Route path="/blog" element={<BlogPage />} />
-                <Route path="/blog/:slug" element={<BlogPostPage />} />
-                <Route path="/collab" element={<CollabPage />} />
-                <Route path="/admin/login" element={<AdminLogin />} />
-
-                {/* Protected Creator Admin Routes */}
-                <Route element={<ProtectedRoute />}>
-                  <Route path="/admin" element={<AdminDashboard />} />
-                </Route>
-              </Routes>
-            </main>
-
-            {/* Global Footer */}
-            <Footer />
-
-          </div>
-        </BrowserRouter>
-      </AuthProvider>
-    </ThemeProvider>
+          {/* Legal / AdSense Required Pages */}
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
   );
 }
-

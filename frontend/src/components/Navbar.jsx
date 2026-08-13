@@ -1,217 +1,339 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Compass, Sparkles, Menu, X, Instagram, User, LogOut, ArrowUpRight, Sun, Moon } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-import { useTheme } from '../context/ThemeContext';
+import React, { useState, useRef, useEffect } from 'react';
+import { 
+  Calculator, 
+  Image as ImageIcon, 
+  Barcode, 
+  Grid, 
+  Sun, 
+  Moon, 
+  Menu, 
+  X, 
+  TrendingUp, 
+  ShoppingBag, 
+  ChevronDown,
+  GitCompare,
+  Package,
+  Calendar,
+  Sparkles,
+  ArrowUpRight
+} from 'lucide-react';
+import { useCurrency, CURRENCIES } from '../context/CurrencyContext';
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
-  const { isAuthenticated, logout } = useAuth();
-  const { isDark, toggleTheme } = useTheme();
+  const [calcDropdownOpen, setCalcDropdownOpen] = useState(false);
+  const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { currency, setCurrency, activeCurrency, theme, toggleTheme } = useCurrency();
 
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Stays & Trips', path: '/stays' },
-    { name: 'Travel Guides', path: '/blog' },
-    { name: 'Collaborate', path: '/collab' },
+  const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/';
+
+  const calcDropdownRef = useRef(null);
+  const currencyDropdownRef = useRef(null);
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (calcDropdownRef.current && !calcDropdownRef.current.contains(event.target)) {
+        setCalcDropdownOpen(false);
+      }
+      if (currencyDropdownRef.current && !currencyDropdownRef.current.contains(event.target)) {
+        setCurrencyDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Organized Calculator Suite Dropdown
+  const calculatorTools = [
+    {
+      name: 'Multi-Marketplace Calculator',
+      desc: 'All-in-one profit & fee breakdown for all platforms',
+      path: '/',
+      icon: Calculator,
+      color: 'text-indigo-500 bg-indigo-500/10',
+    },
+    {
+      name: 'Side-by-Side Comparison',
+      desc: 'Compare net profit across Amazon, Etsy & Shopify',
+      path: '/marketplace-comparison',
+      icon: GitCompare,
+      color: 'text-emerald-500 bg-emerald-500/10',
+    },
+    {
+      name: 'Batch SKU Calculator',
+      desc: 'Portfolio cash flow & inventory profit modeling',
+      path: '/batch-calculator',
+      icon: Package,
+      color: 'text-blue-500 bg-blue-500/10',
+    },
+    {
+      name: 'Etsy Fee & Profit',
+      desc: 'Listing renewals, 6.5% cut & offsite ads math',
+      path: '/etsy-fee-calculator',
+      icon: ShoppingBag,
+      color: 'text-orange-500 bg-orange-500/10',
+    },
+    {
+      name: 'Amazon FBA vs FBM',
+      desc: 'Referral tiers, weight size fees & storage rates',
+      path: '/amazon-fee-calculator',
+      icon: TrendingUp,
+      color: 'text-amber-500 bg-amber-500/10',
+    },
+    {
+      name: 'Margin & Markup Matrix',
+      desc: 'Tiered wholesale price points & CSV export',
+      path: '/margin-matrix',
+      icon: Grid,
+      color: 'text-purple-500 bg-purple-500/10',
+    },
   ];
 
-  const isActive = (path) => {
-    if (path === '/' && location.pathname === '/') return true;
-    if (path !== '/' && location.pathname.startsWith(path)) return true;
-    return false;
-  };
+  const directNavLinks = [
+    { name: '1:1 Image Padder', path: '/product-image-resizer', icon: ImageIcon },
+    { name: 'Barcode & QR Maker', path: '/barcode-generator', icon: Barcode },
+    { name: '2026 Fee Hub', path: '/fee-updates', icon: Calendar },
+  ];
+
+  const isCalcActive = calculatorTools.some(tool => tool.path === currentPath);
 
   return (
-    <header className="sticky top-0 z-50 w-full backdrop-blur-xl bg-white/80 dark:bg-[#050811]/85 border-b border-slate-200/80 dark:border-white/[0.06] transition-all duration-300">
+    <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/90 dark:bg-[#090d16]/90 border-b border-slate-200 dark:border-white/10 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-18">
+        <div className="flex items-center justify-between h-16">
           
-          {/* Clean Brand Logo */}
-          <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-400 to-teal-400 p-[1.5px] shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform duration-300">
-              <div className="w-full h-full bg-white dark:bg-[#050811] rounded-[10px] flex items-center justify-center">
-                <Compass className="w-5 h-5 text-emerald-500 dark:text-emerald-400 group-hover:rotate-45 transition-transform duration-500" />
+          {/* Brand Logo */}
+          <a href="/" className="flex items-center gap-2.5 group shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-500 to-emerald-400 p-0.5 shadow-glow-brand transition-transform group-hover:scale-105 flex items-center justify-center">
+              <div className="w-full h-full bg-white dark:bg-[#090d16] rounded-[10px] flex items-center justify-center p-1.5">
+                <svg className="w-full h-full" viewBox="0 0 48 48" fill="none">
+                  <path d="M24 8L38 16V32L24 40L10 32V16L24 8Z" stroke="currentColor" className="text-brand-600 dark:text-brand-400" strokeWidth="3" strokeLinejoin="round" />
+                  <path d="M24 8V24M24 24L38 32M24 24L10 32" stroke="currentColor" className="text-brand-600 dark:text-brand-400" strokeWidth="2.5" strokeLinecap="round" opacity="0.6" />
+                  <circle cx="24" cy="24" r="5" className="fill-emerald-500 dark:fill-emerald-400" />
+                </svg>
               </div>
             </div>
-            <span className="font-extrabold text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white font-display">
-              Travel with <span className="text-gradient">NJ</span>
-            </span>
-          </Link>
+            <div className="flex items-center gap-1.5">
+              <span className="font-display font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">
+                Seller<span className="text-brand-600 dark:text-brand-400">Kit</span>
+              </span>
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 uppercase tracking-wide">
+                HUB
+              </span>
+            </div>
+          </a>
 
-          {/* Clean Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 dark:bg-white/[0.03] p-1 rounded-full border border-slate-200/80 dark:border-white/[0.06] backdrop-blur-md">
-            {navLinks.map((link) => {
-              const active = isActive(link.path);
+          {/* Desktop Navigation Links */}
+          <nav className="hidden md:flex items-center gap-1.5">
+            
+            {/* Calculators Dropdown Button */}
+            <div className="relative" ref={calcDropdownRef}>
+              <button
+                type="button"
+                onClick={() => setCalcDropdownOpen(!calcDropdownOpen)}
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
+                  isCalcActive
+                    ? 'bg-brand-50 text-brand-700 dark:bg-brand-500/15 dark:text-brand-400'
+                    : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
+                }`}
+              >
+                <Calculator className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+                <span>Calculators & Profit</span>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${calcDropdownOpen ? 'rotate-180 text-brand-600 dark:text-brand-400' : 'text-slate-400'}`} />
+              </button>
+
+              {/* Mega Dropdown Menu */}
+              {calcDropdownOpen && (
+                <div 
+                  className="absolute left-0 mt-2 w-[440px] rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/10 shadow-2xl p-2.5 z-50 animate-in fade-in zoom-in-95 duration-150 grid grid-cols-2 gap-1.5"
+                >
+                  {calculatorTools.map((tool) => {
+                    const Icon = tool.icon;
+                    const active = currentPath === tool.path;
+                    return (
+                      <a
+                        key={tool.path}
+                        href={tool.path}
+                        onClick={() => setCalcDropdownOpen(false)}
+                        className={`flex items-start gap-2.5 p-2.5 rounded-xl transition ${
+                          active 
+                            ? 'bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/20' 
+                            : 'hover:bg-slate-50 dark:hover:bg-white/5 border border-transparent'
+                        }`}
+                      >
+                        <div className={`w-8 h-8 rounded-lg ${tool.color} flex items-center justify-center shrink-0 mt-0.5`}>
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <span className={`block text-xs font-bold truncate ${active ? 'text-brand-700 dark:text-brand-400' : 'text-slate-900 dark:text-white'}`}>
+                            {tool.name}
+                          </span>
+                          <span className="block text-[10px] text-slate-500 dark:text-slate-400 line-clamp-1 leading-snug mt-0.5">
+                            {tool.desc}
+                          </span>
+                        </div>
+                      </a>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Direct Tool Links */}
+            {directNavLinks.map((link) => {
+              const Icon = link.icon;
+              const active = currentPath === link.path;
               return (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+                <a
+                  key={link.path}
+                  href={link.path}
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
                     active
-                      ? 'text-slate-950 dark:text-white bg-white dark:bg-white/[0.1] shadow-sm font-bold'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/[0.05]'
+                      ? 'bg-brand-50 text-brand-700 dark:bg-brand-500/15 dark:text-brand-400'
+                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
                   }`}
                 >
-                  {link.name}
-                </Link>
+                  <Icon className={`w-4 h-4 ${active ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400'}`} />
+                  <span>{link.name}</span>
+                </a>
               );
             })}
+
           </nav>
 
-          {/* Right Action CTAs */}
-          <div className="hidden md:flex items-center gap-2.5">
-            {/* Day / Night Mode Switcher Button */}
+          {/* Right Action Controls */}
+          <div className="flex items-center gap-2">
+            
+            {/* Currency Selector Pill */}
+            <div className="relative" ref={currencyDropdownRef}>
+              <button
+                type="button"
+                onClick={() => setCurrencyDropdownOpen(!currencyDropdownOpen)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-xs font-semibold text-slate-800 dark:text-slate-200 transition"
+                title="Change Currency"
+              >
+                <span className="w-4 h-4 rounded-full bg-brand-500/20 text-brand-600 dark:text-brand-400 font-bold flex items-center justify-center text-[10px]">
+                  {activeCurrency.symbol}
+                </span>
+                <span className="font-mono">{currency}</span>
+                <ChevronDown className="w-3 h-3 text-slate-400" />
+              </button>
+
+              {currencyDropdownOpen && (
+                <div 
+                  className="absolute right-0 mt-2 w-48 rounded-2xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 shadow-2xl p-1.5 z-50"
+                >
+                  <div className="text-[10px] font-bold text-slate-400 px-2 py-1 uppercase tracking-wider">
+                    Select Currency
+                  </div>
+                  {Object.values(CURRENCIES).map((c) => (
+                    <button
+                      key={c.code}
+                      onClick={() => {
+                        setCurrency(c.code);
+                        setCurrencyDropdownOpen(false);
+                      }}
+                      className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition ${
+                        currency === c.code
+                          ? 'bg-brand-600 text-white font-semibold'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
+                      }`}
+                    >
+                      <span className="flex items-center gap-2">
+                        <span className="font-mono font-bold">{c.symbol}</span>
+                        <span>{c.code}</span>
+                      </span>
+                      <span className="text-[10px] opacity-70">{c.name}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Dark / Light Mode Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-300 bg-slate-100 dark:bg-white/[0.04] hover:bg-slate-200/80 dark:hover:bg-white/[0.08] border border-slate-200 dark:border-white/10 transition-all duration-300 shadow-sm"
-              title={isDark ? "Switch to Day (Light) Mode" : "Switch to Night (Dark) Mode"}
-              aria-label="Toggle Day and Night Mode"
+              className="p-2 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 transition"
+              title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
+              aria-label="Toggle theme"
             >
-              {isDark ? (
-                <Sun className="w-4 h-4 text-amber-400 animate-pulse" />
+              {theme === 'dark' ? (
+                <Sun className="w-4 h-4 text-amber-400" />
               ) : (
-                <Moon className="w-4 h-4 text-slate-700" />
+                <Moon className="w-4 h-4 text-indigo-600" />
               )}
             </button>
 
-            <a
-              href="https://www.instagram.com/travel_with.nj"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:text-pink-600 dark:hover:text-pink-300 hover:bg-pink-50 dark:hover:bg-pink-500/10 transition-all"
-              title="25k+ Followers on Instagram"
-            >
-              <Instagram className="w-4 h-4 text-pink-500 dark:text-pink-400" />
-              <span>@travel_with.nj</span>
-            </a>
-
-            <Link
-              to="/stays"
-              className="btn-shimmer flex items-center gap-1.5 px-4 py-2 text-xs font-bold rounded-xl text-slate-950 bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 shadow-md shadow-emerald-500/20 transition-all hover:scale-105"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Book Stays</span>
-            </Link>
-
-            {isAuthenticated ? (
-              <div className="flex items-center gap-1 ml-1 pl-2 border-l border-slate-200 dark:border-white/10">
-                <Link
-                  to="/admin"
-                  className="px-3 py-1.5 rounded-xl text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-500/10 transition-colors flex items-center gap-1.5"
-                >
-                  <User className="w-3.5 h-3.5" /> Dashboard
-                </Link>
-                <button
-                  onClick={logout}
-                  className="p-1.5 rounded-xl text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors"
-                  title="Logout"
-                >
-                  <LogOut className="w-4 h-4" />
-                </button>
-              </div>
-            ) : (
-              <Link
-                to="/admin/login"
-                className="text-xs text-slate-500 hover:text-slate-900 dark:hover:text-slate-300 font-medium px-2 py-1 transition-colors"
-                title="Creator Login"
-              >
-                Login
-              </Link>
-            )}
-          </div>
-
-          {/* Mobile Actions */}
-          <div className="flex md:hidden items-center gap-2">
-            {/* Mobile Theme Toggle */}
+            {/* Mobile Menu Button */}
             <button
-              onClick={toggleTheme}
-              className="p-2 rounded-xl text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10"
-              title="Toggle Day/Night Mode"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10"
+              aria-label="Toggle mobile menu"
             >
-              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-700" />}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
 
-            <Link
-              to="/stays"
-              className="text-xs font-bold bg-emerald-400 text-slate-950 px-3 py-1.5 rounded-xl flex items-center gap-1 shadow-sm"
-            >
-              Book Stays
-            </Link>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-xl text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
           </div>
 
         </div>
+
+        {/* Mobile Accordion Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden py-4 border-t border-slate-200 dark:border-white/10 space-y-2">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 block">
+              Calculators & Profits
+            </span>
+            <div className="grid grid-cols-1 gap-1">
+              {calculatorTools.map((tool) => {
+                const Icon = tool.icon;
+                const active = currentPath === tool.path;
+                return (
+                  <a
+                    key={tool.path}
+                    href={tool.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
+                      active
+                        ? 'bg-brand-50 text-brand-700 dark:bg-brand-500/20 dark:text-brand-400'
+                        : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
+                    }`}
+                  >
+                    <Icon className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+                    <span>{tool.name}</span>
+                  </a>
+                );
+              })}
+            </div>
+
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 pt-2 block">
+              Utilities & Guides
+            </span>
+            <div className="grid grid-cols-1 gap-1">
+              {directNavLinks.map((link) => {
+                const Icon = link.icon;
+                const active = currentPath === link.path;
+                return (
+                  <a
+                    key={link.path}
+                    href={link.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
+                      active
+                        ? 'bg-brand-50 text-brand-700 dark:bg-brand-500/20 dark:text-brand-400'
+                        : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
+                    }`}
+                  >
+                    <Icon className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+                    <span>{link.name}</span>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
       </div>
-
-      {/* Mobile Dropdown Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-white/95 dark:bg-[#070c18]/95 backdrop-blur-2xl border-t border-slate-200 dark:border-white/[0.08] px-4 pt-3 pb-6 space-y-3 animate-fade-in shadow-xl">
-          <div className="flex flex-col space-y-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                onClick={() => setIsOpen(false)}
-                className={`px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between ${
-                  isActive(link.path)
-                    ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 font-bold'
-                    : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.04]'
-                }`}
-              >
-                <span>{link.name}</span>
-                <ArrowUpRight className="w-4 h-4 text-slate-400 dark:text-slate-500" />
-              </Link>
-            ))}
-          </div>
-
-          <div className="pt-3 border-t border-slate-200 dark:border-white/[0.06] flex flex-col gap-2">
-            <a
-              href="https://www.instagram.com/travel_with.nj"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-pink-500/10 text-pink-600 dark:text-pink-300 text-xs font-bold"
-            >
-              <Instagram className="w-4 h-4" /> Follow @travel_with.nj (25k)
-            </a>
-
-            {isAuthenticated ? (
-              <div className="flex items-center gap-2 pt-1">
-                <Link
-                  to="/admin"
-                  onClick={() => setIsOpen(false)}
-                  className="flex-1 text-center py-2.5 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold"
-                >
-                  Creator Dashboard
-                </Link>
-                <button
-                  onClick={() => { logout(); setIsOpen(false); }}
-                  className="p-2.5 rounded-xl bg-rose-500/10 text-rose-500 dark:text-rose-400"
-                >
-                  <LogOut className="w-4 h-4" />
-                </button>
-              </div>
-            ) : (
-              <Link
-                to="/admin/login"
-                onClick={() => setIsOpen(false)}
-                className="text-center py-1.5 text-xs text-slate-500 hover:text-slate-900 dark:hover:text-slate-300"
-              >
-                Creator Login
-              </Link>
-            )}
-          </div>
-        </div>
-      )}
     </header>
   );
 }
-
-

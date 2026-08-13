@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- Homepage / Multi-Marketplace Calculator -->
+  <url>
+    <loc>https://sellerkithub.com/</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Side-by-Side Comparison Tool -->
+  <url>
+    <loc>https://sellerkithub.com/marketplace-comparison</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Dedicated Etsy Fee & Profit Calculator -->
+  <url>
+    <loc>https://sellerkithub.com/etsy-fee-calculator</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Dedicated Amazon FBA / FBM Calculator -->
+  <url>
+    <loc>https://sellerkithub.com/amazon-fee-calculator</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Multi-SKU Batch Profit Calculator -->
+  <url>
+    <loc>https://sellerkithub.com/batch-calculator</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- 1:1 Square Product Image Padder -->
+  <url>
+    <loc>https://sellerkithub.com/product-image-resizer</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Free Barcode & QR Code Generator -->
+  <url>
+    <loc>https://sellerkithub.com/barcode-generator</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Profit Margin & Markup Matrix -->
+  <url>
+    <loc>https://sellerkithub.com/margin-matrix</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 2026 Marketplace Fee Update Hub -->
+  <url>
+    <loc>https://sellerkithub.com/fee-updates</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Legal & Company Pages (AdSense Compliance) -->
+  <url>
+    <loc>https://sellerkithub.com/about</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.50</priority>
+  </url>
+  <url>
+    <loc>https://sellerkithub.com/privacy-policy</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.50</priority>
+  </url>
+  <url>
+    <loc>https://sellerkithub.com/terms</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.50</priority>
+  </url>
+  <url>
+    <loc>https://sellerkithub.com/contact</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.50</priority>
+  </url>
+
+</urlset>

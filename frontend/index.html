@@ -1,38 +1,96 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2310b981'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>" />
+    
+    <!-- Instant Theme Preloader (Prevents FOUC / Light Flash) -->
+    <script>
+      (function() {
+        try {
+          var t = localStorage.getItem('sellerkit_theme');
+          if (t === 'light') {
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <style>
+      html.dark, html.dark body { background-color: #090d16 !important; color: #f1f5f9; }
+      html:not(.dark), html:not(.dark) body { background-color: #f8fafc !important; color: #0f172a; }
+    </style>
+
+    <!-- Favicon & PWA App Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#4f46e5" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="SellerKit" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Primary SEO Meta Tags -->
-    <title>Travel with NJ | Discover Hubli-Dharwad, Dandeli & Unseen North Karnataka</title>
-    <meta name="title" content="Travel with NJ | Discover Hubli-Dharwad, Dandeli & Unseen North Karnataka" />
-    <meta name="description" content="Explore hidden waterfalls, verified Dandeli & Sirsi homestays, Gokarna weekend treks, and authentic North Karnataka food trails curated by @travel_with.nj (25k+ Community)." />
-    <meta name="keywords" content="travel with nj, hubli dharwad travel, dandeli river rafting, sirsi homestays, yellapur waterfalls, gokarna beach stays, north karnataka roadtrips, travel influencer hubli" />
-    <meta name="author" content="NJ (@travel_with.nj)" />
+    <title>SellerKit – Free E-Commerce Fee & Profit Calculators & Tools</title>
+    <meta name="title" content="SellerKit – Free E-Commerce Fee & Profit Calculators & Tools" />
+    <meta name="description" content="Free multi-marketplace profit and fee calculators for Amazon FBA, Etsy, eBay, Shopify, and Meesho. Includes 1:1 square product image resizer and barcode generator." />
+    <meta name="keywords" content="amazon fee calculator, etsy fee calculator, ebay profit calculator, meesho profit calculator, product image resizer, free barcode generator, e-commerce profit margin calculator" />
+    <meta name="author" content="SellerKit" />
     <meta name="robots" content="index, follow" />
-    
-    <!-- Open Graph / Facebook / WhatsApp Preview -->
+    <link rel="canonical" href="https://sellerkithub.com/" />
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://travelwithnj.kalebuddelogistics.in/" />
-    <meta property="og:title" content="Travel with NJ | Discover Hubli-Dharwad & Unseen North Karnataka" />
-    <meta property="og:description" content="Curated homestays, secret waterfall routes, Dandeli rafting camps, and weekend travel guides with direct WhatsApp booking discounts." />
-    <meta property="og:image" content="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=1200&q=80" />
+    <meta property="og:url" content="https://sellerkithub.com/" />
+    <meta property="og:title" content="SellerKit – Free E-Commerce Fee & Profit Calculators & Utilities" />
+    <meta property="og:description" content="Calculate real net profit, marketplace fees, and margins across Amazon, Etsy, eBay, Shopify & Meesho. 100% free client-side tools." />
+    <meta property="og:image" content="https://sellerkithub.com/favicon.svg" />
 
-    <!-- Twitter Cards -->
+    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://travelwithnj.kalebuddelogistics.in/" />
-    <meta property="twitter:title" content="Travel with NJ | Unseen North Karnataka & Curated Stays" />
-    <meta property="twitter:description" content="Official website of @travel_with.nj. Book verified homestays & read road trip itineraries." />
-    <meta property="twitter:image" content="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=1200&q=80" />
+    <meta property="twitter:title" content="SellerKit – E-Commerce Seller Utility Hub" />
+    <meta property="twitter:description" content="Free calculators and utilities for online marketplace sellers. Real-time profit breakdowns, square photo padder, and barcode maker." />
 
-    <!-- Google Fonts: Plus Jakarta Sans, Outfit, Syne, Space Grotesk -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Structured JSON-LD Schema (SoftwareApplication & WebSite) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://sellerkithub.com/#website",
+            "url": "https://sellerkithub.com/",
+            "name": "SellerKit Hub",
+            "description": "Free E-Commerce Seller Utilities & Fee Calculators",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://sellerkithub.com/?s={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "SellerKit E-Commerce Fee & Profit Suite",
+            "operatingSystem": "All",
+            "applicationCategory": "BusinessApplication",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "description": "Free online calculators for Amazon FBA, Etsy, eBay, Shopify and Meesho seller fee calculations, product image padding, and barcode label generation."
+          }
+        ]
+      }
+    </script>
   </head>
-  <body class="bg-slate-50 text-slate-900 dark:bg-[#050811] dark:text-slate-100 selection:bg-emerald-500 selection:text-white antialiased font-sans transition-colors duration-300">
+  <body class="bg-[#090d16] text-slate-100 antialiased selection:bg-brand-500 selection:text-white min-h-screen">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

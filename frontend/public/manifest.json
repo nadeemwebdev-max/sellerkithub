@@ -1,0 +1,17 @@
+{
+  "name": "SellerKit - Free E-Commerce Seller Utilities",
+  "short_name": "SellerKit",
+  "description": "100% Free, Private Client-Side Marketplace Profit Calculators, 1:1 Image Padder & Barcode Label Maker for Amazon, Etsy, eBay, and Shopify Sellers.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,70 +1,48 @@
-# TravelWithNJ 🌿 — North Karnataka Travel Discovery & Stays Lead-Gen Platform
+# SellerKit – E-Commerce Seller Utility Hub 🚀
 
-The official full-stack creator platform for **[@travel_with.nj](https://www.instagram.com/travel_with.nj)** (25,000+ Instagram community).
+A high-performance, 100% client-side multi-tool web application built for e-commerce and marketplace sellers (Amazon, Etsy, eBay, Shopify, Meesho).
 
----
-
-## 🌐 Live Production Architecture
-
-- **Frontend (Vercel)**: [https://travelwithnj.kalebuddelogistics.in](https://travelwithnj.kalebuddelogistics.in)
-- **Backend API (Render)**: [https://travelwithnj.onrender.com](https://travelwithnj.onrender.com)
-- **Interactive API Docs**: [https://travelwithnj.onrender.com/docs](https://travelwithnj.onrender.com/docs)
-- **Dynamic XML Sitemap**: [https://travelwithnj.onrender.com/api/seo/sitemap.xml](https://travelwithnj.onrender.com/api/seo/sitemap.xml)
-- **GitHub Repository**: [https://github.com/nadeemwebdev-max/travelwithnj](https://github.com/nadeemwebdev-max/travelwithnj)
+## 🌟 Included Tools
+1. **Multi-Marketplace Profit & Fee Calculator (`/`)** – Instant calculations, cost distribution chart, ROI %, and 1-click summary copy.
+2. **Dedicated Etsy Fee Calculator (`/etsy-fee-calculator`)** – Listing fees, 6.5% transaction cut, payment processing, and offsite ads.
+3. **Dedicated Amazon FBA & FBM Calculator (`/amazon-fee-calculator`)** – Category referral tiers, FBA size tier pick-and-pack, and side-by-side FBA vs. FBM comparison.
+4. **1:1 Product Image Square Padder & Resizer (`/product-image-resizer`)** – 100% client-side HTML5 Canvas tool to turn rectangular product photos into 1000x1000 or 2000x2000 square marketplace images with pure white padding.
+5. **Free Barcode & Printable Sticker Sheet Maker (`/barcode-generator`)** – Code 128 / SKU barcodes with printable A4 sticker sheet layouts.
+6. **Wholesale Margin & Markup Matrix (`/margin-matrix`)** – Tiered margin and markup pricing tables.
 
 ---
 
-## 🌟 Key Capabilities & Features
-
-1. **Creator-Grade Frontend (React 18 + Tailwind CSS)**:
-   - **Hero Section**: Creator identity, live stats pills (25k+ Community, 50+ Hidden Spots, 100% Verified Deals).
-   - **Top Live Announcement Banner**: Creator-managed top bar for upcoming weekend treks & discount announcements.
-   - **Curated Stays & Experiences Directory (`/stays`)**: Dandeli resorts, Sirsi heritage homestays, Gokarna beach camps, and Yellapur cabins with filters by region & category.
-   - **NJ Weekend Group Trips Tab**: Dedicated batches with Hubli-Dharwad pickup & drop, drone reels by NJ, and all-inclusive logistics.
-   - **Instant WhatsApp Booking & Lead Modal**: Captures leads in PostgreSQL CRM and auto-redirects travelers to WhatsApp with pre-filled booking details.
-   - **Travel Stories & Guides (`/blog`)**: Detailed itineraries for Sathodi/Magod waterfalls, Badami heritage, and Hubli-Dharwad street food.
-   - **Brand Collabs & Media Kit (`/collab`)**: Transparent collaboration packages for local cafes, resorts, and tour operators.
-   - **Dynamic Google SEO & Schema**: Real-time `sitemap.xml`, `robots.txt`, and Google JSON-LD structured data (`Article`, `LodgingBusiness`, `TravelAgency`).
-
-2. **FastAPI Backend & Database (PostgreSQL / SQLite)**:
-   - **JWT Authentication** with native bcrypt encryption.
-   - **PostgreSQL Connection Pooling** (`pool_pre_ping=True`, auto-reconnect).
-   - **Live Announcement Banner API** (`/api/announcements`).
-   - **Blog CRUD Engine** (`/api/posts`).
-   - **Stays CRUD Engine** (`/api/stays`).
-   - **Lead Management & CRM** (`/api/leads`).
-   - **Dynamic SEO Feeds** (`/api/seo/sitemap.xml`, `/api/seo/robots.txt`).
-
-3. **Creator Admin Dashboard (`/admin`)**:
-   - Live Announcement Banner editor with real-time visual preview.
-   - Blog guide publisher with Markdown support and SEO meta customizer.
-   - Curated stay listing manager (pricing, WhatsApp CTA, amenities).
-   - Booking Inquiries CRM with 1-click WhatsApp customer chat.
+## 🛠️ Tech Stack
+- **Framework**: React 18 + Vite
+- **Styling**: Tailwind CSS (with Dark/Light mode design tokens)
+- **Icons**: Lucide React
+- **Hosting / Deployment**: Cloudflare Pages / Vercel / Netlify ($0/month hosting)
+- **SEO**: Structured JSON-LD Schema on all tool pages, `sitemap.xml`, `robots.txt`
 
 ---
 
-## 🔑 Creator Admin Credentials
+## 💻 Running Locally
 
-- **Admin Login URL**: `https://travelwithnj.kalebuddelogistics.in/admin/login`
-- **Username**: `travel_with.nj`
-- **Email**: `travelwithnj@gmail.com`
-- **Password**: `TravelNJ@2026`
-
----
-
-## 💾 PostgreSQL Database Configuration
-
-Set the `DATABASE_URL` environment variable in your Render dashboard:
-
-```bash
-DATABASE_URL=postgresql://username:password@dpg-xxxx.singapore-postgres.render.com/travelwithnj
-```
+1. Navigate to frontend:
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+2. Open `http://localhost:5173` in your browser.
 
 ---
 
-## 💰 Monetization Roadmap with @travel_with.nj
+## 🚀 One-Click Deployment (Free)
 
-1. **Lead Generation & Host Commission**: Charge Dandeli/Sirsi resorts 10%–15% on confirmed bookings sent via the platform.
-2. **Weekend Group Treks**: Host 20-person curated weekend trips (e.g. Dandeli Rafting or Sirsi Waterfalls) with tickets sold on the platform.
-3. **Featured Stay Subscriptions**: Charge homestays ₹1,500 – ₹3,000/mo for a verified badge and top placement.
-4. **Local Business "Reel + Website" Bundles**: Offer Hubli cafes/resorts a bundle of 1 Instagram Reel + custom landing page built by you for ₹15,000 – ₹30,000.
+### Deploying to Vercel:
+1. Push this repository to GitHub.
+2. Go to [Vercel.com](https://vercel.com) -> "Add New Project" -> Import your GitHub repo.
+3. Set **Root Directory** to `frontend`.
+4. Click **Deploy**.
+
+### Connecting Custom Domain for Google AdSense:
+1. Buy a cheap domain (~₹800/yr) on Namecheap, Hostinger, or Porkbun (e.g. `sellercalc.com` or `ecomfees.com`).
+2. Add your domain in Vercel settings under **Domains**.
+3. Submit `https://yourdomain.com/sitemap.xml` in **Google Search Console**.
+4. Once indexed, submit to **Google AdSense** for monetization!

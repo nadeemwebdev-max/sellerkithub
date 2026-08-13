@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="brandGrad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="50%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <linearGradient id="innerGlow" x1="12" y1="12" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#34D399"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Base Rounded Container with Glow -->
+  <rect width="48" height="48" rx="14" fill="url(#brandGrad)" />
+
+  <!-- Modern Hub Geometric Hexagon / Marketplace Box -->
+  <path d="M24 10L36 17V31L24 38L12 31V17L24 10Z" stroke="white" stroke-width="2.5" stroke-linejoin="round" fill="none" opacity="0.9" />
+
+  <!-- Central Connection Hub Lines -->
+  <path d="M24 10V24M24 24L36 31M24 24L12 31" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.7" />
+
+  <!-- Rising Growth / Profit Node -->
+  <circle cx="24" cy="24" r="4.5" fill="url(#innerGlow)" stroke="white" stroke-width="1.5" />
+  
+  <!-- Subtle Profit Accent Dot -->
+  <circle cx="36" cy="17" r="2" fill="#34D399" />
+</svg>
