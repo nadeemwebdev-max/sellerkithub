@@ -1,48 +1,47 @@
-# SellerKit – E-Commerce Seller Utility Hub 🚀
+# SellerKit Hub (SellerKitHub.com) 🚀
 
-A high-performance, 100% client-side multi-tool web application built for e-commerce and marketplace sellers (Amazon, Etsy, eBay, Shopify, Meesho).
+A high-performance, 100% client-side multi-tool web application built for online e-commerce sellers across Amazon, Etsy, eBay, Shopify, and Meesho.
 
-## 🌟 Included Tools
-1. **Multi-Marketplace Profit & Fee Calculator (`/`)** – Instant calculations, cost distribution chart, ROI %, and 1-click summary copy.
-2. **Dedicated Etsy Fee Calculator (`/etsy-fee-calculator`)** – Listing fees, 6.5% transaction cut, payment processing, and offsite ads.
-3. **Dedicated Amazon FBA & FBM Calculator (`/amazon-fee-calculator`)** – Category referral tiers, FBA size tier pick-and-pack, and side-by-side FBA vs. FBM comparison.
-4. **1:1 Product Image Square Padder & Resizer (`/product-image-resizer`)** – 100% client-side HTML5 Canvas tool to turn rectangular product photos into 1000x1000 or 2000x2000 square marketplace images with pure white padding.
-5. **Free Barcode & Printable Sticker Sheet Maker (`/barcode-generator`)** – Code 128 / SKU barcodes with printable A4 sticker sheet layouts.
-6. **Wholesale Margin & Markup Matrix (`/margin-matrix`)** – Tiered margin and markup pricing tables.
+---
+
+## 🌟 Included Tools & Micro-Utilities
+
+1. **Multi-Marketplace Profit Calculator (`/`)** – Live break-even sliders, cost distribution bar, and ROI % breakdown.
+2. **Side-by-Side Marketplace Comparison (`/marketplace-comparison`)** – Ranks take-home net profit across Amazon FBA, Amazon FBM, Etsy, eBay, Shopify, and Meesho.
+3. **Multi-SKU Batch Profit Calculator (`/batch-calculator`)** – Multi-row product portfolio cash flow and margin modeling.
+4. **Dedicated Etsy Fee Calculator (`/etsy-fee-calculator`)** – 6.5% transaction fee, $0.20 listing renewals, payment gateway cuts, offsite ads, and interactive SVG Revenue Donut Chart.
+5. **Amazon FBA vs. FBM Calculator (`/amazon-fee-calculator`)** – Sizing tiers, storage rates, and dual fulfillment comparison.
+6. **1:1 Square Product Image Padder (`/product-image-resizer`)** – 100% client-side HTML5 Canvas padder (1000px/2000px) with pure white background for Amazon/Etsy compliance.
+7. **Free Barcode & Printable Sticker Sheet Maker (`/barcode-generator`)** – Code 128, EAN-13, UPC-A, ITF-14, and ISO QR codes with printable A4 sticker sheet layouts.
+8. **Wholesale Margin & Markup Matrix (`/margin-matrix`)** – Tiered wholesale price points with 1-click Excel spreadsheet export.
+9. **2026 Marketplace Fee Update Center (`/fee-updates`)** – Fresh policy hub with structured JSON-LD FAQ schema.
 
 ---
 
 ## 🛠️ Tech Stack
 - **Framework**: React 18 + Vite
-- **Styling**: Tailwind CSS (with Dark/Light mode design tokens)
+- **Styling**: Tailwind CSS (with seamless Dark/Light mode preloader)
 - **Icons**: Lucide React
-- **Hosting / Deployment**: Cloudflare Pages / Vercel / Netlify ($0/month hosting)
-- **SEO**: Structured JSON-LD Schema on all tool pages, `sitemap.xml`, `robots.txt`
+- **Hosting**: Hostinger (Apache/LiteSpeed `.htaccess` included) / Vercel / Cloudflare Pages
+- **SEO & Schemas**: Schema.org `SoftwareApplication`, `WebSite`, and `FAQPage` rich snippets, `sitemap.xml`, `robots.txt`
 
 ---
 
 ## 💻 Running Locally
 
-1. Navigate to frontend:
-   ```bash
-   cd frontend
-   npm install
-   npm run dev
-   ```
-2. Open `http://localhost:5173` in your browser.
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Open `http://localhost:5173` in your browser.
 
 ---
 
-## 🚀 One-Click Deployment (Free)
+## 🚀 Building for Production
 
-### Deploying to Vercel:
-1. Push this repository to GitHub.
-2. Go to [Vercel.com](https://vercel.com) -> "Add New Project" -> Import your GitHub repo.
-3. Set **Root Directory** to `frontend`.
-4. Click **Deploy**.
-
-### Connecting Custom Domain for Google AdSense:
-1. Buy a cheap domain (~₹800/yr) on Namecheap, Hostinger, or Porkbun (e.g. `sellercalc.com` or `ecomfees.com`).
-2. Add your domain in Vercel settings under **Domains**.
-3. Submit `https://yourdomain.com/sitemap.xml` in **Google Search Console**.
-4. Once indexed, submit to **Google AdSense** for monetization!
+```bash
+cd frontend
+npm run build
+```
+The production bundle will be generated in `frontend/dist` with `.htaccess`, ready to upload to Hostinger's `public_html` folder or deploy to Vercel/Netlify.

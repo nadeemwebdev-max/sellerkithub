@@ -1,7 +1,8 @@
 {
-  "name": "travelwithnj-frontend",
+  "name": "sellerkithub",
   "private": true,
   "version": "1.0.0",
+  "description": "SellerKitHub - Free E-Commerce Fee & Profit Calculators & Tools for Amazon, Etsy, eBay & Shopify",
   "type": "module",
   "scripts": {
     "dev": "vite",
