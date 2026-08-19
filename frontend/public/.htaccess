@@ -1,22 +1,82 @@
+# ==============================================================================
+# Hostinger Apache / LiteSpeed Production Configuration for SellerKitHub
+# ==============================================================================
+
+# 1. SPA Fallback Routing (Redirect all non-file requests to index.html)
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+  
+  # Ensure index.html is not rewritten in a loop
   RewriteRule ^index\.html$ - [L]
+
+  # Serve existing static files and directories directly
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-l
+
+  # Route all other URLs to index.html for React Router
   RewriteRule . /index.html [L]
 </IfModule>
 
-# Enable GZIP Compression for Fast Loading & PageSpeed
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json image/svg+xml
+# 2. MIME Types Configuration
+<IfModule mod_mime.c>
+  AddType application/javascript js mjs
+  AddType text/css css
+  AddType image/svg+xml svg svgz
+  AddType application/json json
+  AddType font/woff2 woff2
+  AddType font/woff woff
+  AddType image/webp webp
+  AddType video/mp4 mp4
 </IfModule>
 
-# Enable Browser Caching
+# 3. GZIP / Brotli Deflate Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml font/woff2 application/vnd.ms-fontobject
+</IfModule>
+
+# 4. Browser Caching Rules
 <IfModule mod_expires.c>
   ExpiresActive On
-  ExpiresByType image/svg+xml "access plus 1 month"
-  ExpiresByType text/css "access plus 1 month"
-  ExpiresByType application/javascript "access plus 1 month"
+  
+  # Default expiration: 1 hour
+  ExpiresDefault "access plus 1 hour"
+  
+  # HTML & JSON (Revalidate so new builds take effect immediately)
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/json "access plus 0 seconds"
+  
+  # Static hashed assets (Vite generates unique cache-busting hashes in filenames)
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType video/mp4 "access plus 1 year"
+</IfModule>
+
+# 5. Cache-Control Header Fine-Tuning
+<IfModule mod_headers.c>
+  # Ensure index.html is revalidated so visitors get fresh releases immediately
+  <FilesMatch "\.(html|json)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires 0
+  </FilesMatch>
+
+  # Cache hashed static assets aggressively
+  <FilesMatch "\.(js|css|woff2|woff|svg|png|jpg|jpeg|webp|mp4)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Security & Performance Headers
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
