@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   Calculator, 
   Image as ImageIcon, 
@@ -10,12 +11,10 @@ import {
   X, 
   TrendingUp, 
   ShoppingBag, 
-  ChevronDown,
-  GitCompare,
-  Package,
-  Calendar,
-  Sparkles,
-  ArrowUpRight
+  ChevronDown, 
+  GitCompare, 
+  Package, 
+  Calendar 
 } from 'lucide-react';
 import { useCurrency, CURRENCIES } from '../context/CurrencyContext';
 
@@ -25,7 +24,8 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { currency, setCurrency, activeCurrency, theme, toggleTheme } = useCurrency();
 
-  const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/';
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   const calcDropdownRef = useRef(null);
   const currencyDropdownRef = useRef(null);
@@ -104,7 +104,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           
           {/* Brand Logo */}
-          <a href="/" className="flex items-center gap-2.5 group shrink-0">
+          <Link to="/" className="flex items-center gap-2.5 group shrink-0">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-500 to-emerald-400 p-0.5 shadow-glow-brand transition-transform group-hover:scale-105 flex items-center justify-center">
               <div className="w-full h-full bg-white dark:bg-[#090d16] rounded-[10px] flex items-center justify-center p-1.5">
                 <svg className="w-full h-full" viewBox="0 0 48 48" fill="none">
@@ -122,7 +122,7 @@ export default function Navbar() {
                 HUB
               </span>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-1.5">
@@ -152,9 +152,9 @@ export default function Navbar() {
                     const Icon = tool.icon;
                     const active = currentPath === tool.path;
                     return (
-                      <a
+                      <Link
                         key={tool.path}
-                        href={tool.path}
+                        to={tool.path}
                         onClick={() => setCalcDropdownOpen(false)}
                         className={`flex items-start gap-2.5 p-2.5 rounded-xl transition ${
                           active 
@@ -173,7 +173,7 @@ export default function Navbar() {
                             {tool.desc}
                           </span>
                         </div>
-                      </a>
+                      </Link>
                     );
                   })}
                 </div>
@@ -185,9 +185,9 @@ export default function Navbar() {
               const Icon = link.icon;
               const active = currentPath === link.path;
               return (
-                <a
+                <Link
                   key={link.path}
-                  href={link.path}
+                  to={link.path}
                   className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
                     active
                       ? 'bg-brand-50 text-brand-700 dark:bg-brand-500/15 dark:text-brand-400'
@@ -196,7 +196,7 @@ export default function Navbar() {
                 >
                   <Icon className={`w-4 h-4 ${active ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400'}`} />
                   <span>{link.name}</span>
-                </a>
+                </Link>
               );
             })}
 
@@ -289,9 +289,9 @@ export default function Navbar() {
                 const Icon = tool.icon;
                 const active = currentPath === tool.path;
                 return (
-                  <a
+                  <Link
                     key={tool.path}
-                    href={tool.path}
+                    to={tool.path}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
                       active
@@ -301,7 +301,7 @@ export default function Navbar() {
                   >
                     <Icon className="w-4 h-4 text-brand-600 dark:text-brand-400" />
                     <span>{tool.name}</span>
-                  </a>
+                  </Link>
                 );
               })}
             </div>
@@ -314,9 +314,9 @@ export default function Navbar() {
                 const Icon = link.icon;
                 const active = currentPath === link.path;
                 return (
-                  <a
+                  <Link
                     key={link.path}
-                    href={link.path}
+                    to={link.path}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
                       active
@@ -326,7 +326,7 @@ export default function Navbar() {
                   >
                     <Icon className="w-4 h-4 text-brand-600 dark:text-brand-400" />
                     <span>{link.name}</span>
-                  </a>
+                  </Link>
                 );
               })}
             </div>

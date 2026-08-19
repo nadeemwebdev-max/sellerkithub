@@ -1,71 +1,74 @@
 import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { ROUTES_SEO, SITE_URL, DEFAULT_OG_IMAGE } from '../routes-seo.js';
 
 export default function SeoHead({
-  title = "Travel with NJ | Discover Hubli-Dharwad & Unseen North Karnataka",
-  description = "Curated homestays, secret waterfall routes, Dandeli rafting camps, and weekend travel guides with direct WhatsApp booking discounts.",
-  image = "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=1200&q=80",
-  type = "website",
-  slug = "",
-  schema = null
+  title,
+  description,
+  keywords,
+  canonical,
+  ogTitle,
+  ogDescription,
+  ogImage = DEFAULT_OG_IMAGE,
+  schema
 }) {
-  const url = `https://travelwithnj.kalebuddelogistics.in${slug ? `/${slug}` : ''}`;
+  const location = useLocation();
+  const routeMeta = ROUTES_SEO[location.pathname] || {};
+
+  const finalTitle = title || routeMeta.title || 'SellerKit – Free E-Commerce Fee & Profit Calculators';
+  const finalDesc = description || routeMeta.description || 'Free multi-marketplace profit and fee calculators for Amazon, Etsy, eBay, Shopify, and Meesho.';
+  const finalKeywords = keywords || routeMeta.keywords || 'amazon fee calculator, etsy fee calculator, ebay profit calculator, shopify profit margin';
+  const finalCanonical = canonical || routeMeta.canonical || `${SITE_URL}${location.pathname}`;
+  const finalOgTitle = ogTitle || routeMeta.ogTitle || finalTitle;
+  const finalOgDesc = ogDescription || routeMeta.ogDescription || finalDesc;
+  const finalSchema = schema || routeMeta.schema;
 
   useEffect(() => {
+    if (typeof document === 'undefined') return;
+
     // 1. Update Title
-    document.title = title.includes("Travel with NJ") ? title : `${title} | Travel with NJ`;
+    document.title = finalTitle;
 
-    // 2. Update Meta Description
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement('meta');
-      metaDesc.name = 'description';
-      document.head.appendChild(metaDesc);
-    }
-    metaDesc.setAttribute('content', description);
-
-    // 3. Update OG Meta
-    const updateMeta = (prop, val) => {
-      let elem = document.querySelector(`meta[property="${prop}"]`);
+    // 2. Helper to set or create meta tag
+    const setMeta = (selector, attr, val, content) => {
+      let elem = document.querySelector(selector);
       if (!elem) {
         elem = document.createElement('meta');
-        elem.setAttribute('property', prop);
+        elem.setAttribute(attr, val);
         document.head.appendChild(elem);
       }
-      elem.setAttribute('content', val);
+      elem.setAttribute('content', content);
     };
 
-    updateMeta('og:title', title);
-    updateMeta('og:description', description);
-    updateMeta('og:image', image);
-    updateMeta('og:url', url);
-    updateMeta('og:type', type);
+    setMeta('meta[name="description"]', 'name', 'description', finalDesc);
+    setMeta('meta[name="keywords"]', 'name', 'keywords', finalKeywords);
+    setMeta('meta[property="og:title"]', 'property', 'og:title', finalOgTitle);
+    setMeta('meta[property="og:description"]', 'property', 'og:description', finalOgDesc);
+    setMeta('meta[property="og:url"]', 'property', 'og:url', finalCanonical);
+    setMeta('meta[property="og:image"]', 'property', 'og:image', ogImage);
 
-    // 4. Inject JSON-LD Schema
-    const scriptId = 'json-ld-structured-data';
-    let scriptElem = document.getElementById(scriptId);
-    if (!scriptElem) {
-      scriptElem = document.createElement('script');
-      scriptElem.id = scriptId;
-      scriptElem.type = 'application/ld+json';
-      document.head.appendChild(scriptElem);
+    // 3. Update Canonical link
+    let linkElem = document.querySelector('link[rel="canonical"]');
+    if (!linkElem) {
+      linkElem = document.createElement('link');
+      linkElem.setAttribute('rel', 'canonical');
+      document.head.appendChild(linkElem);
     }
+    linkElem.setAttribute('href', finalCanonical);
 
-    const defaultSchema = {
-      "@context": "https://schema.org",
-      "@type": "TravelAgency",
-      "name": "Travel with NJ",
-      "url": "https://travelwithnj.kalebuddelogistics.in",
-      "logo": "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=300&q=80",
-      "sameAs": [
-        "https://www.instagram.com/travel_with.nj"
-      ],
-      "description": description,
-      "areaServed": "North Karnataka, Hubli, Dharwad, Dandeli, Sirsi, Gokarna, Badami, Honnavar, Hampi"
-    };
-
-    scriptElem.text = JSON.stringify(schema || defaultSchema);
-
-  }, [title, description, image, url, type, schema]);
+    // 4. Update JSON-LD structured data
+    if (finalSchema) {
+      const scriptId = 'page-json-ld-schema';
+      let scriptElem = document.getElementById(scriptId);
+      if (!scriptElem) {
+        scriptElem = document.createElement('script');
+        scriptElem.id = scriptId;
+        scriptElem.type = 'application/ld+json';
+        document.head.appendChild(scriptElem);
+      }
+      scriptElem.textContent = JSON.stringify(finalSchema);
+    }
+  }, [finalTitle, finalDesc, finalKeywords, finalCanonical, finalOgTitle, finalOgDesc, ogImage, finalSchema]);
 
   return null;
 }

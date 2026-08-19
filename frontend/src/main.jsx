@@ -5,12 +5,27 @@ import { CurrencyProvider } from './context/CurrencyContext.jsx';
 import App from './App.jsx';
 import './index.css';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <CurrencyProvider>
-        <App />
-      </CurrencyProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
-);
+const rootElement = document.getElementById('root');
+
+if (rootElement.hasChildNodes()) {
+  ReactDOM.hydrateRoot(
+    rootElement,
+    <React.StrictMode>
+      <BrowserRouter>
+        <CurrencyProvider>
+          <App />
+        </CurrencyProvider>
+      </BrowserRouter>
+    </React.StrictMode>
+  );
+} else {
+  ReactDOM.createRoot(rootElement).render(
+    <React.StrictMode>
+      <BrowserRouter>
+        <CurrencyProvider>
+          <App />
+        </CurrencyProvider>
+      </BrowserRouter>
+    </React.StrictMode>
+  );
+}
