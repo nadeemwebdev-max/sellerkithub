@@ -288,21 +288,64 @@ export default function ImagePadder() {
         </div>
 
         {/* Live Canvas Preview Panel */}
-        <div className="lg:col-span-7 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-[#060a12] p-6 sm:p-8 flex flex-col items-center justify-center min-h-[420px]">
+        <div 
+          onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}
+          onDragLeave={() => setDragActive(false)}
+          onDrop={(e) => {
+            e.preventDefault();
+            setDragActive(false);
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+              handleFile(e.dataTransfer.files[0]);
+            }
+          }}
+          onClick={() => {
+            if (!imageSrc) {
+              document.getElementById('image-upload-input').click();
+            }
+          }}
+          className={`lg:col-span-7 rounded-2xl border transition-all p-6 sm:p-8 flex flex-col items-center justify-center min-h-[420px] ${
+            !imageSrc ? 'cursor-pointer hover:border-brand-500/50 hover:bg-slate-200/50 dark:hover:bg-[#091120]' : ''
+          } ${
+            dragActive
+              ? 'border-brand-500 bg-brand-500/10'
+              : 'border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-[#060a12]'
+          }`}
+        >
           {imageSrc ? (
             <div className="space-y-4 text-center w-full flex flex-col items-center">
               <canvas
                 ref={canvasRef}
                 className="max-w-full max-h-[360px] object-contain rounded-xl border border-slate-300 dark:border-white/10 shadow-xl"
               />
-              <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
-                Preview: {targetSize}x{targetSize}px | {paddingPercent}% Margin
-              </span>
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+                  Preview: {targetSize}x{targetSize}px | {paddingPercent}% Margin
+                </span>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    document.getElementById('image-upload-input').click();
+                  }}
+                  className="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1"
+                >
+                  <Upload className="w-3.5 h-3.5" />
+                  <span>Change Photo</span>
+                </button>
+              </div>
             </div>
           ) : (
-            <div className="text-center text-slate-400 dark:text-slate-500 space-y-3">
-              <ImageIcon className="w-16 h-16 mx-auto stroke-1" />
-              <p className="text-xs font-medium">Upload a product photo above to see instant live 1:1 canvas preview</p>
+            <div className="text-center text-slate-500 dark:text-slate-400 space-y-3 p-4">
+              <div className="w-16 h-16 rounded-2xl bg-brand-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center mx-auto transition-transform group-hover:scale-110">
+                <Upload className="w-8 h-8" />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-slate-900 dark:text-white">
+                  Click or drag & drop product photo here
+                </p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  Supports PNG, JPG, WebP, HEIC (Instant 1:1 Canvas Preview)
+                </p>
+              </div>
             </div>
           )}
         </div>
