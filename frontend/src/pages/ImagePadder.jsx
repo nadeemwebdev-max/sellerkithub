@@ -4,6 +4,8 @@ import {
   Upload, 
   Download, 
   RefreshCw, 
+  RotateCcw,
+  RotateCw,
   Sparkles, 
   Check, 
   Layers,
@@ -20,6 +22,7 @@ export default function ImagePadder() {
   const [imageName, setImageName] = useState('product-image');
   const [targetSize, setTargetSize] = useState(2000);
   const [paddingPercent, setPaddingPercent] = useState(15);
+  const [rotationAngle, setRotationAngle] = useState(0);
   const [bgColor, setBgColor] = useState('#FFFFFF');
   const [isTransparent, setIsTransparent] = useState(false);
   const [exportFormat, setExportFormat] = useState('image/jpeg');
@@ -32,6 +35,7 @@ export default function ImagePadder() {
   const handleFile = (file) => {
     if (!file || !file.type.startsWith('image/')) return;
     setImageName(file.name.replace(/\.[^/.]+$/, ''));
+    setRotationAngle(0);
     const reader = new FileReader();
     reader.onload = (e) => {
       const img = new Image();
@@ -64,7 +68,12 @@ export default function ImagePadder() {
     const maxDrawWidth = size * (1 - 2 * padPct);
     const maxDrawHeight = size * (1 - 2 * padPct);
 
-    const imgAspect = img.width / img.height;
+    // Swap aspect ratio dimensions if rotated 90° or 270°
+    const isVerticalRotation = rotationAngle === 90 || rotationAngle === 270;
+    const effWidth = isVerticalRotation ? img.height : img.width;
+    const effHeight = isVerticalRotation ? img.width : img.height;
+
+    const imgAspect = effWidth / effHeight;
     let drawW, drawH;
 
     if (imgAspect > 1) {
@@ -75,17 +84,24 @@ export default function ImagePadder() {
       drawW = maxDrawHeight * imgAspect;
     }
 
-    const drawX = (size - drawW) / 2;
-    const drawY = (size - drawH) / 2;
+    ctx.save();
+    ctx.translate(size / 2, size / 2);
+    ctx.rotate((rotationAngle * Math.PI) / 180);
 
-    ctx.drawImage(img, drawX, drawY, drawW, drawH);
+    if (isVerticalRotation) {
+      ctx.drawImage(img, -drawH / 2, -drawW / 2, drawH, drawW);
+    } else {
+      ctx.drawImage(img, -drawW / 2, -drawH / 2, drawW, drawH);
+    }
+
+    ctx.restore();
   };
 
   useEffect(() => {
     if (imageSrc && loadedImageRef.current) {
       renderCanvas(loadedImageRef.current);
     }
-  }, [imageSrc, targetSize, paddingPercent, bgColor, isTransparent]);
+  }, [imageSrc, targetSize, paddingPercent, bgColor, isTransparent, rotationAngle]);
 
   const handleDownload = () => {
     if (!canvasRef.current) return;
@@ -114,7 +130,7 @@ export default function ImagePadder() {
     },
     {
       question: "Are my uploaded photos saved or transmitted to any server?",
-      answer: "No! Your privacy is 100% guaranteed. All image reading, canvas rendering, padding, and JPEG/PNG exports happen directly inside your browser using HTML5 Canvas APIs. Zero image data is ever uploaded or sent to external servers."
+      answer: "No! Your privacy is 100% guaranteed. All image reading, canvas rendering, padding, rotation, and JPEG/PNG exports happen directly inside your browser using HTML5 Canvas APIs. Zero image data is ever uploaded or sent to external servers."
     },
     {
       question: "What background color should I choose for Etsy and Shopify photos?",
@@ -141,13 +157,13 @@ export default function ImagePadder() {
       <div className="text-center max-w-3xl mx-auto mb-10">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 dark:bg-brand-500/10 text-brand-700 dark:text-brand-400 text-xs font-semibold border border-brand-200 dark:border-brand-500/20 mb-3">
           <ImageIcon className="w-3.5 h-3.5" />
-          <span>100% Private In-Browser Image Resizer</span>
+          <span>100% Private In-Browser Image Resizer & Rotation Studio</span>
         </div>
         <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           1:1 Square <span className="text-brand-600 dark:text-brand-400">Product Image Padder</span> & Resizer
         </h1>
         <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
-          Convert non-square product photos into clean 1:1 square images for Amazon, Etsy, eBay, and Shopify without cropping, stretching, or losing quality.
+          Convert non-square product photos into clean 1:1 square images for Amazon, Etsy, eBay, and Shopify. Rotate sideways photos without cropping, stretching, or losing quality.
         </p>
       </div>
 
@@ -166,6 +182,7 @@ export default function ImagePadder() {
                 setPaddingPercent(15);
                 setBgColor('#FFFFFF');
                 setIsTransparent(false);
+                setRotationAngle(0);
               }}
               className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition"
             >
@@ -239,6 +256,43 @@ export default function ImagePadder() {
                 onChange={(e) => setPaddingPercent(e.target.value)}
                 className="w-full accent-brand-600"
               />
+            </div>
+
+            {/* Photo Rotation Control */}
+            <div>
+              <div className="flex justify-between items-center mb-1.5">
+                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  Rotate Photo Orientation ({rotationAngle}°)
+                </label>
+                {rotationAngle !== 0 && (
+                  <button
+                    type="button"
+                    onClick={() => setRotationAngle(0)}
+                    className="text-[11px] text-brand-600 dark:text-brand-400 font-semibold hover:underline"
+                  >
+                    Reset Angle
+                  </button>
+                )}
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setRotationAngle((prev) => (prev - 90 + 360) % 360)}
+                  className="py-2.5 px-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-slate-200 dark:hover:bg-white/10 transition"
+                >
+                  <RotateCcw className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
+                  <span>Rotate 90° Left</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setRotationAngle((prev) => (prev + 90) % 360)}
+                  className="py-2.5 px-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-slate-200 dark:hover:bg-white/10 transition"
+                >
+                  <RotateCw className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
+                  <span>Rotate 90° Right</span>
+                </button>
+              </div>
             </div>
 
             <div>
@@ -316,10 +370,40 @@ export default function ImagePadder() {
                 ref={canvasRef}
                 className="max-w-full max-h-[360px] object-contain rounded-xl border border-slate-300 dark:border-white/10 shadow-xl"
               />
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center justify-center gap-3">
                 <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
                   Preview: {targetSize}x{targetSize}px | {paddingPercent}% Margin
                 </span>
+
+                {/* Canvas Quick Rotation Control */}
+                <div className="flex items-center gap-1 bg-slate-200/70 dark:bg-white/10 px-2 py-1 rounded-lg">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setRotationAngle((prev) => (prev - 90 + 360) % 360);
+                    }}
+                    className="p-1 rounded text-slate-700 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400 transition"
+                    title="Rotate 90° Left"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                  </button>
+                  <span className="text-[11px] font-mono font-bold text-slate-700 dark:text-slate-200 px-1">
+                    {rotationAngle}°
+                  </span>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setRotationAngle((prev) => (prev + 90) % 360);
+                    }}
+                    className="p-1 rounded text-slate-700 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400 transition"
+                    title="Rotate 90° Right"
+                  >
+                    <RotateCw className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -342,7 +426,7 @@ export default function ImagePadder() {
                   Click or drag & drop product photo here
                 </p>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  Supports PNG, JPG, WebP, HEIC (Instant 1:1 Canvas Preview)
+                  Supports PNG, JPG, WebP, HEIC (Instant 1:1 Canvas Preview & 90° Rotation)
                 </p>
               </div>
             </div>
@@ -440,7 +524,7 @@ export default function ImagePadder() {
         <div className="flex items-center gap-2">
           <BarChart3 className="w-5 h-5 text-brand-600 dark:text-brand-400" />
           <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
-            Worked Image Resizing & Padding Scenarios
+            Worked Image Resizing & Rotation Scenarios
           </h2>
         </div>
 
@@ -448,12 +532,12 @@ export default function ImagePadder() {
           
           <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
             <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
-              Scenario 1: Landscape Photo to Amazon 1:1
+              Scenario 1: Sideways Phone Photo
             </div>
             <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-              <strong>Original:</strong> 1920x1080 Landscape photo.<br />
-              <strong>Action:</strong> Set 2000x2000 canvas with #FFFFFF background and 15% margin.<br />
-              <strong>Result:</strong> Adds equal 460px white borders top and bottom without stretching product pixels.
+              <strong>Original:</strong> Sideways 90° rotated photo.<br />
+              <strong>Action:</strong> Click 'Rotate 90° Right' and set 2000x2000 canvas with 15% margin.<br />
+              <strong>Result:</strong> Corrects photo orientation upright and adds clean white padding.
             </p>
           </div>
 
@@ -504,7 +588,7 @@ export default function ImagePadder() {
             Why High-Resolution 1:1 Square Photos Drive Higher Click-Through Rates
           </h2>
           <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-            How visual padding improves mobile search visibility, conversion rates, and algorithm indexing.
+            How visual padding and upright orientation improve mobile search visibility, conversion rates, and algorithm indexing.
           </p>
         </div>
 
@@ -513,7 +597,7 @@ export default function ImagePadder() {
             1. Mobile First: Maximizing Screen Real Estate
           </h3>
           <p>
-            Over 70% of e-commerce purchases are completed on smartphone screens. Mobile shopping apps display search results in two-column 1:1 square image grids. When you upload non-square photos without padding, marketplaces automatically crop the edges, cutting off product handles, labels, or key visual details. Padding your photos creates a consistent framing buffer, keeping 100% of your product visible in search thumbnails.
+            Over 70% of e-commerce purchases are completed on smartphone screens. Mobile shopping apps display search results in two-column 1:1 square image grids. When you upload non-square or sideways photos without padding, marketplaces automatically crop the edges, cutting off product handles, labels, or key visual details. Rotating and padding your photos creates a consistent framing buffer, keeping 100% of your product visible in search thumbnails.
           </p>
 
           <h3 className="text-sm font-bold text-slate-900 dark:text-white">
