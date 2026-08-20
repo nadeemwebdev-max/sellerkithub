@@ -319,6 +319,149 @@ export const ROUTES_SEO = {
     }
   },
 
+  '/blog': {
+    title: 'SellerKit Blog – E-Commerce Guides, Fee Analytics & Growth Strategies',
+    description: 'Read in-depth guides on Amazon FBA fee changes, Etsy seller fees, profit margin vs cost markup pricing formulas, and product photo optimization.',
+    keywords: 'ecommerce blog, amazon seller blog, etsy fee guide, ecommerce pricing strategies, fba fee changes 2026',
+    canonical: `${SITE_URL}/blog`,
+    ogTitle: 'SellerKit Blog – E-Commerce Strategy & Fee Insights',
+    ogDescription: 'Actionable seller analytics and growth guides for Amazon, Etsy, eBay, and Shopify sellers.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Blog',
+          'name': 'SellerKit E-Commerce Blog',
+          'url': `${SITE_URL}/blog`,
+          'description': 'E-Commerce fee breakdowns, seller analytics, and profit margin strategy guides.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Blog', 'item': `${SITE_URL}/blog` }
+          ]
+        }
+      ]
+    }
+  },
+
+  '/blog/amazon-fba-fee-changes-2026': {
+    title: 'Amazon FBA Fee Changes & Inbound Placement Fees in 2026 | SellerKit Blog',
+    description: 'Detailed analysis of 2026 Amazon FBA referral fee adjustments, inbound placement charges, low-inventory-level fees, and storage rate updates.',
+    keywords: '2026 amazon fba fee changes, amazon inbound placement fee, low inventory fee amazon 2026',
+    canonical: `${SITE_URL}/blog/amazon-fba-fee-changes-2026`,
+    ogTitle: 'Amazon FBA Fee Changes & Inbound Placement Fees in 2026',
+    ogDescription: 'Complete seller guide analyzing 2026 Amazon FBA fee updates and inbound placement charges.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'BlogPosting',
+          'headline': 'Amazon FBA Fee Changes & Inbound Placement Fees in 2026',
+          'url': `${SITE_URL}/blog/amazon-fba-fee-changes-2026`,
+          'datePublished': '2026-02-15',
+          'author': { '@type': 'Organization', 'name': 'SellerKit' }
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Blog', 'item': `${SITE_URL}/blog` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'Amazon FBA Fee Changes 2026', 'item': `${SITE_URL}/blog/amazon-fba-fee-changes-2026` }
+          ]
+        }
+      ]
+    }
+  },
+
+  '/blog/etsy-seller-fee-breakdown-guide': {
+    title: 'Etsy Seller Fee Structure 2026: Listing Fees & Offsite Ads | SellerKit Blog',
+    description: 'Comprehensive guide breaking down Etsy listing fees, 6.5% transaction cuts, payment processing rates, and Offsite Ads commission tiers.',
+    keywords: 'etsy fee breakdown 2026, etsy transaction fee 6.5, etsy offsite ads fee 15 percent',
+    canonical: `${SITE_URL}/blog/etsy-seller-fee-breakdown-guide`,
+    ogTitle: 'Etsy Seller Fee Structure 2026: Listing Fees & Offsite Ads',
+    ogDescription: 'Calculate listing renewals, transaction cuts, payment processing, and offsite ads impact on your Etsy shop.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'BlogPosting',
+          'headline': 'Etsy Seller Fee Structure 2026: Listing Fees & Offsite Ads',
+          'url': `${SITE_URL}/blog/etsy-seller-fee-breakdown-guide`,
+          'datePublished': '2026-02-10',
+          'author': { '@type': 'Organization', 'name': 'SellerKit' }
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Blog', 'item': `${SITE_URL}/blog` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'Etsy Fee Structure Guide', 'item': `${SITE_URL}/blog/etsy-seller-fee-breakdown-guide` }
+          ]
+        }
+      ]
+    }
+  },
+
+  '/blog/ecommerce-pricing-strategies-margin-vs-markup': {
+    title: 'Margin vs. Markup in E-Commerce: Pricing for 50%+ Margins | SellerKit Blog',
+    description: 'Learn the mathematical difference between gross margin and cost markup, keystone pricing rules, and how to price products for 50%+ profit margins.',
+    keywords: 'margin vs markup ecommerce, keystone pricing formula, gross profit margin calculation',
+    canonical: `${SITE_URL}/blog/ecommerce-pricing-strategies-margin-vs-markup`,
+    ogTitle: 'Margin vs. Markup in E-Commerce: Pricing for 50%+ Margins',
+    ogDescription: 'Learn why confusing margin and markup ruins profitability, and how to use keystone pricing.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'BlogPosting',
+          'headline': 'Margin vs. Markup in E-Commerce: Pricing for 50%+ Margins',
+          'url': `${SITE_URL}/blog/ecommerce-pricing-strategies-margin-vs-markup`,
+          'datePublished': '2026-01-28',
+          'author': { '@type': 'Organization', 'name': 'SellerKit' }
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Blog', 'item': `${SITE_URL}/blog` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'Margin vs Markup Guide', 'item': `${SITE_URL}/blog/ecommerce-pricing-strategies-margin-vs-markup` }
+          ]
+        }
+      ]
+    }
+  },
+
+  '/blog/how-to-optimize-product-images-for-amazon-etsy': {
+    title: 'How to Optimize 1:1 Square Product Photos for Amazon & Etsy | SellerKit Blog',
+    description: 'Tutorial on padding rectangular photos, meeting Amazon pure white background compliance, rotating phone photos, and improving mobile click-through rates.',
+    keywords: 'optimize product photos amazon, etsy square product photos, mobile grid image padding',
+    canonical: `${SITE_URL}/blog/how-to-optimize-product-images-for-amazon-etsy`,
+    ogTitle: 'How to Optimize 1:1 Square Product Photos for Amazon & Etsy',
+    ogDescription: 'Learn how 1:1 square photo padding and upright rotation boost mobile search click-through rates.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'BlogPosting',
+          'headline': 'How to Optimize 1:1 Square Product Photos for Amazon & Etsy',
+          'url': `${SITE_URL}/blog/how-to-optimize-product-images-for-amazon-etsy`,
+          'datePublished': '2026-01-18',
+          'author': { '@type': 'Organization', 'name': 'SellerKit' }
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Blog', 'item': `${SITE_URL}/blog` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'Product Photo Optimization', 'item': `${SITE_URL}/blog/how-to-optimize-product-images-for-amazon-etsy` }
+          ]
+        }
+      ]
+    }
+  },
+
   '/fee-updates': {
     title: '2026 E-Commerce Marketplace Fee Updates & Rate Schedule | SellerKit',
     description: 'Comprehensive 2026 fee update guide for Amazon FBA, Etsy, eBay, Shopify, and Meesho. Stay ahead of referral changes, storage rate hikes, and policy updates.',

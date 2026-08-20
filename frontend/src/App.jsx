@@ -14,6 +14,10 @@ import BarcodeGenerator from './pages/BarcodeGenerator';
 import MarginMatrix from './pages/MarginMatrix';
 import FeeUpdates from './pages/FeeUpdates';
 
+// Blog Pages
+import BlogIndex from './pages/BlogIndex';
+import BlogPost from './pages/BlogPost';
+
 // Legal & Company Pages (AdSense Compliance)
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
@@ -45,6 +49,10 @@ export default function App() {
           <Route path="/barcode-generator" element={<BarcodeGenerator />} />
           <Route path="/margin-matrix" element={<MarginMatrix />} />
           <Route path="/fee-updates" element={<FeeUpdates />} />
+
+          {/* Blog & SEO Content Pages */}
+          <Route path="/blog" element={<BlogIndex />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
 
           {/* Legal / AdSense Required Pages */}
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

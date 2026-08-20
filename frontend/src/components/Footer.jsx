@@ -94,6 +94,12 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
+                <Link to="/blog" className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition font-bold flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-brand-500"></span>
+                  <span>E-Commerce Seller Blog</span>
+                </Link>
+              </li>
+              <li>
                 <Link to="/fee-updates" className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
                   <span>2026 Marketplace Fee Hub</span>

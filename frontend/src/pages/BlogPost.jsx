@@ -1,0 +1,148 @@
+import React from 'react';
+import { useParams, Link, Navigate } from 'react-router-dom';
+import { 
+  BookOpen, 
+  Clock, 
+  Calendar, 
+  User, 
+  ArrowLeft, 
+  Share2, 
+  Sparkles,
+  ChevronRight
+} from 'lucide-react';
+import { getBlogPostBySlug, BLOG_POSTS } from '../data/blogPosts';
+import FAQSection from '../components/FAQSection';
+import AdPlaceholder from '../components/AdPlaceholder';
+
+export default function BlogPost() {
+  const { slug } = useParams();
+  const post = getBlogPostBySlug(slug);
+
+  if (!post) {
+    return <Navigate to="/blog" replace />;
+  }
+
+  const relatedPosts = BLOG_POSTS.filter(p => p.slug !== post.slug).slice(0, 2);
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: post.title,
+        url: window.location.href
+      }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert('Article link copied to clipboard!');
+    }
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      
+      {/* Breadcrumbs Navigation */}
+      <nav className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-6">
+        <Link to="/" className="hover:text-brand-600 dark:hover:text-brand-400">Home</Link>
+        <ChevronRight className="w-3 h-3" />
+        <Link to="/blog" className="hover:text-brand-600 dark:hover:text-brand-400">Blog</Link>
+        <ChevronRight className="w-3 h-3" />
+        <span className="text-slate-900 dark:text-white font-medium truncate max-w-[200px] sm:max-w-none">
+          {post.title}
+        </span>
+      </nav>
+
+      {/* Back to Blog Button */}
+      <Link 
+        to="/blog"
+        className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline mb-6"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        <span>Back to All Articles</span>
+      </Link>
+
+      {/* Main Article Header */}
+      <header className="space-y-4 mb-8">
+        <div className="flex items-center gap-3">
+          <span className="px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-500/10 text-brand-700 dark:text-brand-400 font-bold text-xs border border-brand-200 dark:border-brand-500/20">
+            {post.category}
+          </span>
+          <div className="flex items-center gap-1 text-xs text-slate-500 font-mono">
+            <Clock className="w-3.5 h-3.5" />
+            <span>{post.readTime}</span>
+          </div>
+        </div>
+
+        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+          {post.title}
+        </h1>
+
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-b border-slate-200 dark:border-white/10 py-3 text-xs text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1">
+              <User className="w-4 h-4 text-brand-600" />
+              <strong className="text-slate-900 dark:text-white">{post.author}</strong>
+            </span>
+            <span className="flex items-center gap-1 font-mono">
+              <Calendar className="w-3.5 h-3.5" />
+              <span>{post.date}</span>
+            </span>
+          </div>
+
+          <button
+            onClick={handleShare}
+            className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 text-slate-800 dark:text-slate-200 font-semibold text-xs flex items-center gap-1.5 transition"
+          >
+            <Share2 className="w-3.5 h-3.5" />
+            <span>Share Article</span>
+          </button>
+        </div>
+      </header>
+
+      {/* Featured Header Banner Image */}
+      <div className="rounded-2xl overflow-hidden mb-10 border border-slate-200 dark:border-white/10 shadow-lg">
+        <img 
+          src={post.image} 
+          alt={post.title}
+          className="w-full h-auto max-h-[420px] object-cover"
+        />
+      </div>
+
+      <AdPlaceholder slot="horizontal" />
+
+      {/* HTML Article Body */}
+      <article className="my-10 p-6 sm:p-10 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] shadow-sm text-slate-800 dark:text-slate-200 space-y-6 text-sm leading-relaxed prose dark:prose-invert max-w-none">
+        <div dangerouslySetInnerHTML={{ __html: post.content }} />
+      </article>
+
+      <AdPlaceholder slot="horizontal" />
+
+      {/* Related Articles Section */}
+      {relatedPosts.length > 0 && (
+        <section className="my-12 space-y-6">
+          <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+            Related Seller Strategy Guides
+          </h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {relatedPosts.map(rel => (
+              <div 
+                key={rel.slug}
+                className="p-5 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] space-y-3 shadow-sm hover:border-brand-500/50 transition"
+              >
+                <span className="text-[10px] uppercase font-bold text-brand-600 dark:text-brand-400">
+                  {rel.category}
+                </span>
+                <h4 className="font-bold text-sm text-slate-900 dark:text-white">
+                  <Link to={`/blog/${rel.slug}`} className="hover:underline">
+                    {rel.title}
+                  </Link>
+                </h4>
+                <p className="text-xs text-slate-500 line-clamp-2">{rel.excerpt}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+    </div>
+  );
+}

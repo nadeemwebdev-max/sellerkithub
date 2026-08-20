@@ -14,7 +14,8 @@ import {
   ChevronDown, 
   GitCompare, 
   Package, 
-  Calendar 
+  Calendar,
+  BookOpen 
 } from 'lucide-react';
 import { useCurrency, CURRENCIES } from '../context/CurrencyContext';
 
@@ -93,6 +94,7 @@ export default function Navbar() {
   const directNavLinks = [
     { name: '1:1 Image Padder', path: '/product-image-resizer', icon: ImageIcon },
     { name: 'Barcode & QR Maker', path: '/barcode-generator', icon: Barcode },
+    { name: 'Blog Guides', path: '/blog', icon: BookOpen },
     { name: '2026 Fee Hub', path: '/fee-updates', icon: Calendar },
   ];
 
