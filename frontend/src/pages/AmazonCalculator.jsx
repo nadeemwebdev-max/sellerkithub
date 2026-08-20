@@ -257,11 +257,11 @@ Calculated with SellerKitHub.com`;
                 onChange={(e) => setReferralRate(parseFloat(e.target.value))}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-amber-500"
               >
-                <option value={15}>15% - Standard (Home, Kitchen, Toys, Sports)</option>
-                <option value={8}>8% - Consumer Electronics & Computers</option>
-                <option value={12}>12% - Automotive & Industrial</option>
-                <option value={10}>10% - Apparel (Items under $20)</option>
-                <option value={20}>20% - Jewelry & Accessories</option>
+                <option value={15} className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">15% - Standard (Home, Kitchen, Toys, Sports)</option>
+                <option value={8} className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">8% - Consumer Electronics & Computers</option>
+                <option value={12} className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">12% - Automotive & Industrial</option>
+                <option value={10} className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">10% - Apparel (Items under $20)</option>
+                <option value={20} className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">20% - Jewelry & Accessories</option>
               </select>
             </div>
 

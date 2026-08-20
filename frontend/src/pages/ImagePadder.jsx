@@ -219,10 +219,10 @@ export default function ImagePadder() {
                 onChange={(e) => setTargetSize(e.target.value)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
               >
-                <option value={2000}>2000 x 2000 px (Recommended for Amazon & Etsy Zoom)</option>
-                <option value={1600}>1600 x 1600 px (Standard eBay Grid)</option>
-                <option value={1200}>1200 x 1200 px (Standard Website)</option>
-                <option value={1000}>1000 x 1000 px (Minimum Amazon Zoom)</option>
+                <option value={2000} className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">2000 x 2000 px (Recommended for Amazon & Etsy Zoom)</option>
+                <option value={1600} className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">1600 x 1600 px (Standard eBay Grid)</option>
+                <option value={1200} className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">1200 x 1200 px (Standard Website)</option>
+                <option value={1000} className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">1000 x 1000 px (Minimum Amazon Zoom)</option>
               </select>
             </div>
 

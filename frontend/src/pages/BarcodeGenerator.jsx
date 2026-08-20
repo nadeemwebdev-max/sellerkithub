@@ -193,7 +193,7 @@ export default function BarcodeGenerator() {
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
               >
                 {SUPPORTED_SYMBOLOGIES.map(s => (
-                  <option key={s.id} value={s.id}>
+                  <option key={s.id} value={s.id} className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">
                     {s.name} - ({s.description})
                   </option>
                 ))}

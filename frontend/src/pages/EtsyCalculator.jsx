@@ -221,9 +221,9 @@ Calculated with SellerKitHub.com`;
               onChange={(e) => setOffsiteAdsTier(parseFloat(e.target.value))}
               className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-orange-500"
             >
-              <option value={0}>No Offsite Ads Sale (0%)</option>
-              <option value={15}>Optional Offsite Ads (15% - Shops under $10k/yr)</option>
-              <option value={12}>Mandatory Offsite Ads (12% - High volume shops over $10k/yr)</option>
+              <option value={0} className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">No Offsite Ads Sale (0%)</option>
+              <option value={15} className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">Optional Offsite Ads (15% - Shops under $10k/yr)</option>
+              <option value={12} className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">Mandatory Offsite Ads (12% - High volume shops over $10k/yr)</option>
             </select>
           </div>
         </div>

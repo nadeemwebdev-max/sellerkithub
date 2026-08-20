@@ -291,7 +291,7 @@ Calculated via SellerKit.tools`;
                     className="w-full px-3 py-2 rounded-lg bg-white dark:bg-[#090d16] border border-slate-200 dark:border-white/10 text-xs text-slate-900 dark:text-white focus:outline-none"
                   >
                     {MARKETPLACE_PRESETS.amazon.categories.map((c, i) => (
-                      <option key={i} value={c.rate}>{c.name}</option>
+                      <option key={i} value={c.rate} className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">{c.name}</option>
                     ))}
                   </select>
                 </div>
@@ -307,7 +307,7 @@ Calculated via SellerKit.tools`;
                       className="w-full px-3 py-2 rounded-lg bg-white dark:bg-[#090d16] border border-slate-200 dark:border-white/10 text-xs text-slate-900 dark:text-white focus:outline-none"
                     >
                       {MARKETPLACE_PRESETS.amazon.fbaTiers.map((tier, i) => (
-                        <option key={i} value={tier.fee}>
+                        <option key={i} value={tier.fee} className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">
                           {tier.name} - {format(tier.fee * activeCurrency.rate)}
                         </option>
                       ))}

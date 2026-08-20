@@ -147,11 +147,11 @@ export default function Contact() {
                   onChange={(e) => setSubject(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#090d16] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-xs focus:outline-none"
                 >
-                  <option value="Feedback / Feature Request">Feedback / Feature Request</option>
-                  <option value="Fee Rate Correction">Fee Rate Correction (Amazon/Etsy/etc)</option>
-                  <option value="Bug Report">Bug Report</option>
-                  <option value="Partnership / Sponsorship">Partnership / Advertising</option>
-                  <option value="Other">Other</option>
+                  <option value="Feedback / Feature Request" className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">Feedback / Feature Request</option>
+                  <option value="Fee Rate Correction" className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">Fee Rate Correction (Amazon/Etsy/etc)</option>
+                  <option value="Bug Report" className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">Bug Report</option>
+                  <option value="Partnership / Sponsorship" className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">Partnership / Advertising</option>
+                  <option value="Other" className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">Other</option>
                 </select>
               </div>
 
