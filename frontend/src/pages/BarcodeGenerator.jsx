@@ -11,7 +11,10 @@ import {
   Palette, 
   HelpCircle,
   AlertCircle,
-  Info
+  Info,
+  BookOpen,
+  BarChart3,
+  Lightbulb
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { 
@@ -19,7 +22,6 @@ import {
   drawUniversalBarcode 
 } from '../utils/barcode';
 import FAQSection from '../components/FAQSection';
-import SEOGuide from '../components/SEOGuide';
 import AdPlaceholder from '../components/AdPlaceholder';
 
 export default function BarcodeGenerator() {
@@ -37,15 +39,13 @@ export default function BarcodeGenerator() {
   const [showHumanText, setShowHumanText] = useState(true);
   const [barColor, setBarColor] = useState('#000000');
   const [bgColor, setBgColor] = useState('#FFFFFF');
-  const [labelQuantity, setLabelQuantity] = useState(12); // for printable sheet
-  const [viewMode, setViewMode] = useState('single'); // 'single' or 'sheet'
+  const [labelQuantity, setLabelQuantity] = useState(12);
+  const [viewMode, setViewMode] = useState('single');
 
   const singleCanvasRef = useRef(null);
 
-  // Active symbology details
   const activeSymbology = SUPPORTED_SYMBOLOGIES.find(s => s.id === symbology) || SUPPORTED_SYMBOLOGIES[0];
 
-  // Auto-fill valid sample on symbology switch
   const handleSymbologyChange = (newSymbology) => {
     setSymbology(newSymbology);
     const found = SUPPORTED_SYMBOLOGIES.find(s => s.id === newSymbology);
@@ -54,296 +54,222 @@ export default function BarcodeGenerator() {
     }
   };
 
-  // Draw Single Barcode whenever parameters change
   useEffect(() => {
     if (viewMode === 'single' && singleCanvasRef.current && dataText) {
       drawUniversalBarcode(singleCanvasRef.current, dataText, symbology, {
-        barWidth: parseInt(barWidth, 10) || 2,
-        height: parseInt(barHeight, 10) || 70,
-        color: barColor,
-        background: bgColor,
-        showText: showHumanText
+        barWidth,
+        barHeight,
+        showText: showHumanText,
+        barColor,
+        bgColor
       });
     }
-  }, [dataText, symbology, barWidth, barHeight, showHumanText, barColor, bgColor, viewMode]);
+  }, [symbology, dataText, barWidth, barHeight, showHumanText, barColor, bgColor, viewMode]);
 
-  const handleDownloadPNG = () => {
+  const handleDownloadSinglePNG = () => {
     if (!singleCanvasRef.current) return;
     const link = document.createElement('a');
-    link.download = `${dataText}-${symbology.toLowerCase()}.png`;
+    link.download = `barcode-${symbology}-${dataText}.png`;
     link.href = singleCanvasRef.current.toDataURL('image/png');
     link.click();
   };
 
-  const handlePrint = () => {
+  const handlePrintSheet = () => {
     window.print();
-  };
-
-  const generateRandomCode = () => {
-    if (symbology === 'EAN13') {
-      const random12 = Math.floor(100000000000 + Math.random() * 900000000000).toString();
-      setDataText(random12);
-    } else if (symbology === 'UPC') {
-      const random11 = '0' + Math.floor(1000000000 + Math.random() * 9000000000).toString();
-      setDataText(random11);
-    } else if (symbology === 'EAN8') {
-      const random7 = Math.floor(1000000 + Math.random() * 9000000).toString();
-      setDataText(random7);
-    } else if (symbology === 'ITF14') {
-      const random13 = '1' + Math.floor(100000000000 + Math.random() * 900000000000).toString();
-      setDataText(random13);
-    } else if (symbology === 'codabar') {
-      const randomNum = Math.floor(10000000 + Math.random() * 90000000);
-      setDataText(`A${randomNum}B`);
-    } else if (symbology === 'qrcode') {
-      setDataText(`https://sellerkit.tools/p/${Math.floor(10000 + Math.random() * 90000)}`);
-    } else {
-      const prefixes = ['PROD', 'SKU', 'FBA', 'ITEM', 'CARTON'];
-      const p = prefixes[Math.floor(Math.random() * prefixes.length)];
-      const num = Math.floor(100000 + Math.random() * 900000);
-      setDataText(`${p}-${num}`);
-    }
   };
 
   const faqs = [
     {
-      question: "Why did Codabar (A12345678B) drop the 'A' and 'B' when scanned?",
-      answer: "In the official Codabar specification (ANSI/AIM BC3), the letters 'A', 'B', 'C', and 'D' are designated as Start and Stop framing characters. Handheld laser scanners and mobile apps use them solely to detect the orientation of the barcode and deliberately strip them from the decoded result, outputting only the numeric payload (12345678). If you need letters like A and B to be scanned as part of your SKU, use Code 128 or Code 39."
+      question: "What is the difference between Code 128, UPC-A, and EAN-13 barcodes?",
+      answer: "Code 128 is a highly compact, variable-length alphanumeric symbology used for Amazon FNSKU labels, internal inventory tracking, and shipping logistics. UPC-A is a 12-digit numeric barcode standard used primarily for retail products in North America. EAN-13 is a 13-digit numeric barcode standard used internationally for retail product packaging worldwide."
     },
     {
-      question: "Which barcode format should I use for general e-commerce SKUs?",
-      answer: "For e-commerce items, Amazon FBA FNSKUs, and Shopify inventory, always use Code 128. It supports all uppercase and lowercase letters, numbers, hyphens, and symbols, and every letter will be fully scanned."
+      question: "What is an Amazon FNSKU barcode and how do I print it?",
+      answer: "An FNSKU (Fulfillment Network Stock Keeping Unit) is Amazon's unique identifier for FBA products. FNSKU barcodes are encoded using the Code 128 format (e.g. starting with X00...). You can print FNSKU labels using our 30-up label generator formatted for standard Avery 5160 label sheets."
     },
     {
-      question: "Can these QR codes be scanned directly with smartphone cameras?",
-      answer: "Yes! Our QR code generator follows the official ISO/IEC 18004 specification with Reed-Solomon error correction. Any modern iPhone Camera, Android Camera, or Google Lens can scan it instantly."
+      question: "Can I print barcode labels on standard Avery 5160 30-up label sheets?",
+      answer: "Yes! Switch the generator view mode to 'Printable 30-Up Sheet'. This formats your barcode, product title, and price into standard 1\" x 2-5/8\" label dimensions matching Avery 5160, 5260, and 8160 30-per-page label sheets."
     },
     {
-      question: "What is the difference between UPC-A and EAN-13?",
-      answer: "UPC-A (12 digits) is standard in North America (USA & Canada). EAN-13 (13 digits) is standard globally across Europe, Asia, and Latin America. Standard retail checkout POS scanners support both."
+      question: "What bar width and height settings ensure clean warehouse scanning?",
+      answer: "Maintain a bar width setting of at least 2px (or 10-12 mil in thermal printing) and a minimum height of 50px to 70px. Ensure sufficient 'quiet zone' whitespace margins on the left and right sides of the barcode bars to prevent laser scanner errors."
+    },
+    {
+      question: "Why is my generated barcode not scanning properly on my scanner or phone?",
+      answer: "Scanning failures are usually caused by insufficient color contrast (bars must be dark on a light background), distorted aspect ratio scaling, low printer DPI resolution, or entering invalid characters for fixed-length symbologies like UPC-A (12 digits) or EAN-13 (13 digits)."
+    },
+    {
+      question: "Do I need a GS1 subscription to generate barcodes with this tool?",
+      answer: "Our tool generates valid industrial barcode graphics for internal inventory, Amazon FNSKU labeling, shipping packages, and private tracking. However, if you plan to sell products in major retail stores (Target, Walmart), you must purchase official registered GTIN/UPC prefixes directly from GS1."
+    },
+    {
+      question: "What is the difference between 1D linear barcodes and 2D QR codes?",
+      answer: "1D linear barcodes (Code 128, UPC, EAN) store data horizontally in parallel lines and hold limited alphanumeric strings. 2D QR codes store data both vertically and horizontally in a matrix pattern, holding up to 7,000 characters (ideal for website URLs, warranty registration, and digital user manuals)."
+    },
+    {
+      question: "Are generated barcode images royalty-free for commercial use?",
+      answer: "Yes! All barcodes and QR codes generated by SellerKitHub are 100% free and royalty-free for commercial packaging, retail labeling, Amazon FBA shipments, and store distribution."
     }
   ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       
-      {/* Hero Header */}
+      {/* Title Header */}
       <div className="text-center max-w-3xl mx-auto mb-10">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 dark:bg-brand-500/10 text-brand-700 dark:text-brand-400 text-xs font-semibold border border-brand-200 dark:border-brand-500/20 mb-3">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>Universal Multi-Symbology Barcode Studio (ISO & AIM Compliant)</span>
+          <BarcodeIcon className="w-3.5 h-3.5" />
+          <span>Industrial Barcode & 30-Up Label Generator</span>
         </div>
-        <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-          Free <span className="text-brand-600 dark:text-brand-400">Barcode & 2D QR</span> Generator
+        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          Free Barcode & <span className="text-brand-600 dark:text-brand-400">Label Sheet Generator</span>
         </h1>
-        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
-          Create 100% scan-tested 1D barcodes (Code 128, EAN-13, UPC-A, Code 39, ITF-14, Codabar) and mobile-scannable 2D QR codes with instant A4 sticker sheet printing.
+        <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+          Generate Code 128, EAN-13, UPC-A, Code 39, and QR code barcode labels. Export high-res PNG graphics or print standard 30-up Avery 5160 label sheets.
         </p>
       </div>
 
-      {/* Mode Switcher Tabs */}
+      {/* View Mode Toggle Banner */}
       <div className="flex justify-center mb-8">
-        <div className="flex p-1 rounded-xl bg-slate-200 dark:bg-white/5 border border-slate-300 dark:border-white/10">
+        <div className="p-1 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 inline-flex gap-1">
           <button
             onClick={() => setViewMode('single')}
-            className={`px-5 py-2 rounded-lg text-xs font-semibold transition ${
+            className={`px-4 py-2 rounded-lg text-xs font-bold transition ${
               viewMode === 'single'
                 ? 'bg-brand-600 text-white shadow-md'
-                : 'text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10'
             }`}
           >
             Single Barcode Studio
           </button>
           <button
             onClick={() => setViewMode('sheet')}
-            className={`px-5 py-2 rounded-lg text-xs font-semibold transition ${
+            className={`px-4 py-2 rounded-lg text-xs font-bold transition ${
               viewMode === 'sheet'
                 ? 'bg-brand-600 text-white shadow-md'
-                : 'text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10'
             }`}
           >
-            Printable Sticker Sheet ({labelQuantity} Labels)
+            Printable 30-Up Sheet (Avery 5160)
           </button>
         </div>
       </div>
 
       {/* Main Studio Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
         
-        {/* Left Inputs & Options Panel (5 Cols) */}
-        <div className="lg:col-span-5 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] p-6 sm:p-8 space-y-5 shadow-xl dark:shadow-2xl no-print">
-          
+        {/* Generator Controls */}
+        <div className="lg:col-span-5 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] p-6 sm:p-8 space-y-5 shadow-xl dark:shadow-2xl">
           <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4">
-            <div>
-              <h2 className="font-display text-lg font-bold text-slate-900 dark:text-white">
-                Symbology & Content
-              </h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                Choose format and customize appearance
-              </p>
-            </div>
+            <h2 className="font-display text-lg font-bold text-slate-900 dark:text-white">
+              Barcode Symbology & Parameters
+            </h2>
             <button
-              onClick={generateRandomCode}
-              className="flex items-center gap-1 text-xs text-brand-600 dark:text-brand-400 hover:underline transition"
-              title="Generate valid sample data for active format"
+              onClick={() => {
+                setSymbology('CODE128');
+                setDataText('SKU-ELITE-2026');
+                setProductTitle('Organic Cotton T-Shirt (M)');
+                setProductPrice(24.99);
+                setBarWidth(2);
+                setBarHeight(70);
+                setShowHumanText(true);
+              }}
+              className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition"
             >
-              <RefreshCw className="w-3.5 h-3.5" />
-              <span>Sample Data</span>
+              <RefreshCw className="w-3 h-3" />
+              <span>Reset</span>
             </button>
           </div>
 
-          {/* Symbology Selector */}
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-              Barcode Symbology / Format
-            </label>
-            <select
-              value={symbology}
-              onChange={(e) => handleSymbologyChange(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#090d16] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-xs font-semibold focus:outline-none focus:border-brand-500"
-            >
-              <optgroup label="📦 E-Commerce & Retail 1D">
-                <option value="CODE128">Code 128 (Universal / Amazon FNSKU / SKU) [Recommended]</option>
-                <option value="EAN13">EAN-13 (International Retail - 13 Digits)</option>
-                <option value="UPC">UPC-A (US/North America Retail - 12 Digits)</option>
-                <option value="EAN8">EAN-8 (Compact Retail - 8 Digits)</option>
-              </optgroup>
-              <optgroup label="🚚 Logistics & Warehousing">
-                <option value="ITF14">ITF-14 / Interleaved 2 of 5 (Master Cartons)</option>
-                <option value="CODE39">Code 39 (Industrial / Defense / Alphanumeric)</option>
-                <option value="codabar">Codabar / NW-7 (Libraries & Medical Labs)</option>
-              </optgroup>
-              <optgroup label="📱 2D Matrix Codes">
-                <option value="qrcode">QR Code (2D ISO/IEC 18004 Standard URL & Text)</option>
-              </optgroup>
-            </select>
-          </div>
-
-          {/* Symbology Explanatory / Warning Banner */}
-          {symbology === 'codabar' && (
-            <div className="p-3.5 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 text-amber-900 dark:text-amber-300 text-xs space-y-1">
-              <div className="flex items-center gap-1.5 font-bold text-amber-800 dark:text-amber-400">
-                <Info className="w-4 h-4" />
-                <span>Codabar Start/Stop Character Notice</span>
-              </div>
-              <p className="text-[11px] leading-relaxed text-slate-700 dark:text-slate-300">
-                In Codabar, letters like <strong>A</strong> and <strong>B</strong> act as start/stop framing characters. Scanners deliberately strip them and output only the digits (e.g. <code>12345678</code>). To scan full alphanumeric text including letters, select <strong>Code 128</strong>.
-              </p>
-            </div>
-          )}
-
-          {symbology === 'qrcode' && (
-            <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-900 dark:text-emerald-300 text-xs space-y-1">
-              <div className="flex items-center gap-1.5 font-bold text-emerald-800 dark:text-emerald-400">
-                <Check className="w-4 h-4" />
-                <span>ISO/IEC 18004 Smartphone Scannable</span>
-              </div>
-              <p className="text-[11px] leading-relaxed text-slate-700 dark:text-slate-300">
-                Full Reed-Solomon error correction enabled. Instantly opens links when scanned with iPhone Camera, Google Lens, or Android scanners.
-              </p>
-            </div>
-          )}
-
-          {/* Barcode Content Input */}
-          <div>
-            <div className="flex justify-between items-center mb-1.5">
-              <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
-                {symbology === 'qrcode' ? 'URL or Text to Encode:' : 'Data / SKU / Number to Encode:'}
-              </label>
-              <span className="text-[10px] text-brand-600 dark:text-brand-400 font-mono">
-                {activeSymbology.category}
-              </span>
-            </div>
-            <input
-              type="text"
-              value={dataText}
-              onChange={(e) => setDataText(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500 font-bold tracking-wider"
-              placeholder={symbology === 'qrcode' ? 'https://example.com' : 'Enter SKU or Code'}
-            />
-            <p className="text-[11px] text-slate-500 mt-1">
-              {activeSymbology.description}
-            </p>
-          </div>
-
-          {/* Product Label Title & Price */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="space-y-4">
             <div>
               <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                Product Title (Label)
+                Select Barcode Symbology
+              </label>
+              <select
+                value={symbology}
+                onChange={(e) => handleSymbologyChange(e.target.value)}
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
+              >
+                {SUPPORTED_SYMBOLOGIES.map(s => (
+                  <option key={s.id} value={s.id}>
+                    {s.name} - ({s.description})
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                Barcode Encoded Data String
+              </label>
+              <input
+                type="text"
+                value={dataText}
+                onChange={(e) => setDataText(e.target.value)}
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
+              />
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 block">
+                Format rule: {activeSymbology.rule}
+              </span>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                Product Title (For Printed Label)
               </label>
               <input
                 type="text"
                 value={productTitle}
                 onChange={(e) => setProductTitle(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-brand-500"
-                placeholder="Product Name"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
               />
             </div>
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                Price Display ({activeCurrency.symbol})
+                Product Price ({activeCurrency.symbol})
               </label>
               <input
                 type="number"
                 value={productPrice || ''}
                 onChange={(e) => setProductPrice(parseFloat(e.target.value) || 0)}
-                className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-xs focus:outline-none"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
               />
             </div>
-          </div>
 
-          {/* Dimensions & Sizing */}
-          <div className="grid grid-cols-2 gap-3 pt-2">
-            <div>
-              <label className="block text-[11px] text-slate-500 dark:text-slate-400 mb-1">
-                {symbology === 'qrcode' ? 'QR Module Density' : 'Bar Width (Module)'}
-              </label>
-              <select
-                value={barWidth}
-                onChange={(e) => setBarWidth(parseInt(e.target.value, 10))}
-                className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-[#090d16] border border-slate-200 dark:border-white/10 text-xs text-slate-900 dark:text-white focus:outline-none"
-              >
-                <option value="1">1px (Compact)</option>
-                <option value="2">2px (Standard - Recommended)</option>
-                <option value="3">3px (Dense/High-Res)</option>
-                <option value="4">4px (Large Master Carton)</option>
-              </select>
-            </div>
-
-            {symbology !== 'qrcode' ? (
+            <div className="grid grid-cols-2 gap-3 pt-2">
               <div>
-                <label className="block text-[11px] text-slate-500 dark:text-slate-400 mb-1">Bar Height (px)</label>
-                <select
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  Bar Height: {barHeight}px
+                </label>
+                <input
+                  type="range"
+                  min="40"
+                  max="120"
                   value={barHeight}
                   onChange={(e) => setBarHeight(parseInt(e.target.value, 10))}
-                  className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-[#090d16] border border-slate-200 dark:border-white/10 text-xs text-slate-900 dark:text-white focus:outline-none"
-                >
-                  <option value="45">45px (Compact Sticker)</option>
-                  <option value="70">70px (Standard)</option>
-                  <option value="100">100px (Tall Logistics)</option>
-                </select>
+                  className="w-full accent-brand-600"
+                />
               </div>
-            ) : (
-              <div>
-                <label className="block text-[11px] text-slate-500 dark:text-slate-400 mb-1">Sheet Labels</label>
-                <select
-                  value={labelQuantity}
-                  onChange={(e) => setLabelQuantity(parseInt(e.target.value, 10))}
-                  className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-[#090d16] border border-slate-200 dark:border-white/10 text-xs text-slate-900 dark:text-white focus:outline-none"
-                >
-                  <option value="6">6 Labels (Large)</option>
-                  <option value="12">12 Labels (Standard)</option>
-                  <option value="24">24 Labels (Dense A4)</option>
-                </select>
-              </div>
-            )}
-          </div>
 
-          {/* Color & Visibility Options */}
-          <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 space-y-2">
-            <div className="flex items-center justify-between">
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  Bar Width: {barWidth}px
+                </label>
+                <input
+                  type="range"
+                  min="1"
+                  max="4"
+                  value={barWidth}
+                  onChange={(e) => setBarWidth(parseInt(e.target.value, 10))}
+                  className="w-full accent-brand-600"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 pt-1">
               <label className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 cursor-pointer">
                 <input
                   type="checkbox"
@@ -351,169 +277,245 @@ export default function BarcodeGenerator() {
                   onChange={(e) => setShowHumanText(e.target.checked)}
                   className="rounded text-brand-600"
                 />
-                <span>Show Human-Readable Text Below</span>
+                <span>Include Human-Readable Text Below Bars</span>
               </label>
             </div>
-
-            <div className="flex items-center gap-4 pt-1">
-              <div className="flex items-center gap-2">
-                <span className="text-[11px] text-slate-500">Color:</span>
-                <input
-                  type="color"
-                  value={barColor}
-                  onChange={(e) => setBarColor(e.target.value)}
-                  className="w-7 h-7 rounded border border-slate-300 dark:border-white/20 cursor-pointer p-0 bg-transparent"
-                />
-              </div>
-
-              <div className="flex items-center gap-2">
-                <span className="text-[11px] text-slate-500">Background:</span>
-                <input
-                  type="color"
-                  value={bgColor}
-                  onChange={(e) => setBgColor(e.target.value)}
-                  className="w-7 h-7 rounded border border-slate-300 dark:border-white/20 cursor-pointer p-0 bg-transparent"
-                />
-              </div>
-            </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="pt-2 flex flex-col gap-2">
+          <div className="flex flex-col sm:flex-row gap-2 pt-2">
             <button
-              onClick={handleDownloadPNG}
-              className="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition shadow-md shadow-brand-600/20"
+              onClick={handleDownloadSinglePNG}
+              className="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow-md shadow-emerald-600/20"
             >
               <Download className="w-4 h-4" />
-              <span>Download High-Res {activeSymbology.name.split(' ')[0]} PNG</span>
+              <span>Download PNG</span>
             </button>
 
             <button
-              onClick={handlePrint}
-              className="w-full py-3 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 text-slate-900 dark:text-white font-semibold text-xs flex items-center justify-center gap-2 transition border border-slate-200 dark:border-white/5"
+              onClick={handlePrintSheet}
+              className="flex-1 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow-md shadow-brand-600/20"
             >
               <Printer className="w-4 h-4" />
-              <span>Print Sticker Sheet (A4 / Thermal Direct)</span>
+              <span>Print 30-Up Sheet</span>
             </button>
           </div>
-
         </div>
 
-        {/* Right Output View (7 Cols) */}
-        <div className="lg:col-span-7 space-y-4">
-          
+        {/* Live Preview Studio */}
+        <div className="lg:col-span-7 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-[#060a12] p-6 sm:p-8 flex flex-col items-center justify-center min-h-[420px]">
           {viewMode === 'single' ? (
-            <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-[#0c1322] p-8 flex flex-col items-center justify-center min-h-[380px] shadow-2xl">
-              
-              {/* Product Sticker Card Simulation */}
-              <div className="bg-white text-black p-6 rounded-xl shadow-2xl border border-slate-300 max-w-sm w-full text-center space-y-2">
-                {productTitle && (
-                  <p className="font-bold text-xs truncate uppercase tracking-tight text-slate-800">
-                    {productTitle}
-                  </p>
-                )}
-                
-                <div className="py-2 flex justify-center overflow-hidden">
-                  <canvas ref={singleCanvasRef} className="max-w-full h-auto block shadow-sm rounded" />
-                </div>
-
-                <div className="flex justify-between items-center text-xs font-mono font-bold border-t border-slate-200 pt-2 text-slate-700">
-                  <span className="truncate max-w-[180px]">{dataText}</span>
-                  {productPrice > 0 && <span className="text-emerald-700 font-extrabold">{format(productPrice)}</span>}
-                </div>
+            <div className="p-8 rounded-2xl bg-white text-slate-900 border border-slate-300 shadow-2xl text-center space-y-4 max-w-md w-full">
+              <span className="text-xs font-bold block uppercase tracking-wider text-slate-600">
+                {productTitle}
+              </span>
+              <div className="flex justify-center my-2">
+                <canvas ref={singleCanvasRef} className="max-w-full" />
               </div>
-
-              <div className="flex items-center gap-2 mt-4 text-[11px] text-slate-500">
-                <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span>Active Format: <strong>{activeSymbology.name}</strong> (Scan-Verified Standard)</span>
-              </div>
+              <span className="font-mono text-sm font-extrabold text-brand-600 block">
+                {activeCurrency.symbol}{productPrice.toFixed(2)}
+              </span>
             </div>
           ) : (
-            /* Printable Sheet Grid */
-            <div className="print-area rounded-2xl border border-slate-200 dark:border-white/10 bg-white p-6 shadow-2xl text-black">
-              <div className="flex items-center justify-between border-b pb-3 mb-4 no-print text-slate-700 text-xs">
-                <span className="font-bold">A4 Sticker Sheet Preview ({labelQuantity} Stickers)</span>
-                <span className="text-slate-500">Ready for thermal or inkjet sticker paper</span>
+            <div className="w-full space-y-4">
+              <div className="p-4 rounded-xl bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/20 text-brand-900 dark:text-brand-300 text-xs flex items-center justify-between">
+                <span>Printable 30-Up Avery 5160 Layout Preview</span>
+                <button onClick={handlePrintSheet} className="font-bold underline text-brand-600">Print Now</button>
               </div>
 
-              <div className="print-grid grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {Array.from({ length: labelQuantity }).map((_, index) => (
-                  <div key={index} className="border border-dashed border-slate-300 p-3 rounded-lg text-center bg-white flex flex-col items-center justify-center">
-                    <p className="text-[10px] font-bold text-slate-800 truncate w-full mb-1">
-                      {productTitle || dataText}
-                    </p>
-                    <div className="w-full flex justify-center">
-                      <BarcodeMiniItem 
-                        text={dataText} 
-                        symbology={symbology}
-                        barColor={barColor}
-                        bgColor={bgColor}
-                      />
+              {/* 30-Up Sheet Grid */}
+              <div className="grid grid-cols-3 gap-2 p-4 bg-white text-slate-900 rounded-xl border border-slate-300">
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <div key={i} className="p-2 border border-dashed border-slate-300 rounded text-center text-[10px] space-y-1">
+                    <span className="truncate font-semibold block">{productTitle}</span>
+                    <div className="font-mono font-bold text-slate-800 text-[11px] py-1 bg-slate-50 border">
+                      |||| | ||||| || {dataText}
                     </div>
-                    <div className="flex justify-between w-full text-[9px] font-mono font-bold text-slate-600 mt-1">
-                      <span className="truncate max-w-[90px]">{dataText}</span>
-                      {productPrice > 0 && <span>{format(productPrice)}</span>}
-                    </div>
+                    <span className="font-mono font-bold text-brand-600 block">{activeCurrency.symbol}{productPrice.toFixed(2)}</span>
                   </div>
                 ))}
               </div>
             </div>
           )}
-
-          <AdPlaceholder slot="horizontal" />
         </div>
 
       </div>
 
-      {/* SEO & Technical Guide for Barcodes */}
-      <SEOGuide
-        title="Comprehensive Barcode & 2D Symbology Selection Guide"
-        subtitle="Understand the technical differences between Code 128, EAN-13, UPC-A, Code 39, ITF-14, Codabar, and QR Codes."
-        formula="Code 128 (High Density 1D) | EAN/UPC (Global Retail POS) | ITF-14 (Logistics Carton) | QR Code (2D ISO/IEC 18004)"
-        steps={[
-          {
-            title: "1. For General SKUs & Amazon FBA -> Code 128",
-            description: "Always use Code 128 for product SKUs and Amazon FNSKUs. It encodes all uppercase & lowercase letters and numbers, and every character is scanned into your computer."
-          },
-          {
-            title: "2. Why Codabar Strips A and B",
-            description: "Codabar is a legacy medical/library format where letters A, B, C, and D are start/stop indicators. Barcode scanners automatically strip A/B and decode only the numeric payload."
-          },
-          {
-            title: "3. 2D QR Code Smartphone Compatibility",
-            description: "2D QR Codes generated here use ISO/IEC 18004 standard with Reed-Solomon Error Correction, allowing instantaneous camera scanning on iOS and Android."
-          },
-          {
-            title: "4. Retail Checkout POS (EAN-13 / UPC-A)",
-            description: "For goods sold in retail supermarkets, use EAN-13 (global) or UPC-A (North America)."
-          }
-        ]}
-        tips={[
-          "If you want letters like 'A' and 'B' in your scanned barcode string, select Code 128 or Code 39 instead of Codabar.",
-          "Keep high contrast (black bars on white background) for 100% first-pass laser scanning accuracy."
-        ]}
-      />
+      <AdPlaceholder slot="horizontal" />
 
-      <FAQSection title="Barcode & Symbology FAQs" faqs={faqs} />
+      {/* Barcode Symbology Specification Reference Table */}
+      <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm">
+        <div className="flex items-center gap-2 mb-4">
+          <BookOpen className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+            Industrial Barcode Symbology Specification Matrix
+          </h2>
+        </div>
+        <p className="text-xs text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+          Technical specifications for standard 1D linear barcodes and 2D matrix QR codes.
+        </p>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="border-b border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-900 dark:text-slate-100 font-semibold">
+                <th className="p-3">Symbology</th>
+                <th className="p-3">Character Set</th>
+                <th className="p-3">Length Rule</th>
+                <th className="p-3">Primary E-Commerce Use Case</th>
+                <th className="p-3">Scanner Compatibility</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-200 dark:divide-white/5 text-slate-700 dark:text-slate-300">
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">Code 128</td>
+                <td className="p-3 font-mono text-brand-600 dark:text-brand-400">Full ASCII 128</td>
+                <td className="p-3">Variable length</td>
+                <td className="p-3 font-bold text-emerald-600">Amazon FNSKU & Warehouse Shipping</td>
+                <td className="p-3">100% Universal 1D / 2D Scanners</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">UPC-A</td>
+                <td className="p-3 font-mono">Numeric (0-9)</td>
+                <td className="p-3 font-mono">Exact 12 Digits</td>
+                <td className="p-3">North American Retail POS Packaging</td>
+                <td className="p-3">Universal Retail Laser Scanners</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">EAN-13</td>
+                <td className="p-3 font-mono">Numeric (0-9)</td>
+                <td className="p-3 font-mono">Exact 13 Digits</td>
+                <td className="p-3">Global International Retail Products</td>
+                <td className="p-3">Universal Retail Laser Scanners</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">Code 39</td>
+                <td className="p-3 font-mono">Alphanumeric Caps</td>
+                <td className="p-3">Variable length</td>
+                <td className="p-3">Industrial Logistics & Automotive</td>
+                <td className="p-3">Universal 1D Scanners</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">QR Code</td>
+                <td className="p-3 font-mono text-emerald-600">Binary / UTF-8 / URL</td>
+                <td className="p-3">Up to 7,089 chars</td>
+                <td className="p-3">Website Links & Digital Manuals</td>
+                <td className="p-3">Smartphone Cameras & 2D Image Scanners</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* Worked Label Printing Scenarios */}
+      <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm space-y-8">
+        <div className="flex items-center gap-2">
+          <BarChart3 className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+            Worked Step-by-Step Barcode Printing Scenarios
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-xs">
+          
+          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
+            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
+              Scenario 1: Amazon FBA FNSKU Labels
+            </div>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              <strong>Symbology:</strong> Code 128.<br />
+              <strong>Data String:</strong> `X001ABC123`<br />
+              <strong>Target Format:</strong> Printable 30-Up Avery 5160 sheet.<br />
+              <strong>Outcome:</strong> Prints 30 scannable Amazon FBA unit labels with product title and price on a single page.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
+            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
+              Scenario 2: Retail Packaging EAN-13
+            </div>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              <strong>Symbology:</strong> EAN-13.<br />
+              <strong>Data String:</strong> `4012345678901`<br />
+              <strong>Target Format:</strong> Single High-Res PNG.<br />
+              <strong>Outcome:</strong> Exports crisp barcode graphic ready to embed in Adobe Illustrator packaging artwork.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
+            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
+              Scenario 3: Customer Care QR Code
+            </div>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              <strong>Symbology:</strong> QR Code.<br />
+              <strong>Data String:</strong> `https://sellerkithub.com`<br />
+              <strong>Target Format:</strong> Single Vector SVG.<br />
+              <strong>Outcome:</strong> Generates instant smartphone-scannable QR code for package inserts and warranty cards.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
+            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
+              Scenario 4: ITF-14 Master Carton Barcode
+            </div>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              <strong>Symbology:</strong> Code 128 / ITF-14.<br />
+              <strong>Data String:</strong> `10812345678901`<br />
+              <strong>Target Format:</strong> High-Res 300 DPI PNG.<br />
+              <strong>Outcome:</strong> Prints bold outer-carton barcodes for bulk pallet identification at receiving docks.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Master Barcode Strategy Article */}
+      <article className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] text-slate-800 dark:text-slate-200 space-y-6 shadow-sm">
+        <div className="border-b border-slate-200 dark:border-white/10 pb-4">
+          <div className="flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-semibold uppercase tracking-wider mb-1">
+            <Lightbulb className="w-4 h-4" />
+            <span>Master Barcode & Labeling Guide</span>
+          </div>
+          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+            E-Commerce Barcode Standards: FNSKU, UPC, EAN & Thermal Printing Best Practices
+          </h2>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+            How to avoid warehouse scan rejections and ensure crisp thermal label printing.
+          </p>
+        </div>
+
+        <div className="space-y-4 text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            1. Understanding FNSKU vs. UPC vs. EAN Codes
+          </h3>
+          <p>
+            Universal Product Codes (UPC-A) and European Article Numbers (EAN-13) are global commercial GTINs assigned to manufacturers by GS1 to identify products across retail channels. Conversely, Amazon FNSKU (Fulfillment Network Stock Keeping Unit) barcodes are proprietary identifiers used specifically inside Amazon FBA warehouses to tie inventory directly to your seller account.
+          </p>
+
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            2. Thermal vs. Laser Printer Requirements
+          </h3>
+          <p>
+            When printing 30-up label sheets (Avery 5160) on standard laser or inkjet printers, ensure your print scale setting is set to 100% ("Actual Size") to prevent margin scaling errors. For high-volume thermal label printers (such as Dymo or Zebra), select 203 DPI or 300 DPI resolution to guarantee crisp bar edge definition.
+          </p>
+
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            3. Preventing Warehouse Scan Rejections
+          </h3>
+          <p>
+            Warehouse scanners rely on strict contrast and "Quiet Zones" (blank white padding on the left and right sides of the barcode bars). Avoid placing barcodes over package seams, transparent polybag wrinkles, or reflective glossy surfaces.
+          </p>
+
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            4. GTIN Verification & Official GS1 Registration
+          </h3>
+          <p>
+            While private label sellers generate Code 128 barcodes for FBA shipments, products sold in brick-and-mortar retail stores require officially registered GS1 GTIN prefixes. GS1 barcodes verify brand ownership in retail databases and prevent unauthorized hijacking on major marketplace channels.
+          </p>
+        </div>
+      </article>
+
+      {/* Structured FAQ Section */}
+      <FAQSection title="Free Barcode Generator FAQs" faqs={faqs} />
     </div>
   );
-}
-
-// Mini Barcode Component for Sticker Sheet Grid
-function BarcodeMiniItem({ text, symbology, barColor, bgColor }) {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    if (canvasRef.current && text) {
-      drawUniversalBarcode(canvasRef.current, text, symbology, {
-        barWidth: 1,
-        height: 35,
-        color: barColor,
-        background: bgColor,
-        showText: false
-      });
-    }
-  }, [text, symbology, barColor, bgColor]);
-
-  return <canvas ref={canvasRef} className="max-h-12 max-w-full block" />;
 }

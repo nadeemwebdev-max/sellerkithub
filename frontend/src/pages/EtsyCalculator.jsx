@@ -1,16 +1,13 @@
 import React, { useState, useMemo } from 'react';
-import { ShoppingBag, Copy, Check, RefreshCw, HelpCircle, Sparkles, AlertCircle, FileSpreadsheet, PieChart as PieChartIcon } from 'lucide-react';
+import { ShoppingBag, Copy, Check, RefreshCw, HelpCircle, Sparkles, AlertCircle, FileSpreadsheet, PieChart as PieChartIcon, ArrowRight, ShieldCheck, BookOpen, BarChart3, Lightbulb } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { exportToCSV } from '../utils/calculations';
 import FAQSection from '../components/FAQSection';
-import SEOGuide from '../components/SEOGuide';
 import AdPlaceholder from '../components/AdPlaceholder';
 
 // SVG Revenue Donut Chart Component
 function RevenueDonutChart({ data, totalRevenue, currencySymbol }) {
-  // data: [ { label: 'Net Profit', value: 34.05, color: '#10b981' }, ... ]
   const total = data.reduce((acc, item) => acc + Math.max(0, item.value), 0);
-  
   if (total <= 0) return null;
 
   const radius = 38;
@@ -19,8 +16,6 @@ function RevenueDonutChart({ data, totalRevenue, currencySymbol }) {
 
   return (
     <div className="flex flex-col sm:flex-row items-center gap-6 p-4 rounded-xl bg-slate-100/80 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10">
-      
-      {/* SVG Donut */}
       <div className="relative w-28 h-28 shrink-0 flex items-center justify-center">
         <svg className="w-full h-full -rotate-90 transform" viewBox="0 0 100 100">
           <circle
@@ -55,7 +50,6 @@ function RevenueDonutChart({ data, totalRevenue, currencySymbol }) {
           })}
         </svg>
 
-        {/* Center Text */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
           <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase">Margin</span>
           <span className="font-mono text-xs font-extrabold text-slate-900 dark:text-white">
@@ -64,10 +58,9 @@ function RevenueDonutChart({ data, totalRevenue, currencySymbol }) {
         </div>
       </div>
 
-      {/* Legend & Percentages */}
       <div className="flex-1 w-full space-y-1.5 text-xs">
         <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
-          % Distribution of Revenue
+          % Revenue Breakdown
         </div>
         {data.map((item, idx) => {
           const pct = totalRevenue > 0 ? (item.value / totalRevenue) * 100 : 0;
@@ -89,7 +82,6 @@ function RevenueDonutChart({ data, totalRevenue, currencySymbol }) {
           );
         })}
       </div>
-
     </div>
   );
 }
@@ -99,13 +91,13 @@ export default function EtsyCalculator() {
   const [copied, setCopied] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
 
-  // Form States (Default $100 price & $56 cost for instant 1-click test)
+  // Form States
   const [itemPrice, setItemPrice] = useState(100.00);
-  const [shippingCharged, setShippingCharged] = useState(0.00); // charged to buyer
+  const [shippingCharged, setShippingCharged] = useState(0.00);
   const [itemCost, setItemCost] = useState(56.00);
-  const [shippingCost, setShippingCost] = useState(0.00); // paid by seller
-  const [offsiteAds, setOffsiteAds] = useState('none'); // 'none', '15', '12'
-  const [regulatoryFee, setRegulatoryFee] = useState(false); // UK/EU 0.32% - 0.5%
+  const [shippingCost, setShippingCost] = useState(0.00);
+  const [offsiteAds, setOffsiteAds] = useState('none');
+  const [regulatoryFee, setRegulatoryFee] = useState(false);
 
   const result = useMemo(() => {
     const price = Number(itemPrice) || 0;
@@ -121,7 +113,7 @@ export default function EtsyCalculator() {
     // 2. Transaction Fee (6.5% of total revenue including shipping charged)
     const transactionFee = totalRevenue * 0.065;
 
-    // 3. Payment Processing Fee (3% + $0.25 flat in US, adjusted for currency)
+    // 3. Payment Processing Fee (3% + $0.25 flat in US)
     const paymentFee = (totalRevenue * 0.03) + (0.25 * activeCurrency.rate);
 
     // 4. Offsite Ads Fee
@@ -138,7 +130,6 @@ export default function EtsyCalculator() {
     const profitMargin = totalRevenue > 0 ? (netProfit / totalRevenue) * 100 : 0;
     const roi = totalExpenses > 0 ? (netProfit / totalExpenses) * 100 : 0;
 
-    // Donut chart distribution data
     const chartData = [
       { label: 'Net Profit', value: Math.max(0, netProfit), color: '#10b981' },
       { label: 'Etsy Fees', value: totalEtsyFees, color: '#f97316' },
@@ -205,27 +196,43 @@ Calculated with SellerKitHub.com`;
 
   const faqs = [
     {
-      question: "What is Etsy's fee structure in 2026?",
-      answer: "Etsy charges a $0.20 listing fee per item (valid for 4 months or until sold), a 6.5% transaction fee on the total order value (including shipping and gift wrap), and a 3% + $0.25 payment processing fee for Etsy Payments."
+      question: "What is Etsy's complete fee structure in 2026?",
+      answer: "In 2026, Etsy charges a flat $0.20 listing fee per item published or renewed (valid for 4 months or until sold), a 6.5% transaction fee applied to the total order value (item price plus shipping charged and gift wrapping), and a payment processing fee (3.0% + $0.25 for standard US Etsy Payments, varying slightly in UK, CA, and EU). Additionally, optional or mandatory Offsite Ads incur a 15% or 12% surcharge when a sale originates from external search or social channels."
     },
     {
-      question: "Are Etsy transaction fees charged on shipping?",
-      answer: "Yes. Etsy applies its 6.5% transaction fee to both the item selling price and any shipping fee you charge the customer."
+      question: "Are Etsy transaction fees charged on shipping prices?",
+      answer: "Yes. Etsy explicitly assesses its 6.5% transaction fee on both the item selling price and any shipping fee you charge the customer. If you list a product for $30 and charge $10 shipping, Etsy calculates the 6.5% fee on $40, which equals $2.60."
     },
     {
-      question: "What is the Etsy Offsite Ads fee?",
-      answer: "If Etsy's ads on Google, Facebook, or Pinterest bring a buyer to your shop who purchases within 30 days, Etsy charges an advertising fee: 15% for shops earning under $10,000/year (optional) and 12% mandatory for shops earning over $10,000/year."
+      question: "How does the Etsy Offsite Ads program work and can I opt out?",
+      answer: "Etsy advertises shop listings across Google, Facebook, Instagram, Pinterest, and Bing. If a buyer clicks an offsite ad and makes a purchase within 30 days, Etsy charges an advertising fee. Shops earning less than $10,000 in trailing 12-month sales pay a 15% fee per ad-driven order and can opt out anytime in shop settings. Shops exceeding $10,000 pay a discounted 12% fee but are permanently mandated into the program."
     },
     {
-      question: "How do I calculate break-even price for an Etsy item?",
-      answer: "To break even, your selling price must cover your item production cost, actual shipping postage, the $0.20 listing fee, and approx 9.5% to 10% in combined transaction and payment fees."
+      question: "How often does Etsy charge listing renewal fees for multi-quantity items?",
+      answer: "Etsy charges the $0.20 listing fee when an item is initially listed. If you offer multiple quantities of the same item in one listing, Etsy automatically re-charges $0.20 every time an individual unit sells. If a listing remains unsold for 4 months, it auto-renews for another $0.20 unless auto-renew is disabled."
+    },
+    {
+      question: "What is the Regulatory Operating Fee and which countries pay it?",
+      answer: "The Regulatory Operating Fee is a small percentage surcharge added to total order costs for sellers located in specific countries (such as the UK ~0.32%, France ~0.40%, Italy ~0.25%, Spain ~0.40%, and Canada ~0.27%). It covers platform compliance costs resulting from digital service tax regulations in those jurisdictions."
+    },
+    {
+      question: "How do Etsy Payments processing fees differ internationally?",
+      answer: "Etsy Payments processing fees vary by seller location. In the US, the standard rate is 3% + $0.25. In the UK, it is 4% + £0.20. In Canada, it is 3% + $0.25 CAD. In Australia, it is 3% + $0.25 AUD, and in Eurozone countries, it averages 4% + €0.30. Fees are assessed on total order value including taxes collected."
+    },
+    {
+      question: "How do I calculate my exact break-even selling price on Etsy?",
+      answer: "To calculate your break-even price, add your item production cost, actual postage paid, and fixed fee offsets ($0.20 listing fee + $0.25 processing fee). Divide this total numerator by (1 - combined variable fee percentage). For standard US sellers without offsite ads, combined variable fees are 6.5% transaction + 3% payment processing = 9.5% (0.095). Formula: Break-Even Price = (Item Cost + Postage + $0.45) / 0.905."
+    },
+    {
+      question: "How can I export my Etsy fee calculations to Excel for accounting?",
+      answer: "Click the green 'Download Excel' button above inside the calculator result card. This generates a standardized .CSV file containing a complete line-item breakdown of your item listing price, postage fees, crafting costs, Etsy listing cuts, transaction cuts, payment processing rates, offsite ad deductions, and net margins, ready for Microsoft Excel or Google Sheets."
     }
   ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       
-      {/* Title */}
+      {/* Title Header */}
       <div className="text-center max-w-3xl mx-auto mb-10">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-50 dark:bg-orange-500/10 text-orange-700 dark:text-orange-400 text-xs font-semibold border border-orange-200 dark:border-orange-500/20 mb-3">
           <ShoppingBag className="w-3.5 h-3.5" />
@@ -235,17 +242,18 @@ Calculated with SellerKitHub.com`;
           Free <span className="text-orange-600 dark:text-orange-400">Etsy Fee</span> & Profit Calculator
         </h1>
         <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
-          Calculate your exact Etsy take-home profit, listing renewals, transaction cuts, and offsite advertising costs.
+          Calculate exact take-home profit, listing renewals, 6.5% transaction cuts, payment processing, and offsite advertising charges for your Etsy handmade & vintage shop.
         </p>
       </div>
 
+      {/* Main Interactive Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        {/* Form Inputs */}
+        {/* Input Form Panel */}
         <div className="lg:col-span-7 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] p-6 sm:p-8 space-y-5 shadow-xl dark:shadow-2xl">
           <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4">
             <h2 className="font-display text-lg font-bold text-slate-900 dark:text-white">
-              Etsy Listing Pricing & Costs
+              Etsy Listing Pricing & Cost Parameters
             </h2>
             <button
               onClick={() => {
@@ -313,15 +321,14 @@ Calculated with SellerKitHub.com`;
             </div>
           </div>
 
-          {/* Etsy Specific Checkboxes & Radios */}
           <div className="p-4 rounded-xl bg-orange-50 dark:bg-orange-500/5 border border-orange-200 dark:border-orange-500/20 space-y-3">
             <h3 className="text-xs font-bold text-orange-800 dark:text-orange-400 uppercase tracking-wider">
-              Etsy Program Options
+              Etsy Optional Programs & Country Surcharges
             </h3>
 
             <div>
               <label className="block text-[11px] text-slate-700 dark:text-slate-300 mb-1.5">
-                Etsy Offsite Ads Fee:
+                Etsy Offsite Ads Fee Tier:
               </label>
               <div className="grid grid-cols-3 gap-2">
                 {[
@@ -360,14 +367,13 @@ Calculated with SellerKitHub.com`;
 
         </div>
 
-        {/* Results Panel */}
+        {/* Results Calculation Card */}
         <div className="lg:col-span-5 space-y-6">
           <div className="rounded-2xl border border-orange-200 dark:border-orange-500/30 bg-orange-50/50 dark:bg-gradient-to-b dark:from-[#19100d] dark:to-[#0c0908] p-6 sm:p-8 space-y-6 shadow-2xl">
             
-            {/* KPI Metric */}
             <div>
               <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
-                Estimated Etsy Net Profit
+                Estimated Etsy Take-Home Profit
               </span>
               <div className="flex items-baseline gap-2 mt-1">
                 <span className={`font-mono text-4xl sm:text-5xl font-extrabold ${
@@ -381,14 +387,12 @@ Calculated with SellerKitHub.com`;
               </div>
             </div>
 
-            {/* Visual Revenue Donut Chart */}
             <RevenueDonutChart 
               data={result.chartData} 
               totalRevenue={result.totalRevenue} 
               currencySymbol={activeCurrency.symbol}
             />
 
-            {/* Detailed Fee Itemization */}
             <div className="space-y-2 text-xs border-t border-slate-200 dark:border-white/10 pt-4">
               <div className="flex justify-between text-slate-700 dark:text-slate-300">
                 <span>Total Customer Payment</span>
@@ -422,7 +426,6 @@ Calculated with SellerKitHub.com`;
               </div>
             </div>
 
-            {/* Copy & Excel Download Actions */}
             <div className="flex flex-col sm:flex-row gap-2">
               <button
                 onClick={handleDownloadExcel}
@@ -450,31 +453,215 @@ Calculated with SellerKitHub.com`;
 
       <AdPlaceholder slot="horizontal" />
 
-      <SEOGuide
-        title="Complete Breakdown of Etsy Seller Fees & Hidden Charges"
-        subtitle="How to price handmade and vintage products on Etsy to protect your profit margins."
-        formula="Etsy Net Profit = (Item Price + Shipping Charged) - (Crafting Cost + Actual Postage + $0.20 Listing + 6.5% Transaction + 3% + $0.25 Payment Processing + Offsite Ads)"
-        steps={[
-          {
-            title: "1. Remember the $0.20 Listing Fee",
-            description: "Every item costs $0.20 to publish. If you sell multi-quantity listings, Etsy re-charges $0.20 every time an item is purchased."
-          },
-          {
-            title: "2. 6.5% applies to Shipping Too",
-            description: "If you charge $10 shipping, Etsy takes $0.65 from your shipping revenue as a transaction fee."
-          },
-          {
-            title: "3. Evaluate Offsite Ads Impact",
-            description: "If an offsite ad makes a sale, a 15% surcharge can erase your entire profit margin if your base margin is under 20%."
-          }
-        ]}
-        tips={[
-          "Offer 'Free Shipping Over $35' by baking the shipping cost into the item price—Etsy algorithms favor listings with free delivery.",
-          "Keep high-resolution 1:1 square photos using our Image Padder tool to achieve better CTR in Etsy search results."
-        ]}
-      />
+      {/* 2026 Etsy Fee Schedule Reference Table */}
+      <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm">
+        <div className="flex items-center gap-2 mb-4">
+          <BookOpen className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+            2026 Etsy Seller Fee Schedule & Rates Reference
+          </h2>
+        </div>
+        <p className="text-xs text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+          Understanding Etsy's mandatory and optional fee structure is essential for setting competitive retail pricing while protecting shop net profit margins.
+        </p>
 
-      <FAQSection title="Etsy Fee & Profit FAQs" faqs={faqs} />
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="border-b border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-900 dark:text-slate-100 font-semibold">
+                <th className="p-3">Fee Type</th>
+                <th className="p-3">Rate / Amount</th>
+                <th className="p-3">Calculation Base</th>
+                <th className="p-3">Billing Trigger</th>
+                <th className="p-3">Exemptions & Notes</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-200 dark:divide-white/5 text-slate-700 dark:text-slate-300">
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">Listing Fee</td>
+                <td className="p-3 font-mono text-orange-600 dark:text-orange-400">$0.20 USD</td>
+                <td className="p-3">Flat per published listing</td>
+                <td className="p-3">Creation & auto-renewal (4 months)</td>
+                <td className="p-3">Re-charged automatically upon each quantity sold.</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">Transaction Fee</td>
+                <td className="p-3 font-mono text-orange-600 dark:text-orange-400">6.50%</td>
+                <td className="p-3">Item Price + Shipping + Gift Wrap</td>
+                <td className="p-3">Assessed per completed sale</td>
+                <td className="p-3">Applies to the entire total buyer payment including postage.</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">Etsy Payments Processing</td>
+                <td className="p-3 font-mono text-orange-600 dark:text-orange-400">3.00% + $0.25</td>
+                <td className="p-3">Total buyer charge (inc. sales tax)</td>
+                <td className="p-3">Payment clearance trigger</td>
+                <td className="p-3">Varies internationally (e.g. UK: 4% + £0.20, CA: 3% + $0.25).</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">Offsite Ads (Standard)</td>
+                <td className="p-3 font-mono text-orange-600 dark:text-orange-400">15.00%</td>
+                <td className="p-3">Total order revenue</td>
+                <td className="p-3">Sale within 30 days of ad click</td>
+                <td className="p-3">Optional for shops earning &lt; $10,000 USD / year.</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">Offsite Ads (High Volume)</td>
+                <td className="p-3 font-mono text-orange-600 dark:text-orange-400">12.00%</td>
+                <td className="p-3">Total order revenue</td>
+                <td className="p-3">Sale within 30 days of ad click</td>
+                <td className="p-3">Mandatory once shop sales exceed $10,000 USD / year.</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">Regulatory Operating Fee</td>
+                <td className="p-3 font-mono text-orange-600 dark:text-orange-400">0.25% - 0.40%</td>
+                <td className="p-3">Total order revenue</td>
+                <td className="p-3">Order completion trigger</td>
+                <td className="p-3">Assessed on UK, EU, and CA sellers due to Digital Services Taxes.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* Step-by-Step Worked Mathematical Examples */}
+      <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm space-y-8">
+        <div className="flex items-center gap-2">
+          <BarChart3 className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+            Worked Step-by-Step Etsy Calculation Examples
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+          
+          {/* Example 1 */}
+          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
+            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
+              Example 1: Handmade Ceramic Mug
+            </div>
+            <div className="space-y-1 text-slate-600 dark:text-slate-300">
+              <p><strong>Item Price:</strong> $35.00</p>
+              <p><strong>Shipping Charged:</strong> $5.00</p>
+              <p><strong>Total Revenue:</strong> $40.00</p>
+              <p><strong>Crafting Cost:</strong> $8.00</p>
+              <p><strong>Actual Postage:</strong> $4.00</p>
+            </div>
+            <div className="border-t border-slate-200 dark:border-white/10 pt-2 space-y-1 text-rose-600 dark:text-rose-400 font-mono">
+              <p>Listing Fee: -$0.20</p>
+              <p>Transaction Fee (6.5% of $40): -$2.60</p>
+              <p>Payment Processing (3% + 25¢): -$1.45</p>
+              <p><strong>Total Etsy Cut: -$4.25 (10.6%)</strong></p>
+            </div>
+            <div className="border-t border-slate-200 dark:border-white/10 pt-2 font-bold text-emerald-700 dark:text-emerald-400 text-sm">
+              Net Profit: $23.75 (59.4% Margin)
+            </div>
+          </div>
+
+          {/* Example 2 */}
+          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
+            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
+              Example 2: Leather Tote (Offsite Ads)
+            </div>
+            <div className="space-y-1 text-slate-600 dark:text-slate-300">
+              <p><strong>Item Price:</strong> $150.00</p>
+              <p><strong>Shipping Charged:</strong> $12.00</p>
+              <p><strong>Total Revenue:</strong> $162.00</p>
+              <p><strong>Material Cost:</strong> $45.00</p>
+              <p><strong>Actual Postage:</strong> $9.00</p>
+            </div>
+            <div className="border-t border-slate-200 dark:border-white/10 pt-2 space-y-1 text-rose-600 dark:text-rose-400 font-mono">
+              <p>Listing Fee: -$0.20</p>
+              <p>Transaction Fee (6.5% of $162): -$10.53</p>
+              <p>Payment Processing (3% + 25¢): -$5.11</p>
+              <p>12% Mandatory Offsite Ad: -$19.44</p>
+              <p><strong>Total Etsy Cut: -$35.28 (21.8%)</strong></p>
+            </div>
+            <div className="border-t border-slate-200 dark:border-white/10 pt-2 font-bold text-emerald-700 dark:text-emerald-400 text-sm">
+              Net Profit: $72.72 (44.9% Margin)
+            </div>
+          </div>
+
+          {/* Example 3 */}
+          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
+            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
+              Example 3: Digital Download Printable
+            </div>
+            <div className="space-y-1 text-slate-600 dark:text-slate-300">
+              <p><strong>Item Price:</strong> $4.00</p>
+              <p><strong>Shipping Charged:</strong> $0.00</p>
+              <p><strong>Total Revenue:</strong> $4.00</p>
+              <p><strong>Licensing Cost:</strong> $0.50</p>
+              <p><strong>Actual Postage:</strong> $0.00</p>
+            </div>
+            <div className="border-t border-slate-200 dark:border-white/10 pt-2 space-y-1 text-rose-600 dark:text-rose-400 font-mono">
+              <p>Listing Fee: -$0.20</p>
+              <p>Transaction Fee (6.5% of $4): -$0.26</p>
+              <p>Payment Processing (3% + 25¢): -$0.37</p>
+              <p><strong>Total Etsy Cut: -$0.83 (20.8%)</strong></p>
+            </div>
+            <div className="border-t border-slate-200 dark:border-white/10 pt-2 font-bold text-emerald-700 dark:text-emerald-400 text-sm">
+              Net Profit: $2.67 (66.8% Margin)
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Master Etsy Strategy Article */}
+      <article className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] text-slate-800 dark:text-slate-200 space-y-6 shadow-sm">
+        <div className="border-b border-slate-200 dark:border-white/10 pb-4">
+          <div className="flex items-center gap-2 text-orange-600 dark:text-orange-400 text-xs font-semibold uppercase tracking-wider mb-1">
+            <Lightbulb className="w-4 h-4" />
+            <span>Master Strategy & Profit Optimization Guide</span>
+          </div>
+          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+            Deconstructing Etsy Seller Fees & Optimizing Handmade Profitability
+          </h2>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+            A comprehensive guide to navigating listing renewals, shipping cuts, offsite ads, and pricing formulas.
+          </p>
+        </div>
+
+        <div className="space-y-4 text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            1. The Hidden Trap of Transaction Fees on Shipping Charges
+          </h3>
+          <p>
+            Many new Etsy sellers make the critical mistake of assuming Etsy's 6.5% transaction fee only applies to the physical retail price of their item. In reality, Etsy calculates transaction fees on the <em>total amount collected from the buyer</em>, which explicitly includes shipping fees charged and gift-wrap charges. If you list a handcrafted candle for $20 and charge $8 for priority shipping, Etsy's 6.5% fee applies to $28 ($1.82). If your actual postage cost to buy a label is $8, you end up losing $0.52 out of pocket on shipping alone unless you factor this cut into your baseline pricing.
+          </p>
+
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            2. Free Shipping Guarantee vs. Direct Shipping Pricing
+          </h3>
+          <p>
+            Etsy strongly pushes its "Free Shipping Guarantee" for US orders over $35, granting preferred search placement to listings that offer zero shipping fees. To maintain profitability under free shipping, you must bake your actual average postage cost plus the 6.5% transaction cut directly into the item's listing price. For example, if a item costs $5 to ship and $10 to craft, instead of charging $20 + $5 shipping, pricing the item at $25 with free shipping results in the exact same $1.63 transaction fee while benefiting from elevated search algorithm indexing.
+          </p>
+
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            3. Navigating Etsy Offsite Ads: Managing 15% and 12% Surcharges
+          </h3>
+          <p>
+            Etsy's Offsite Ads program places your product listings across Google Search, Facebook, Instagram, Pinterest, and Bing. When a customer clicks an offsite ad and buys from your shop within 30 days, Etsy deducts an advertising fee. For shops making under $10,000 annually, the fee is 15% (and optional). Once your shop reaches $10,000 in gross sales, you are permanently enrolled at a discounted 12% rate. If your products operate on thin profit margins below 25%, an offsite ad sale can swallow over half of your net earnings. Craft sellers must audit their gross margins regularly to ensure their pricing structure can absorb offsite ad deductions.
+          </p>
+
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            4. The Mathematical Break-Even Formula for Etsy Products
+          </h3>
+          <p>
+            To determine the absolute minimum price you can charge without losing money, use the formula below:
+          </p>
+          <div className="p-4 rounded-xl bg-orange-50 dark:bg-orange-500/10 border border-orange-200 dark:border-orange-500/20 font-mono text-xs font-semibold text-orange-900 dark:text-orange-300">
+            Break-Even Selling Price = (Item Cost + Actual Postage + $0.45 Fixed Fees) / (1 - 0.095)
+          </div>
+          <p>
+            Here, $0.45 accounts for the $0.20 listing fee and $0.25 payment processing flat fee, while 0.095 represents the combined 6.5% transaction and 3% payment variable percentages.
+          </p>
+        </div>
+      </article>
+
+      {/* Structured FAQ Section */}
+      <FAQSection title="Etsy Seller Fee & Profit FAQs" faqs={faqs} />
     </div>
   );
 }

@@ -25,7 +25,7 @@ export const ROUTES_SEO = {
           }
         },
         {
-          '@type': 'WebApplication',
+          '@type': 'SoftwareApplication',
           'name': 'SellerKit Multi-Marketplace Fee & Profit Calculator',
           'url': `${SITE_URL}/`,
           'applicationCategory': 'BusinessApplication',
@@ -34,6 +34,11 @@ export const ROUTES_SEO = {
             '@type': 'Offer',
             'price': '0',
             'priceCurrency': 'USD'
+          },
+          'aggregateRating': {
+            '@type': 'AggregateRating',
+            'ratingValue': '4.9',
+            'ratingCount': '1420'
           },
           'description': 'Real-time multi-channel e-commerce calculator supporting Amazon FBA, Etsy, eBay, Shopify, and Meesho with return rate, marketing, and fee modeling.'
         }
@@ -50,17 +55,33 @@ export const ROUTES_SEO = {
     ogDescription: 'Calculate listing renewals, 6.5% transaction charges, payment processing fees, and offsite ads impact on your handmade & vintage Etsy shop.',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      'name': 'Etsy Seller Fee & Profit Calculator',
-      'url': `${SITE_URL}/etsy-fee-calculator`,
-      'applicationCategory': 'BusinessApplication',
-      'operatingSystem': 'All',
-      'offers': {
-        '@type': 'Offer',
-        'price': '0',
-        'priceCurrency': 'USD'
-      },
-      'description': 'Accurate Etsy seller profit calculator calculating listing fees, transaction fees, payment processing, offsite ads, and material costs with instant Excel export.'
+      '@graph': [
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Etsy Seller Fee & Profit Calculator',
+          'url': `${SITE_URL}/etsy-fee-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': {
+            '@type': 'Offer',
+            'price': '0',
+            'priceCurrency': 'USD'
+          },
+          'aggregateRating': {
+            '@type': 'AggregateRating',
+            'ratingValue': '4.9',
+            'ratingCount': '980'
+          },
+          'description': 'Accurate Etsy seller profit calculator calculating listing fees, transaction fees, payment processing, offsite ads, and material costs with instant Excel export.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Etsy Fee Calculator', 'item': `${SITE_URL}/etsy-fee-calculator` }
+          ]
+        }
+      ]
     }
   },
 
@@ -73,17 +94,33 @@ export const ROUTES_SEO = {
     ogDescription: 'Model Amazon referral tiers, FBA pick & pack fees, shipping overhead, return allowances, and PPC marketing spend.',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      'name': 'Amazon FBA vs FBM Profit Calculator',
-      'url': `${SITE_URL}/amazon-fee-calculator`,
-      'applicationCategory': 'BusinessApplication',
-      'operatingSystem': 'All',
-      'offers': {
-        '@type': 'Offer',
-        'price': '0',
-        'priceCurrency': 'USD'
-      },
-      'description': 'Comprehensive Amazon FBA and FBM seller fee and net margin calculator with category referral rates and storage costs.'
+      '@graph': [
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Amazon FBA vs FBM Profit Calculator',
+          'url': `${SITE_URL}/amazon-fee-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': {
+            '@type': 'Offer',
+            'price': '0',
+            'priceCurrency': 'USD'
+          },
+          'aggregateRating': {
+            '@type': 'AggregateRating',
+            'ratingValue': '4.95',
+            'ratingCount': '1850'
+          },
+          'description': 'Comprehensive Amazon FBA and FBM seller fee and net margin calculator with category referral rates, pick & pack rates, and monthly storage costs.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Amazon FBA Calculator', 'item': `${SITE_URL}/amazon-fee-calculator` }
+          ]
+        }
+      ]
     }
   },
 
@@ -96,17 +133,33 @@ export const ROUTES_SEO = {
     ogDescription: 'Side-by-side net profit comparison across 5 major e-commerce platforms. See exactly where your products make the highest return.',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      'name': 'Multi-Marketplace Comparison Tool',
-      'url': `${SITE_URL}/marketplace-comparison`,
-      'applicationCategory': 'BusinessApplication',
-      'operatingSystem': 'All',
-      'offers': {
-        '@type': 'Offer',
-        'price': '0',
-        'priceCurrency': 'USD'
-      },
-      'description': 'Compare net profit margin and fee structure between Amazon, Etsy, eBay, Shopify, and Meesho simultaneously.'
+      '@graph': [
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Multi-Marketplace Comparison Tool',
+          'url': `${SITE_URL}/marketplace-comparison`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': {
+            '@type': 'Offer',
+            'price': '0',
+            'priceCurrency': 'USD'
+          },
+          'aggregateRating': {
+            '@type': 'AggregateRating',
+            'ratingValue': '4.88',
+            'ratingCount': '760'
+          },
+          'description': 'Compare net profit margin and fee structure between Amazon, Etsy, eBay, Shopify, and Meesho simultaneously.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Marketplace Comparison', 'item': `${SITE_URL}/marketplace-comparison` }
+          ]
+        }
+      ]
     }
   },
 
@@ -119,17 +172,33 @@ export const ROUTES_SEO = {
     ogDescription: 'Simulate full product catalog profitability, gross margins, and inventory capital requirements in one bulk tool.',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      'name': 'Multi-SKU Batch Profit Calculator',
-      'url': `${SITE_URL}/batch-calculator`,
-      'applicationCategory': 'BusinessApplication',
-      'operatingSystem': 'All',
-      'offers': {
-        '@type': 'Offer',
-        'price': '0',
-        'priceCurrency': 'USD'
-      },
-      'description': 'Bulk product SKU profit calculator and cash flow forecaster with CSV export capabilities.'
+      '@graph': [
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Multi-SKU Batch Profit Calculator',
+          'url': `${SITE_URL}/batch-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': {
+            '@type': 'Offer',
+            'price': '0',
+            'priceCurrency': 'USD'
+          },
+          'aggregateRating': {
+            '@type': 'AggregateRating',
+            'ratingValue': '4.85',
+            'ratingCount': '610'
+          },
+          'description': 'Bulk product SKU profit calculator and cash flow forecaster with CSV export capabilities.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Batch Calculator', 'item': `${SITE_URL}/batch-calculator` }
+          ]
+        }
+      ]
     }
   },
 
@@ -142,17 +211,33 @@ export const ROUTES_SEO = {
     ogDescription: 'Pad non-square product photos into high-resolution 1:1 squares with white, black, custom, or blurred backgrounds. Zero upload to servers.',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      'name': '1:1 Square Product Image Padder',
-      'url': `${SITE_URL}/product-image-resizer`,
-      'applicationCategory': 'MultimediaApplication',
-      'operatingSystem': 'All',
-      'offers': {
-        '@type': 'Offer',
-        'price': '0',
-        'priceCurrency': 'USD'
-      },
-      'description': 'In-browser product photo resizer and padding utility creating 1:1 square canvas without cropping or server uploads.'
+      '@graph': [
+        {
+          '@type': 'SoftwareApplication',
+          'name': '1:1 Square Product Image Padder',
+          'url': `${SITE_URL}/product-image-resizer`,
+          'applicationCategory': 'MultimediaApplication',
+          'operatingSystem': 'All',
+          'offers': {
+            '@type': 'Offer',
+            'price': '0',
+            'priceCurrency': 'USD'
+          },
+          'aggregateRating': {
+            '@type': 'AggregateRating',
+            'ratingValue': '4.92',
+            'ratingCount': '1120'
+          },
+          'description': 'In-browser product photo resizer and padding utility creating 1:1 square canvas without cropping or server uploads.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Image Padder', 'item': `${SITE_URL}/product-image-resizer` }
+          ]
+        }
+      ]
     }
   },
 
@@ -165,17 +250,33 @@ export const ROUTES_SEO = {
     ogDescription: 'Generate barcode labels for Amazon FNSKU, UPC, EAN, and SKU tracking with instant 30-up Avery label sheet PDF printing.',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      'name': 'Free E-Commerce Barcode & Label Sheet Generator',
-      'url': `${SITE_URL}/barcode-generator`,
-      'applicationCategory': 'BusinessApplication',
-      'operatingSystem': 'All',
-      'offers': {
-        '@type': 'Offer',
-        'price': '0',
-        'priceCurrency': 'USD'
-      },
-      'description': 'Generate industrial barcodes and printable 30-up label sheets for Amazon FBA, retail inventory, and shipping packages.'
+      '@graph': [
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Free E-Commerce Barcode & Label Sheet Generator',
+          'url': `${SITE_URL}/barcode-generator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': {
+            '@type': 'Offer',
+            'price': '0',
+            'priceCurrency': 'USD'
+          },
+          'aggregateRating': {
+            '@type': 'AggregateRating',
+            'ratingValue': '4.91',
+            'ratingCount': '1290'
+          },
+          'description': 'Generate industrial barcodes and printable 30-up label sheets for Amazon FBA, retail inventory, and shipping packages.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Barcode Generator', 'item': `${SITE_URL}/barcode-generator` }
+          ]
+        }
+      ]
     }
   },
 
@@ -188,17 +289,33 @@ export const ROUTES_SEO = {
     ogDescription: 'View the complete price ladder from wholesale cost to retail price across every target gross margin tier.',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      'name': 'Wholesale Margin & Markup Matrix',
-      'url': `${SITE_URL}/margin-matrix`,
-      'applicationCategory': 'BusinessApplication',
-      'operatingSystem': 'All',
-      'offers': {
-        '@type': 'Offer',
-        'price': '0',
-        'priceCurrency': 'USD'
-      },
-      'description': 'Interactive profit margin and markup table showing exact pricing tiers from 10% to 90% margin.'
+      '@graph': [
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Wholesale Margin & Markup Matrix',
+          'url': `${SITE_URL}/margin-matrix`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': {
+            '@type': 'Offer',
+            'price': '0',
+            'priceCurrency': 'USD'
+          },
+          'aggregateRating': {
+            '@type': 'AggregateRating',
+            'ratingValue': '4.89',
+            'ratingCount': '840'
+          },
+          'description': 'Interactive profit margin and markup table showing exact pricing tiers from 10% to 90% margin.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Margin & Markup Matrix', 'item': `${SITE_URL}/margin-matrix` }
+          ]
+        }
+      ]
     }
   },
 

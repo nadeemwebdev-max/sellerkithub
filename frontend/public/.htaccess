@@ -2,20 +2,27 @@
 # Hostinger Apache / LiteSpeed Production Configuration for SellerKitHub
 # ==============================================================================
 
-# 1. SPA Fallback Routing (Redirect all non-file requests to index.html)
+# Ensure DirectoryIndex finds index.html first
+DirectoryIndex index.html
+
+# 1. Prerendered Static Routes & SPA Fallback Routing
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
   
-  # Ensure index.html is not rewritten in a loop
+  # Ensure root index.html is not rewritten in a loop
   RewriteRule ^index\.html$ - [L]
 
-  # Serve existing static files and directories directly
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME} !-l
+  # If requested directory contains an index.html (prerendered route), serve it directly
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_FILENAME}/index.html -f
+  RewriteRule ^(.*)$ $1/index.html [L]
 
-  # Route all other URLs to index.html for React Router
+  # Serve existing static files directly
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^ - [L]
+
+  # Route all other URLs to root index.html for React Router SPA
   RewriteRule . /index.html [L]
 </IfModule>
 
@@ -63,7 +70,7 @@
 
 # 5. Cache-Control Header Fine-Tuning
 <IfModule mod_headers.c>
-  # Ensure index.html is revalidated so visitors get fresh releases immediately
+  # Ensure HTML and JSON are revalidated so visitors get fresh releases immediately
   <FilesMatch "\.(html|json)$">
     Header set Cache-Control "no-cache, no-store, must-revalidate"
     Header set Pragma "no-cache"

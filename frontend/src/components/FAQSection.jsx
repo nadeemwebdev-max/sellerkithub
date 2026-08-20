@@ -61,11 +61,13 @@ export default function FAQSection({ title = "Frequently Asked Questions", faqs 
                   }`}
                 />
               </button>
-              {isOpen && (
-                <div className="px-5 pb-4 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-white/5 pt-3">
-                  {faq.answer}
-                </div>
-              )}
+              <div
+                className={`px-5 pb-4 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-white/5 pt-3 ${
+                  isOpen ? 'block' : 'hidden'
+                }`}
+              >
+                {faq.answer}
+              </div>
             </div>
           );
         })}

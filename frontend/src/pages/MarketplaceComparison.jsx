@@ -10,21 +10,23 @@ import {
   RefreshCw, 
   Sparkles,
   ArrowRight,
-  ShieldCheck
+  ShieldCheck,
+  BookOpen,
+  BarChart3,
+  Lightbulb
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { calculateMasterProfit, exportToCSV } from '../utils/calculations';
 import FAQSection from '../components/FAQSection';
-import SEOGuide from '../components/SEOGuide';
 import AdPlaceholder from '../components/AdPlaceholder';
 
 export default function MarketplaceComparison() {
   const { activeCurrency, format } = useCurrency();
 
   // Unified Input State
-  const [sellingPrice, setSellingPrice] = useState(activeCurrency.defaultPrice || 35.00);
-  const [productCost, setProductCost] = useState(activeCurrency.defaultCost || 9.50);
-  const [shippingCost, setShippingCost] = useState(activeCurrency.defaultShip || 4.50);
+  const [sellingPrice, setSellingPrice] = useState(35.00);
+  const [productCost, setProductCost] = useState(9.50);
+  const [shippingCost, setShippingCost] = useState(4.50);
   const [marketingSpend, setMarketingSpend] = useState(2.00);
   const [returnRate, setReturnRate] = useState(3);
   const [copied, setCopied] = useState(false);
@@ -68,7 +70,6 @@ export default function MarketplaceComparison() {
       };
     });
 
-    // Sort by highest profit
     return results.sort((a, b) => b.netProfit - a.netProfit);
   }, [sellingPrice, productCost, shippingCost, marketingSpend, returnRate, activeCurrency]);
 
@@ -79,17 +80,18 @@ export default function MarketplaceComparison() {
     comparisons.forEach((item, idx) => {
       csv += `"#${idx + 1}","${item.name}","${sellingPrice}","${productCost}","${item.platformFee.toFixed(2)}","${item.fulfillmentFee.toFixed(2)}","${item.totalExpenses.toFixed(2)}","${item.netProfit.toFixed(2)}","${item.netMarginPercent.toFixed(1)}%","${item.roiPercent.toFixed(1)}%"\n`;
     });
+
     exportToCSV(`marketplace-side-by-side-comparison`, csv);
     setDownloaded(true);
     setTimeout(() => setDownloaded(false), 2000);
   };
 
   const copySummary = () => {
-    let text = `SellerKit Marketplace Profit Comparison:\nSelling Price: ${format(sellingPrice)} | Cost: ${format(productCost)}\n--------------------------------\n`;
-    comparisons.forEach((item, idx) => {
-      text += `#${idx + 1} ${item.name}: Net Profit ${format(item.netProfit)} (${item.netMarginPercent.toFixed(1)}% margin)\n`;
+    let text = `Side-by-Side E-Commerce Marketplace Profit Comparison:\nPrice: ${format(sellingPrice)} | Cost: ${format(productCost)}\n--------------------------------\n`;
+    comparisons.forEach((c, i) => {
+      text += `#${i + 1} ${c.name}: Net Profit ${format(c.netProfit)} (${c.netMarginPercent.toFixed(1)}% Margin)\n`;
     });
-    text += `--------------------------------\nWinner: ${bestPlatform.name} yields highest take-home profit!\nCalculated with SellerKit.tools`;
+    text += `--------------------------------\nCalculated with SellerKitHub.com`;
 
     navigator.clipboard.writeText(text);
     setCopied(true);
@@ -98,230 +100,436 @@ export default function MarketplaceComparison() {
 
   const faqs = [
     {
-      question: "Which marketplace offers the highest seller profit margin?",
-      answer: "Independent stores on Shopify typically yield the highest profit margins (often 40%–55%) because they don't charge 15% marketplace referral commissions. However, marketplaces like Amazon provide immediate organic search traffic without requiring paid ad acquisition."
+      question: "Which e-commerce marketplace yields the highest profit margin?",
+      answer: "Direct-to-consumer platforms like Shopify yield the highest gross margin per sale (often 60%-75%) because there are zero marketplace commission cuts—only payment processing (2.9% + 30¢). However, direct stores require you to generate your own traffic through paid ads or SEO. Among built-in marketplaces, Etsy and eBay often yield higher net margins than Amazon FBA due to lower fulfillment and storage overhead."
     },
     {
-      question: "Should I sell on Amazon FBA or Shopify first?",
-      answer: "Amazon FBA is ideal for fast sales volume and immediate customer trust through Prime shipping. Shopify is best for long-term brand building, repeat customer retention, and maximum margin control."
+      question: "Is Shopify cheaper than Amazon FBA for new sellers?",
+      answer: "Shopify has lower variable transaction costs (approx 2.9% + 30¢ per transaction vs Amazon's 15% referral + $3.86+ FBA fee). However, Shopify charges a fixed monthly subscription ($39/mo) and requires customer acquisition advertising spend (PPC or Meta ads). Amazon provides built-in organic search traffic, making it easier for new sellers without an existing audience to make initial sales."
     },
     {
-      question: "How are payment gateway fees compared across platforms?",
-      answer: "Etsy charges 3% + $0.25, eBay charges 13.25% all-inclusive, Amazon includes payment processing in its referral fee, and Shopify charges standard 2.9% + $0.30 via Shopify Payments."
+      question: "How do Etsy seller fees compare to eBay seller fees in 2026?",
+      answer: "Etsy charges a $0.20 listing fee, 6.5% transaction fee (on item + shipping), and 3% + $0.25 payment processing fee (~9.5% + 45¢ total). eBay charges zero listing fees for your first 250 monthly listings and a category Most Category final value fee of 13.25% + $0.30 (which includes payment processing). Etsy is slightly cheaper for lower-ticket handmade items, while eBay is more straightforward for general retail and resale."
+    },
+    {
+      question: "Why does Meesho have 0% commission and how do resellers profit?",
+      answer: "Meesho operates a zero-commission model for suppliers in India to attract catalog volume. Suppliers price items at wholesale rates, and resellers list them on social platforms (WhatsApp, Instagram) with their own markup. Meesho makes revenue through logistics fulfillment services, seller promotion tools, and return shipping management."
+    },
+    {
+      question: "Which platform is best for selling high-ticket ($100+) goods?",
+      answer: "eBay and Shopify are excellent for high-ticket goods. eBay caps final value fees in select categories and offers buyer authentication programs for luxury items, watches, and sneakers. Shopify allows brand owners to retain 97% of high-ticket sales revenue without percentage commission penalties."
+    },
+    {
+      question: "How do customer acquisition costs (CAC) differ between direct sites and marketplaces?",
+      answer: "Marketplaces (Amazon, Etsy, eBay) charge a higher commission fee (6.5% to 15%) in exchange for instant access to hundreds of millions of active shoppers. Direct websites (Shopify) charge low transaction fees (2.9%) but require you to spend $10 to $30+ in customer acquisition costs (CAC) per buyer via Meta, Google, or influencer ads."
+    },
+    {
+      question: "Should I sell on multiple marketplaces simultaneously?",
+      answer: "Yes! Multi-channel selling diversifies your revenue streams, reduces platform dependency risk, and maximizes brand reach. Using centralized inventory management software (such as Sellbrite or Linnworks) allows you to sync stock levels seamlessly across Amazon, Etsy, eBay, and Shopify."
+    },
+    {
+      question: "How do customer return policies and costs vary across platforms?",
+      answer: "Amazon FBA has a generous customer-first return policy where Amazon handles returns automatically, often charging sellers return processing fees. eBay allows sellers to set customized return policies (30-day, 60-day, or No Returns). Etsy leaves return policies to individual shop policies, though buyers can open cases under Etsy's Purchase Protection Program."
     }
   ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       
-      {/* Title */}
+      {/* Title Header */}
       <div className="text-center max-w-3xl mx-auto mb-10">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 dark:bg-brand-500/10 text-brand-700 dark:text-brand-400 text-xs font-semibold border border-brand-200 dark:border-brand-500/20 mb-3">
           <GitCompare className="w-3.5 h-3.5" />
-          <span>Cross-Platform Profit Arbitrage Tool</span>
+          <span>Real-Time Multi-Channel Channel Comparison</span>
         </div>
-        <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-          Side-by-Side <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-emerald-500 dark:from-brand-400 dark:to-emerald-400">Marketplace Comparison</span>
+        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          Marketplace <span className="text-brand-600 dark:text-brand-400">Profit & Fee</span> Comparison Tool
         </h1>
-        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3">
-          Enter your product numbers once to instantly see where you earn the highest take-home profit across Amazon, Etsy, eBay, Shopify, and Meesho.
+        <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+          Compare net take-home profit, marketplace cuts, and profit margins side-by-side across Amazon FBA, Amazon FBM, Etsy, eBay, Shopify, and Meesho on a single screen.
         </p>
       </div>
 
-      {/* Input Parameters Bar */}
-      <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] p-6 shadow-xl mb-8">
-        <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-3 mb-4">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200">
-            Shared Product Pricing & Costs ({activeCurrency.code})
-          </span>
-          <div className="flex gap-2">
+      {/* Main Interactive Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        {/* Form Inputs */}
+        <div className="lg:col-span-5 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] p-6 sm:p-8 space-y-5 shadow-xl dark:shadow-2xl">
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4">
+            <h2 className="font-display text-lg font-bold text-slate-900 dark:text-white">
+              Product Cost & Selling Inputs
+            </h2>
+            <button
+              onClick={() => {
+                setSellingPrice(35.00);
+                setProductCost(9.50);
+                setShippingCost(4.50);
+                setMarketingSpend(2.00);
+                setReturnRate(3);
+              }}
+              className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition"
+            >
+              <RefreshCw className="w-3 h-3" />
+              <span>Reset</span>
+            </button>
+          </div>
+
+          <div className="space-y-4">
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                Target Selling Price ({activeCurrency.symbol})
+              </label>
+              <input
+                type="number"
+                value={sellingPrice || ''}
+                onChange={(e) => setSellingPrice(parseFloat(e.target.value) || 0)}
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                Product Sourcing / Manufacturing Cost ({activeCurrency.symbol})
+              </label>
+              <input
+                type="number"
+                value={productCost || ''}
+                onChange={(e) => setProductCost(parseFloat(e.target.value) || 0)}
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                Shipping Postage Paid by Seller ({activeCurrency.symbol})
+              </label>
+              <input
+                type="number"
+                value={shippingCost || ''}
+                onChange={(e) => setShippingCost(parseFloat(e.target.value) || 0)}
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                Marketing Spend / Ad Budget per Unit ({activeCurrency.symbol})
+              </label>
+              <input
+                type="number"
+                value={marketingSpend || ''}
+                onChange={(e) => setMarketingSpend(parseFloat(e.target.value) || 0)}
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                Estimated Customer Return Rate (%)
+              </label>
+              <input
+                type="number"
+                value={returnRate || ''}
+                onChange={(e) => setReturnRate(parseFloat(e.target.value) || 0)}
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-2 pt-2">
             <button
               onClick={handleDownloadExcel}
-              className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center gap-1.5 transition shadow-sm"
+              className="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition shadow-md shadow-emerald-600/20"
             >
-              {downloaded ? <Check className="w-3.5 h-3.5" /> : <FileSpreadsheet className="w-3.5 h-3.5" />}
-              <span>{downloaded ? 'Downloaded!' : 'Export Excel'}</span>
+              {downloaded ? <Check className="w-4 h-4 text-emerald-200" /> : <FileSpreadsheet className="w-4 h-4" />}
+              <span>{downloaded ? 'Downloaded!' : 'Download CSV'}</span>
             </button>
+
             <button
               onClick={copySummary}
-              className="px-3.5 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs flex items-center gap-1.5 transition shadow-sm"
+              className="flex-1 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition shadow-md shadow-brand-600/20"
             >
-              {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-              <span>{copied ? 'Copied!' : 'Copy Summary'}</span>
+              {copied ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
+              <span>{copied ? 'Copied!' : 'Copy Ranking'}</span>
             </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-              Target Price ({activeCurrency.symbol})
-            </label>
-            <input
-              type="number"
-              value={sellingPrice || ''}
-              onChange={(e) => setSellingPrice(parseFloat(e.target.value) || 0)}
-              className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm font-bold focus:outline-none focus:border-brand-500"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-              Unit Sourcing Cost ({activeCurrency.symbol})
-            </label>
-            <input
-              type="number"
-              value={productCost || ''}
-              onChange={(e) => setProductCost(parseFloat(e.target.value) || 0)}
-              className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm font-bold focus:outline-none focus:border-brand-500"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-              Postage / Carrier ({activeCurrency.symbol})
-            </label>
-            <input
-              type="number"
-              value={shippingCost || ''}
-              onChange={(e) => setShippingCost(parseFloat(e.target.value) || 0)}
-              className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm font-bold focus:outline-none focus:border-brand-500"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-              PPC / Marketing ({activeCurrency.symbol})
-            </label>
-            <input
-              type="number"
-              value={marketingSpend || ''}
-              onChange={(e) => setMarketingSpend(parseFloat(e.target.value) || 0)}
-              className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm font-bold focus:outline-none focus:border-brand-500"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Winner Spotlight Banner */}
-      {bestPlatform && (
-        <div className="p-4 sm:p-5 rounded-2xl border border-emerald-300 dark:border-emerald-500/30 bg-emerald-50/70 dark:bg-emerald-500/10 flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 shadow-md">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow">
-              <Trophy className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-[11px] font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-wider">
-                Highest Profit Winner
+        {/* Simultaneous Platform Cards */}
+        <div className="lg:col-span-7 space-y-4">
+          <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Trophy className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              <span className="font-bold text-xs text-emerald-900 dark:text-emerald-300">
+                Most Profitable Channel: <span className="underline">{bestPlatform.name}</span>
               </span>
-              <h3 className="font-display text-lg font-extrabold text-slate-900 dark:text-white">
-                {bestPlatform.name} delivers <span className="text-emerald-700 dark:text-emerald-400">{format(bestPlatform.netProfit)}</span> net profit ({bestPlatform.netMarginPercent.toFixed(1)}% margin)
-              </h3>
             </div>
+            <span className="font-mono font-extrabold text-sm text-emerald-700 dark:text-emerald-400">
+              {format(bestPlatform.netProfit)} ({bestPlatform.netMarginPercent.toFixed(1)}%)
+            </span>
           </div>
-          <div className="text-right shrink-0">
-            <span className="text-xs text-slate-600 dark:text-slate-400 block">Total Unit Expenses:</span>
-            <span className="font-mono font-bold text-slate-900 dark:text-white">{format(bestPlatform.totalExpenses)}</span>
+
+          <div className="space-y-3">
+            {comparisons.map((item, idx) => (
+              <div
+                key={item.id}
+                className={`p-4 sm:p-5 rounded-2xl border transition-all ${
+                  idx === 0
+                    ? 'border-emerald-500/50 bg-emerald-50/30 dark:bg-emerald-500/5 shadow-md'
+                    : 'border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322]'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-6 h-6 rounded-full bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300 font-bold text-xs flex items-center justify-center font-mono">
+                      #{idx + 1}
+                    </span>
+                    <h3 className="font-bold text-sm text-slate-900 dark:text-white">
+                      {item.name}
+                    </h3>
+                  </div>
+
+                  <div className="text-right">
+                    <span className={`font-mono text-lg font-extrabold block ${
+                      item.netProfit > 0 ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'
+                    }`}>
+                      {format(item.netProfit)}
+                    </span>
+                    <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+                      {item.netMarginPercent.toFixed(1)}% Margin
+                    </span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-100 dark:border-white/5 text-[11px]">
+                  <div>
+                    <span className="text-slate-500 block">Platform Cut</span>
+                    <span className="font-mono font-semibold text-rose-600 dark:text-rose-400">-{format(item.platformFee)}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-500 block">Fulfillment / Shipping</span>
+                    <span className="font-mono font-semibold text-rose-600 dark:text-rose-400">-{format(item.fulfillmentFee)}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-500 block">ROI</span>
+                    <span className="font-mono font-semibold text-slate-900 dark:text-white">{item.roiPercent.toFixed(0)}%</span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
+
+          <AdPlaceholder slot="vertical" />
         </div>
-      )}
 
-      {/* Comparison Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        {comparisons.map((item, idx) => {
-          const isWinner = idx === 0;
-          return (
-            <div
-              key={item.id}
-              className={`rounded-2xl border p-6 space-y-4 transition shadow-lg ${
-                isWinner 
-                  ? 'border-emerald-400 bg-white dark:bg-gradient-to-b dark:from-[#0f1f1d] dark:to-[#0a1413] shadow-emerald-500/10 ring-2 ring-emerald-500/20' 
-                  : 'border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322]'
-              }`}
-            >
-              <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-3">
-                <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-slate-200 font-mono font-bold text-xs flex items-center justify-center">
-                    #{idx + 1}
-                  </span>
-                  <h4 className="font-bold text-sm text-slate-900 dark:text-white">
-                    {item.name}
-                  </h4>
-                </div>
-                {isWinner && (
-                  <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-bold text-[10px] uppercase">
-                    Highest Margin
-                  </span>
-                )}
-              </div>
-
-              {/* Profit Metric */}
-              <div>
-                <span className="text-[10px] text-slate-500 uppercase font-semibold">Net Take-Home Profit</span>
-                <div className="flex items-baseline gap-2 mt-0.5">
-                  <span className={`font-mono text-3xl font-extrabold ${
-                    item.netProfit > 0 ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'
-                  }`}>
-                    {format(item.netProfit)}
-                  </span>
-                  <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">
-                    ({item.netMarginPercent.toFixed(1)}%)
-                  </span>
-                </div>
-              </div>
-
-              {/* Breakdown */}
-              <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-400 border-t border-slate-100 dark:border-white/5 pt-3">
-                <div className="flex justify-between">
-                  <span>Platform Fee Cut:</span>
-                  <span className="font-mono text-rose-600 dark:text-rose-400">-{format(item.platformFee)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Fulfillment / Shipping:</span>
-                  <span className="font-mono text-rose-600 dark:text-rose-400">-{format(item.fulfillmentFee)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Total Expenses:</span>
-                  <span className="font-mono font-semibold text-slate-900 dark:text-white">{format(item.totalExpenses)}</span>
-                </div>
-                <div className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 border-t border-slate-100 dark:border-white/5 pt-1.5">
-                  <span>ROI on Cost:</span>
-                  <span className="font-mono text-emerald-700 dark:text-emerald-400">{item.roiPercent.toFixed(1)}%</span>
-                </div>
-              </div>
-            </div>
-          );
-        })}
       </div>
 
       <AdPlaceholder slot="horizontal" />
 
-      <SEOGuide
-        title="Multi-Channel E-Commerce Profit Arbitrage Strategy"
-        subtitle="How top sellers maximize revenue by cross-listing products across multiple marketplaces."
-        formula="Arbitrage Margin = Platform Net Revenue - Sourcing Cost - Channel-Specific Acquisition Cost"
-        steps={[
-          {
-            title: "1. Leverage Marketplace Trust for High Ticket Items",
-            description: "Use Amazon FBA for fast Prime delivery on higher-margin items where customers demand next-day delivery."
-          },
-          {
-            title: "2. Build Shopify for Repeat Subscribers",
-            description: "Sell replenishable or custom items on Shopify to eliminate platform referral commissions and capture direct email lists."
-          },
-          {
-            title: "3. Craft & Vintage on Etsy",
-            description: "Etsy buyers expect handmade quality and are willing to pay higher retail price points with lower price sensitivity."
-          }
-        ]}
-        tips={[
-          "Export the side-by-side comparison spreadsheet to model multi-channel pricing strategies before launching new inventory.",
-          "Check category-specific referral rates since apparel, electronics, and jewelry carry different percentages on Amazon and eBay."
-        ]}
-      />
+      {/* Multi-Channel Comparison Table */}
+      <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm">
+        <div className="flex items-center gap-2 mb-4">
+          <BookOpen className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+            2026 E-Commerce Multi-Channel Platform Matrix
+          </h2>
+        </div>
+        <p className="text-xs text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+          Comprehensive feature, fee, audience reach, and seller control comparison across top e-commerce platforms.
+        </p>
 
-      <FAQSection title="Marketplace Comparison FAQs" faqs={faqs} />
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="border-b border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-900 dark:text-slate-100 font-semibold">
+                <th className="p-3">Platform</th>
+                <th className="p-3">Avg Commission Cut</th>
+                <th className="p-3">Payment Processing</th>
+                <th className="p-3">Monthly Subscription</th>
+                <th className="p-3">Organic Traffic</th>
+                <th className="p-3">Customer Data Ownership</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-200 dark:divide-white/5 text-slate-700 dark:text-slate-300">
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">Amazon FBA</td>
+                <td className="p-3 font-mono text-rose-600 dark:text-rose-400">15.00% + FBA Pick/Pack</td>
+                <td className="p-3">Included in Referral</td>
+                <td className="p-3 font-mono">$39.99 / mo</td>
+                <td className="p-3 font-bold text-emerald-600 dark:text-emerald-400">Extremely High</td>
+                <td className="p-3 text-rose-600 dark:text-rose-400">None (Amazon Customer)</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">Etsy Store</td>
+                <td className="p-3 font-mono text-orange-600 dark:text-orange-400">6.50% + $0.20 Listing</td>
+                <td className="p-3 font-mono">3.00% + $0.25</td>
+                <td className="p-3 font-mono">$0.00 / mo</td>
+                <td className="p-3 font-bold text-emerald-600 dark:text-emerald-400">High (Handmade Niche)</td>
+                <td className="p-3 text-amber-600 dark:text-amber-400">Limited</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">eBay Marketplace</td>
+                <td className="p-3 font-mono text-blue-600 dark:text-blue-400">13.25% Final Value</td>
+                <td className="p-3">Included in Managed Payments</td>
+                <td className="p-3 font-mono">$0 - $24.95 / mo</td>
+                <td className="p-3 font-bold text-emerald-600 dark:text-emerald-400">High (Resale/Used)</td>
+                <td className="p-3 text-amber-600 dark:text-amber-400">Limited</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">Shopify Store</td>
+                <td className="p-3 font-mono text-emerald-600 dark:text-emerald-400">0.00% Commission</td>
+                <td className="p-3 font-mono">2.90% + $0.30</td>
+                <td className="p-3 font-mono">$39.00 / mo</td>
+                <td className="p-3 text-rose-600 dark:text-rose-400">None (Self-Driven PPC/SEO)</td>
+                <td className="p-3 font-bold text-emerald-600 dark:text-emerald-400">100% Full Ownership</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">Meesho Reseller</td>
+                <td className="p-3 font-mono text-emerald-600 dark:text-emerald-400">0.00% Commission</td>
+                <td className="p-3 font-mono">0.00% Payment Cut</td>
+                <td className="p-3 font-mono">$0.00 / mo</td>
+                <td className="p-3 font-bold text-emerald-600 dark:text-emerald-400">High (Social Commerce)</td>
+                <td className="p-3 text-amber-600 dark:text-amber-400">Social Contact Based</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
+      {/* Step-by-Step Worked Calculation Examples */}
+      <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm space-y-8">
+        <div className="flex items-center gap-2">
+          <BarChart3 className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+            Worked Side-by-Side Channel Profit Scenarios
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-xs">
+          
+          {/* Scenario 1 */}
+          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
+            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
+              Scenario 1: $50 Tech Gadget
+            </div>
+            <div className="space-y-1 text-slate-600 dark:text-slate-300">
+              <p><strong>Item Price:</strong> $50.00</p>
+              <p><strong>Sourcing Cost:</strong> $12.00</p>
+              <p><strong>Shipping Postage:</strong> $5.00</p>
+            </div>
+            <div className="border-t border-slate-200 dark:border-white/10 pt-2 space-y-1 font-mono text-[11px]">
+              <p className="text-amber-600">Amazon FBA: $21.14 Net (42.3%)</p>
+              <p className="text-orange-600">Etsy Store: $27.30 Net (54.6%)</p>
+              <p className="text-blue-600">eBay Store: $26.07 Net (52.1%)</p>
+              <p className="text-emerald-600">Shopify: $31.25 Net (62.5%)</p>
+            </div>
+          </div>
+
+          {/* Scenario 2 */}
+          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
+            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
+              Scenario 2: $15 Low-Ticket Fashion
+            </div>
+            <div className="space-y-1 text-slate-600 dark:text-slate-300">
+              <p><strong>Item Price:</strong> $15.00</p>
+              <p><strong>Sourcing Cost:</strong> $3.00</p>
+              <p><strong>Shipping Postage:</strong> $4.00</p>
+            </div>
+            <div className="border-t border-slate-200 dark:border-white/10 pt-2 space-y-1 font-mono text-[11px]">
+              <p className="text-amber-600">Amazon FBA: $2.64 Net (17.6%)</p>
+              <p className="text-orange-600">Etsy Store: $6.12 Net (40.8%)</p>
+              <p className="text-blue-600">eBay Store: $5.71 Net (38.1%)</p>
+              <p className="text-emerald-600">Shopify: $7.26 Net (48.4%)</p>
+            </div>
+          </div>
+
+          {/* Scenario 3 */}
+          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
+            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
+              Scenario 3: $250 Premium Decor
+            </div>
+            <div className="space-y-1 text-slate-600 dark:text-slate-300">
+              <p><strong>Item Price:</strong> $250.00</p>
+              <p><strong>Sourcing Cost:</strong> $80.00</p>
+              <p><strong>Shipping Postage:</strong> $22.00</p>
+            </div>
+            <div className="border-t border-slate-200 dark:border-white/10 pt-2 space-y-1 font-mono text-[11px]">
+              <p className="text-amber-600">Amazon FBA: $100.50 Net (40.2%)</p>
+              <p className="text-orange-600">Etsy Store: $124.00 Net (49.6%)</p>
+              <p className="text-blue-600">eBay Store: $114.87 Net (45.9%)</p>
+              <p className="text-emerald-600">Shopify: $140.45 Net (56.2%)</p>
+            </div>
+          </div>
+
+          {/* Scenario 4 */}
+          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
+            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
+              Scenario 4: $500 Luxury Timepiece
+            </div>
+            <div className="space-y-1 text-slate-600 dark:text-slate-300">
+              <p><strong>Item Price:</strong> $500.00</p>
+              <p><strong>Sourcing Cost:</strong> $180.00</p>
+              <p><strong>Shipping Postage:</strong> $30.00</p>
+            </div>
+            <div className="border-t border-slate-200 dark:border-white/10 pt-2 space-y-1 font-mono text-[11px]">
+              <p className="text-amber-600">Amazon FBA: $205.00 Net (41.0%)</p>
+              <p className="text-orange-600">Etsy Store: $242.00 Net (48.4%)</p>
+              <p className="text-blue-600">eBay Capped: $238.00 Net (47.6%)</p>
+              <p className="text-emerald-600">Shopify: $275.20 Net (55.0%)</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Master Channel Strategy Guide */}
+      <article className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] text-slate-800 dark:text-slate-200 space-y-6 shadow-sm">
+        <div className="border-b border-slate-200 dark:border-white/10 pb-4">
+          <div className="flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-semibold uppercase tracking-wider mb-1">
+            <Lightbulb className="w-4 h-4" />
+            <span>Multi-Channel Strategy Guide</span>
+          </div>
+          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+            The Multi-Channel E-Commerce Matrix: Balancing Traffic vs. Take-Home Margin
+          </h2>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+            How to select the right sales channels for your products and build a resilient multi-channel business.
+          </p>
+        </div>
+
+        <div className="space-y-4 text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            1. Organic Marketplace Traffic vs. Direct Customer Ownership
+          </h3>
+          <p>
+            The fundamental trade-off in e-commerce is between commission-based marketplaces (Amazon, Etsy, eBay) and self-hosted stores (Shopify, WooCommerce). Marketplaces charge high variable fees (8% to 15%+) in exchange for built-in buyer intent and massive search traffic. Conversely, self-hosted stores offer high net margins per unit (paying only 2.9% + 30¢ payment processing), but require you to invest in advertising (Meta, Google PPC, TikTok) to acquire customers.
+          </p>
+
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            2. Category-Specific Channel Optimization
+          </h3>
+          <p>
+            Different product types thrive on different platforms. Unique handmade crafts, personalized gifts, and vintage goods perform best on Etsy. General retail products, private label commodities, and fast-moving consumer goods scale fastest on Amazon FBA. Collectibles, refurbished electronics, and pre-owned inventory dominate eBay. Premium branded products with high repeat purchase rates belong on Shopify.
+          </p>
+
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            3. Protecting Business Valuation via Channel Diversification
+          </h3>
+          <p>
+            Relying 100% on a single sales channel exposes your business to catastrophic risk from sudden algorithm changes, account suspensions, or fee rate hikes. Spreading product inventory across Amazon, Etsy, eBay, and a direct Shopify storefront ensures continuous cash flow and significantly increases your e-commerce brand valuation when selling to aggregators or private equity.
+          </p>
+
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            4. Cross-Channel Inventory Synchronization & Buffer Stock Management
+          </h3>
+          <p>
+            To prevent overselling across multiple platforms when stock levels drop, implement multi-channel listing sync software that automatically reserves safety stock buffers. Utilizing Amazon Multi-Channel Fulfillment (MCF) allows you to fulfill orders placed on Shopify or eBay directly from your Amazon FBA inventory pool.
+          </p>
+        </div>
+      </article>
+
+      {/* Structured FAQ Section */}
+      <FAQSection title="Multi-Marketplace Comparison FAQs" faqs={faqs} />
     </div>
   );
 }

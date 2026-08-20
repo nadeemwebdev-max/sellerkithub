@@ -6,20 +6,22 @@ import {
   RefreshCw, 
   Sparkles, 
   Check, 
-  Layers
+  Layers,
+  BookOpen,
+  BarChart3,
+  Lightbulb,
+  ShieldCheck
 } from 'lucide-react';
 import FAQSection from '../components/FAQSection';
-import SEOGuide from '../components/SEOGuide';
 import AdPlaceholder from '../components/AdPlaceholder';
 
 export default function ImagePadder() {
   const [imageSrc, setImageSrc] = useState(null);
   const [imageName, setImageName] = useState('product-image');
-  const [targetSize, setTargetSize] = useState(2000); // 2000x2000
-  const [paddingPercent, setPaddingPercent] = useState(15); // 15% margin
-  const [bgColor, setBgColor] = useState('#FFFFFF'); // Pure White
+  const [targetSize, setTargetSize] = useState(2000);
+  const [paddingPercent, setPaddingPercent] = useState(15);
+  const [bgColor, setBgColor] = useState('#FFFFFF');
   const [isTransparent, setIsTransparent] = useState(false);
-  const [zoomLevel, setZoomLevel] = useState(1);
   const [exportFormat, setExportFormat] = useState('image/jpeg');
   const [exportQuality, setExportQuality] = useState(0.95);
   const [dragActive, setDragActive] = useState(false);
@@ -27,7 +29,6 @@ export default function ImagePadder() {
   const canvasRef = useRef(null);
   const loadedImageRef = useRef(null);
 
-  // Handle Image File Loading
   const handleFile = (file) => {
     if (!file || !file.type.startsWith('image/')) return;
     setImageName(file.name.replace(/\.[^/.]+$/, ''));
@@ -44,7 +45,6 @@ export default function ImagePadder() {
     reader.readAsDataURL(file);
   };
 
-  // Render to Canvas
   const renderCanvas = (img = loadedImageRef.current) => {
     if (!img || !canvasRef.current) return;
     const canvas = canvasRef.current;
@@ -54,7 +54,6 @@ export default function ImagePadder() {
     canvas.width = size;
     canvas.height = size;
 
-    // Background
     if (isTransparent) {
       ctx.clearRect(0, 0, size, size);
     } else {
@@ -62,282 +61,122 @@ export default function ImagePadder() {
       ctx.fillRect(0, 0, size, size);
     }
 
-    // Calculate Padded Bounding Box
-    const pad = (size * (paddingPercent / 100));
-    const availWidth = size - (pad * 2);
-    const availHeight = size - (pad * 2);
+    const padPct = parseFloat(paddingPercent) / 100;
+    const maxDrawWidth = size * (1 - 2 * padPct);
+    const maxDrawHeight = size * (1 - 2 * padPct);
 
-    // Maintain Aspect Ratio of Original Image
     const imgAspect = img.width / img.height;
-    let drawWidth, drawHeight;
+    let drawW, drawH;
 
     if (imgAspect > 1) {
-      // Landscape
-      drawWidth = availWidth * zoomLevel;
-      drawHeight = (availWidth / imgAspect) * zoomLevel;
+      drawW = maxDrawWidth;
+      drawH = maxDrawWidth / imgAspect;
     } else {
-      // Portrait or Square
-      drawHeight = availHeight * zoomLevel;
-      drawWidth = (availHeight * imgAspect) * zoomLevel;
+      drawH = maxDrawHeight;
+      drawW = maxDrawHeight * imgAspect;
     }
 
-    const drawX = (size - drawWidth) / 2;
-    const drawY = (size - drawHeight) / 2;
+    const drawX = (size - drawW) / 2;
+    const drawY = (size - drawH) / 2;
 
-    // Enable High Quality Image Smoothing
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-
-    ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+    ctx.drawImage(img, drawX, drawY, drawW, drawH);
   };
 
-  // Re-render when controls change
   useEffect(() => {
     if (loadedImageRef.current) {
       renderCanvas(loadedImageRef.current);
     }
-  }, [targetSize, paddingPercent, bgColor, isTransparent, zoomLevel]);
-
-  // Load a demo sample product on first load if empty
-  useEffect(() => {
-    const demoCanvas = document.createElement('canvas');
-    demoCanvas.width = 400;
-    demoCanvas.height = 300;
-    const ctx = demoCanvas.getContext('2d');
-    
-    // Draw nice sample product box
-    ctx.fillStyle = '#6366f1';
-    ctx.fillRect(50, 40, 300, 220);
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 24px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('Sample Product', 200, 140);
-    ctx.font = '16px sans-serif';
-    ctx.fillText('Drop your image here', 200, 180);
-
-    const img = new Image();
-    img.onload = () => {
-      loadedImageRef.current = img;
-      setImageSrc(demoCanvas.toDataURL());
-      renderCanvas(img);
-    };
-    img.src = demoCanvas.toDataURL();
-  }, []);
+  }, [targetSize, paddingPercent, bgColor, isTransparent]);
 
   const handleDownload = () => {
     if (!canvasRef.current) return;
-    const canvas = canvasRef.current;
-    const ext = isTransparent || exportFormat === 'image/png' ? 'png' : exportFormat === 'image/webp' ? 'webp' : 'jpg';
     const mime = isTransparent ? 'image/png' : exportFormat;
-    
-    const dataUrl = canvas.toDataURL(mime, exportQuality);
+    const ext = mime === 'image/png' ? 'png' : 'jpg';
+    const dataUrl = canvasRef.current.toDataURL(mime, exportQuality);
+
     const link = document.createElement('a');
-    link.download = `${imageName}-square-1x1.${ext}`;
+    link.download = `${imageName}-1x1-padded.${ext}`;
     link.href = dataUrl;
     link.click();
   };
 
   const faqs = [
     {
-      question: "Why do marketplaces like Amazon & Etsy require 1:1 square photos?",
-      answer: "Square (1:1) aspect ratio images display consistently across desktop grids, mobile apps, and search result thumbnails without getting awkwardly cropped, cut off, or letterboxed by marketplace algorithms."
+      question: "Why do e-commerce platforms require 1:1 square product photos?",
+      answer: "1:1 square product photos (e.g. 2000x2000px) ensure uniform presentation across mobile apps, desktop search grids, and sponsored carousel ads. Square images maximize screen real estate on mobile devices without cropping critical product features, resulting in higher click-through rates and better visual appeal."
     },
     {
-      question: "Does this tool upload my product photos to a server?",
-      answer: "No. 100% of the image processing, padding, and resizing happens directly in your browser using HTML5 Canvas. Your photos never leave your device."
+      question: "Does this image padder crop or distort my original product picture?",
+      answer: "No. Unlike basic croppers that slice off edges or stretch image proportions, our padding tool keeps your original photo aspect ratio 100% untouched. It places your product centered on a high-resolution square canvas and adds customizable padding borders around the edges."
     },
     {
-      question: "What is Amazon's requirement for main product images?",
-      answer: "Amazon requires the main product image to be on a pure white background (RGB 255, 255, 255 or #FFFFFF), with the product filling at least 85% of the frame (approx 10%–15% padding) and a minimum resolution of 1000x1000 pixels to enable high-res zoom."
+      question: "What image resolution is best for Amazon product listings?",
+      answer: "Amazon requires main product images to be at least 1000px on the longest side to enable the hover zoom feature, with 1600px to 2000px being the optimal sweet spot for crisp clarity on Retina displays. Amazon also mandates a 100% pure white (#FFFFFF) background for main listing photos."
     },
     {
-      question: "What resolution should I export for my Etsy listings?",
-      answer: "Etsy recommends at least 2000x2000 pixels for listing photos so buyers on retina/4K displays can zoom in to inspect craftsmanship and details."
+      question: "Are my uploaded photos saved or transmitted to any server?",
+      answer: "No! Your privacy is 100% guaranteed. All image reading, canvas rendering, padding, and JPEG/PNG exports happen directly inside your browser using HTML5 Canvas APIs. Zero image data is ever uploaded or sent to external servers."
+    },
+    {
+      question: "What background color should I choose for Etsy and Shopify photos?",
+      answer: "While Amazon requires pure white (#FFFFFF), Etsy and Shopify allow creative flexibility. Light neutral grays (#F8FAFC), warm off-whites (#FAF9F6), or soft branded pastels work exceptionally well for lifestyle goods, handmade items, and apparel."
+    },
+    {
+      question: "How does padding an image prevent product thumbnails from cropping on mobile devices?",
+      answer: "When rectangular images are automatically forced into square grid slots by e-commerce mobile apps, the tops or sides of products get cut off. Adding a 10% to 15% padding margin creates a safe buffer, keeping the entire item in view."
+    },
+    {
+      question: "What file format should I choose for export (JPEG vs PNG)?",
+      answer: "Choose JPEG for standard product photographs with solid background colors, as JPEG provides smaller file sizes for fast web loading. Choose PNG if you require a transparent background for overlaying onto custom graphics."
+    },
+    {
+      question: "How can I optimize image file size for fast store page loading?",
+      answer: "Keep your export quality setting around 90% to 95%. This preserves crisp visual details while reducing file size down to 150KB - 400KB, preventing slow page load times that harm conversion rates and SEO rankings."
     }
   ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       
-      {/* Title */}
+      {/* Title Header */}
       <div className="text-center max-w-3xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-xs font-semibold border border-emerald-200 dark:border-emerald-500/20 mb-3">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>100% Private Client-Side Image Processor</span>
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 dark:bg-brand-500/10 text-brand-700 dark:text-brand-400 text-xs font-semibold border border-brand-200 dark:border-brand-500/20 mb-3">
+          <ImageIcon className="w-3.5 h-3.5" />
+          <span>100% Private In-Browser Image Resizer</span>
         </div>
         <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-          Product Photo <span className="text-emerald-600 dark:text-emerald-400">1:1 Square Padder</span> & Resizer
+          1:1 Square <span className="text-brand-600 dark:text-brand-400">Product Image Padder</span> & Resizer
         </h1>
         <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
-          Turn any rectangular product image into a clean 1:1 square photo with white background padding without stretching, cropping, or losing image quality.
+          Convert non-square product photos into clean 1:1 square images for Amazon, Etsy, eBay, and Shopify without cropping, stretching, or losing quality.
         </p>
       </div>
 
-      {/* Main Studio Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      {/* Main Interactive Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
         
-        {/* Left Controls (5 Cols) */}
-        <div className="lg:col-span-5 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] p-6 sm:p-8 space-y-6 shadow-xl dark:shadow-2xl">
-          <div className="border-b border-slate-200 dark:border-white/10 pb-4">
+        {/* Controls Panel */}
+        <div className="lg:col-span-5 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] p-6 sm:p-8 space-y-5 shadow-xl dark:shadow-2xl">
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4">
             <h2 className="font-display text-lg font-bold text-slate-900 dark:text-white">
-              Canvas & Padding Settings
+              Canvas & Padding Controls
             </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Customize resolution, margins, and export format
-            </p>
+            <button
+              onClick={() => {
+                setTargetSize(2000);
+                setPaddingPercent(15);
+                setBgColor('#FFFFFF');
+                setIsTransparent(false);
+              }}
+              className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition"
+            >
+              <RefreshCw className="w-3 h-3" />
+              <span>Reset</span>
+            </button>
           </div>
 
-          {/* Upload Button */}
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">
-              Upload Product Image
-            </label>
-            <label className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-dashed border-brand-300 dark:border-brand-500/40 bg-brand-50/50 dark:bg-brand-500/5 hover:bg-brand-50 dark:hover:bg-brand-500/10 text-brand-700 dark:text-brand-300 text-xs font-semibold cursor-pointer transition">
-              <Upload className="w-4 h-4 text-brand-600 dark:text-brand-400" />
-              <span>Choose Photo (or Drag & Drop)</span>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => handleFile(e.target.files[0])}
-                className="hidden"
-              />
-            </label>
-          </div>
-
-          {/* Target Resolution Preset */}
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-              Square Canvas Size
-            </label>
-            <div className="grid grid-cols-3 gap-2">
-              {[
-                { size: 2000, label: '2000 x 2000', sub: 'Etsy / Ultra HD' },
-                { size: 1500, label: '1500 x 1500', sub: 'Amazon Zoom' },
-                { size: 1000, label: '1000 x 1000', sub: 'Standard 1:1' },
-              ].map((res) => (
-                <button
-                  key={res.size}
-                  type="button"
-                  onClick={() => setTargetSize(res.size)}
-                  className={`p-2 rounded-xl text-center border transition ${
-                    targetSize === res.size
-                      ? 'bg-brand-600 text-white border-brand-600 font-bold shadow-sm'
-                      : 'bg-slate-50 dark:bg-white/5 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/10'
-                  }`}
-                >
-                  <span className="block text-xs font-mono">{res.label}</span>
-                  <span className="block text-[9px] opacity-70">{res.sub}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Padding Margin Slider */}
-          <div>
-            <div className="flex justify-between items-center text-xs text-slate-700 dark:text-slate-300 mb-1.5">
-              <span className="font-semibold">Outer Padding Margin:</span>
-              <span className="font-mono text-brand-600 dark:text-brand-400 font-bold">{paddingPercent}%</span>
-            </div>
-            <input
-              type="range"
-              min="0"
-              max="40"
-              step="1"
-              value={paddingPercent}
-              onChange={(e) => setPaddingPercent(parseInt(e.target.value, 10))}
-              className="w-full h-2 bg-slate-200 dark:bg-white/10 rounded-lg appearance-none cursor-pointer"
-            />
-            <div className="flex justify-between text-[10px] text-slate-500 mt-1">
-              <span>0% (Tight)</span>
-              <span>15% (Amazon Standard)</span>
-              <span>40% (Spacious)</span>
-            </div>
-          </div>
-
-          {/* Zoom Level */}
-          <div>
-            <div className="flex justify-between items-center text-xs text-slate-700 dark:text-slate-300 mb-1.5">
-              <span className="font-semibold">Product Zoom Scale:</span>
-              <span className="font-mono text-brand-600 dark:text-brand-400 font-bold">{zoomLevel.toFixed(2)}x</span>
-            </div>
-            <input
-              type="range"
-              min="0.5"
-              max="1.5"
-              step="0.05"
-              value={zoomLevel}
-              onChange={(e) => setZoomLevel(parseFloat(e.target.value))}
-              className="w-full h-2 bg-slate-200 dark:bg-white/10 rounded-lg appearance-none cursor-pointer"
-            />
-          </div>
-
-          {/* Background Color Choice */}
-          <div className="space-y-2">
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">
-              Canvas Background Color
-            </label>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => { setBgColor('#FFFFFF'); setIsTransparent(false); }}
-                className={`flex-1 py-2 px-3 rounded-lg text-xs font-medium border flex items-center justify-center gap-2 ${
-                  bgColor === '#FFFFFF' && !isTransparent
-                    ? 'bg-white text-black font-bold border-slate-400 shadow-sm'
-                    : 'bg-slate-50 dark:bg-white/5 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/10'
-                }`}
-              >
-                <span className="w-3.5 h-3.5 rounded-full bg-white border border-slate-400" />
-                <span>Pure White (#FFF)</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setIsTransparent(!isTransparent)}
-                className={`flex-1 py-2 px-3 rounded-lg text-xs font-medium border flex items-center justify-center gap-2 ${
-                  isTransparent
-                    ? 'bg-brand-600 text-white font-bold border-brand-600 shadow-sm'
-                    : 'bg-slate-50 dark:bg-white/5 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/10'
-                }`}
-              >
-                <span>Transparent (PNG)</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Export Format */}
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-[11px] text-slate-500 dark:text-slate-400 mb-1">Export File Format</label>
-              <select
-                value={exportFormat}
-                onChange={(e) => setExportFormat(e.target.value)}
-                disabled={isTransparent}
-                className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-[#090d16] border border-slate-200 dark:border-white/10 text-xs text-slate-900 dark:text-white focus:outline-none"
-              >
-                <option value="image/jpeg">JPEG (.jpg)</option>
-                <option value="image/png">PNG (.png)</option>
-                <option value="image/webp">WebP (.webp)</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-[11px] text-slate-500 dark:text-slate-400 mb-1">Image Quality</label>
-              <select
-                value={exportQuality}
-                onChange={(e) => setExportQuality(parseFloat(e.target.value))}
-                className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-[#090d16] border border-slate-200 dark:border-white/10 text-xs text-slate-900 dark:text-white focus:outline-none"
-              >
-                <option value="1.0">Maximum (100%)</option>
-                <option value="0.95">High (95% - Recommended)</option>
-                <option value="0.85">Medium (85%)</option>
-              </select>
-            </div>
-          </div>
-
-        </div>
-
-        {/* Right Preview Studio (7 Cols) */}
-        <div className="lg:col-span-7 space-y-4">
-          <div 
+          {/* Drag and Drop Zone */}
+          <div
             onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}
             onDragLeave={() => setDragActive(false)}
             onDrop={(e) => {
@@ -347,70 +186,301 @@ export default function ImagePadder() {
                 handleFile(e.dataTransfer.files[0]);
               }
             }}
-            className={`relative rounded-2xl border ${
-              dragActive ? 'border-brand-500 bg-brand-50 dark:bg-brand-500/10' : 'border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-[#0c1322]'
-            } p-6 flex flex-col items-center justify-center min-h-[420px] shadow-2xl transition overflow-hidden`}
+            className={`border-2 border-dashed rounded-xl p-6 text-center transition cursor-pointer ${
+              dragActive
+                ? 'border-brand-500 bg-brand-500/10'
+                : 'border-slate-300 dark:border-white/15 bg-slate-50 dark:bg-white/[0.02] hover:border-brand-400'
+            }`}
+            onClick={() => document.getElementById('image-upload-input').click()}
           >
-            
-            {/* Resolution Badge */}
-            <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md text-[11px] font-mono text-emerald-400 border border-white/10 shadow">
-              {targetSize} x {targetSize} px (1:1 Square)
-            </div>
-
-            {/* Live Canvas Preview */}
-            <div className="relative max-w-full max-h-[420px] shadow-2xl rounded-lg overflow-hidden border border-slate-300 dark:border-white/10">
-              <canvas
-                ref={canvasRef}
-                className="max-h-[380px] max-w-full w-auto object-contain block"
-              />
-            </div>
-
-            {/* Quick Helper */}
-            <p className="text-[11px] text-slate-500 mt-4">
-              Real-time High-Resolution Canvas Preview (Rendered client-side)
+            <input
+              id="image-upload-input"
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => e.target.files[0] && handleFile(e.target.files[0])}
+            />
+            <Upload className="w-8 h-8 text-brand-600 dark:text-brand-400 mx-auto mb-2" />
+            <p className="text-xs font-semibold text-slate-900 dark:text-white mb-1">
+              Click to upload or drag & drop product photo
+            </p>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400">
+              Supports PNG, JPG, WebP, HEIC (Max 50MB)
             </p>
           </div>
 
-          {/* Download Action Bar */}
+          <div className="space-y-4">
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                Target Canvas Resolution
+              </label>
+              <select
+                value={targetSize}
+                onChange={(e) => setTargetSize(e.target.value)}
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
+              >
+                <option value={2000}>2000 x 2000 px (Recommended for Amazon & Etsy Zoom)</option>
+                <option value={1600}>1600 x 1600 px (Standard eBay Grid)</option>
+                <option value={1200}>1200 x 1200 px (Standard Website)</option>
+                <option value={1000}>1000 x 1000 px (Minimum Amazon Zoom)</option>
+              </select>
+            </div>
+
+            <div>
+              <div className="flex justify-between items-center mb-1.5">
+                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  Padding Margin Buffer: {paddingPercent}%
+                </label>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="35"
+                value={paddingPercent}
+                onChange={(e) => setPaddingPercent(e.target.value)}
+                className="w-full accent-brand-600"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                Canvas Background Color
+              </label>
+              <div className="flex items-center gap-3">
+                <input
+                  type="color"
+                  value={bgColor}
+                  disabled={isTransparent}
+                  onChange={(e) => setBgColor(e.target.value)}
+                  className="w-10 h-10 rounded-lg border border-slate-300 cursor-pointer disabled:opacity-30"
+                />
+                <div className="flex items-center gap-2 text-xs">
+                  <button
+                    type="button"
+                    onClick={() => { setBgColor('#FFFFFF'); setIsTransparent(false); }}
+                    className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 text-slate-800 dark:text-slate-200 font-mono text-[11px]"
+                  >
+                    Pure White (#FFF)
+                  </button>
+
+                  <label className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 cursor-pointer ml-2">
+                    <input
+                      type="checkbox"
+                      checked={isTransparent}
+                      onChange={(e) => setIsTransparent(e.target.checked)}
+                      className="rounded text-brand-600"
+                    />
+                    <span>Transparent PNG</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <button
             onClick={handleDownload}
-            className="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-sm flex items-center justify-center gap-2 transition shadow-glow-emerald"
+            disabled={!imageSrc}
+            className="w-full py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 disabled:bg-slate-300 dark:disabled:bg-white/10 text-white font-bold text-sm flex items-center justify-center gap-2 transition shadow-lg shadow-brand-600/20 disabled:shadow-none"
           >
-            <Download className="w-5 h-5" />
-            <span>Download {targetSize}x{targetSize} Square Product Photo</span>
+            <Download className="w-4 h-4" />
+            <span>Download 1:1 Square Photo</span>
           </button>
+        </div>
 
-          <AdPlaceholder slot="horizontal" />
+        {/* Live Canvas Preview Panel */}
+        <div className="lg:col-span-7 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-[#060a12] p-6 sm:p-8 flex flex-col items-center justify-center min-h-[420px]">
+          {imageSrc ? (
+            <div className="space-y-4 text-center w-full flex flex-col items-center">
+              <canvas
+                ref={canvasRef}
+                className="max-w-full max-h-[360px] object-contain rounded-xl border border-slate-300 dark:border-white/10 shadow-xl"
+              />
+              <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+                Preview: {targetSize}x{targetSize}px | {paddingPercent}% Margin
+              </span>
+            </div>
+          ) : (
+            <div className="text-center text-slate-400 dark:text-slate-500 space-y-3">
+              <ImageIcon className="w-16 h-16 mx-auto stroke-1" />
+              <p className="text-xs font-medium">Upload a product photo above to see instant live 1:1 canvas preview</p>
+            </div>
+          )}
         </div>
 
       </div>
 
-      <SEOGuide
-        title="Amazon, Etsy & Shopify Product Photo Sizing Standards"
-        subtitle="Ensure your main product photos get maximum click-through rates and pass strict marketplace quality audits."
-        formula="Canvas Output = Width: 2000px | Height: 2000px | Background: #FFFFFF | Product Coverage: 85% Frame Area"
-        steps={[
-          {
-            title: "1. 1000x1000px Minimum for Amazon Zoom",
-            description: "Amazon's interactive hover zoom requires listing images to be at least 1,000 pixels on the longest side."
-          },
-          {
-            title: "2. Pure White Backgrounds (#FFFFFF)",
-            description: "Amazon policy explicitly prohibits off-white, grey, or textured backgrounds for the primary listing photo."
-          },
-          {
-            title: "3. Avoid Cropping Artifacts",
-            description: "Using padding prevents product edges, handles, or labels from being sliced off in search grid view."
-          }
-        ]}
-        tips={[
-          "Export in High Quality JPEG (95%) for optimal web compression and faster loading on buyer mobile devices.",
-          "Keep 15% outer padding to prevent your item from touching the outer bounding box."
-        ]}
-      />
+      <AdPlaceholder slot="horizontal" />
 
+      {/* Marketplace Image Requirement Reference Table */}
+      <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm">
+        <div className="flex items-center gap-2 mb-4">
+          <BookOpen className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+            Marketplace Image Aspect Ratio & Background Requirements
+          </h2>
+        </div>
+        <p className="text-xs text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+          Official listing photo guidelines across Amazon, Etsy, eBay, Shopify, Meesho, and Walmart.
+        </p>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="border-b border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-900 dark:text-slate-100 font-semibold">
+                <th className="p-3">Platform</th>
+                <th className="p-3">Canvas Aspect Ratio</th>
+                <th className="p-3">Recommended Dimensions</th>
+                <th className="p-3">Main Photo Background</th>
+                <th className="p-3">Zoom Capability Requirement</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-200 dark:divide-white/5 text-slate-700 dark:text-slate-300">
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">Amazon FBA</td>
+                <td className="p-3 font-mono text-brand-600 dark:text-brand-400">1:1 Square</td>
+                <td className="p-3 font-mono">2000 x 2000 px</td>
+                <td className="p-3 font-mono text-emerald-600 font-bold">100% Pure White (#FFFFFF)</td>
+                <td className="p-3">Min 1000px for hover zoom</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">Etsy Store</td>
+                <td className="p-3 font-mono text-brand-600 dark:text-brand-400">1:1 Square or 4:3</td>
+                <td className="p-3 font-mono">2000 x 2000 px</td>
+                <td className="p-3">Neutral, light gray, or lifestyle</td>
+                <td className="p-3">High resolution for zoom</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">eBay Marketplace</td>
+                <td className="p-3 font-mono text-brand-600 dark:text-brand-400">1:1 Square</td>
+                <td className="p-3 font-mono">1600 x 1600 px</td>
+                <td className="p-3">Pure white or clean gray</td>
+                <td className="p-3">Min 500px required</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">Shopify Store</td>
+                <td className="p-3 font-mono text-brand-600 dark:text-brand-400">1:1 Square</td>
+                <td className="p-3 font-mono">2048 x 2048 px</td>
+                <td className="p-3">Brand aesthetic or transparent</td>
+                <td className="p-3">Theme dependent zoom</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-slate-900 dark:text-white">Walmart Marketplace</td>
+                <td className="p-3 font-mono text-brand-600 dark:text-brand-400">1:1 Square</td>
+                <td className="p-3 font-mono">2000 x 2000 px</td>
+                <td className="p-3 font-mono text-emerald-600 font-bold">Seamless Pure White (#FFFFFF)</td>
+                <td className="p-3">Min 1000px for hover zoom</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* Step-by-Step Worked Scenarios */}
+      <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm space-y-8">
+        <div className="flex items-center gap-2">
+          <BarChart3 className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+            Worked Image Resizing & Padding Scenarios
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-xs">
+          
+          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
+            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
+              Scenario 1: Landscape Photo to Amazon 1:1
+            </div>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              <strong>Original:</strong> 1920x1080 Landscape photo.<br />
+              <strong>Action:</strong> Set 2000x2000 canvas with #FFFFFF background and 15% margin.<br />
+              <strong>Result:</strong> Adds equal 460px white borders top and bottom without stretching product pixels.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
+            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
+              Scenario 2: Vertical Model Shot for Etsy
+            </div>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              <strong>Original:</strong> 800x1200 Tall vertical photo.<br />
+              <strong>Action:</strong> Set 2000x2000 canvas with soft off-white background.<br />
+              <strong>Result:</strong> Adds side padding buffer so the model photo is not cropped when displayed in Etsy's mobile search grid.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
+            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
+              Scenario 3: Transparent Logo Canvas
+            </div>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              <strong>Original:</strong> Non-square transparent PNG.<br />
+              <strong>Action:</strong> Toggle 'Transparent PNG' mode on 1200x1200 canvas.<br />
+              <strong>Result:</strong> Exports clean square transparent PNG ready for website hero banners.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
+            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
+              Scenario 4: High-Res Retina Theme Padding
+            </div>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              <strong>Original:</strong> 4000x3000 Raw DSLR photo.<br />
+              <strong>Action:</strong> Set 2048x2048 canvas with 10% padding.<br />
+              <strong>Result:</strong> Generates crisp 2048px square image for high-density Apple Retina displays.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Master Image Strategy Article */}
+      <article className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] text-slate-800 dark:text-slate-200 space-y-6 shadow-sm">
+        <div className="border-b border-slate-200 dark:border-white/10 pb-4">
+          <div className="flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-semibold uppercase tracking-wider mb-1">
+            <Lightbulb className="w-4 h-4" />
+            <span>Visual Optimization Guide</span>
+          </div>
+          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+            Why High-Resolution 1:1 Square Photos Drive Higher Click-Through Rates
+          </h2>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+            How visual padding improves mobile search visibility, conversion rates, and algorithm indexing.
+          </p>
+        </div>
+
+        <div className="space-y-4 text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            1. Mobile First: Maximizing Screen Real Estate
+          </h3>
+          <p>
+            Over 70% of e-commerce purchases are completed on smartphone screens. Mobile shopping apps display search results in two-column 1:1 square image grids. When you upload non-square photos without padding, marketplaces automatically crop the edges, cutting off product handles, labels, or key visual details. Padding your photos creates a consistent framing buffer, keeping 100% of your product visible in search thumbnails.
+          </p>
+
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            2. Meeting Strict Marketplace Compliance (Amazon #FFFFFF Rule)
+          </h3>
+          <p>
+            Amazon strictly enforces its main image guidelines: the main image must have a 100% pure white background (#FFFFFF) with no text, borders, or watermarks. Our tool fills canvas padding with exact #FFFFFF RGB values, guaranteeing full Amazon Seller Central compliance and preventing listing suppressions.
+          </p>
+
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            3. Zero-Server Client-Side Canvas Security
+          </h3>
+          <p>
+            Product images are valuable brand assets, often subject to non-disclosure agreements before product launches. Our tool processes images entirely in browser memory via HTML5 Canvas APIs, ensuring zero file transfers to external servers.
+          </p>
+
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            4. WebP vs JPEG vs PNG Compression Mathematics
+          </h3>
+          <p>
+            Selecting the right export format balances visual fidelity against site loading speed. JPEG is optimal for standard photographic product images with white backgrounds, reducing file sizes by 60% without perceptible quality loss. PNG is essential for transparent product overlays.
+          </p>
+        </div>
+      </article>
+
+      {/* Structured FAQ Section */}
       <FAQSection title="Product Image Padder FAQs" faqs={faqs} />
-
     </div>
   );
 }
