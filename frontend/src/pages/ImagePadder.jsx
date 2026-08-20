@@ -38,7 +38,6 @@ export default function ImagePadder() {
       img.onload = () => {
         loadedImageRef.current = img;
         setImageSrc(e.target.result);
-        renderCanvas(img);
       };
       img.src = e.target.result;
     };
@@ -83,10 +82,10 @@ export default function ImagePadder() {
   };
 
   useEffect(() => {
-    if (loadedImageRef.current) {
+    if (imageSrc && loadedImageRef.current) {
       renderCanvas(loadedImageRef.current);
     }
-  }, [targetSize, paddingPercent, bgColor, isTransparent]);
+  }, [imageSrc, targetSize, paddingPercent, bgColor, isTransparent]);
 
   const handleDownload = () => {
     if (!canvasRef.current) return;
