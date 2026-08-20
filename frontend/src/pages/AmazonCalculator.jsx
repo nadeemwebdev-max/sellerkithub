@@ -376,6 +376,15 @@ Calculated with SellerKitHub.com`;
 
       </div>
 
+      {/* Image 1: FBA vs FBM Unit Economics Diagram */}
+      <img
+        src="/images/amazon-fba-vs-fbm-calculator.svg"
+        alt="Amazon FBA vs FBM Fee and Profit Margin Comparison Diagram showing referral rates and pick and pack charges"
+        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
+        loading="lazy"
+        decoding="async"
+      />
+
       <AdPlaceholder slot="horizontal" />
 
       {/* 2026 Amazon Fee Schedule Reference Table */}
@@ -441,6 +450,15 @@ Calculated with SellerKitHub.com`;
           </table>
         </div>
       </section>
+
+      {/* Image 2: Placement & Storage Surcharges Diagram */}
+      <img
+        src="/images/amazon-inbound-placement-storage.svg"
+        alt="Amazon Inbound Placement and Monthly Storage Fee Tier Breakdown Diagram"
+        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
+        loading="lazy"
+        decoding="async"
+      />
 
       {/* Step-by-Step Worked Math Examples */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm space-y-8">
@@ -567,13 +585,6 @@ Calculated with SellerKitHub.com`;
           </h3>
           <p>
             To prevent aged storage surcharges (assessed on units held over 180 days in Amazon warehouses), high-volume FBA brand owners maintain a 30-day to 45-day rolling stock buffer in Amazon warehouses while storing reserve inventory in lower-cost regional 3PL fulfillment centers. Liquidating slow-moving ASINs via Amazon Outlet or removal orders before peak Q4 rate increases preserves net operating cash flow.
-          </p>
-
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-            5. International Amazon Expansion & VAT Considerations
-          </h3>
-          <p>
-            Expanding from Amazon US to international marketplaces (Amazon UK, Germany, Japan) requires accounting for destination Value Added Tax (VAT) and Goods & Services Tax (GST). In the European Union, VAT rates range from 19% to 23%, which must be factored directly into listing prices to preserve target net margins after international currency conversion.
           </p>
         </div>
       </article>

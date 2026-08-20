@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradImg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" rx="16" fill="url(#bgGradImg2)" stroke="#334155" stroke-width="2"/>
+
+  <!-- Title -->
+  <text x="400" y="45" font-family="sans-serif" font-size="18" font-weight="bold" fill="#f8fafc" text-anchor="middle">Mobile E-Commerce Grid Cropping vs. Padded Framing</text>
+  <text x="400" y="68" font-family="sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">Why padding product images prevents mobile thumbnail cropping and increases click-through rates</text>
+
+  <!-- Left: Unpadded Cropped Grid Card -->
+  <rect x="50" y="100" width="320" height="310" rx="12" fill="#1e293b" stroke="#ef4444" stroke-width="1.5"/>
+  <rect x="65" y="115" width="290" height="28" rx="6" fill="#ef4444" fill-opacity="0.15"/>
+  <text x="210" y="134" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ef4444" text-anchor="middle">Unpadded Photo (Mobile Auto-Cropped)</text>
+
+  <!-- Mockup Phone Grid -->
+  <rect x="110" y="155" width="200" height="200" rx="8" fill="#0f172a" stroke="#ef4444" stroke-dasharray="4"/>
+  <rect x="110" y="175" width="200" height="160" fill="#334155"/>
+  <circle cx="210" cy="255" r="70" fill="#f59e0b"/>
+  <!-- Red X Crop Line -->
+  <line x1="110" y1="175" x2="310" y2="175" stroke="#ef4444" stroke-width="3"/>
+  <line x1="110" y1="335" x2="310" y2="335" stroke="#ef4444" stroke-width="3"/>
+  
+  <text x="210" y="380" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ef4444" text-anchor="middle">Product Edges Cut Off in Mobile App!</text>
+
+  <!-- Right: Padded Framing Card -->
+  <rect x="430" y="100" width="320" height="310" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <rect x="445" y="115" width="290" height="28" rx="6" fill="#10b981" fill-opacity="0.15"/>
+  <text x="590" y="134" font-family="sans-serif" font-size="12" font-weight="bold" fill="#10b981" text-anchor="middle">SellerKitHub Padded 1:1 Photo</text>
+
+  <!-- Mockup Phone Grid -->
+  <rect x="490" y="155" width="200" height="200" rx="8" fill="#ffffff" stroke="#10b981"/>
+  <rect x="520" y="185" width="140" height="140" fill="#334155" rx="4"/>
+  <circle cx="590" cy="255" r="45" fill="#f59e0b"/>
+
+  <text x="590" y="380" font-family="sans-serif" font-size="11" font-weight="bold" fill="#10b981" text-anchor="middle">100% Product Visible in Mobile Grid</text>
+</svg>

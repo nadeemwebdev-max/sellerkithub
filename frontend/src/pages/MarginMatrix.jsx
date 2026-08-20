@@ -218,6 +218,15 @@ export default function MarginMatrix() {
         </div>
       </div>
 
+      {/* Image 1: Margin vs Markup Matrix Diagram */}
+      <img
+        src="/images/margin-markup-matrix-table.svg"
+        alt="Wholesale Profit Margin and Markup Pricing Matrix Table showing keystone pricing tiers"
+        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
+        loading="lazy"
+        decoding="async"
+      />
+
       <AdPlaceholder slot="horizontal" />
 
       {/* Target Margin vs Markup Conversion Reference Table */}
@@ -289,6 +298,15 @@ export default function MarginMatrix() {
           </table>
         </div>
       </section>
+
+      {/* Image 2: Keystone Pricing Formula Diagram */}
+      <img
+        src="/images/keystone-pricing-formula-diagram.svg"
+        alt="Keystone Pricing Formula Diagram converting sourcing cost into retail selling price"
+        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
+        loading="lazy"
+        decoding="async"
+      />
 
       {/* Step-by-Step Worked Scenarios */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm space-y-8">
@@ -373,27 +391,6 @@ export default function MarginMatrix() {
           </h3>
           <p>
             Confusing margin and markup is one of the leading causes of early e-commerce failure. If a product costs $20 to manufacture and you add a 30% markup ($6), your selling price is $26. When you sell this product on Amazon (which charges a 15% referral fee on the $26 price = $3.90) and spend $3.00 on PPC ads, your total fees ($6.90) exceed your entire $6.00 markup! Understanding that a 30% markup only yields a 23.1% gross margin protects your bottom line.
-          </p>
-
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-            2. Keystone Pricing in Modern E-Commerce
-          </h3>
-          <p>
-            Keystone pricing is the time-tested retail rule of doubling your cost of goods (100% markup) to set retail prices. In modern digital commerce, keystone pricing (50% gross margin) should be considered the absolute minimum starting baseline for physical products. Direct-to-consumer (DTC) brands frequently target 75% to 85% gross margins to fund digital marketing and influencer acquisition channels.
-          </p>
-
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-            3. Protecting Margins During Promotional Discounts
-          </h3>
-          <p>
-            When running a "20% Off" Black Friday sale, remember that a 20% discount off retail price reduces your profit by far more than 20%. If your normal gross margin is 40%, offering a 20% storewide discount cuts your dollar profit in half! Always use our margin matrix ladder to verify your remaining net margin before launching promotional sales campaigns.
-          </p>
-
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-            4. Tiered Volume Discounting & Minimum Advertised Pricing (MAP)
-          </h3>
-          <p>
-            Establishing a clear Minimum Advertised Price (MAP) policy protects your brand equity across wholesale partners. When offering tier discounts (e.g. 5% off 100 units, 10% off 500 units), structure the discount matrix relative to your gross margin floor so volume orders increase net cash flow.
           </p>
         </div>
       </article>

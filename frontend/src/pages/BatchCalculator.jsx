@@ -359,6 +359,15 @@ export default function BatchCalculator() {
         </div>
       </div>
 
+      {/* Image 1: Multi-SKU Batch Interface */}
+      <img
+        src="/images/multi-sku-batch-calculator.svg"
+        alt="Multi-SKU Catalog Batch Profit Calculator Table showing bulk inventory cash flow"
+        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
+        loading="lazy"
+        decoding="async"
+      />
+
       <AdPlaceholder slot="horizontal" />
 
       {/* Catalog Portfolio Breakdown Table */}
@@ -410,6 +419,15 @@ export default function BatchCalculator() {
           </table>
         </div>
       </section>
+
+      {/* Image 2: Inventory Turnover Matrix Diagram */}
+      <img
+        src="/images/inventory-working-capital-matrix.svg"
+        alt="Inventory Working Capital and SKU Turnover Velocity Allocation Diagram"
+        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
+        loading="lazy"
+        decoding="async"
+      />
 
       {/* Step-by-Step Worked Calculation Examples */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm space-y-8">
@@ -536,13 +554,6 @@ export default function BatchCalculator() {
           </h3>
           <p>
             Products with low sales velocity and thin gross margins act as cash traps, incurring ongoing storage fees that gradually erase any initial profit. Conducting monthly batch audits using our CSV spreadsheet exporter allows you to spot margin compression early, initiate targeted promotional discounts, or liquidate lagging stock before aged storage fees take effect.
-          </p>
-
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-            4. Working Capital Turnaround Velocity & Cash Conversion Cycle
-          </h3>
-          <p>
-            The cash conversion cycle measures how quickly capital invested in manufacturing returns as net cash after marketplace fees. Optimizing supplier payment terms (e.g., 30% deposit, 70% upon bill of lading) and accelerating catalog turnover ensures your business maintains liquid reserves to weather seasonal demand fluctuations.
           </p>
         </div>
       </article>

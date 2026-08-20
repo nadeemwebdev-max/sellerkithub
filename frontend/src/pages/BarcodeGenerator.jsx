@@ -340,6 +340,15 @@ export default function BarcodeGenerator() {
 
       </div>
 
+      {/* Image 1: Barcode Generator Studio */}
+      <img
+        src="/images/barcode-label-generator.svg"
+        alt="Code 128 and UPC Barcode Generator Studio interface with human readable text"
+        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
+        loading="lazy"
+        decoding="async"
+      />
+
       <AdPlaceholder slot="horizontal" />
 
       {/* Barcode Symbology Specification Reference Table */}
@@ -406,6 +415,15 @@ export default function BarcodeGenerator() {
         </div>
       </section>
 
+      {/* Image 2: 30-Up Avery Sheet Diagram */}
+      <img
+        src="/images/30-up-avery-label-sheet-preview.svg"
+        alt="Printable 30-Up Avery 5160 FNSKU Label Sheet Preview for Amazon FBA inventory"
+        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
+        loading="lazy"
+        decoding="async"
+      />
+
       {/* Worked Label Printing Scenarios */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm space-y-8">
         <div className="flex items-center gap-2">
@@ -467,52 +485,6 @@ export default function BarcodeGenerator() {
 
         </div>
       </section>
-
-      {/* Master Barcode Strategy Article */}
-      <article className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] text-slate-800 dark:text-slate-200 space-y-6 shadow-sm">
-        <div className="border-b border-slate-200 dark:border-white/10 pb-4">
-          <div className="flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-semibold uppercase tracking-wider mb-1">
-            <Lightbulb className="w-4 h-4" />
-            <span>Master Barcode & Labeling Guide</span>
-          </div>
-          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
-            E-Commerce Barcode Standards: FNSKU, UPC, EAN & Thermal Printing Best Practices
-          </h2>
-          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-            How to avoid warehouse scan rejections and ensure crisp thermal label printing.
-          </p>
-        </div>
-
-        <div className="space-y-4 text-xs leading-relaxed text-slate-700 dark:text-slate-300">
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-            1. Understanding FNSKU vs. UPC vs. EAN Codes
-          </h3>
-          <p>
-            Universal Product Codes (UPC-A) and European Article Numbers (EAN-13) are global commercial GTINs assigned to manufacturers by GS1 to identify products across retail channels. Conversely, Amazon FNSKU (Fulfillment Network Stock Keeping Unit) barcodes are proprietary identifiers used specifically inside Amazon FBA warehouses to tie inventory directly to your seller account.
-          </p>
-
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-            2. Thermal vs. Laser Printer Requirements
-          </h3>
-          <p>
-            When printing 30-up label sheets (Avery 5160) on standard laser or inkjet printers, ensure your print scale setting is set to 100% ("Actual Size") to prevent margin scaling errors. For high-volume thermal label printers (such as Dymo or Zebra), select 203 DPI or 300 DPI resolution to guarantee crisp bar edge definition.
-          </p>
-
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-            3. Preventing Warehouse Scan Rejections
-          </h3>
-          <p>
-            Warehouse scanners rely on strict contrast and "Quiet Zones" (blank white padding on the left and right sides of the barcode bars). Avoid placing barcodes over package seams, transparent polybag wrinkles, or reflective glossy surfaces.
-          </p>
-
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-            4. GTIN Verification & Official GS1 Registration
-          </h3>
-          <p>
-            While private label sellers generate Code 128 barcodes for FBA shipments, products sold in brick-and-mortar retail stores require officially registered GS1 GTIN prefixes. GS1 barcodes verify brand ownership in retail databases and prevent unauthorized hijacking on major marketplace channels.
-          </p>
-        </div>
-      </article>
 
       {/* Structured FAQ Section */}
       <FAQSection title="Free Barcode Generator FAQs" faqs={faqs} />

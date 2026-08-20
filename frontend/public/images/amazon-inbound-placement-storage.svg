@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradAmz2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" rx="16" fill="url(#bgGradAmz2)" stroke="#334155" stroke-width="2"/>
+
+  <!-- Title -->
+  <text x="400" y="45" font-family="sans-serif" font-size="18" font-weight="bold" fill="#f8fafc" text-anchor="middle">Amazon 2026 Inbound Placement &amp; Storage Surcharges</text>
+  <text x="400" y="68" font-family="sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">Understanding placement service options, standard storage, and peak Q4 inventory fees</text>
+
+  <!-- Box 1: Minimal Split -->
+  <rect x="30" y="100" width="355" height="150" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <rect x="44" y="112" width="327" height="26" rx="5" fill="#f59e0b" fill-opacity="0.15"/>
+  <text x="207" y="130" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f59e0b" text-anchor="middle">Minimal Shipment Split (Single Destination)</text>
+  <text x="48" y="165" font-family="sans-serif" font-size="11" fill="#cbd5e1">• Placement Fee:</text> <text x="360" y="165" font-family="monospace" font-size="12" font-weight="bold" fill="#ef4444" text-anchor="end">+$0.21 to $0.68 / unit</text>
+  <text x="48" y="190" font-family="sans-serif" font-size="11" fill="#cbd5e1">• Inbound Shipping Cost:</text> <text x="360" y="190" font-family="monospace" font-size="12" fill="#10b981" text-anchor="end">Lower Freight Cost</text>
+  <text x="48" y="215" font-family="sans-serif" font-size="11" fill="#94a3b8">Best for sellers who prefer shipping to 1 Amazon FC.</text>
+
+  <!-- Box 2: Partial/Multiple Split -->
+  <rect x="415" y="100" width="355" height="150" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <rect x="429" y="112" width="327" height="26" rx="5" fill="#10b981" fill-opacity="0.15"/>
+  <text x="592" y="130" font-family="sans-serif" font-size="12" font-weight="bold" fill="#10b981" text-anchor="middle">Partial / Multiple Splits (4+ Destinations)</text>
+  <text x="433" y="165" font-family="sans-serif" font-size="11" fill="#cbd5e1">• Placement Fee:</text> <text x="745" y="165" font-family="monospace" font-size="12" font-weight="bold" fill="#10b981" text-anchor="end">$0.00 (Waived!)</text>
+  <text x="433" y="190" font-family="sans-serif" font-size="11" fill="#cbd5e1">• Inbound Shipping Cost:</text> <text x="745" y="190" font-family="monospace" font-size="12" fill="#f59e0b" text-anchor="end">Higher Multi-Box Freight</text>
+  <text x="433" y="215" font-family="sans-serif" font-size="11" fill="#94a3b8">Waives placement fees by sending stock to multiple FCs.</text>
+
+  <!-- Storage Rate Comparison Box -->
+  <rect x="30" y="265" width="740" height="150" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="48" y="292" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc">FBA Monthly Storage Fee Schedule (per cubic foot):</text>
+
+  <!-- Jan-Sep Bar -->
+  <rect x="48" y="312" width="600" height="32" rx="6" fill="#0f172a"/>
+  <rect x="48" y="312" width="195" height="32" rx="6" fill="#3b82f6"/>
+  <text x="60" y="332" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ffffff">Jan - Sep Standard Rate: $0.78 / cu. ft.</text>
+
+  <!-- Oct-Dec Peak Bar -->
+  <rect x="48" y="357" width="600" height="32" rx="6" fill="#0f172a"/>
+  <rect x="48" y="357" width="600" height="32" rx="6" fill="#ef4444"/>
+  <text x="60" y="377" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ffffff">Oct - Dec Peak Q4 Storage Rate: $2.40 / cu. ft. (+207% Jump!)</text>
+</svg>

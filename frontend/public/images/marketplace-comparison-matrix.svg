@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradComp" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" rx="16" fill="url(#bgGradComp)" stroke="#334155" stroke-width="2"/>
+
+  <!-- Title -->
+  <text x="400" y="45" font-family="sans-serif" font-size="18" font-weight="bold" fill="#f8fafc" text-anchor="middle">Multi-Channel E-Commerce Profit Comparison Matrix</text>
+  <text x="400" y="68" font-family="sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">Net profit breakdown on a $35.00 product ($9.50 COGS, $4.50 Shipping)</text>
+
+  <!-- Table Header -->
+  <rect x="30" y="95" width="740" height="35" rx="8" fill="#1e293b" stroke="#334155"/>
+  <text x="50" y="117" font-family="sans-serif" font-size="11" font-weight="bold" fill="#94a3b8">PLATFORM</text>
+  <text x="210" y="117" font-family="sans-serif" font-size="11" font-weight="bold" fill="#94a3b8">COMMISSION / CUT</text>
+  <text x="380" y="117" font-family="sans-serif" font-size="11" font-weight="bold" fill="#94a3b8">POSTAGE / FBA</text>
+  <text x="540" y="117" font-family="sans-serif" font-size="11" font-weight="bold" fill="#94a3b8">NET PROFIT</text>
+  <text x="730" y="117" font-family="sans-serif" font-size="11" font-weight="bold" fill="#94a3b8" text-anchor="end">MARGIN %</text>
+
+  <!-- Row 1: Shopify -->
+  <rect x="30" y="138" width="740" height="48" rx="8" fill="#10b981" fill-opacity="0.1" stroke="#10b981" stroke-opacity="0.4"/>
+  <text x="50" y="167" font-family="sans-serif" font-size="12" font-weight="bold" fill="#10b981">Shopify Direct</text>
+  <text x="210" y="167" font-family="monospace" font-size="12" fill="#cbd5e1">$1.32 (2.9% + 30¢)</text>
+  <text x="380" y="167" font-family="monospace" font-size="12" fill="#cbd5e1">$4.50 Merchant</text>
+  <text x="540" y="167" font-family="monospace" font-size="14" font-weight="bold" fill="#10b981">$17.68</text>
+  <text x="730" y="167" font-family="sans-serif" font-size="13" font-weight="bold" fill="#10b981" text-anchor="end">50.5%</text>
+
+  <!-- Row 2: Etsy -->
+  <rect x="30" y="194" width="740" height="48" rx="8" fill="#1e293b" stroke="#334155"/>
+  <text x="50" y="223" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f97316">Etsy Store</text>
+  <text x="210" y="223" font-family="monospace" font-size="12" fill="#cbd5e1">$3.78 (6.5% + 3% + 45¢)</text>
+  <text x="380" y="223" font-family="monospace" font-size="12" fill="#cbd5e1">$4.50 Merchant</text>
+  <text x="540" y="223" font-family="monospace" font-size="14" font-weight="bold" fill="#f8fafc">$15.22</text>
+  <text x="730" y="223" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc" text-anchor="end">43.5%</text>
+
+  <!-- Row 3: eBay -->
+  <rect x="30" y="250" width="740" height="48" rx="8" fill="#1e293b" stroke="#334155"/>
+  <text x="50" y="279" font-family="sans-serif" font-size="12" font-weight="bold" fill="#60a5fa">eBay Store</text>
+  <text x="210" y="279" font-family="monospace" font-size="12" fill="#cbd5e1">$4.94 (13.25% + 30¢)</text>
+  <text x="380" y="279" font-family="monospace" font-size="12" fill="#cbd5e1">$4.50 Merchant</text>
+  <text x="540" y="279" font-family="monospace" font-size="14" font-weight="bold" fill="#f8fafc">$14.06</text>
+  <text x="730" y="279" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc" text-anchor="end">40.2%</text>
+
+  <!-- Row 4: Amazon FBA -->
+  <rect x="30" y="306" width="740" height="48" rx="8" fill="#1e293b" stroke="#334155"/>
+  <text x="50" y="335" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f59e0b">Amazon FBA</text>
+  <text x="210" y="335" font-family="monospace" font-size="12" fill="#cbd5e1">$5.25 (15% Referral)</text>
+  <text x="380" y="335" font-family="monospace" font-size="12" fill="#cbd5e1">$3.86 FBA Pick/Pack</text>
+  <text x="540" y="335" font-family="monospace" font-size="14" font-weight="bold" fill="#f8fafc">$14.39</text>
+  <text x="730" y="335" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f8fafc" text-anchor="end">41.1%</text>
+
+  <!-- Footnote -->
+  <text x="400" y="388" font-family="sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">Calculated in real time with SellerKitHub Multi-Channel Profit Engine</text>
+</svg>

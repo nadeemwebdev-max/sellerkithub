@@ -309,6 +309,15 @@ export default function ImagePadder() {
 
       </div>
 
+      {/* Image 1: 1x1 Square Photo Padder Canvas Studio */}
+      <img
+        src="/images/1x1-square-photo-padder.svg"
+        alt="1:1 Square Product Image Resizer Canvas Interface converting rectangle photos to pure white square images"
+        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
+        loading="lazy"
+        decoding="async"
+      />
+
       <AdPlaceholder slot="horizontal" />
 
       {/* Marketplace Image Requirement Reference Table */}
@@ -374,6 +383,15 @@ export default function ImagePadder() {
           </table>
         </div>
       </section>
+
+      {/* Image 2: Mobile Cropping Diagram */}
+      <img
+        src="/images/mobile-grid-cropping-comparison.svg"
+        alt="Mobile App Product Grid Aspect Ratio Comparison showing cropped versus padded product photos"
+        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
+        loading="lazy"
+        decoding="async"
+      />
 
       {/* Step-by-Step Worked Scenarios */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm space-y-8">
@@ -461,20 +479,6 @@ export default function ImagePadder() {
           </h3>
           <p>
             Amazon strictly enforces its main image guidelines: the main image must have a 100% pure white background (#FFFFFF) with no text, borders, or watermarks. Our tool fills canvas padding with exact #FFFFFF RGB values, guaranteeing full Amazon Seller Central compliance and preventing listing suppressions.
-          </p>
-
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-            3. Zero-Server Client-Side Canvas Security
-          </h3>
-          <p>
-            Product images are valuable brand assets, often subject to non-disclosure agreements before product launches. Our tool processes images entirely in browser memory via HTML5 Canvas APIs, ensuring zero file transfers to external servers.
-          </p>
-
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-            4. WebP vs JPEG vs PNG Compression Mathematics
-          </h3>
-          <p>
-            Selecting the right export format balances visual fidelity against site loading speed. JPEG is optimal for standard photographic product images with white backgrounds, reducing file sizes by 60% without perceptible quality loss. PNG is essential for transparent product overlays.
           </p>
         </div>
       </article>

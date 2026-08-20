@@ -324,6 +324,15 @@ export default function MarketplaceComparison() {
 
       </div>
 
+      {/* Image 1: Side-by-side Matrix Diagram */}
+      <img
+        src="/images/marketplace-comparison-matrix.svg"
+        alt="Multi-Marketplace Profit Comparison Dashboard showing Amazon, Etsy, eBay, Shopify, and Meesho side by side"
+        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
+        loading="lazy"
+        decoding="async"
+      />
+
       <AdPlaceholder slot="horizontal" />
 
       {/* Multi-Channel Comparison Table */}
@@ -395,6 +404,15 @@ export default function MarketplaceComparison() {
           </table>
         </div>
       </section>
+
+      {/* Image 2: Channel Fee Distribution & Ranking */}
+      <img
+        src="/images/channel-fee-distribution-chart.svg"
+        alt="E-Commerce Sales Channel Take-Home Profit Margin Ranking Diagram"
+        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
+        loading="lazy"
+        decoding="async"
+      />
 
       {/* Step-by-Step Worked Calculation Examples */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm space-y-8">
@@ -517,13 +535,6 @@ export default function MarketplaceComparison() {
           </h3>
           <p>
             Relying 100% on a single sales channel exposes your business to catastrophic risk from sudden algorithm changes, account suspensions, or fee rate hikes. Spreading product inventory across Amazon, Etsy, eBay, and a direct Shopify storefront ensures continuous cash flow and significantly increases your e-commerce brand valuation when selling to aggregators or private equity.
-          </p>
-
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-            4. Cross-Channel Inventory Synchronization & Buffer Stock Management
-          </h3>
-          <p>
-            To prevent overselling across multiple platforms when stock levels drop, implement multi-channel listing sync software that automatically reserves safety stock buffers. Utilizing Amazon Multi-Channel Fulfillment (MCF) allows you to fulfill orders placed on Shopify or eBay directly from your Amazon FBA inventory pool.
           </p>
         </div>
       </article>
