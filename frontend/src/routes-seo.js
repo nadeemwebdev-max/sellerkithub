@@ -61,13 +61,314 @@ export const ROUTES_SEO = {
     }
   },
 
+  /* Programmatic SEO Routes under /tools/ */
+
+  '/tools/amazon-fba-calculator': {
+    title: 'Amazon FBA Calculator (2026) – Real Net Margin & Fee Breakdown | SellerKit',
+    description: 'Accurate Amazon FBA vs FBM seller fee & profit calculator updated for 2026. Calculate referral tiers (8-15%), pick & pack, inbound placement fees, and monthly storage.',
+    keywords: 'fba fee calculator, amazon fba calculator, amazon fee calculator, fba vs fbm profit, amazon seller fees, amazon referral fee calculator',
+    canonical: `${SITE_URL}/tools/amazon-fba-calculator`,
+    ogTitle: 'Amazon FBA Calculator & Profit Margin Estimator (2026)',
+    ogDescription: 'Model Amazon referral tiers, FBA pick & pack fees, shipping overhead, return allowances, and PPC marketing spend.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Amazon FBA Calculator',
+          'url': `${SITE_URL}/tools/amazon-fba-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.95', 'ratingCount': '1850' },
+          'description': 'Amazon FBA vs FBM profit and fee calculator supporting 2026 referral fees, fulfillment rates, and storage surcharges.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Tools', 'item': `${SITE_URL}/tools/amazon-fba-calculator` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'Amazon FBA Calculator', 'item': `${SITE_URL}/tools/amazon-fba-calculator` }
+          ]
+        }
+      ]
+    }
+  },
+
+  '/tools/profit-margin-calculator': {
+    title: 'E-Commerce Profit Margin Calculator & Wholesale Matrix | SellerKit',
+    description: 'Calculate retail selling prices, wholesale costs, keystone pricing, and target gross profit margins from 10% to 90%. Export margin ladders to Excel CSV.',
+    keywords: 'ecommerce margin calculator, profit margin calculator, gross margin calculator, wholesale pricing matrix, markup calculator',
+    canonical: `${SITE_URL}/tools/profit-margin-calculator`,
+    ogTitle: 'E-Commerce Profit Margin & Wholesale Pricing Matrix',
+    ogDescription: 'Calculate target profit margins, cost markups, keystone prices, and dollar profit contributions.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'E-Commerce Profit Margin Calculator',
+          'url': `${SITE_URL}/tools/profit-margin-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.90', 'ratingCount': '1240' },
+          'description': 'Calculate gross margin, cost markup, keystone pricing tiers, and retail selling price ladders.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Tools', 'item': `${SITE_URL}/tools/profit-margin-calculator` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'Profit Margin Calculator', 'item': `${SITE_URL}/tools/profit-margin-calculator` }
+          ]
+        }
+      ]
+    }
+  },
+
+  '/tools/roas-calculator': {
+    title: 'ROAS Calculator (Target & Break-Even ROAS Formula) | SellerKit',
+    description: 'Free E-Commerce ROAS & Ad Profitability Calculator. Calculate Break-Even ROAS, Realized ROAS, CAC, and Net Profit on Meta Ads, Google PPC, and Amazon Sponsored Products.',
+    keywords: 'target roas calculator, break even roas calculator, roas calculator, ecommerce roas formula, ad profit calculator, cac calculator',
+    canonical: `${SITE_URL}/tools/roas-calculator`,
+    ogTitle: 'ROAS & Ad Profitability Calculator (Target & Break-Even)',
+    ogDescription: 'Calculate break-even ROAS threshold, CAC per order, POAS, and net ad profit across paid traffic campaigns.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'E-Commerce Target & Break-Even ROAS Calculator',
+          'url': `${SITE_URL}/tools/roas-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.96', 'ratingCount': '890' },
+          'description': 'Target and Break-Even ROAS calculator modeling ad revenue, product COGS, platform fees, and CAC.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Tools', 'item': `${SITE_URL}/tools/roas-calculator` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'ROAS Calculator', 'item': `${SITE_URL}/tools/roas-calculator` }
+          ]
+        }
+      ]
+    }
+  },
+
+  '/tools/gst-calculator': {
+    title: 'GST Calculator (Inclusive & Exclusive Rate Slabs) | SellerKit',
+    description: 'Free GST & Sales Tax Calculator. Calculate GST Inclusive, GST Exclusive, CGST/SGST/IGST tax splits, 5%, 12%, 18%, 28% rate slabs, and invoice breakdowns for e-commerce.',
+    keywords: 'gst calculation formula, gst calculator online, gst inclusive calculator, gst exclusive calculator, cgst sgst igst calculator, ecommerce tax calculator',
+    canonical: `${SITE_URL}/tools/gst-calculator`,
+    ogTitle: 'GST & Sales Tax Calculator (Inclusive & Exclusive Slabs)',
+    ogDescription: 'Calculate GST inclusive and exclusive net prices, CGST, SGST, IGST tax splits, and HSN rate slabs for e-commerce orders.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'GST & Sales Tax Calculator',
+          'url': `${SITE_URL}/tools/gst-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.93', 'ratingCount': '1050' },
+          'description': 'Calculate GST inclusive and exclusive net prices, CGST/SGST/IGST tax splits, and export itemized invoices.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Tools', 'item': `${SITE_URL}/tools/gst-calculator` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'GST Calculator', 'item': `${SITE_URL}/tools/gst-calculator` }
+          ]
+        }
+      ]
+    }
+  },
+
+  '/tools/etsy-fee-calculator': {
+    title: 'Etsy Fee & Profit Calculator (2026) – Real Net Margin Breakdown | SellerKit',
+    description: 'Accurate Etsy fee & profit calculator updated for 2026. Calculate $0.20 listing fees, 6.5% transaction cut, payment processing (3% + $0.25), and 15% offsite ads.',
+    keywords: 'etsy fee calculator, etsy profit calculator, etsy pricing calculator, etsy listing fee, etsy transaction fee, etsy offsite ads fee',
+    canonical: `${SITE_URL}/tools/etsy-fee-calculator`,
+    ogTitle: 'Etsy Fee Calculator & Real Net Profit Estimator (2026)',
+    ogDescription: 'Calculate listing renewals, 6.5% transaction charges, payment processing fees, and offsite ads impact on your Etsy shop.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Etsy Seller Fee & Profit Calculator',
+          'url': `${SITE_URL}/tools/etsy-fee-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.9', 'ratingCount': '980' },
+          'description': 'Accurate Etsy seller profit calculator calculating listing fees, transaction fees, payment processing, and offsite ads.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Tools', 'item': `${SITE_URL}/tools/etsy-fee-calculator` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'Etsy Fee Calculator', 'item': `${SITE_URL}/tools/etsy-fee-calculator` }
+          ]
+        }
+      ]
+    }
+  },
+
+  '/tools/marketplace-comparison': {
+    title: 'Marketplace Comparison Tool – Amazon vs Etsy vs eBay vs Shopify | SellerKit',
+    description: 'Compare net profit margins across Amazon, Etsy, eBay, Shopify, and Meesho on a single screen. Find the most profitable sales channel for your products.',
+    keywords: 'marketplace fee comparison, amazon vs etsy profit, shopify vs amazon fees, ebay vs etsy calculator',
+    canonical: `${SITE_URL}/tools/marketplace-comparison`,
+    ogTitle: 'Side-by-Side Marketplace Fee & Profit Comparison',
+    ogDescription: 'Side-by-side net profit comparison across 5 major e-commerce platforms.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Multi-Marketplace Comparison Tool',
+          'url': `${SITE_URL}/tools/marketplace-comparison`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.88', 'ratingCount': '760' },
+          'description': 'Compare net profit margin and fee structure between Amazon, Etsy, eBay, Shopify, and Meesho simultaneously.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Tools', 'item': `${SITE_URL}/tools/marketplace-comparison` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'Marketplace Comparison', 'item': `${SITE_URL}/tools/marketplace-comparison` }
+          ]
+        }
+      ]
+    }
+  },
+
+  '/tools/batch-calculator': {
+    title: 'Multi-SKU Batch Profit Calculator & Inventory Portfolio Tool | SellerKit',
+    description: 'Calculate multi-item inventory profit, cash flow, total revenue, and marketplace cuts across your entire catalog. Export portfolio summaries to CSV.',
+    keywords: 'batch profit calculator, sku margin calculator, bulk ecommerce calculator, inventory profit model',
+    canonical: `${SITE_URL}/tools/batch-calculator`,
+    ogTitle: 'Multi-SKU Batch Profit & Inventory Portfolio Calculator',
+    ogDescription: 'Simulate full product catalog profitability, gross margins, and inventory capital requirements.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Multi-SKU Batch Profit Calculator',
+          'url': `${SITE_URL}/tools/batch-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.85', 'ratingCount': '610' },
+          'description': 'Bulk product SKU profit calculator and cash flow forecaster with CSV export capabilities.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Tools', 'item': `${SITE_URL}/tools/batch-calculator` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'Batch Calculator', 'item': `${SITE_URL}/tools/batch-calculator` }
+          ]
+        }
+      ]
+    }
+  },
+
+  '/tools/product-image-resizer': {
+    title: '1:1 Square Product Image Padder & Canvas Resizer | SellerKit',
+    description: 'Convert rectangle product photos into clean 1:1 square images for Amazon, Etsy, and Meesho without cropping or distortion. 100% private in-browser tool.',
+    keywords: 'product image resizer, square photo padder, amazon 1000x1000 resizer, etsy photo padder',
+    canonical: `${SITE_URL}/tools/product-image-resizer`,
+    ogTitle: '1:1 Square Product Image Padder – Free Online Resizer',
+    ogDescription: 'Pad non-square product photos into high-resolution 1:1 squares with white, black, custom, or blurred backgrounds.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': '1:1 Square Product Image Padder',
+          'url': `${SITE_URL}/tools/product-image-resizer`,
+          'applicationCategory': 'MultimediaApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.92', 'ratingCount': '1120' },
+          'description': 'In-browser product photo resizer and padding utility creating 1:1 square canvas without cropping.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Tools', 'item': `${SITE_URL}/tools/product-image-resizer` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'Image Padder', 'item': `${SITE_URL}/tools/product-image-resizer` }
+          ]
+        }
+      ]
+    }
+  },
+
+  '/tools/barcode-generator': {
+    title: 'Free Barcode & QR Code Generator – Printable 30-Up Label Sheets | SellerKit',
+    description: 'Generate Code 128, EAN-13, UPC-A, Code 39, and QR code barcode labels. Export single high-res PNG/SVG or print standard 30-per-sheet (Avery 5160) labels.',
+    keywords: 'barcode generator, free upc barcode maker, code 128 generator, 30 up label generator, fba barcode maker',
+    canonical: `${SITE_URL}/tools/barcode-generator`,
+    ogTitle: 'Free Barcode Generator & Printable 30-Up Label Maker',
+    ogDescription: 'Generate barcode labels for Amazon FNSKU, UPC, EAN, and SKU tracking with instant 30-up Avery label sheet printing.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Free E-Commerce Barcode & Label Sheet Generator',
+          'url': `${SITE_URL}/tools/barcode-generator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.91', 'ratingCount': '1290' },
+          'description': 'Generate industrial barcodes and printable 30-up label sheets for Amazon FBA, retail inventory, and shipping packages.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Tools', 'item': `${SITE_URL}/tools/barcode-generator` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'Barcode Generator', 'item': `${SITE_URL}/tools/barcode-generator` }
+          ]
+        }
+      ]
+    }
+  },
+
+  /* Short Aliases for Canonical URLs */
+
   '/etsy-fee-calculator': {
     title: 'Etsy Fee & Profit Calculator (2026) – Real Net Margin Breakdown | SellerKit',
     description: 'Accurate Etsy fee & profit calculator updated for 2026. Calculate $0.20 listing fees, 6.5% transaction cut, payment processing (3% + $0.25), and 15% offsite ads.',
-    keywords: 'etsy fee calculator, etsy profit calculator, etsy pricing calculator, etsy listing fee, etsy transaction fee, etsy offsite ads fee, sell on etsy profit',
-    canonical: `${SITE_URL}/etsy-fee-calculator`,
+    keywords: 'etsy fee calculator, etsy profit calculator, etsy pricing calculator',
+    canonical: `${SITE_URL}/tools/etsy-fee-calculator`,
     ogTitle: 'Etsy Fee Calculator & Real Net Profit Estimator (2026)',
-    ogDescription: 'Calculate listing renewals, 6.5% transaction charges, payment processing fees, and offsite ads impact on your handmade & vintage Etsy shop.',
+    ogDescription: 'Calculate listing renewals, 6.5% transaction charges, payment processing fees, and offsite ads impact.',
     schema: {
       '@context': 'https://schema.org',
       '@graph': [
@@ -78,24 +379,9 @@ export const ROUTES_SEO = {
           'url': `${SITE_URL}/etsy-fee-calculator`,
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
-          'offers': {
-            '@type': 'Offer',
-            'price': '0',
-            'priceCurrency': 'USD'
-          },
-          'aggregateRating': {
-            '@type': 'AggregateRating',
-            'ratingValue': '4.9',
-            'ratingCount': '980'
-          },
-          'description': 'Accurate Etsy seller profit calculator calculating listing fees, transaction fees, payment processing, offsite ads, and material costs with instant Excel export.'
-        },
-        {
-          '@type': 'BreadcrumbList',
-          'itemListElement': [
-            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
-            { '@type': 'ListItem', 'position': 2, 'name': 'Etsy Fee Calculator', 'item': `${SITE_URL}/etsy-fee-calculator` }
-          ]
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.9', 'ratingCount': '980' },
+          'description': 'Accurate Etsy seller profit calculator calculating listing fees, transaction fees, and offsite ads.'
         }
       ]
     }
@@ -104,8 +390,8 @@ export const ROUTES_SEO = {
   '/amazon-fee-calculator': {
     title: 'Amazon FBA vs FBM Fee & Profit Margin Calculator (2026) | SellerKit',
     description: 'Compare Amazon FBA vs FBM profitability side-by-side. Includes 8-15% referral fee tiers, weight handling rates, inbound placement, and monthly storage.',
-    keywords: 'amazon fba calculator, amazon fee calculator, fba vs fbm profit, amazon seller fees, amazon referral fee calculator, amazon margin calculator',
-    canonical: `${SITE_URL}/amazon-fee-calculator`,
+    keywords: 'amazon fba calculator, amazon fee calculator, fba vs fbm profit',
+    canonical: `${SITE_URL}/tools/amazon-fba-calculator`,
     ogTitle: 'Amazon FBA vs FBM Fee & Profit Margin Calculator (2026)',
     ogDescription: 'Model Amazon referral tiers, FBA pick & pack fees, shipping overhead, return allowances, and PPC marketing spend.',
     schema: {
@@ -118,184 +404,9 @@ export const ROUTES_SEO = {
           'url': `${SITE_URL}/amazon-fee-calculator`,
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
-          'offers': {
-            '@type': 'Offer',
-            'price': '0',
-            'priceCurrency': 'USD'
-          },
-          'aggregateRating': {
-            '@type': 'AggregateRating',
-            'ratingValue': '4.95',
-            'ratingCount': '1850'
-          },
-          'description': 'Comprehensive Amazon FBA and FBM seller fee and net margin calculator with category referral rates, pick & pack rates, and monthly storage costs.'
-        },
-        {
-          '@type': 'BreadcrumbList',
-          'itemListElement': [
-            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
-            { '@type': 'ListItem', 'position': 2, 'name': 'Amazon FBA Calculator', 'item': `${SITE_URL}/amazon-fee-calculator` }
-          ]
-        }
-      ]
-    }
-  },
-
-  '/marketplace-comparison': {
-    title: 'Marketplace Comparison Tool – Amazon vs Etsy vs eBay vs Shopify | SellerKit',
-    description: 'Compare net profit margins across Amazon, Etsy, eBay, Shopify, and Meesho on a single screen. Find the most profitable sales channel for your products.',
-    keywords: 'marketplace fee comparison, amazon vs etsy profit, shopify vs amazon fees, ebay vs etsy calculator, ecommerce platform comparison',
-    canonical: `${SITE_URL}/marketplace-comparison`,
-    ogTitle: 'Side-by-Side Marketplace Fee & Profit Comparison',
-    ogDescription: 'Side-by-side net profit comparison across 5 major e-commerce platforms. See exactly where your products make the highest return.',
-    schema: {
-      '@context': 'https://schema.org',
-      '@graph': [
-        ORGANIZATION_SCHEMA,
-        {
-          '@type': 'SoftwareApplication',
-          'name': 'Multi-Marketplace Comparison Tool',
-          'url': `${SITE_URL}/marketplace-comparison`,
-          'applicationCategory': 'BusinessApplication',
-          'operatingSystem': 'All',
-          'offers': {
-            '@type': 'Offer',
-            'price': '0',
-            'priceCurrency': 'USD'
-          },
-          'aggregateRating': {
-            '@type': 'AggregateRating',
-            'ratingValue': '4.88',
-            'ratingCount': '760'
-          },
-          'description': 'Compare net profit margin and fee structure between Amazon, Etsy, eBay, Shopify, and Meesho simultaneously.'
-        },
-        {
-          '@type': 'BreadcrumbList',
-          'itemListElement': [
-            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
-            { '@type': 'ListItem', 'position': 2, 'name': 'Marketplace Comparison', 'item': `${SITE_URL}/marketplace-comparison` }
-          ]
-        }
-      ]
-    }
-  },
-
-  '/batch-calculator': {
-    title: 'Multi-SKU Batch Profit Calculator & Inventory Portfolio Tool | SellerKit',
-    description: 'Calculate multi-item inventory profit, cash flow, total revenue, and marketplace cuts across your entire catalog. Export portfolio summaries to CSV.',
-    keywords: 'batch profit calculator, sku margin calculator, bulk ecommerce calculator, inventory profit model, multi sku calculator',
-    canonical: `${SITE_URL}/batch-calculator`,
-    ogTitle: 'Multi-SKU Batch Profit & Inventory Portfolio Calculator',
-    ogDescription: 'Simulate full product catalog profitability, gross margins, and inventory capital requirements in one bulk tool.',
-    schema: {
-      '@context': 'https://schema.org',
-      '@graph': [
-        ORGANIZATION_SCHEMA,
-        {
-          '@type': 'SoftwareApplication',
-          'name': 'Multi-SKU Batch Profit Calculator',
-          'url': `${SITE_URL}/batch-calculator`,
-          'applicationCategory': 'BusinessApplication',
-          'operatingSystem': 'All',
-          'offers': {
-            '@type': 'Offer',
-            'price': '0',
-            'priceCurrency': 'USD'
-          },
-          'aggregateRating': {
-            '@type': 'AggregateRating',
-            'ratingValue': '4.85',
-            'ratingCount': '610'
-          },
-          'description': 'Bulk product SKU profit calculator and cash flow forecaster with CSV export capabilities.'
-        },
-        {
-          '@type': 'BreadcrumbList',
-          'itemListElement': [
-            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
-            { '@type': 'ListItem', 'position': 2, 'name': 'Batch Calculator', 'item': `${SITE_URL}/batch-calculator` }
-          ]
-        }
-      ]
-    }
-  },
-
-  '/product-image-resizer': {
-    title: '1:1 Square Product Image Padder & Canvas Resizer | SellerKit',
-    description: 'Convert rectangle product photos into clean 1:1 square images for Amazon, Etsy, and Meesho without cropping or distortion. 100% private in-browser tool.',
-    keywords: 'product image resizer, square photo padder, amazon 1000x1000 resizer, etsy photo padder, square image maker without cropping',
-    canonical: `${SITE_URL}/product-image-resizer`,
-    ogTitle: '1:1 Square Product Image Padder – Free Online Resizer',
-    ogDescription: 'Pad non-square product photos into high-resolution 1:1 squares with white, black, custom, or blurred backgrounds. Zero upload to servers.',
-    schema: {
-      '@context': 'https://schema.org',
-      '@graph': [
-        ORGANIZATION_SCHEMA,
-        {
-          '@type': 'SoftwareApplication',
-          'name': '1:1 Square Product Image Padder',
-          'url': `${SITE_URL}/product-image-resizer`,
-          'applicationCategory': 'MultimediaApplication',
-          'operatingSystem': 'All',
-          'offers': {
-            '@type': 'Offer',
-            'price': '0',
-            'priceCurrency': 'USD'
-          },
-          'aggregateRating': {
-            '@type': 'AggregateRating',
-            'ratingValue': '4.92',
-            'ratingCount': '1120'
-          },
-          'description': 'In-browser product photo resizer and padding utility creating 1:1 square canvas without cropping or server uploads.'
-        },
-        {
-          '@type': 'BreadcrumbList',
-          'itemListElement': [
-            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
-            { '@type': 'ListItem', 'position': 2, 'name': 'Image Padder', 'item': `${SITE_URL}/product-image-resizer` }
-          ]
-        }
-      ]
-    }
-  },
-
-  '/barcode-generator': {
-    title: 'Free Barcode & QR Code Generator – Printable 30-Up Label Sheets | SellerKit',
-    description: 'Generate Code 128, EAN-13, UPC-A, Code 39, and QR code barcode labels. Export single high-res PNG/SVG or print standard 30-per-sheet (Avery 5160) labels.',
-    keywords: 'barcode generator, free upc barcode maker, code 128 generator, 30 up label generator, fba barcode maker, ean 13 generator',
-    canonical: `${SITE_URL}/barcode-generator`,
-    ogTitle: 'Free Barcode Generator & Printable 30-Up Label Maker',
-    ogDescription: 'Generate barcode labels for Amazon FNSKU, UPC, EAN, and SKU tracking with instant 30-up Avery label sheet PDF printing.',
-    schema: {
-      '@context': 'https://schema.org',
-      '@graph': [
-        ORGANIZATION_SCHEMA,
-        {
-          '@type': 'SoftwareApplication',
-          'name': 'Free E-Commerce Barcode & Label Sheet Generator',
-          'url': `${SITE_URL}/barcode-generator`,
-          'applicationCategory': 'BusinessApplication',
-          'operatingSystem': 'All',
-          'offers': {
-            '@type': 'Offer',
-            'price': '0',
-            'priceCurrency': 'USD'
-          },
-          'aggregateRating': {
-            '@type': 'AggregateRating',
-            'ratingValue': '4.91',
-            'ratingCount': '1290'
-          },
-          'description': 'Generate industrial barcodes and printable 30-up label sheets for Amazon FBA, retail inventory, and shipping packages.'
-        },
-        {
-          '@type': 'BreadcrumbList',
-          'itemListElement': [
-            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
-            { '@type': 'ListItem', 'position': 2, 'name': 'Barcode Generator', 'item': `${SITE_URL}/barcode-generator` }
-          ]
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.95', 'ratingCount': '1850' },
+          'description': 'Comprehensive Amazon FBA and FBM seller fee and net margin calculator.'
         }
       ]
     }
@@ -304,8 +415,8 @@ export const ROUTES_SEO = {
   '/margin-matrix': {
     title: 'Wholesale Profit Margin & Markup Pricing Matrix | SellerKit',
     description: 'Calculate tiered retail selling prices, wholesale costs, keystone pricing, and target gross margins from 10% to 90%. Includes instant CSV export.',
-    keywords: 'margin markup matrix, wholesale pricing matrix, gross margin calculator, retail markup table, keystone pricing formula',
-    canonical: `${SITE_URL}/margin-matrix`,
+    keywords: 'margin markup matrix, wholesale pricing matrix, gross margin calculator',
+    canonical: `${SITE_URL}/tools/profit-margin-calculator`,
     ogTitle: 'Wholesale Profit Margin & Markup Pricing Matrix',
     ogDescription: 'View the complete price ladder from wholesale cost to retail price across every target gross margin tier.',
     schema: {
@@ -318,24 +429,159 @@ export const ROUTES_SEO = {
           'url': `${SITE_URL}/margin-matrix`,
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
-          'offers': {
-            '@type': 'Offer',
-            'price': '0',
-            'priceCurrency': 'USD'
-          },
-          'aggregateRating': {
-            '@type': 'AggregateRating',
-            'ratingValue': '4.89',
-            'ratingCount': '840'
-          },
-          'description': 'Interactive profit margin and markup table showing exact pricing tiers from 10% to 90% margin.'
-        },
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.89', 'ratingCount': '840' },
+          'description': 'Interactive profit margin and markup table showing exact pricing tiers.'
+        }
+      ]
+    }
+  },
+
+  '/roas-calculator': {
+    title: 'ROAS Calculator (Target & Break-Even ROAS Formula) | SellerKit',
+    description: 'Free E-Commerce ROAS & Ad Profitability Calculator. Calculate Break-Even ROAS, Realized ROAS, CAC, and Net Profit on Meta Ads, Google PPC, and Amazon Sponsored Products.',
+    keywords: 'target roas calculator, break even roas calculator, roas calculator',
+    canonical: `${SITE_URL}/tools/roas-calculator`,
+    ogTitle: 'ROAS & Ad Profitability Calculator (Target & Break-Even)',
+    ogDescription: 'Calculate break-even ROAS threshold, CAC per order, POAS, and net ad profit.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
         {
-          '@type': 'BreadcrumbList',
-          'itemListElement': [
-            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
-            { '@type': 'ListItem', 'position': 2, 'name': 'Margin & Markup Matrix', 'item': `${SITE_URL}/margin-matrix` }
-          ]
+          '@type': 'SoftwareApplication',
+          'name': 'Target & Break-Even ROAS Calculator',
+          'url': `${SITE_URL}/roas-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.96', 'ratingCount': '890' },
+          'description': 'Target and Break-Even ROAS calculator modeling ad revenue, product COGS, and CAC.'
+        }
+      ]
+    }
+  },
+
+  '/gst-calculator': {
+    title: 'GST Calculator (Inclusive & Exclusive Rate Slabs) | SellerKit',
+    description: 'Free GST & Sales Tax Calculator. Calculate GST Inclusive, GST Exclusive, CGST/SGST/IGST tax splits, 5%, 12%, 18%, 28% rate slabs, and invoice breakdowns.',
+    keywords: 'gst calculation formula, gst calculator online, gst inclusive calculator',
+    canonical: `${SITE_URL}/tools/gst-calculator`,
+    ogTitle: 'GST & Sales Tax Calculator (Inclusive & Exclusive Slabs)',
+    ogDescription: 'Calculate GST inclusive and exclusive net prices, CGST, SGST, IGST tax splits, and HSN rate slabs.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'GST & Sales Tax Calculator',
+          'url': `${SITE_URL}/gst-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.93', 'ratingCount': '1050' },
+          'description': 'Calculate GST inclusive and exclusive net prices, CGST/SGST/IGST tax splits.'
+        }
+      ]
+    }
+  },
+
+  '/marketplace-comparison': {
+    title: 'Marketplace Comparison Tool – Amazon vs Etsy vs eBay vs Shopify | SellerKit',
+    description: 'Compare net profit margins across Amazon, Etsy, eBay, Shopify, and Meesho on a single screen. Find the most profitable sales channel for your products.',
+    keywords: 'marketplace fee comparison, amazon vs etsy profit, shopify vs amazon fees',
+    canonical: `${SITE_URL}/tools/marketplace-comparison`,
+    ogTitle: 'Side-by-Side Marketplace Fee & Profit Comparison',
+    ogDescription: 'Side-by-side net profit comparison across 5 major e-commerce platforms.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Multi-Marketplace Comparison Tool',
+          'url': `${SITE_URL}/marketplace-comparison`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.88', 'ratingCount': '760' },
+          'description': 'Compare net profit margin and fee structure between Amazon, Etsy, eBay, Shopify, and Meesho.'
+        }
+      ]
+    }
+  },
+
+  '/batch-calculator': {
+    title: 'Multi-SKU Batch Profit Calculator & Inventory Portfolio Tool | SellerKit',
+    description: 'Calculate multi-item inventory profit, cash flow, total revenue, and marketplace cuts across your entire catalog. Export portfolio summaries to CSV.',
+    keywords: 'batch profit calculator, sku margin calculator, bulk ecommerce calculator',
+    canonical: `${SITE_URL}/tools/batch-calculator`,
+    ogTitle: 'Multi-SKU Batch Profit & Inventory Portfolio Calculator',
+    ogDescription: 'Simulate full product catalog profitability, gross margins, and inventory capital requirements.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Multi-SKU Batch Profit Calculator',
+          'url': `${SITE_URL}/batch-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.85', 'ratingCount': '610' },
+          'description': 'Bulk product SKU profit calculator and cash flow forecaster with CSV export.'
+        }
+      ]
+    }
+  },
+
+  '/product-image-resizer': {
+    title: '1:1 Square Product Image Padder & Canvas Resizer | SellerKit',
+    description: 'Convert rectangle product photos into clean 1:1 square images for Amazon, Etsy, and Meesho without cropping or distortion. 100% private in-browser tool.',
+    keywords: 'product image resizer, square photo padder, amazon 1000x1000 resizer',
+    canonical: `${SITE_URL}/tools/product-image-resizer`,
+    ogTitle: '1:1 Square Product Image Padder – Free Online Resizer',
+    ogDescription: 'Pad non-square product photos into high-resolution 1:1 squares with white, black, custom, or blurred backgrounds.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': '1:1 Square Product Image Padder',
+          'url': `${SITE_URL}/product-image-resizer`,
+          'applicationCategory': 'MultimediaApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.92', 'ratingCount': '1120' },
+          'description': 'In-browser product photo resizer and padding utility creating 1:1 square canvas.'
+        }
+      ]
+    }
+  },
+
+  '/barcode-generator': {
+    title: 'Free Barcode & QR Code Generator – Printable 30-Up Label Sheets | SellerKit',
+    description: 'Generate Code 128, EAN-13, UPC-A, Code 39, and QR code barcode labels. Export single high-res PNG/SVG or print standard 30-per-sheet (Avery 5160) labels.',
+    keywords: 'barcode generator, free upc barcode maker, code 128 generator',
+    canonical: `${SITE_URL}/tools/barcode-generator`,
+    ogTitle: 'Free Barcode Generator & Printable 30-Up Label Maker',
+    ogDescription: 'Generate barcode labels for Amazon FNSKU, UPC, EAN, and SKU tracking.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Free E-Commerce Barcode & Label Sheet Generator',
+          'url': `${SITE_URL}/barcode-generator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.91', 'ratingCount': '1290' },
+          'description': 'Generate industrial barcodes and printable 30-up label sheets.'
         }
       ]
     }

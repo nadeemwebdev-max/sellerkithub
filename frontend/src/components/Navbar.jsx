@@ -15,7 +15,9 @@ import {
   GitCompare, 
   Package, 
   Calendar,
-  BookOpen 
+  BookOpen,
+  Target,
+  Building2
 } from 'lucide-react';
 import { useCurrency, CURRENCIES } from '../context/CurrencyContext';
 
@@ -45,55 +47,69 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Organized Calculator Suite Dropdown
+  // Organized Programmatic SEO Calculator Suite Dropdown
   const calculatorTools = [
     {
-      name: 'Multi-Marketplace Calculator',
-      desc: 'All-in-one profit & fee breakdown for all platforms',
-      path: '/',
-      icon: Calculator,
-      color: 'text-indigo-500 bg-indigo-500/10',
-    },
-    {
-      name: 'Side-by-Side Comparison',
-      desc: 'Compare net profit across Amazon, Etsy & Shopify',
-      path: '/marketplace-comparison',
-      icon: GitCompare,
-      color: 'text-emerald-500 bg-emerald-500/10',
-    },
-    {
-      name: 'Batch SKU Calculator',
-      desc: 'Portfolio cash flow & inventory profit modeling',
-      path: '/batch-calculator',
-      icon: Package,
-      color: 'text-blue-500 bg-blue-500/10',
-    },
-    {
-      name: 'Etsy Fee & Profit',
-      desc: 'Listing renewals, 6.5% cut & offsite ads math',
-      path: '/etsy-fee-calculator',
-      icon: ShoppingBag,
-      color: 'text-orange-500 bg-orange-500/10',
-    },
-    {
-      name: 'Amazon FBA vs FBM',
-      desc: 'Referral tiers, weight size fees & storage rates',
-      path: '/amazon-fee-calculator',
+      name: 'Amazon FBA Calculator',
+      desc: '2026 referral rates, FBA pick & pack & storage',
+      path: '/tools/amazon-fba-calculator',
       icon: TrendingUp,
       color: 'text-amber-500 bg-amber-500/10',
     },
     {
-      name: 'Margin & Markup Matrix',
-      desc: 'Tiered wholesale price points & CSV export',
-      path: '/margin-matrix',
+      name: 'Etsy Fee Calculator',
+      desc: 'Listing renewals, 6.5% cut & offsite ads math',
+      path: '/tools/etsy-fee-calculator',
+      icon: ShoppingBag,
+      color: 'text-orange-500 bg-orange-500/10',
+    },
+    {
+      name: 'Profit Margin Calculator',
+      desc: 'Tiered wholesale price points & gross margin ladders',
+      path: '/tools/profit-margin-calculator',
       icon: Grid,
       color: 'text-purple-500 bg-purple-500/10',
+    },
+    {
+      name: 'ROAS Ad Calculator',
+      desc: 'Target & Break-Even ROAS, CAC & net ad profit',
+      path: '/tools/roas-calculator',
+      icon: Target,
+      color: 'text-emerald-500 bg-emerald-500/10',
+    },
+    {
+      name: 'GST Tax Calculator',
+      desc: 'Inclusive/Exclusive GST, CGST/SGST/IGST splits',
+      path: '/tools/gst-calculator',
+      icon: Building2,
+      color: 'text-blue-500 bg-blue-500/10',
+    },
+    {
+      name: 'Side-by-Side Comparison',
+      desc: 'Compare net profit across Amazon, Etsy & Shopify',
+      path: '/tools/marketplace-comparison',
+      icon: GitCompare,
+      color: 'text-indigo-500 bg-indigo-500/10',
+    },
+    {
+      name: 'Batch SKU Calculator',
+      desc: 'Portfolio cash flow & inventory profit modeling',
+      path: '/tools/batch-calculator',
+      icon: Package,
+      color: 'text-cyan-500 bg-cyan-500/10',
+    },
+    {
+      name: 'Universal Fee Calculator',
+      desc: 'All-in-one multi-channel calculator',
+      path: '/',
+      icon: Calculator,
+      color: 'text-slate-500 bg-slate-500/10',
     },
   ];
 
   const directNavLinks = [
-    { name: '1:1 Image Padder', path: '/product-image-resizer', icon: ImageIcon },
-    { name: 'Barcode & QR Maker', path: '/barcode-generator', icon: Barcode },
+    { name: '1:1 Image Padder', path: '/tools/product-image-resizer', icon: ImageIcon },
+    { name: 'Barcode & QR Maker', path: '/tools/barcode-generator', icon: Barcode },
     { name: 'Blog Guides', path: '/blog', icon: BookOpen },
     { name: '2026 Fee Hub', path: '/fee-updates', icon: Calendar },
   ];
@@ -141,14 +157,14 @@ export default function Navbar() {
                 }`}
               >
                 <Calculator className="w-4 h-4 text-brand-600 dark:text-brand-400" />
-                <span>Calculators & Profit</span>
+                <span>Calculators & Tools</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${calcDropdownOpen ? 'rotate-180 text-brand-600 dark:text-brand-400' : 'text-slate-400'}`} />
               </button>
 
               {/* Mega Dropdown Menu */}
               {calcDropdownOpen && (
                 <div 
-                  className="absolute left-0 mt-2 w-[440px] rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/10 shadow-2xl p-2.5 z-50 animate-in fade-in zoom-in-95 duration-150 grid grid-cols-2 gap-1.5"
+                  className="absolute left-0 mt-2 w-[520px] rounded-2xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/10 shadow-2xl p-3 z-50 animate-in fade-in zoom-in-95 duration-150 grid grid-cols-2 gap-2"
                 >
                   {calculatorTools.map((tool) => {
                     const Icon = tool.icon;
@@ -284,7 +300,7 @@ export default function Navbar() {
         {mobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-slate-200 dark:border-white/10 space-y-2">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 block">
-              Calculators & Profits
+              Calculators & Tools
             </span>
             <div className="grid grid-cols-1 gap-1">
               {calculatorTools.map((tool) => {

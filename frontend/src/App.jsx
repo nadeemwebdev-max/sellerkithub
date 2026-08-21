@@ -13,6 +13,8 @@ import ImagePadder from './pages/ImagePadder';
 import BarcodeGenerator from './pages/BarcodeGenerator';
 import MarginMatrix from './pages/MarginMatrix';
 import FeeUpdates from './pages/FeeUpdates';
+import RoasCalculator from './pages/RoasCalculator';
+import GstCalculator from './pages/GstCalculator';
 
 // Blog Pages
 import BlogIndex from './pages/BlogIndex';
@@ -39,15 +41,30 @@ export default function App() {
       <Navbar />
       <main className="flex-grow">
         <Routes>
-          {/* Calculators & Utilities */}
+          {/* Main Home Universal Tool */}
           <Route path="/" element={<Home />} />
-          <Route path="/etsy-fee-calculator" element={<EtsyCalculator />} />
+
+          {/* Programmatic Discrete SEO Routes under /tools/ */}
+          <Route path="/tools/amazon-fba-calculator" element={<AmazonCalculator />} />
+          <Route path="/tools/etsy-fee-calculator" element={<EtsyCalculator />} />
+          <Route path="/tools/profit-margin-calculator" element={<MarginMatrix />} />
+          <Route path="/tools/roas-calculator" element={<RoasCalculator />} />
+          <Route path="/tools/gst-calculator" element={<GstCalculator />} />
+          <Route path="/tools/marketplace-comparison" element={<MarketplaceComparison />} />
+          <Route path="/tools/batch-calculator" element={<BatchCalculator />} />
+          <Route path="/tools/product-image-resizer" element={<ImagePadder />} />
+          <Route path="/tools/barcode-generator" element={<BarcodeGenerator />} />
+
+          {/* Canonical Short Aliases */}
           <Route path="/amazon-fee-calculator" element={<AmazonCalculator />} />
+          <Route path="/etsy-fee-calculator" element={<EtsyCalculator />} />
+          <Route path="/margin-matrix" element={<MarginMatrix />} />
+          <Route path="/roas-calculator" element={<RoasCalculator />} />
+          <Route path="/gst-calculator" element={<GstCalculator />} />
           <Route path="/marketplace-comparison" element={<MarketplaceComparison />} />
           <Route path="/batch-calculator" element={<BatchCalculator />} />
           <Route path="/product-image-resizer" element={<ImagePadder />} />
           <Route path="/barcode-generator" element={<BarcodeGenerator />} />
-          <Route path="/margin-matrix" element={<MarginMatrix />} />
           <Route path="/fee-updates" element={<FeeUpdates />} />
 
           {/* Blog & SEO Content Pages */}

@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Calculator, 
   TrendingUp, 
@@ -10,7 +11,15 @@ import {
   RefreshCw, 
   Sparkles,
   ShoppingBag,
-  FileSpreadsheet
+  FileSpreadsheet,
+  Grid,
+  Target,
+  Building2,
+  GitCompare,
+  Package,
+  Image as ImageIcon,
+  Barcode,
+  ArrowRight
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { calculateMasterProfit, exportToCSV, MARKETPLACE_PRESETS } from '../utils/calculations';
@@ -119,6 +128,18 @@ Calculated via SellerKitHub.com`;
 
   const isProfitable = result.netProfit > 0;
 
+  const discreteTools = [
+    { name: 'Amazon FBA Calculator', path: '/tools/amazon-fba-calculator', icon: TrendingUp, color: 'text-amber-600 bg-amber-50 dark:bg-amber-500/10' },
+    { name: 'Etsy Fee Calculator', path: '/tools/etsy-fee-calculator', icon: ShoppingBag, color: 'text-orange-600 bg-orange-50 dark:bg-orange-500/10' },
+    { name: 'Profit Margin Calculator', path: '/tools/profit-margin-calculator', icon: Grid, color: 'text-purple-600 bg-purple-50 dark:bg-purple-500/10' },
+    { name: 'ROAS & Ad Calculator', path: '/tools/roas-calculator', icon: Target, color: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-500/10' },
+    { name: 'GST & Sales Tax Calculator', path: '/tools/gst-calculator', icon: Building2, color: 'text-blue-600 bg-blue-50 dark:bg-blue-500/10' },
+    { name: 'Marketplace Comparison', path: '/tools/marketplace-comparison', icon: GitCompare, color: 'text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10' },
+    { name: 'Multi-SKU Batch Calculator', path: '/tools/batch-calculator', icon: Package, color: 'text-cyan-600 bg-cyan-50 dark:bg-cyan-500/10' },
+    { name: '1:1 Product Image Padder', path: '/tools/product-image-resizer', icon: ImageIcon, color: 'text-rose-600 bg-rose-50 dark:bg-rose-500/10' },
+    { name: 'Barcode & QR Maker', path: '/tools/barcode-generator', icon: Barcode, color: 'text-violet-600 bg-violet-50 dark:bg-violet-500/10' },
+  ];
+
   const faqs = [
     {
       question: "How are marketplace seller fees calculated?",
@@ -179,7 +200,7 @@ Calculated via SellerKitHub.com`;
       </div>
 
       {/* Main Calculator Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
         
         {/* Left Inputs Panel (7 Cols) */}
         <div className="lg:col-span-7 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] p-6 sm:p-8 space-y-6 shadow-xl dark:shadow-2xl">
@@ -222,19 +243,18 @@ Calculated via SellerKitHub.com`;
                 </span>
                 <input
                   type="number"
-                  step="any"
+                  step="0.01"
                   value={sellingPrice || ''}
                   onChange={(e) => setSellingPrice(parseFloat(e.target.value) || 0)}
-                  className="w-full pl-8 pr-3 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono font-semibold focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm"
-                  placeholder="0.00"
+                  className="w-full pl-8 pr-3 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
                 />
               </div>
             </div>
 
-            {/* Product Unit Cost */}
+            {/* Product Sourcing Cost */}
             <div>
               <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                Item Manufacturing / Sourcing Cost ({activeCurrency.symbol})
+                Product Sourcing Cost (COGS) ({activeCurrency.symbol})
               </label>
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">
@@ -242,178 +262,84 @@ Calculated via SellerKitHub.com`;
                 </span>
                 <input
                   type="number"
-                  step="any"
+                  step="0.01"
                   value={productCost || ''}
                   onChange={(e) => setProductCost(parseFloat(e.target.value) || 0)}
-                  className="w-full pl-8 pr-3 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono font-semibold focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-sm"
-                  placeholder="0.00"
+                  className="w-full pl-8 pr-3 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
                 />
               </div>
             </div>
 
           </div>
 
-          {/* Platform Specific Settings */}
-          {platform === 'amazon' && (
-            <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-500/5 border border-amber-200 dark:border-amber-500/20 space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-amber-800 dark:text-amber-400 uppercase tracking-wider">
-                  Amazon FBA / FBM Configuration
-                </span>
-                <div className="flex rounded-lg bg-slate-200 dark:bg-black/40 p-0.5 border border-slate-300 dark:border-white/10">
-                  <button
-                    type="button"
-                    onClick={() => setFulfillmentType('fba')}
-                    className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition ${
-                      fulfillmentType === 'fba' ? 'bg-amber-500 text-black shadow-sm' : 'text-slate-600 dark:text-slate-400'
-                    }`}
-                  >
-                    FBA (Amazon Ships)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setFulfillmentType('fbm')}
-                    className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition ${
-                      fulfillmentType === 'fbm' ? 'bg-amber-500 text-black shadow-sm' : 'text-slate-600 dark:text-slate-400'
-                    }`}
-                  >
-                    FBM (You Ship)
-                  </button>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-[11px] text-slate-700 dark:text-slate-300 mb-1">
-                    Category Referral Fee ({referralRate}%)
-                  </label>
-                  <select
-                    value={referralRate}
-                    onChange={(e) => setReferralRate(parseFloat(e.target.value))}
-                    className="w-full px-3 py-2 rounded-lg bg-white dark:bg-[#090d16] border border-slate-200 dark:border-white/10 text-xs text-slate-900 dark:text-white focus:outline-none"
-                  >
-                    {MARKETPLACE_PRESETS.amazon.categories.map((c, i) => (
-                      <option key={i} value={c.rate} className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">{c.name}</option>
-                    ))}
-                  </select>
-                </div>
-
-                {fulfillmentType === 'fba' ? (
-                  <div>
-                    <label className="block text-[11px] text-slate-700 dark:text-slate-300 mb-1">
-                      FBA Size Tier Pick & Pack ({activeCurrency.symbol})
-                    </label>
-                    <select
-                      value={fbaFee}
-                      onChange={(e) => setFbaFee(parseFloat(e.target.value))}
-                      className="w-full px-3 py-2 rounded-lg bg-white dark:bg-[#090d16] border border-slate-200 dark:border-white/10 text-xs text-slate-900 dark:text-white focus:outline-none"
-                    >
-                      {MARKETPLACE_PRESETS.amazon.fbaTiers.map((tier, i) => (
-                        <option key={i} value={tier.fee} className="bg-white dark:bg-[#0c1322] text-slate-900 dark:text-slate-100">
-                          {tier.name} - {format(tier.fee * activeCurrency.rate)}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                ) : (
-                  <div>
-                    <label className="block text-[11px] text-slate-700 dark:text-slate-300 mb-1">
-                      Merchant Shipping Cost to Customer ({activeCurrency.symbol})
-                    </label>
-                    <input
-                      type="number"
-                      value={shippingCost || ''}
-                      onChange={(e) => setShippingCost(parseFloat(e.target.value) || 0)}
-                      className="w-full px-3 py-2 rounded-lg bg-white dark:bg-[#090d16] border border-slate-200 dark:border-white/10 text-xs text-slate-900 dark:text-white focus:outline-none"
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {platform === 'etsy' && (
-            <div className="p-4 rounded-xl bg-orange-50 dark:bg-orange-500/5 border border-orange-200 dark:border-orange-500/20 space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-orange-800 dark:text-orange-400 uppercase tracking-wider">
-                  Etsy Standard Fees (6.5% + $0.20 + 3% payment)
-                </span>
-                <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-700 dark:text-slate-300">
-                  <input
-                    type="checkbox"
-                    checked={offsiteAdsActive}
-                    onChange={(e) => setOffsiteAdsActive(e.target.checked)}
-                    className="rounded text-brand-600"
-                  />
-                  <span>Include Offsite Ads (15%)</span>
-                </label>
-              </div>
-              <div>
-                <label className="block text-[11px] text-slate-700 dark:text-slate-300 mb-1">
-                  Shipping Cost Paid by Seller ({activeCurrency.symbol})
-                </label>
-                <input
-                  type="number"
-                  value={shippingCost || ''}
-                  onChange={(e) => setShippingCost(parseFloat(e.target.value) || 0)}
-                  className="w-full px-3 py-2 rounded-lg bg-white dark:bg-[#090d16] border border-slate-200 dark:border-white/10 text-xs text-slate-900 dark:text-white focus:outline-none"
-                />
-              </div>
-            </div>
-          )}
-
-          {/* Shipping & Marketing Row */}
+          {/* Logistics & Platform Rates */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {platform !== 'amazon' && platform !== 'etsy' && (
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                  Shipping / Carrier Cost ({activeCurrency.symbol})
-                </label>
-                <input
-                  type="number"
-                  value={shippingCost || ''}
-                  onChange={(e) => setShippingCost(parseFloat(e.target.value) || 0)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none"
-                />
-              </div>
-            )}
-
+            
+            {/* Outbound Shipping Cost */}
             <div>
               <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                Marketing / PPC Ad Spend per Sale ({activeCurrency.symbol})
+                Outbound Shipping / Postage ({activeCurrency.symbol})
+              </label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">
+                  {activeCurrency.symbol}
+                </span>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={shippingCost || ''}
+                  onChange={(e) => setShippingCost(parseFloat(e.target.value) || 0)}
+                  className="w-full pl-8 pr-3 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
+                />
+              </div>
+            </div>
+
+            {/* Platform Referral Rate */}
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                Marketplace Referral Fee %
+              </label>
+              <div className="relative">
+                <input
+                  type="number"
+                  step="0.1"
+                  value={referralRate || ''}
+                  onChange={(e) => setReferralRate(parseFloat(e.target.value) || 0)}
+                  className="w-full pl-3 pr-8 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
+                />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">
+                  %
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Marketing & Return Overhead */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                Estimated Ad Spend / PPC per Unit ({activeCurrency.symbol})
               </label>
               <input
                 type="number"
+                step="0.1"
                 value={marketingSpend || ''}
                 onChange={(e) => setMarketingSpend(parseFloat(e.target.value) || 0)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
               />
             </div>
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                Estimated Return Rate: {returnRate}%
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="25"
-                step="0.5"
-                value={returnRate}
-                onChange={(e) => setReturnRate(parseFloat(e.target.value))}
-                className="w-full h-2 bg-slate-200 dark:bg-white/10 rounded-lg appearance-none cursor-pointer"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                Packaging & Misc Cost ({activeCurrency.symbol})
+                Return Rate Buffer (%)
               </label>
               <input
                 type="number"
-                value={miscCost || ''}
-                onChange={(e) => setMiscCost(parseFloat(e.target.value) || 0)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none"
+                step="0.5"
+                value={returnRate || ''}
+                onChange={(e) => setReturnRate(parseFloat(e.target.value) || 0)}
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
               />
             </div>
           </div>
@@ -421,35 +347,36 @@ Calculated via SellerKitHub.com`;
         </div>
 
         {/* Right Output Results Panel (5 Cols) */}
-        <div className="lg:col-span-5 space-y-6">
+        <div className="lg:col-span-5 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/[0.02] p-6 sm:p-8 space-y-6 shadow-sm">
           
-          <div className={`rounded-2xl border p-6 sm:p-8 space-y-6 shadow-2xl transition-all ${
-            isProfitable
-              ? 'bg-emerald-50/50 border-emerald-300 dark:bg-gradient-to-b dark:from-[#0c182a] dark:to-[#09121f] dark:border-emerald-500/30'
-              : 'bg-rose-50/50 border-rose-300 dark:bg-gradient-to-b dark:from-[#1f0f15] dark:to-[#140a0e] dark:border-rose-500/30'
-          }`}>
-            
-            {/* Header Result */}
-            <div>
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">
-                Estimated Net Profit (Per Unit)
-              </span>
-              <div className="flex items-baseline gap-2 mt-1">
-                <span className={`font-mono text-4xl sm:text-5xl font-extrabold tracking-tight ${
-                  isProfitable ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'
-                }`}>
-                  {format(result.netProfit)}
-                </span>
-                <span className={`text-xs font-bold px-2 py-0.5 rounded-md ${
-                  isProfitable ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300' : 'bg-rose-100 text-rose-800 dark:bg-rose-500/20 dark:text-rose-300'
-                }`}>
-                  {result.netMarginPercent.toFixed(1)}% Margin
-                </span>
-              </div>
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4">
+            <h2 className="font-display text-lg font-bold text-slate-900 dark:text-white">
+              Estimated Net Take-Home
+            </h2>
+            <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
+              isProfitable 
+                ? 'bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400' 
+                : 'bg-rose-100 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400'
+            }`}>
+              {isProfitable ? 'Profitable Sale' : 'Operating at Loss'}
+            </span>
+          </div>
+
+          <div className="space-y-4">
+            <div className="p-4 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5 shadow-sm space-y-1">
+              <span className="text-xs text-slate-500 dark:text-slate-400 uppercase font-semibold">Net Profit per Unit</span>
+              <p className={`font-mono text-3xl font-extrabold ${
+                isProfitable ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
+              }`}>
+                {format(result.netProfit)}
+              </p>
+              <p className="text-xs text-slate-500">
+                Profit Margin: <span className="font-bold text-slate-900 dark:text-white font-mono">{result.netMarginPercent.toFixed(2)}%</span>
+              </p>
             </div>
 
             {/* Quick Metrics */}
-            <div className="grid grid-cols-2 gap-3 pt-2">
+            <div className="grid grid-cols-2 gap-3">
               <div className="p-3 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5 shadow-sm">
                 <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold">ROI (Return on Cost)</span>
                 <p className="font-mono text-lg font-bold text-slate-900 dark:text-white mt-0.5">
@@ -464,48 +391,11 @@ Calculated via SellerKitHub.com`;
               </div>
             </div>
 
-            {/* Visual Cost Distribution Bar */}
-            <div>
-              <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400 mb-1.5">
-                <span>Revenue Allocation Breakdown</span>
-                <span className="font-mono text-slate-900 dark:text-white font-semibold">{format(result.grossRevenue)}</span>
-              </div>
-              
-              <div className="w-full h-3 rounded-full bg-slate-200 dark:bg-white/10 overflow-hidden flex">
-                {result.breakdown.map((item, i) => {
-                  const pct = result.grossRevenue > 0 ? (item.amount / result.grossRevenue) * 100 : 0;
-                  if (pct <= 0) return null;
-                  return (
-                    <div
-                      key={i}
-                      style={{ width: `${Math.min(100, pct)}%`, backgroundColor: item.color }}
-                      title={`${item.label}: ${format(item.amount)} (${pct.toFixed(1)}%)`}
-                      className="h-full transition-all"
-                    />
-                  );
-                })}
-              </div>
-
-              {/* Legend */}
-              <div className="grid grid-cols-2 gap-2 mt-4 text-[11px]">
-                {result.breakdown.map((item, i) => (
-                  <div key={i} className="flex items-center justify-between text-slate-700 dark:text-slate-300">
-                    <span className="flex items-center gap-1.5 truncate">
-                      <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
-                      <span className="truncate">{item.label}</span>
-                    </span>
-                    <span className="font-mono font-medium ml-1 shrink-0">{format(item.amount)}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             {/* Copy & Excel Download Actions */}
             <div className="flex flex-col sm:flex-row gap-2">
               <button
                 onClick={handleDownloadExcel}
                 className="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition shadow-md shadow-emerald-600/20"
-                title="Download spreadsheet for Microsoft Excel / Google Sheets"
               >
                 {downloaded ? <Check className="w-4 h-4 text-emerald-200" /> : <FileSpreadsheet className="w-4 h-4" />}
                 <span>{downloaded ? 'Downloaded!' : 'Download Excel'}</span>
@@ -522,11 +412,47 @@ Calculated via SellerKitHub.com`;
 
           </div>
 
-          <AdPlaceholder slot="vertical" />
-
         </div>
 
       </div>
+
+      {/* Programmatic SEO Discrete Tool Cards Suite Directory */}
+      <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] shadow-xl">
+        <div className="border-b border-slate-200 dark:border-white/10 pb-4 mb-6">
+          <span className="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">
+            Dedicated Search-Engine-Indexable Tools Suite
+          </span>
+          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white mt-1">
+            Browse All Discrete E-Commerce Utility Calculators
+          </h2>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+            Access specialized calculators for Amazon FBA, Etsy, ROAS paid traffic, GST sales tax, wholesale margin matrices, and product image resizers.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {discreteTools.map(tool => {
+            const Icon = tool.icon;
+            return (
+              <Link
+                key={tool.path}
+                to={tool.path}
+                className="p-4 rounded-xl border border-slate-200 dark:border-white/10 hover:border-brand-500/50 bg-slate-50/50 dark:bg-white/[0.02] hover:bg-white dark:hover:bg-white/5 transition flex items-center justify-between group shadow-sm"
+              >
+                <div className="flex items-center gap-3">
+                  <div className={`w-9 h-9 rounded-lg ${tool.color} flex items-center justify-center shrink-0`}>
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition">
+                    {tool.name}
+                  </span>
+                </div>
+                <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-brand-600 group-hover:translate-x-1 transition-all" />
+              </Link>
+            );
+          })}
+        </div>
+      </section>
 
       {/* Author Bio & E-E-A-T Component */}
       <AuthorBio 
@@ -543,7 +469,6 @@ Calculated via SellerKitHub.com`;
         description="Streamline store inventory, automate keyword rank tracking, and reduce cross-border transfer fees."
       />
 
-      {/* Horizontal Ad Space */}
       <AdPlaceholder slot="horizontal" />
 
       {/* SEO Guide & Formula Article */}
