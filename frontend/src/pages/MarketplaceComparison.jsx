@@ -19,6 +19,8 @@ import { useCurrency } from '../context/CurrencyContext';
 import { calculateMasterProfit, exportToCSV } from '../utils/calculations';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
+import AuthorBio from '../components/AuthorBio';
+import AffiliateCTA from '../components/AffiliateCTA';
 
 export default function MarketplaceComparison() {
   const { activeCurrency, format } = useCurrency();
@@ -324,16 +326,20 @@ export default function MarketplaceComparison() {
 
       </div>
 
-      {/* Image 1: Side-by-side Matrix Diagram */}
-      <img
-        src="/images/marketplace-comparison-matrix.svg"
-        alt="Multi-Marketplace Profit Comparison Dashboard showing Amazon, Etsy, eBay, Shopify, and Meesho side by side"
-        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
-        loading="lazy"
-        decoding="async"
+      {/* Author Bio & E-E-A-T Component */}
+      <AuthorBio 
+        authorName="SellerKit Channel Analytics Team"
+        authorRole="Multi-Channel Platform Strategy Specialists"
+        lastUpdated="2026 Multi-Platform Schedule Verified"
+        category="E-Commerce Channel Profitability"
       />
 
-      <AdPlaceholder slot="horizontal" />
+      {/* Recommended Seller Tools Affiliate Component */}
+      <AffiliateCTA 
+        platform="general" 
+        title="Recommended Multi-Channel Growth Tools" 
+        description="Sync multi-channel catalog stock, lower cross-border payment cuts, and build independent storefronts."
+      />
 
       {/* Multi-Channel Comparison Table */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm">
@@ -404,15 +410,6 @@ export default function MarketplaceComparison() {
           </table>
         </div>
       </section>
-
-      {/* Image 2: Channel Fee Distribution & Ranking */}
-      <img
-        src="/images/channel-fee-distribution-chart.svg"
-        alt="E-Commerce Sales Channel Take-Home Profit Margin Ranking Diagram"
-        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
-        loading="lazy"
-        decoding="async"
-      />
 
       {/* Step-by-Step Worked Calculation Examples */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm space-y-8">

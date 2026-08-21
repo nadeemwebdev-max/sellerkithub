@@ -4,6 +4,8 @@ import { useCurrency } from '../context/CurrencyContext';
 import { calculateMasterProfit, exportToCSV } from '../utils/calculations';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
+import AuthorBio from '../components/AuthorBio';
+import AffiliateCTA from '../components/AffiliateCTA';
 
 export default function EtsyCalculator() {
   const { activeCurrency, format } = useCurrency();
@@ -290,16 +292,20 @@ Calculated with SellerKitHub.com`;
 
       </div>
 
-      {/* Image 1: Interactive Breakdown Diagram */}
-      <img
-        src="/images/etsy-fee-breakdown-calculator.svg"
-        alt="Etsy Fee Calculator 2026 Breakdown Chart showing listing fee, transaction cut, and net profit margin"
-        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
-        loading="lazy"
-        decoding="async"
+      {/* Author Bio & E-E-A-T Component */}
+      <AuthorBio 
+        authorName="SellerKit Etsy Analytics Team"
+        authorRole="Handmade & Vintage E-Commerce Specialists"
+        lastUpdated="2026 Etsy Fee Structure Verified"
+        category="Etsy Shop Profitability Modeling"
       />
 
-      <AdPlaceholder slot="horizontal" />
+      {/* Recommended Seller Tools Affiliate Component */}
+      <AffiliateCTA 
+        platform="etsy" 
+        title="Recommended Etsy Growth & SEO Tools" 
+        description="Optimize your listing tags, automate print-on-demand fulfillment, and track search rankings."
+      />
 
       {/* 2026 Etsy Fee Schedule Reference Table */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm">
@@ -364,15 +370,6 @@ Calculated with SellerKitHub.com`;
           </table>
         </div>
       </section>
-
-      {/* Image 2: Offsite Ads Comparison Diagram */}
-      <img
-        src="/images/etsy-offsite-ads-profit-model.svg"
-        alt="Etsy Offsite Ads Fee Impact Diagram comparing optional 15 percent versus mandatory 12 percent ad cuts"
-        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
-        loading="lazy"
-        decoding="async"
-      />
 
       {/* Step-by-Step Worked Math Examples */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm space-y-8">

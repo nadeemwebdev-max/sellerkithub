@@ -13,6 +13,8 @@ import {
 import { getBlogPostBySlug, BLOG_POSTS } from '../data/blogPosts';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
+import AuthorBio from '../components/AuthorBio';
+import AffiliateCTA from '../components/AffiliateCTA';
 
 export default function BlogPost() {
   const { slug } = useParams();
@@ -112,6 +114,21 @@ export default function BlogPost() {
       <article className="my-10 p-6 sm:p-10 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] shadow-sm text-slate-800 dark:text-slate-200 space-y-6 text-sm leading-relaxed prose dark:prose-invert max-w-none">
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
       </article>
+
+      {/* Author Bio & E-E-A-T Component */}
+      <AuthorBio 
+        authorName={post.author || "SellerKit Editorial & Analytics Team"}
+        authorRole="Senior E-Commerce Data Analyst & Author"
+        lastUpdated="Verified E-Commerce Industry Guide"
+        category={post.category || "E-Commerce Strategy"}
+      />
+
+      {/* Recommended Tools Component */}
+      <AffiliateCTA 
+        platform={post.category?.toLowerCase().includes('amazon') ? 'amazon' : post.category?.toLowerCase().includes('etsy') ? 'etsy' : 'general'}
+        title="Recommended Tools for This Guide"
+        description="Accelerate your store growth with curated e-commerce software."
+      />
 
       <AdPlaceholder slot="horizontal" />
 

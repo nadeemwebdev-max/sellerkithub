@@ -1,6 +1,24 @@
 export const SITE_URL = 'https://sellerkithub.com';
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/favicon.svg`;
 
+const ORGANIZATION_SCHEMA = {
+  '@type': 'Organization',
+  '@id': `${SITE_URL}/#organization`,
+  'name': 'SellerKitHub',
+  'url': SITE_URL,
+  'logo': `${SITE_URL}/favicon.svg`,
+  'sameAs': [
+    'https://twitter.com/sellerkithub',
+    'https://github.com/sellerkithub'
+  ],
+  'contactPoint': {
+    '@type': 'ContactPoint',
+    'email': 'support@sellerkithub.com',
+    'contactType': 'customer support',
+    'availableLanguage': 'English'
+  }
+};
+
 export const ROUTES_SEO = {
   '/': {
     title: 'SellerKit – Free E-Commerce Fee & Profit Calculators & Tools',
@@ -12,17 +30,14 @@ export const ROUTES_SEO = {
     schema: {
       '@context': 'https://schema.org',
       '@graph': [
+        ORGANIZATION_SCHEMA,
         {
           '@type': 'WebSite',
           '@id': `${SITE_URL}/#website`,
           'url': `${SITE_URL}/`,
           'name': 'SellerKit Hub',
           'description': 'Free E-Commerce Seller Utilities & Fee Calculators',
-          'potentialAction': {
-            '@type': 'SearchAction',
-            'target': `${SITE_URL}/?s={search_term_string}`,
-            'query-input': 'required name=search_term_string'
-          }
+          'publisher': { '@id': `${SITE_URL}/#organization` }
         },
         {
           '@type': 'SoftwareApplication',
@@ -56,6 +71,7 @@ export const ROUTES_SEO = {
     schema: {
       '@context': 'https://schema.org',
       '@graph': [
+        ORGANIZATION_SCHEMA,
         {
           '@type': 'SoftwareApplication',
           'name': 'Etsy Seller Fee & Profit Calculator',
@@ -95,6 +111,7 @@ export const ROUTES_SEO = {
     schema: {
       '@context': 'https://schema.org',
       '@graph': [
+        ORGANIZATION_SCHEMA,
         {
           '@type': 'SoftwareApplication',
           'name': 'Amazon FBA vs FBM Profit Calculator',
@@ -134,6 +151,7 @@ export const ROUTES_SEO = {
     schema: {
       '@context': 'https://schema.org',
       '@graph': [
+        ORGANIZATION_SCHEMA,
         {
           '@type': 'SoftwareApplication',
           'name': 'Multi-Marketplace Comparison Tool',
@@ -173,6 +191,7 @@ export const ROUTES_SEO = {
     schema: {
       '@context': 'https://schema.org',
       '@graph': [
+        ORGANIZATION_SCHEMA,
         {
           '@type': 'SoftwareApplication',
           'name': 'Multi-SKU Batch Profit Calculator',
@@ -212,6 +231,7 @@ export const ROUTES_SEO = {
     schema: {
       '@context': 'https://schema.org',
       '@graph': [
+        ORGANIZATION_SCHEMA,
         {
           '@type': 'SoftwareApplication',
           'name': '1:1 Square Product Image Padder',
@@ -251,6 +271,7 @@ export const ROUTES_SEO = {
     schema: {
       '@context': 'https://schema.org',
       '@graph': [
+        ORGANIZATION_SCHEMA,
         {
           '@type': 'SoftwareApplication',
           'name': 'Free E-Commerce Barcode & Label Sheet Generator',
@@ -290,6 +311,7 @@ export const ROUTES_SEO = {
     schema: {
       '@context': 'https://schema.org',
       '@graph': [
+        ORGANIZATION_SCHEMA,
         {
           '@type': 'SoftwareApplication',
           'name': 'Wholesale Margin & Markup Matrix',
@@ -329,6 +351,7 @@ export const ROUTES_SEO = {
     schema: {
       '@context': 'https://schema.org',
       '@graph': [
+        ORGANIZATION_SCHEMA,
         {
           '@type': 'Blog',
           'name': 'SellerKit E-Commerce Blog',
@@ -356,12 +379,13 @@ export const ROUTES_SEO = {
     schema: {
       '@context': 'https://schema.org',
       '@graph': [
+        ORGANIZATION_SCHEMA,
         {
           '@type': 'BlogPosting',
           'headline': 'Amazon FBA Fee Changes & Inbound Placement Fees in 2026',
           'url': `${SITE_URL}/blog/amazon-fba-fee-changes-2026`,
           'datePublished': '2026-02-15',
-          'author': { '@type': 'Organization', 'name': 'SellerKit' }
+          'author': { '@id': `${SITE_URL}/#organization` }
         },
         {
           '@type': 'BreadcrumbList',
@@ -385,12 +409,13 @@ export const ROUTES_SEO = {
     schema: {
       '@context': 'https://schema.org',
       '@graph': [
+        ORGANIZATION_SCHEMA,
         {
           '@type': 'BlogPosting',
           'headline': 'Etsy Seller Fee Structure 2026: Listing Fees & Offsite Ads',
           'url': `${SITE_URL}/blog/etsy-seller-fee-breakdown-guide`,
           'datePublished': '2026-02-10',
-          'author': { '@type': 'Organization', 'name': 'SellerKit' }
+          'author': { '@id': `${SITE_URL}/#organization` }
         },
         {
           '@type': 'BreadcrumbList',
@@ -414,12 +439,13 @@ export const ROUTES_SEO = {
     schema: {
       '@context': 'https://schema.org',
       '@graph': [
+        ORGANIZATION_SCHEMA,
         {
           '@type': 'BlogPosting',
           'headline': 'Margin vs. Markup in E-Commerce: Pricing for 50%+ Margins',
           'url': `${SITE_URL}/blog/ecommerce-pricing-strategies-margin-vs-markup`,
           'datePublished': '2026-01-28',
-          'author': { '@type': 'Organization', 'name': 'SellerKit' }
+          'author': { '@id': `${SITE_URL}/#organization` }
         },
         {
           '@type': 'BreadcrumbList',
@@ -443,12 +469,13 @@ export const ROUTES_SEO = {
     schema: {
       '@context': 'https://schema.org',
       '@graph': [
+        ORGANIZATION_SCHEMA,
         {
           '@type': 'BlogPosting',
           'headline': 'How to Optimize 1:1 Square Product Photos for Amazon & Etsy',
           'url': `${SITE_URL}/blog/how-to-optimize-product-images-for-amazon-etsy`,
           'datePublished': '2026-01-18',
-          'author': { '@type': 'Organization', 'name': 'SellerKit' }
+          'author': { '@id': `${SITE_URL}/#organization` }
         },
         {
           '@type': 'BreadcrumbList',
@@ -471,14 +498,16 @@ export const ROUTES_SEO = {
     ogDescription: 'Complete reference of official 2026 fee updates across Amazon, Etsy, eBay, Shopify, and Meesho.',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'Article',
-      'headline': '2026 E-Commerce Marketplace Fee Updates & Policy Guide',
-      'url': `${SITE_URL}/fee-updates`,
-      'description': 'Up-to-date breakdown of Amazon, Etsy, eBay, Shopify, and Meesho seller fee adjustments in 2026.',
-      'author': {
-        '@type': 'Organization',
-        'name': 'SellerKit'
-      }
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'Article',
+          'headline': '2026 E-Commerce Marketplace Fee Updates & Policy Guide',
+          'url': `${SITE_URL}/fee-updates`,
+          'description': 'Up-to-date breakdown of Amazon, Etsy, eBay, Shopify, and Meesho seller fee adjustments in 2026.',
+          'author': { '@id': `${SITE_URL}/#organization` }
+        }
+      ]
     }
   },
 
@@ -491,10 +520,15 @@ export const ROUTES_SEO = {
     ogDescription: 'Our mission is to level the playing field for e-commerce entrepreneurs with private, 100% client-side calculation utilities.',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'AboutPage',
-      'name': 'About SellerKitHub',
-      'url': `${SITE_URL}/about`,
-      'description': 'Mission, background, and privacy commitment of SellerKitHub.'
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'AboutPage',
+          'name': 'About SellerKitHub',
+          'url': `${SITE_URL}/about`,
+          'description': 'Mission, background, and privacy commitment of SellerKitHub.'
+        }
+      ]
     }
   },
 
@@ -507,9 +541,14 @@ export const ROUTES_SEO = {
     ogDescription: 'Contact the SellerKit team for inquiries, bug reports, and marketplace calculator suggestions.',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'ContactPage',
-      'name': 'Contact SellerKitHub',
-      'url': `${SITE_URL}/contact`
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'ContactPage',
+          'name': 'Contact SellerKitHub',
+          'url': `${SITE_URL}/contact`
+        }
+      ]
     }
   },
 
@@ -522,9 +561,14 @@ export const ROUTES_SEO = {
     ogDescription: 'Read our transparent privacy commitment. 100% client-side computations guarantee your financial numbers stay private on your device.',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'WebPage',
-      'name': 'SellerKitHub Privacy Policy',
-      'url': `${SITE_URL}/privacy-policy`
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'WebPage',
+          'name': 'SellerKitHub Privacy Policy',
+          'url': `${SITE_URL}/privacy-policy`
+        }
+      ]
     }
   },
 
@@ -537,9 +581,14 @@ export const ROUTES_SEO = {
     ogDescription: 'Read the terms of use and calculations disclaimer for SellerKitHub.',
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'WebPage',
-      'name': 'SellerKitHub Terms of Service',
-      'url': `${SITE_URL}/terms`
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'WebPage',
+          'name': 'SellerKitHub Terms of Service',
+          'url': `${SITE_URL}/terms`
+        }
+      ]
     }
   }
 };

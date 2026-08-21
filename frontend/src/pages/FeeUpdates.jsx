@@ -3,6 +3,8 @@ import { Calendar, TrendingUp, AlertCircle, ShieldCheck, CheckCircle2, ArrowRigh
 import { Link } from 'react-router-dom';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
+import AuthorBio from '../components/AuthorBio';
+import AffiliateCTA from '../components/AffiliateCTA';
 
 export default function FeeUpdates() {
   const updates = [
@@ -135,6 +137,21 @@ export default function FeeUpdates() {
           </div>
         ))}
       </div>
+
+      {/* Author Bio & E-E-A-T Component */}
+      <AuthorBio 
+        authorName="SellerKit Market Policy & Rate Intelligence Team"
+        authorRole="E-Commerce Regulatory & Policy Analysts"
+        lastUpdated="2026 Marketplace Rate Audit Complete"
+        category="E-Commerce Marketplace Policy Updates"
+      />
+
+      {/* Recommended Seller Tools Affiliate Component */}
+      <AffiliateCTA 
+        platform="general" 
+        title="Recommended Seller Automation Software" 
+        description="Stay ahead of marketplace rate changes with top-rated seller analytics."
+      />
 
       <AdPlaceholder slot="horizontal" />
 

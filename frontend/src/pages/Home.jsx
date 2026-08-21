@@ -17,6 +17,8 @@ import { calculateMasterProfit, exportToCSV, MARKETPLACE_PRESETS } from '../util
 import FAQSection from '../components/FAQSection';
 import SEOGuide from '../components/SEOGuide';
 import AdPlaceholder from '../components/AdPlaceholder';
+import AuthorBio from '../components/AuthorBio';
+import AffiliateCTA from '../components/AffiliateCTA';
 
 export default function Home() {
   const { activeCurrency, format } = useCurrency();
@@ -108,7 +110,7 @@ Total Expenses: ${format(result.totalExpenses)}
 NET PROFIT: ${format(result.netProfit)}
 PROFIT MARGIN: ${result.netMarginPercent.toFixed(2)}%
 ROI: ${result.roiPercent.toFixed(2)}%
-Calculated via SellerKit.tools`;
+Calculated via SellerKitHub.com`;
 
     navigator.clipboard.writeText(text);
     setCopied(true);
@@ -525,6 +527,21 @@ Calculated via SellerKit.tools`;
         </div>
 
       </div>
+
+      {/* Author Bio & E-E-A-T Component */}
+      <AuthorBio 
+        authorName="SellerKit E-Commerce Analytics Team"
+        authorRole="Multi-Marketplace Financial Modeling Experts"
+        lastUpdated="2026 Rate Schedules Verified"
+        category="Multi-Channel E-Commerce Modeling"
+      />
+
+      {/* Recommended Seller Tools Affiliate Component */}
+      <AffiliateCTA 
+        platform={platform} 
+        title="Recommended Seller Automation Software" 
+        description="Streamline store inventory, automate keyword rank tracking, and reduce cross-border transfer fees."
+      />
 
       {/* Horizontal Ad Space */}
       <AdPlaceholder slot="horizontal" />

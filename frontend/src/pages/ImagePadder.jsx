@@ -16,6 +16,8 @@ import {
 } from 'lucide-react';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
+import AuthorBio from '../components/AuthorBio';
+import AffiliateCTA from '../components/AffiliateCTA';
 
 export default function ImagePadder() {
   const [imageSrc, setImageSrc] = useState(null);
@@ -435,16 +437,20 @@ export default function ImagePadder() {
 
       </div>
 
-      {/* Image 1: 1x1 Square Photo Padder Canvas Studio */}
-      <img
-        src="/images/1x1-square-photo-padder.svg"
-        alt="1:1 Square Product Image Resizer Canvas Interface converting rectangle photos to pure white square images"
-        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
-        loading="lazy"
-        decoding="async"
+      {/* Author Bio & E-E-A-T Component */}
+      <AuthorBio 
+        authorName="SellerKit Media & Image Optimization Team"
+        authorRole="E-Commerce Visual Asset & Listing Specialists"
+        lastUpdated="2026 Marketplace Image Compliance Verified"
+        category="Product Image Resizing & Padding"
       />
 
-      <AdPlaceholder slot="horizontal" />
+      {/* Recommended Seller Tools Affiliate Component */}
+      <AffiliateCTA 
+        platform="etsy" 
+        title="Recommended Product Photography & Listing Tools" 
+        description="Enhance product photos, remove background clutter, and optimize image tags."
+      />
 
       {/* Marketplace Image Requirement Reference Table */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm">
@@ -509,15 +515,6 @@ export default function ImagePadder() {
           </table>
         </div>
       </section>
-
-      {/* Image 2: Mobile Cropping Diagram */}
-      <img
-        src="/images/mobile-grid-cropping-comparison.svg"
-        alt="Mobile App Product Grid Aspect Ratio Comparison showing cropped versus padded product photos"
-        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
-        loading="lazy"
-        decoding="async"
-      />
 
       {/* Step-by-Step Worked Scenarios */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm space-y-8">

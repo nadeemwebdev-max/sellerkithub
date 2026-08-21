@@ -16,6 +16,8 @@ import { useCurrency } from '../context/CurrencyContext';
 import { exportToCSV } from '../utils/calculations';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
+import AuthorBio from '../components/AuthorBio';
+import AffiliateCTA from '../components/AffiliateCTA';
 
 export default function MarginMatrix() {
   const { activeCurrency, format } = useCurrency();
@@ -218,16 +220,20 @@ export default function MarginMatrix() {
         </div>
       </div>
 
-      {/* Image 1: Margin vs Markup Matrix Diagram */}
-      <img
-        src="/images/margin-markup-matrix-table.svg"
-        alt="Wholesale Profit Margin and Markup Pricing Matrix Table showing keystone pricing tiers"
-        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
-        loading="lazy"
-        decoding="async"
+      {/* Author Bio & E-E-A-T Component */}
+      <AuthorBio 
+        authorName="SellerKit Retail Pricing & Margin Engineering Team"
+        authorRole="Financial Pricing Strategy Specialists"
+        lastUpdated="2026 Wholesale & Retail Matrix Verified"
+        category="Pricing & Gross Margin Strategy"
       />
 
-      <AdPlaceholder slot="horizontal" />
+      {/* Recommended Seller Tools Affiliate Component */}
+      <AffiliateCTA 
+        platform="general" 
+        title="Recommended Pricing & Margin Software" 
+        description="Automate dynamic repricing, model competitor price elasticity, and track catalog margins."
+      />
 
       {/* Target Margin vs Markup Conversion Reference Table */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm">
@@ -298,15 +304,6 @@ export default function MarginMatrix() {
           </table>
         </div>
       </section>
-
-      {/* Image 2: Keystone Pricing Formula Diagram */}
-      <img
-        src="/images/keystone-pricing-formula-diagram.svg"
-        alt="Keystone Pricing Formula Diagram converting sourcing cost into retail selling price"
-        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
-        loading="lazy"
-        decoding="async"
-      />
 
       {/* Step-by-Step Worked Scenarios */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm space-y-8">

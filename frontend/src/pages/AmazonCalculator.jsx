@@ -4,6 +4,8 @@ import { useCurrency } from '../context/CurrencyContext';
 import { exportToCSV } from '../utils/calculations';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
+import AuthorBio from '../components/AuthorBio';
+import AffiliateCTA from '../components/AffiliateCTA';
 
 export default function AmazonCalculator() {
   const { activeCurrency, format } = useCurrency();
@@ -376,16 +378,20 @@ Calculated with SellerKitHub.com`;
 
       </div>
 
-      {/* Image 1: FBA vs FBM Unit Economics Diagram */}
-      <img
-        src="/images/amazon-fba-vs-fbm-calculator.svg"
-        alt="Amazon FBA vs FBM Fee and Profit Margin Comparison Diagram showing referral rates and pick and pack charges"
-        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
-        loading="lazy"
-        decoding="async"
+      {/* Author Bio & E-E-A-T Component */}
+      <AuthorBio 
+        authorName="SellerKit FBA Analytics & Research Team"
+        authorRole="Amazon FBA & Supply Chain Analytics Specialists"
+        lastUpdated="2026 Amazon Fee Rate Schedule Verified"
+        category="Amazon FBA Financial Modeling"
       />
 
-      <AdPlaceholder slot="horizontal" />
+      {/* Recommended Seller Tools Affiliate Component */}
+      <AffiliateCTA 
+        platform="amazon" 
+        title="Recommended Amazon FBA Growth & Research Software" 
+        description="Accelerate your product research, lower FBA storage fees, and automate PPC management."
+      />
 
       {/* 2026 Amazon Fee Schedule Reference Table */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm">
@@ -450,15 +456,6 @@ Calculated with SellerKitHub.com`;
           </table>
         </div>
       </section>
-
-      {/* Image 2: Placement & Storage Surcharges Diagram */}
-      <img
-        src="/images/amazon-inbound-placement-storage.svg"
-        alt="Amazon Inbound Placement and Monthly Storage Fee Tier Breakdown Diagram"
-        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
-        loading="lazy"
-        decoding="async"
-      />
 
       {/* Step-by-Step Worked Math Examples */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm space-y-8">

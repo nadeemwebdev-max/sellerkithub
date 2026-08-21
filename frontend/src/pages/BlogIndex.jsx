@@ -11,6 +11,8 @@ import {
 } from 'lucide-react';
 import { BLOG_POSTS } from '../data/blogPosts';
 import AdPlaceholder from '../components/AdPlaceholder';
+import AuthorBio from '../components/AuthorBio';
+import AffiliateCTA from '../components/AffiliateCTA';
 
 export default function BlogIndex() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -155,6 +157,21 @@ export default function BlogIndex() {
           </button>
         </div>
       )}
+
+      {/* Author Bio & E-E-A-T Component */}
+      <AuthorBio 
+        authorName="SellerKit Editorial & Content Team"
+        authorRole="E-Commerce Strategy & Analytics Editors"
+        lastUpdated="2026 Industry Analysis Complete"
+        category="E-Commerce Research & Articles"
+      />
+
+      {/* Recommended Seller Tools Affiliate Component */}
+      <AffiliateCTA 
+        platform="general" 
+        title="Recommended Seller Automation Software" 
+        description="Empower your e-commerce business with industry-standard research and inventory tools."
+      />
 
     </div>
   );

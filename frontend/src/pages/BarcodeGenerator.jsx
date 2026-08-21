@@ -23,6 +23,8 @@ import {
 } from '../utils/barcode';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
+import AuthorBio from '../components/AuthorBio';
+import AffiliateCTA from '../components/AffiliateCTA';
 
 export default function BarcodeGenerator() {
   const { activeCurrency, format } = useCurrency();
@@ -340,16 +342,20 @@ export default function BarcodeGenerator() {
 
       </div>
 
-      {/* Image 1: Barcode Generator Studio */}
-      <img
-        src="/images/barcode-label-generator.svg"
-        alt="Code 128 and UPC Barcode Generator Studio interface with human readable text"
-        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
-        loading="lazy"
-        decoding="async"
+      {/* Author Bio & E-E-A-T Component */}
+      <AuthorBio 
+        authorName="SellerKit Supply Chain & Barcode Engineering Team"
+        authorRole="Retail Logistics & GS1 Barcode Standards Specialists"
+        lastUpdated="2026 Barcode Symbology Specifications Verified"
+        category="Labeling & Barcode Engineering"
       />
 
-      <AdPlaceholder slot="horizontal" />
+      {/* Recommended Seller Tools Affiliate Component */}
+      <AffiliateCTA 
+        platform="amazon" 
+        title="Recommended Thermal Printers & FBA Label Hardware" 
+        description="Print Amazon FNSKU barcodes and shipping labels with direct thermal printers."
+      />
 
       {/* Barcode Symbology Specification Reference Table */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm">
@@ -412,77 +418,6 @@ export default function BarcodeGenerator() {
               </tr>
             </tbody>
           </table>
-        </div>
-      </section>
-
-      {/* Image 2: 30-Up Avery Sheet Diagram */}
-      <img
-        src="/images/30-up-avery-label-sheet-preview.svg"
-        alt="Printable 30-Up Avery 5160 FNSKU Label Sheet Preview for Amazon FBA inventory"
-        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
-        loading="lazy"
-        decoding="async"
-      />
-
-      {/* Worked Label Printing Scenarios */}
-      <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm space-y-8">
-        <div className="flex items-center gap-2">
-          <BarChart3 className="w-5 h-5 text-brand-600 dark:text-brand-400" />
-          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
-            Worked Step-by-Step Barcode Printing Scenarios
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-xs">
-          
-          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
-            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
-              Scenario 1: Amazon FBA FNSKU Labels
-            </div>
-            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-              <strong>Symbology:</strong> Code 128.<br />
-              <strong>Data String:</strong> `X001ABC123`<br />
-              <strong>Target Format:</strong> Printable 30-Up Avery 5160 sheet.<br />
-              <strong>Outcome:</strong> Prints 30 scannable Amazon FBA unit labels with product title and price on a single page.
-            </p>
-          </div>
-
-          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
-            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
-              Scenario 2: Retail Packaging EAN-13
-            </div>
-            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-              <strong>Symbology:</strong> EAN-13.<br />
-              <strong>Data String:</strong> `4012345678901`<br />
-              <strong>Target Format:</strong> Single High-Res PNG.<br />
-              <strong>Outcome:</strong> Exports crisp barcode graphic ready to embed in Adobe Illustrator packaging artwork.
-            </p>
-          </div>
-
-          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
-            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
-              Scenario 3: Customer Care QR Code
-            </div>
-            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-              <strong>Symbology:</strong> QR Code.<br />
-              <strong>Data String:</strong> `https://sellerkithub.com`<br />
-              <strong>Target Format:</strong> Single Vector SVG.<br />
-              <strong>Outcome:</strong> Generates instant smartphone-scannable QR code for package inserts and warranty cards.
-            </p>
-          </div>
-
-          <div className="p-5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 space-y-3">
-            <div className="font-bold text-sm text-slate-900 dark:text-white border-b border-slate-200 dark:border-white/10 pb-2">
-              Scenario 4: ITF-14 Master Carton Barcode
-            </div>
-            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-              <strong>Symbology:</strong> Code 128 / ITF-14.<br />
-              <strong>Data String:</strong> `10812345678901`<br />
-              <strong>Target Format:</strong> High-Res 300 DPI PNG.<br />
-              <strong>Outcome:</strong> Prints bold outer-carton barcodes for bulk pallet identification at receiving docks.
-            </p>
-          </div>
-
         </div>
       </section>
 

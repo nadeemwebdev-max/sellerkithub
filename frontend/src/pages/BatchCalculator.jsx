@@ -19,6 +19,8 @@ import { useCurrency } from '../context/CurrencyContext';
 import { exportToCSV } from '../utils/calculations';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
+import AuthorBio from '../components/AuthorBio';
+import AffiliateCTA from '../components/AffiliateCTA';
 
 const DEFAULT_SKUS = [
   { id: '1', name: 'Premium Leather Wallet', quantity: 150, price: 45.00, cost: 12.00, platformFeePct: 15, shipping: 4.50 },
@@ -359,16 +361,20 @@ export default function BatchCalculator() {
         </div>
       </div>
 
-      {/* Image 1: Multi-SKU Batch Interface */}
-      <img
-        src="/images/multi-sku-batch-calculator.svg"
-        alt="Multi-SKU Catalog Batch Profit Calculator Table showing bulk inventory cash flow"
-        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
-        loading="lazy"
-        decoding="async"
+      {/* Author Bio & E-E-A-T Component */}
+      <AuthorBio 
+        authorName="SellerKit Catalog Financial Modeling Team"
+        authorRole="Inventory Portfolio & Working Capital Analysts"
+        lastUpdated="2026 Batch Calculation Standard Verified"
+        category="Catalog Portfolio Management"
       />
 
-      <AdPlaceholder slot="horizontal" />
+      {/* Recommended Seller Tools Affiliate Component */}
+      <AffiliateCTA 
+        platform="general" 
+        title="Recommended Inventory & Catalog Management Tools" 
+        description="Sync catalog inventory across Amazon, Etsy, eBay, and Shopify to prevent stockouts."
+      />
 
       {/* Catalog Portfolio Breakdown Table */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm">
@@ -419,15 +425,6 @@ export default function BatchCalculator() {
           </table>
         </div>
       </section>
-
-      {/* Image 2: Inventory Turnover Matrix Diagram */}
-      <img
-        src="/images/inventory-working-capital-matrix.svg"
-        alt="Inventory Working Capital and SKU Turnover Velocity Allocation Diagram"
-        className="w-full h-auto rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg my-8"
-        loading="lazy"
-        decoding="async"
-      />
 
       {/* Step-by-Step Worked Calculation Examples */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] shadow-sm space-y-8">
