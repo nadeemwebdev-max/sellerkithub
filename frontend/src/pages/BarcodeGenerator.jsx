@@ -139,18 +139,12 @@ export default function BarcodeGenerator() {
 
         // Draw Barcode Image
         const imgAspect = barcodeImg.width / barcodeImg.height;
-        const targetImgHeight = 165;
+        const targetImgHeight = 175;
         const targetImgWidth = Math.min(labelWidth - 40, targetImgHeight * imgAspect);
         const imgX = x + (labelWidth - targetImgWidth) / 2;
         const imgY = y + 48;
 
         ctx.drawImage(barcodeImg, imgX, imgY, targetImgWidth, targetImgHeight);
-
-        // Draw SellerKitHub Branding (Bottom Left)
-        ctx.fillStyle = '#9CA3AF';
-        ctx.font = 'bold 22px "Plus Jakarta Sans", sans-serif';
-        ctx.textAlign = 'left';
-        ctx.fillText('SellerKitHub.com', x + 24, y + labelHeight - 18);
 
         // Draw Product Price (Bottom Right)
         ctx.fillStyle = '#4F46E5';
@@ -158,12 +152,6 @@ export default function BarcodeGenerator() {
         ctx.textAlign = 'right';
         ctx.fillText(`${activeCurrency.symbol}${productPrice.toFixed(2)}`, x + labelWidth - 24, y + labelHeight - 18);
       }
-
-      // Draw Sheet Footer Branding Note at Bottom Margin
-      ctx.fillStyle = '#6B7280';
-      ctx.font = 'bold 24px "Plus Jakarta Sans", sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('Generated free with SellerKitHub.com — Free E-Commerce Fee & Barcode Utilities', sheetCanvas.width / 2, 3220);
 
       // Trigger Download
       const link = document.createElement('a');
@@ -261,7 +249,7 @@ export default function BarcodeGenerator() {
             break-inside: avoid !important;
           }
           .avery-label-print-cell img {
-            max-height: 0.52in !important;
+            max-height: 0.54in !important;
             max-width: 2.45in !important;
             object-fit: contain !important;
           }
@@ -518,8 +506,7 @@ export default function BarcodeGenerator() {
                     <span className="text-xs text-slate-400">Rendering barcode...</span>
                   )}
                 </div>
-                <div className="flex items-center justify-between pt-2 border-t border-slate-100">
-                  <span className="text-[10px] font-bold text-slate-400">SellerKitHub.com</span>
+                <div className="flex items-center justify-end pt-2 border-t border-slate-100">
                   <span className="font-mono text-sm font-extrabold text-brand-600">
                     {activeCurrency.symbol}{productPrice.toFixed(2)}
                   </span>
@@ -564,13 +551,12 @@ export default function BarcodeGenerator() {
                         </span>
                         <div className="flex-1 flex items-center justify-center my-1 max-w-full">
                           {barcodeDataUrl ? (
-                            <img src={barcodeDataUrl} alt="Barcode" className="max-h-[46px] max-w-full object-contain" />
+                            <img src={barcodeDataUrl} alt="Barcode" className="max-h-[48px] max-w-full object-contain" />
                           ) : (
                             <span className="font-mono text-[9px] text-slate-400">Barcode</span>
                           )}
                         </div>
-                        <div className="w-full flex items-center justify-between pt-0.5">
-                          <span className="text-[8px] font-bold text-slate-400 tracking-tight">SellerKitHub.com</span>
+                        <div className="w-full flex items-center justify-end pt-0.5">
                           <span className="font-mono font-bold text-brand-600 text-[10px]">
                             {activeCurrency.symbol}{productPrice.toFixed(2)}
                           </span>
@@ -679,10 +665,9 @@ export default function BarcodeGenerator() {
                 {productTitle}
               </span>
               {barcodeDataUrl && (
-                <img src={barcodeDataUrl} alt="Barcode" className="my-0.5 max-h-[0.50in] object-contain" />
+                <img src={barcodeDataUrl} alt="Barcode" className="my-0.5 max-h-[0.52in] object-contain" />
               )}
-              <div className="w-full flex items-center justify-between text-[8px] pt-0.5">
-                <span className="font-semibold text-slate-400">SellerKitHub.com</span>
+              <div className="w-full flex items-center justify-end text-[8px] pt-0.5">
                 <span className="font-mono font-bold text-indigo-700">
                   {activeCurrency.symbol}{productPrice.toFixed(2)}
                 </span>
