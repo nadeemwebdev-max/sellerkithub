@@ -1,20 +1,23 @@
 import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { 
-  BookOpen, 
   Clock, 
   Calendar, 
   User, 
   ArrowLeft, 
   Share2, 
-  Sparkles,
-  ChevronRight
+  ChevronRight,
+  MessageCircle,
+  Twitter,
+  Linkedin,
+  Copy
 } from 'lucide-react';
 import { getBlogPostBySlug, BLOG_POSTS } from '../data/blogPosts';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
 import AffiliateCTA from '../components/AffiliateCTA';
+import NewsletterBox from '../components/NewsletterBox';
 
 export default function BlogPost() {
   const { slug } = useParams();
@@ -25,15 +28,25 @@ export default function BlogPost() {
   }
 
   const relatedPosts = BLOG_POSTS.filter(p => p.slug !== post.slug).slice(0, 2);
+  const currentUrl = typeof window !== 'undefined' ? window.location.href : `https://sellerkithub.com/blog/${post.slug}`;
 
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: post.title,
-        url: window.location.href
-      }).catch(() => {});
-    } else {
-      navigator.clipboard.writeText(window.location.href);
+  const shareOnWhatsApp = () => {
+    const text = encodeURIComponent(`${post.title}\n\n${currentUrl}`);
+    window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+  };
+
+  const shareOnTwitter = () => {
+    const text = encodeURIComponent(`${post.title} via @SellerKitHub`);
+    window.open(`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(currentUrl)}`, '_blank');
+  };
+
+  const shareOnLinkedIn = () => {
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`, '_blank');
+  };
+
+  const copyToClipboard = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(currentUrl);
       alert('Article link copied to clipboard!');
     }
   };
@@ -68,7 +81,7 @@ export default function BlogPost() {
             {post.category}
           </span>
           <div className="flex items-center gap-1 text-xs text-slate-500 font-mono">
-            <Clock className="w-3.5 h-3.5" />
+            <Clock className="w-3.5 h-3.5 text-brand-500" />
             <span>{post.readTime}</span>
           </div>
         </div>
@@ -78,29 +91,59 @@ export default function BlogPost() {
         </h1>
 
         <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-b border-slate-200 dark:border-white/10 py-3 text-xs text-slate-500 dark:text-slate-400">
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4">
             <span className="flex items-center gap-1">
               <User className="w-4 h-4 text-brand-600" />
               <strong className="text-slate-900 dark:text-white">{post.author}</strong>
             </span>
             <span className="flex items-center gap-1 font-mono">
               <Calendar className="w-3.5 h-3.5" />
-              <span>{post.date}</span>
+              <span>Published: {post.date}</span>
             </span>
+            {post.dateModified && (
+              <span className="hidden sm:inline text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-50 dark:bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                Updated: {post.dateModified}
+              </span>
+            )}
           </div>
 
-          <button
-            onClick={handleShare}
-            className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 text-slate-800 dark:text-slate-200 font-semibold text-xs flex items-center gap-1.5 transition"
-          >
-            <Share2 className="w-3.5 h-3.5" />
-            <span>Share Article</span>
-          </button>
+          {/* Social Share Buttons */}
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={shareOnWhatsApp}
+              title="Share on WhatsApp"
+              className="p-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-semibold text-xs flex items-center gap-1 transition shadow-sm"
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">WhatsApp</span>
+            </button>
+            <button
+              onClick={shareOnTwitter}
+              title="Share on Twitter"
+              className="p-2 rounded-lg bg-slate-900 dark:bg-white/10 hover:bg-slate-800 text-white font-semibold text-xs flex items-center gap-1 transition"
+            >
+              <Twitter className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={shareOnLinkedIn}
+              title="Share on LinkedIn"
+              className="p-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs flex items-center gap-1 transition"
+            >
+              <Linkedin className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={copyToClipboard}
+              title="Copy Article Link"
+              className="p-2 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-semibold text-xs flex items-center gap-1 transition"
+            >
+              <Copy className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </header>
 
       {/* Featured Header Banner Image */}
-      <div className="rounded-2xl overflow-hidden mb-10 border border-slate-200 dark:border-white/10 shadow-lg">
+      <div className="rounded-2xl overflow-hidden mb-10 border border-slate-200 dark:border-white/10 shadow-lg bg-slate-100 dark:bg-slate-900">
         <img 
           src={post.image} 
           alt={post.title}
@@ -115,11 +158,21 @@ export default function BlogPost() {
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
       </article>
 
+      {/* Article Specific FAQs */}
+      {post.faqs && post.faqs.length > 0 && (
+        <section className="my-10">
+          <FAQSection customFaqs={post.faqs} title={`Frequently Asked Questions: ${post.category}`} />
+        </section>
+      )}
+
+      {/* Newsletter Email Capture Component */}
+      <NewsletterBox />
+
       {/* Author Bio & E-E-A-T Component */}
       <AuthorBio 
         authorName={post.author || "SellerKit Editorial & Analytics Team"}
         authorRole="Senior E-Commerce Data Analyst & Author"
-        lastUpdated="Verified E-Commerce Industry Guide"
+        lastUpdated={`Updated ${post.dateModified || post.date}`}
         category={post.category || "E-Commerce Strategy"}
       />
 

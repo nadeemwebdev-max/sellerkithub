@@ -21,11 +21,11 @@ const ORGANIZATION_SCHEMA = {
 
 export const ROUTES_SEO = {
   '/': {
-    title: 'SellerKit – Free E-Commerce Fee & Profit Calculators & Tools',
+    title: 'SellerKit – Free E-Commerce Fee & Profit Calculators',
     description: 'Calculate real net profit, marketplace fees, and margins across Amazon, Etsy, eBay, Shopify & Meesho. 100% free, private, client-side seller utilities.',
     keywords: 'amazon fee calculator, etsy fee calculator, ebay profit calculator, meesho profit calculator, shopify profit margin, ecommerce calculator, fba calculator',
     canonical: `${SITE_URL}/`,
-    ogTitle: 'SellerKit – Free E-Commerce Fee & Profit Calculators & Tools',
+    ogTitle: 'SellerKit – Free E-Commerce Fee & Profit Calculators',
     ogDescription: 'Instant net profit and fee breakdown for Amazon FBA, Etsy, eBay, Shopify, and Meesho sellers. 100% free client-side tools.',
     schema: {
       '@context': 'https://schema.org',
@@ -59,7 +59,7 @@ export const ROUTES_SEO = {
   /* Programmatic SEO Routes under /tools/ */
 
   '/tools/amazon-fba-calculator': {
-    title: 'Amazon FBA Calculator (2026) – Real Net Margin & Fee Breakdown | SellerKit',
+    title: 'Amazon FBA Calculator 2026 – Real Net Margin | SellerKit',
     description: 'Accurate Amazon FBA vs FBM seller fee & profit calculator updated for 2026. Calculate referral tiers (8-15%), pick & pack, inbound placement fees, and monthly storage.',
     keywords: 'fba fee calculator, amazon fba calculator, amazon fee calculator, fba vs fbm profit, amazon seller fees, amazon referral fee calculator',
     canonical: `${SITE_URL}/tools/amazon-fba-calculator`,
@@ -91,7 +91,7 @@ export const ROUTES_SEO = {
   },
 
   '/tools/profit-margin-calculator': {
-    title: 'E-Commerce Profit Margin Calculator & Wholesale Matrix | SellerKit',
+    title: 'Profit Margin Calculator & Wholesale Matrix | SellerKit',
     description: 'Calculate retail selling prices, wholesale costs, keystone pricing, and target gross profit margins from 10% to 90%. Export margin ladders to Excel CSV.',
     keywords: 'ecommerce margin calculator, profit margin calculator, gross margin calculator, wholesale pricing matrix, markup calculator',
     canonical: `${SITE_URL}/tools/profit-margin-calculator`,
@@ -123,7 +123,7 @@ export const ROUTES_SEO = {
   },
 
   '/tools/roas-calculator': {
-    title: 'ROAS Calculator (Target & Break-Even ROAS Formula) | SellerKit',
+    title: 'ROAS Calculator & Break-Even Ad Formula | SellerKit',
     description: 'Free E-Commerce ROAS & Ad Profitability Calculator. Calculate Break-Even ROAS, Realized ROAS, CAC, and Net Profit on Meta Ads, Google PPC, and Amazon Sponsored Products.',
     keywords: 'target roas calculator, break even roas calculator, roas calculator, ecommerce roas formula, ad profit calculator, cac calculator',
     canonical: `${SITE_URL}/tools/roas-calculator`,
@@ -155,7 +155,7 @@ export const ROUTES_SEO = {
   },
 
   '/tools/gst-calculator': {
-    title: 'GST Calculator (Inclusive & Exclusive Rate Slabs) | SellerKit',
+    title: 'GST & Sales Tax Calculator (Inclusive & Exclusive) | SellerKit',
     description: 'Free GST & Sales Tax Calculator. Calculate GST Inclusive, GST Exclusive, CGST/SGST/IGST tax splits, 5%, 12%, 18%, 28% rate slabs, and invoice breakdowns for e-commerce.',
     keywords: 'gst calculation formula, gst calculator online, gst inclusive calculator, gst exclusive calculator, cgst sgst igst calculator, ecommerce tax calculator',
     canonical: `${SITE_URL}/tools/gst-calculator`,
@@ -187,7 +187,7 @@ export const ROUTES_SEO = {
   },
 
   '/tools/etsy-fee-calculator': {
-    title: 'Etsy Fee & Profit Calculator (2026) – Real Net Margin Breakdown | SellerKit',
+    title: 'Etsy Fee & Profit Calculator 2026 – Net Margin | SellerKit',
     description: 'Accurate Etsy fee & profit calculator updated for 2026. Calculate $0.20 listing fees, 6.5% transaction cut, payment processing (3% + $0.25), and 15% offsite ads.',
     keywords: 'etsy fee calculator, etsy profit calculator, etsy pricing calculator, etsy listing fee, etsy transaction fee, etsy offsite ads fee',
     canonical: `${SITE_URL}/tools/etsy-fee-calculator`,
@@ -219,7 +219,7 @@ export const ROUTES_SEO = {
   },
 
   '/tools/marketplace-comparison': {
-    title: 'Marketplace Comparison Tool – Amazon vs Etsy vs eBay vs Shopify | SellerKit',
+    title: 'Marketplace Fee Comparison Tool – Amazon vs Etsy | SellerKit',
     description: 'Compare net profit margins across Amazon, Etsy, eBay, Shopify, and Meesho on a single screen. Find the most profitable sales channel for your products.',
     keywords: 'marketplace fee comparison, amazon vs etsy profit, shopify vs amazon fees, ebay vs etsy calculator',
     canonical: `${SITE_URL}/tools/marketplace-comparison`,
@@ -251,7 +251,7 @@ export const ROUTES_SEO = {
   },
 
   '/tools/batch-calculator': {
-    title: 'Multi-SKU Batch Profit Calculator & Inventory Portfolio Tool | SellerKit',
+    title: 'Multi-SKU Batch Profit & Inventory Calculator | SellerKit',
     description: 'Calculate multi-item inventory profit, cash flow, total revenue, and marketplace cuts across your entire catalog. Export portfolio summaries to CSV.',
     keywords: 'batch profit calculator, sku margin calculator, bulk ecommerce calculator, inventory profit model',
     canonical: `${SITE_URL}/tools/batch-calculator`,
@@ -283,7 +283,7 @@ export const ROUTES_SEO = {
   },
 
   '/tools/product-image-resizer': {
-    title: '1:1 Square Product Image Padder & Canvas Resizer | SellerKit',
+    title: '1:1 Square Product Image Padder & Resizer | SellerKit',
     description: 'Convert rectangle product photos into clean 1:1 square images for Amazon, Etsy, and Meesho without cropping or distortion. 100% private in-browser tool.',
     keywords: 'product image resizer, square photo padder, amazon 1000x1000 resizer, etsy photo padder',
     canonical: `${SITE_URL}/tools/product-image-resizer`,
@@ -315,7 +315,7 @@ export const ROUTES_SEO = {
   },
 
   '/tools/barcode-generator': {
-    title: 'Free Barcode & QR Code Generator – Printable 30-Up Label Sheets | SellerKit',
+    title: 'Free Barcode & Printable 30-Up Label Sheet Maker | SellerKit',
     description: 'Generate Code 128, EAN-13, UPC-A, Code 39, and QR code barcode labels. Export single high-res PNG/SVG or print standard 30-per-sheet (Avery 5160) labels.',
     keywords: 'barcode generator, free upc barcode maker, code 128 generator, 30 up label generator, fba barcode maker',
     canonical: `${SITE_URL}/tools/barcode-generator`,
@@ -349,7 +349,7 @@ export const ROUTES_SEO = {
   /* Short Aliases for Canonical URLs */
 
   '/etsy-fee-calculator': {
-    title: 'Etsy Fee & Profit Calculator (2026) – Real Net Margin Breakdown | SellerKit',
+    title: 'Etsy Fee & Profit Calculator 2026 – Net Margin | SellerKit',
     description: 'Accurate Etsy fee & profit calculator updated for 2026. Calculate $0.20 listing fees, 6.5% transaction cut, payment processing (3% + $0.25), and 15% offsite ads.',
     keywords: 'etsy fee calculator, etsy profit calculator, etsy pricing calculator',
     canonical: `${SITE_URL}/tools/etsy-fee-calculator`,
@@ -373,7 +373,7 @@ export const ROUTES_SEO = {
   },
 
   '/amazon-fee-calculator': {
-    title: 'Amazon FBA vs FBM Fee & Profit Margin Calculator (2026) | SellerKit',
+    title: 'Amazon FBA vs FBM Fee Calculator 2026 | SellerKit',
     description: 'Compare Amazon FBA vs FBM profitability side-by-side. Includes 8-15% referral fee tiers, weight handling rates, inbound placement, and monthly storage.',
     keywords: 'amazon fba calculator, amazon fee calculator, fba vs fbm profit',
     canonical: `${SITE_URL}/tools/amazon-fba-calculator`,
@@ -397,7 +397,7 @@ export const ROUTES_SEO = {
   },
 
   '/margin-matrix': {
-    title: 'Wholesale Profit Margin & Markup Pricing Matrix | SellerKit',
+    title: 'Profit Margin Calculator & Wholesale Matrix | SellerKit',
     description: 'Calculate tiered retail selling prices, wholesale costs, keystone pricing, and target gross margins from 10% to 90%. Includes instant CSV export.',
     keywords: 'margin markup matrix, wholesale pricing matrix, gross margin calculator',
     canonical: `${SITE_URL}/tools/profit-margin-calculator`,
@@ -421,7 +421,7 @@ export const ROUTES_SEO = {
   },
 
   '/roas-calculator': {
-    title: 'ROAS Calculator (Target & Break-Even ROAS Formula) | SellerKit',
+    title: 'ROAS Calculator & Break-Even Ad Formula | SellerKit',
     description: 'Free E-Commerce ROAS & Ad Profitability Calculator. Calculate Break-Even ROAS, Realized ROAS, CAC, and Net Profit on Meta Ads, Google PPC, and Amazon Sponsored Products.',
     keywords: 'target roas calculator, break even roas calculator, roas calculator',
     canonical: `${SITE_URL}/tools/roas-calculator`,
@@ -445,7 +445,7 @@ export const ROUTES_SEO = {
   },
 
   '/gst-calculator': {
-    title: 'GST Calculator (Inclusive & Exclusive Rate Slabs) | SellerKit',
+    title: 'GST & Sales Tax Calculator (Inclusive & Exclusive) | SellerKit',
     description: 'Free GST & Sales Tax Calculator. Calculate GST Inclusive, GST Exclusive, CGST/SGST/IGST tax splits, 5%, 12%, 18%, 28% rate slabs, and invoice breakdowns.',
     keywords: 'gst calculation formula, gst calculator online, gst inclusive calculator',
     canonical: `${SITE_URL}/tools/gst-calculator`,
@@ -469,7 +469,7 @@ export const ROUTES_SEO = {
   },
 
   '/marketplace-comparison': {
-    title: 'Marketplace Comparison Tool – Amazon vs Etsy vs eBay vs Shopify | SellerKit',
+    title: 'Marketplace Fee Comparison Tool – Amazon vs Etsy | SellerKit',
     description: 'Compare net profit margins across Amazon, Etsy, eBay, Shopify, and Meesho on a single screen. Find the most profitable sales channel for your products.',
     keywords: 'marketplace fee comparison, amazon vs etsy profit, shopify vs amazon fees',
     canonical: `${SITE_URL}/tools/marketplace-comparison`,
@@ -493,7 +493,7 @@ export const ROUTES_SEO = {
   },
 
   '/batch-calculator': {
-    title: 'Multi-SKU Batch Profit Calculator & Inventory Portfolio Tool | SellerKit',
+    title: 'Multi-SKU Batch Profit & Inventory Calculator | SellerKit',
     description: 'Calculate multi-item inventory profit, cash flow, total revenue, and marketplace cuts across your entire catalog. Export portfolio summaries to CSV.',
     keywords: 'batch profit calculator, sku margin calculator, bulk ecommerce calculator',
     canonical: `${SITE_URL}/tools/batch-calculator`,
@@ -517,7 +517,7 @@ export const ROUTES_SEO = {
   },
 
   '/product-image-resizer': {
-    title: '1:1 Square Product Image Padder & Canvas Resizer | SellerKit',
+    title: '1:1 Square Product Image Padder & Resizer | SellerKit',
     description: 'Convert rectangle product photos into clean 1:1 square images for Amazon, Etsy, and Meesho without cropping or distortion. 100% private in-browser tool.',
     keywords: 'product image resizer, square photo padder, amazon 1000x1000 resizer',
     canonical: `${SITE_URL}/tools/product-image-resizer`,
@@ -541,7 +541,7 @@ export const ROUTES_SEO = {
   },
 
   '/barcode-generator': {
-    title: 'Free Barcode & QR Code Generator – Printable 30-Up Label Sheets | SellerKit',
+    title: 'Free Barcode & Printable 30-Up Label Sheet Maker | SellerKit',
     description: 'Generate Code 128, EAN-13, UPC-A, Code 39, and QR code barcode labels. Export single high-res PNG/SVG or print standard 30-per-sheet (Avery 5160) labels.',
     keywords: 'barcode generator, free upc barcode maker, code 128 generator',
     canonical: `${SITE_URL}/tools/barcode-generator`,
@@ -565,7 +565,7 @@ export const ROUTES_SEO = {
   },
 
   '/blog': {
-    title: 'SellerKit Blog – E-Commerce Guides, Fee Analytics & Growth Strategies',
+    title: 'SellerKit Blog – E-Commerce Guides & Growth Analytics',
     description: 'Read in-depth guides on Amazon FBA fee changes, Etsy seller fees, profit margin vs cost markup pricing formulas, and product photo optimization.',
     keywords: 'ecommerce blog, amazon seller blog, etsy fee guide, ecommerce pricing strategies, fba fee changes 2026',
     canonical: `${SITE_URL}/blog`,
@@ -593,7 +593,7 @@ export const ROUTES_SEO = {
   },
 
   '/blog/amazon-fba-fee-changes-2026': {
-    title: 'Amazon FBA Fee Changes & Inbound Placement Fees in 2026 | SellerKit Blog',
+    title: 'Amazon FBA Fee Changes & Inbound Placement Guide (2026)',
     description: 'Detailed analysis of 2026 Amazon FBA referral fee adjustments, inbound placement charges, low-inventory-level fees, and storage rate updates.',
     keywords: '2026 amazon fba fee changes, amazon inbound placement fee, low inventory fee amazon 2026',
     canonical: `${SITE_URL}/blog/amazon-fba-fee-changes-2026`,
@@ -605,10 +605,16 @@ export const ROUTES_SEO = {
         ORGANIZATION_SCHEMA,
         {
           '@type': 'BlogPosting',
-          'headline': 'Amazon FBA Fee Changes & Inbound Placement Fees in 2026',
+          'headline': 'Amazon FBA Fee Changes & Inbound Placement Guide (2026)',
           'url': `${SITE_URL}/blog/amazon-fba-fee-changes-2026`,
           'datePublished': '2026-02-15',
-          'author': { '@id': `${SITE_URL}/#organization` }
+          'dateModified': '2026-08-24',
+          'author': {
+            '@type': 'Organization',
+            '@id': `${SITE_URL}/#organization`,
+            'name': 'SellerKitHub Research Team'
+          },
+          'publisher': { '@id': `${SITE_URL}/#organization` }
         },
         {
           '@type': 'BreadcrumbList',
@@ -623,7 +629,7 @@ export const ROUTES_SEO = {
   },
 
   '/blog/etsy-seller-fee-breakdown-guide': {
-    title: 'Etsy Seller Fee Structure 2026: Listing Fees & Offsite Ads | SellerKit Blog',
+    title: 'Etsy Seller Fee Structure & Offsite Ads Guide (2026)',
     description: 'Comprehensive guide breaking down Etsy listing fees, 6.5% transaction cuts, payment processing rates, and Offsite Ads commission tiers.',
     keywords: 'etsy fee breakdown 2026, etsy transaction fee 6.5, etsy offsite ads fee 15 percent',
     canonical: `${SITE_URL}/blog/etsy-seller-fee-breakdown-guide`,
@@ -635,10 +641,16 @@ export const ROUTES_SEO = {
         ORGANIZATION_SCHEMA,
         {
           '@type': 'BlogPosting',
-          'headline': 'Etsy Seller Fee Structure 2026: Listing Fees & Offsite Ads',
+          'headline': 'Etsy Seller Fee Structure & Offsite Ads Guide (2026)',
           'url': `${SITE_URL}/blog/etsy-seller-fee-breakdown-guide`,
           'datePublished': '2026-02-10',
-          'author': { '@id': `${SITE_URL}/#organization` }
+          'dateModified': '2026-08-24',
+          'author': {
+            '@type': 'Organization',
+            '@id': `${SITE_URL}/#organization`,
+            'name': 'E-Commerce Analytics Team'
+          },
+          'publisher': { '@id': `${SITE_URL}/#organization` }
         },
         {
           '@type': 'BreadcrumbList',
@@ -653,7 +665,7 @@ export const ROUTES_SEO = {
   },
 
   '/blog/ecommerce-pricing-strategies-margin-vs-markup': {
-    title: 'Margin vs. Markup in E-Commerce: Pricing for 50%+ Margins | SellerKit Blog',
+    title: 'Margin vs. Markup Pricing Formula Guide (2026)',
     description: 'Learn the mathematical difference between gross margin and cost markup, keystone pricing rules, and how to price products for 50%+ profit margins.',
     keywords: 'margin vs markup ecommerce, keystone pricing formula, gross profit margin calculation',
     canonical: `${SITE_URL}/blog/ecommerce-pricing-strategies-margin-vs-markup`,
@@ -665,10 +677,16 @@ export const ROUTES_SEO = {
         ORGANIZATION_SCHEMA,
         {
           '@type': 'BlogPosting',
-          'headline': 'Margin vs. Markup in E-Commerce: Pricing for 50%+ Margins',
+          'headline': 'Margin vs. Markup Pricing Formula Guide for E-Commerce (2026)',
           'url': `${SITE_URL}/blog/ecommerce-pricing-strategies-margin-vs-markup`,
           'datePublished': '2026-01-28',
-          'author': { '@id': `${SITE_URL}/#organization` }
+          'dateModified': '2026-08-24',
+          'author': {
+            '@type': 'Organization',
+            '@id': `${SITE_URL}/#organization`,
+            'name': 'Financial Strategy Team'
+          },
+          'publisher': { '@id': `${SITE_URL}/#organization` }
         },
         {
           '@type': 'BreadcrumbList',
@@ -683,7 +701,7 @@ export const ROUTES_SEO = {
   },
 
   '/blog/how-to-optimize-product-images-for-amazon-etsy': {
-    title: 'How to Optimize 1:1 Square Product Photos for Amazon & Etsy | SellerKit Blog',
+    title: 'How to Optimize 1:1 Square Product Photos (2026)',
     description: 'Tutorial on padding rectangular photos, meeting Amazon pure white background compliance, rotating phone photos, and improving mobile click-through rates.',
     keywords: 'optimize product photos amazon, etsy square product photos, mobile grid image padding',
     canonical: `${SITE_URL}/blog/how-to-optimize-product-images-for-amazon-etsy`,
@@ -695,10 +713,16 @@ export const ROUTES_SEO = {
         ORGANIZATION_SCHEMA,
         {
           '@type': 'BlogPosting',
-          'headline': 'How to Optimize 1:1 Square Product Photos for Amazon & Etsy',
+          'headline': 'How to Optimize 1:1 Square Product Photos for Amazon & Etsy (2026)',
           'url': `${SITE_URL}/blog/how-to-optimize-product-images-for-amazon-etsy`,
           'datePublished': '2026-01-18',
-          'author': { '@id': `${SITE_URL}/#organization` }
+          'dateModified': '2026-08-24',
+          'author': {
+            '@type': 'Organization',
+            '@id': `${SITE_URL}/#organization`,
+            'name': 'Visual Design Team'
+          },
+          'publisher': { '@id': `${SITE_URL}/#organization` }
         },
         {
           '@type': 'BreadcrumbList',
@@ -713,7 +737,7 @@ export const ROUTES_SEO = {
   },
 
   '/fee-updates': {
-    title: '2026 E-Commerce Marketplace Fee Updates & Rate Schedule | SellerKit',
+    title: '2026 Marketplace Fee Schedule & Update Hub | SellerKit',
     description: 'Comprehensive 2026 fee update guide for Amazon FBA, Etsy, eBay, Shopify, and Meesho. Stay ahead of referral changes, storage rate hikes, and policy updates.',
     keywords: '2026 amazon fee changes, etsy fee updates 2026, ebay fee schedule 2026, marketplace fee changes, ecommerce seller policy updates',
     canonical: `${SITE_URL}/fee-updates`,
@@ -727,7 +751,8 @@ export const ROUTES_SEO = {
           '@type': 'Article',
           'headline': '2026 E-Commerce Marketplace Fee Updates & Policy Guide',
           'url': `${SITE_URL}/fee-updates`,
-          'description': 'Up-to-date breakdown of Amazon, Etsy, eBay, Shopify, and Meesho seller fee adjustments in 2026.',
+          'datePublished': '2026-01-01',
+          'dateModified': '2026-08-24',
           'author': { '@id': `${SITE_URL}/#organization` }
         }
       ]
@@ -735,7 +760,7 @@ export const ROUTES_SEO = {
   },
 
   '/about': {
-    title: 'About SellerKitHub – Mission & Client-Side Privacy Commitment | SellerKit',
+    title: 'About SellerKitHub – Mission & Privacy Commitment | SellerKit',
     description: 'Learn how SellerKitHub provides 100% free, private, client-side tools and financial calculators to empower e-commerce sellers worldwide.',
     keywords: 'about sellerkithub, ecommerce seller tools mission, free amazon calculator creator',
     canonical: `${SITE_URL}/about`,
@@ -756,7 +781,7 @@ export const ROUTES_SEO = {
   },
 
   '/contact': {
-    title: 'Contact SellerKitHub – Feedback, Feature Requests & Support | SellerKit',
+    title: 'Contact SellerKitHub – Feedback & Support | SellerKit',
     description: 'Get in touch with the SellerKitHub team. Suggest new marketplace fee calculators, report calculation bugs, or submit feature requests.',
     keywords: 'contact sellerkithub, sellerkit support, fee calculator feedback',
     canonical: `${SITE_URL}/contact`,

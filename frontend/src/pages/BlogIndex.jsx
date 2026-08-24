@@ -5,14 +5,13 @@ import {
   Search, 
   Clock, 
   ArrowRight, 
-  User, 
-  Sparkles,
-  Tag
+  User
 } from 'lucide-react';
 import { BLOG_POSTS } from '../data/blogPosts';
 import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
 import AffiliateCTA from '../components/AffiliateCTA';
+import NewsletterBox from '../components/NewsletterBox';
 
 export default function BlogIndex() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -111,7 +110,7 @@ export default function BlogIndex() {
                       {post.category}
                     </span>
                     <div className="flex items-center gap-1 text-slate-500 dark:text-slate-400 font-mono">
-                      <Clock className="w-3.5 h-3.5" />
+                      <Clock className="w-3.5 h-3.5 text-brand-500" />
                       <span>{post.readTime}</span>
                     </div>
                   </div>
@@ -129,7 +128,7 @@ export default function BlogIndex() {
 
                 <div className="pt-4 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
                   <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-                    <User className="w-3.5 h-3.5" />
+                    <User className="w-3.5 h-3.5 text-brand-600" />
                     <span>{post.author}</span>
                   </div>
 
@@ -157,6 +156,9 @@ export default function BlogIndex() {
           </button>
         </div>
       )}
+
+      {/* Newsletter Email Capture Component */}
+      <NewsletterBox />
 
       {/* Author Bio & E-E-A-T Component */}
       <AuthorBio 
