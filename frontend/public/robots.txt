@@ -1,4 +1,51 @@
+# ==============================================================================
+# SellerKitHub Robots.txt File
+# Target Domain: https://sellerkithub.com
+# Last Updated: 2026
+# ==============================================================================
+
+# Global Crawler Access Rules
 User-agent: *
 Allow: /
+Allow: /tools/
+Allow: /blog/
+Allow: /fee-updates
+Allow: /about
+Allow: /contact
+Allow: /privacy-policy
+Allow: /terms
 
+# Disallow build artifacts or system paths
+Disallow: /dist/
+Disallow: /.ssr-dist/
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /*?*search=
+
+# Googlebot Specific Rules
+User-agent: Googlebot
+Allow: /
+Allow: /tools/
+Allow: /blog/
+Allow: /fee-updates
+
+# Googlebot-Image Rules (Allow full image indexing for product image padder & barcode assets)
+User-agent: Googlebot-Image
+Allow: /
+Allow: /favicon.svg
+
+# Bingbot Specific Rules
+User-agent: Bingbot
+Allow: /
+
+# DuckDuckBot Specific Rules
+User-agent: DuckDuckBot
+Allow: /
+
+# Applebot Specific Rules
+User-agent: Applebot
+Allow: /
+
+# XML Sitemap Location
 Sitemap: https://sellerkithub.com/sitemap.xml
+Host: https://sellerkithub.com
