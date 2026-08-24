@@ -35,7 +35,7 @@ export default function BarcodeGenerator() {
   const [showHumanText, setShowHumanText] = useState(true);
   const [showOutline, setShowOutline] = useState(true);
   const [labelQuantity, setLabelQuantity] = useState(30);
-  const [viewMode, setViewMode] = useState('sheet'); // Default to 30-Up Sheet as requested by user
+  const [viewMode, setViewMode] = useState('sheet'); // Default to 30-Up Sheet
 
   // Master Canvas Ref & Barcode Image Data URL State
   const masterCanvasRef = useRef(null);
@@ -132,26 +132,38 @@ export default function BarcodeGenerator() {
 
         // Draw Product Title
         ctx.fillStyle = '#111827';
-        ctx.font = 'bold 32px "Plus Jakarta Sans", sans-serif';
+        ctx.font = 'bold 30px "Plus Jakarta Sans", sans-serif';
         ctx.textAlign = 'center';
         const titleText = productTitle.length > 32 ? productTitle.slice(0, 30) + '...' : productTitle;
-        ctx.fillText(titleText, x + labelWidth / 2, y + 42);
+        ctx.fillText(titleText, x + labelWidth / 2, y + 40);
 
         // Draw Barcode Image
         const imgAspect = barcodeImg.width / barcodeImg.height;
-        const targetImgHeight = 170;
+        const targetImgHeight = 165;
         const targetImgWidth = Math.min(labelWidth - 40, targetImgHeight * imgAspect);
         const imgX = x + (labelWidth - targetImgWidth) / 2;
-        const imgY = y + 50;
+        const imgY = y + 48;
 
         ctx.drawImage(barcodeImg, imgX, imgY, targetImgWidth, targetImgHeight);
 
-        // Draw Product Price
+        // Draw SellerKitHub Branding (Bottom Left)
+        ctx.fillStyle = '#9CA3AF';
+        ctx.font = 'bold 22px "Plus Jakarta Sans", sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText('SellerKitHub.com', x + 24, y + labelHeight - 18);
+
+        // Draw Product Price (Bottom Right)
         ctx.fillStyle = '#4F46E5';
-        ctx.font = 'bold 30px "JetBrains Mono", monospace';
+        ctx.font = 'bold 28px "JetBrains Mono", monospace';
         ctx.textAlign = 'right';
-        ctx.fillText(`${activeCurrency.symbol}${productPrice.toFixed(2)}`, x + labelWidth - 24, y + labelHeight - 20);
+        ctx.fillText(`${activeCurrency.symbol}${productPrice.toFixed(2)}`, x + labelWidth - 24, y + labelHeight - 18);
       }
+
+      // Draw Sheet Footer Branding Note at Bottom Margin
+      ctx.fillStyle = '#6B7280';
+      ctx.font = 'bold 24px "Plus Jakarta Sans", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Generated free with SellerKitHub.com — Free E-Commerce Fee & Barcode Utilities', sheetCanvas.width / 2, 3220);
 
       // Trigger Download
       const link = document.createElement('a');
@@ -164,7 +176,6 @@ export default function BarcodeGenerator() {
 
   // Trigger Print Dialog
   const handlePrintSheet = () => {
-    // Force view mode to sheet before printing
     if (viewMode !== 'sheet') {
       setViewMode('sheet');
     }
@@ -205,7 +216,6 @@ export default function BarcodeGenerator() {
       {/* Dynamic Embedded Print CSS Styles for Perfect Avery 5160 Page Alignment */}
       <style>{`
         @media print {
-          /* Hide non-printable website Chrome & elements */
           header, footer, nav, .no-print, .non-printable {
             display: none !important;
           }
@@ -239,7 +249,7 @@ export default function BarcodeGenerator() {
           .avery-label-print-cell {
             width: 2.625in !important;
             height: 1.0in !important;
-            padding: 0.05in 0.08in !important;
+            padding: 0.04in 0.08in !important;
             box-sizing: border-box !important;
             display: flex !important;
             flex-direction: column !important;
@@ -508,9 +518,12 @@ export default function BarcodeGenerator() {
                     <span className="text-xs text-slate-400">Rendering barcode...</span>
                   )}
                 </div>
-                <span className="font-mono text-sm font-extrabold text-brand-600 block">
-                  {activeCurrency.symbol}{productPrice.toFixed(2)}
-                </span>
+                <div className="flex items-center justify-between pt-2 border-t border-slate-100">
+                  <span className="text-[10px] font-bold text-slate-400">SellerKitHub.com</span>
+                  <span className="font-mono text-sm font-extrabold text-brand-600">
+                    {activeCurrency.symbol}{productPrice.toFixed(2)}
+                  </span>
+                </div>
               </div>
             ) : (
               <div className="w-full space-y-4">
@@ -538,27 +551,30 @@ export default function BarcodeGenerator() {
 
                 {/* 30-Up Sheet Interactive Screen Preview */}
                 <div className="p-4 bg-white text-slate-900 rounded-xl border border-slate-300 shadow-xl overflow-x-auto">
-                  <div className="grid grid-cols-3 gap-2 min-w-[500px]">
+                  <div className="grid grid-cols-3 gap-2 min-w-[520px]">
                     {Array.from({ length: Math.min(Math.max(1, labelQuantity), 30) }).map((_, i) => (
                       <div 
                         key={i} 
-                        className={`p-2 rounded text-center text-[10px] space-y-1 flex flex-col items-center justify-between bg-white h-[92px] ${
+                        className={`p-2.5 rounded text-center text-[10px] flex flex-col items-center justify-between bg-white min-h-[106px] ${
                           showOutline ? 'border border-dashed border-slate-300' : 'border border-slate-100'
                         }`}
                       >
-                        <span className="truncate font-semibold text-slate-800 w-full block text-[10px]">
+                        <span className="truncate font-bold text-slate-900 w-full block text-[10px] leading-snug pt-0.5">
                           {productTitle}
                         </span>
-                        <div className="flex-1 flex items-center justify-center my-0.5 max-w-full">
+                        <div className="flex-1 flex items-center justify-center my-1 max-w-full">
                           {barcodeDataUrl ? (
                             <img src={barcodeDataUrl} alt="Barcode" className="max-h-[46px] max-w-full object-contain" />
                           ) : (
                             <span className="font-mono text-[9px] text-slate-400">Barcode</span>
                           )}
                         </div>
-                        <span className="font-mono font-bold text-brand-600 text-[10px] block w-full text-right">
-                          {activeCurrency.symbol}{productPrice.toFixed(2)}
-                        </span>
+                        <div className="w-full flex items-center justify-between pt-0.5">
+                          <span className="text-[8px] font-bold text-slate-400 tracking-tight">SellerKitHub.com</span>
+                          <span className="font-mono font-bold text-brand-600 text-[10px]">
+                            {activeCurrency.symbol}{productPrice.toFixed(2)}
+                          </span>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -663,11 +679,14 @@ export default function BarcodeGenerator() {
                 {productTitle}
               </span>
               {barcodeDataUrl && (
-                <img src={barcodeDataUrl} alt="Barcode" className="my-0.5 max-h-[0.52in] object-contain" />
+                <img src={barcodeDataUrl} alt="Barcode" className="my-0.5 max-h-[0.50in] object-contain" />
               )}
-              <span className="font-mono font-bold text-[9px] text-indigo-700 self-end">
-                {activeCurrency.symbol}{productPrice.toFixed(2)}
-              </span>
+              <div className="w-full flex items-center justify-between text-[8px] pt-0.5">
+                <span className="font-semibold text-slate-400">SellerKitHub.com</span>
+                <span className="font-mono font-bold text-indigo-700">
+                  {activeCurrency.symbol}{productPrice.toFixed(2)}
+                </span>
+              </div>
             </div>
           ))}
         </div>
