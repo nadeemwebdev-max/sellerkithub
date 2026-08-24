@@ -154,7 +154,7 @@ export default function BlogPost() {
       <AdPlaceholder slot="horizontal" />
 
       {/* HTML Article Body */}
-      <article className="my-10 p-6 sm:p-10 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] shadow-sm text-slate-800 dark:text-slate-200 space-y-6 text-sm leading-relaxed prose dark:prose-invert max-w-none">
+      <article className="my-10 p-6 sm:p-10 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] shadow-xl blog-article-content">
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
       </article>
 
