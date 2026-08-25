@@ -73,6 +73,7 @@ async function prerender() {
     <meta name="title" content="${escapeAttr(title)}" />
     <meta name="description" content="${escapeAttr(description)}" />
     <meta name="keywords" content="${escapeAttr(keywords)}" />
+    <meta name="Impact-Site-Verification" value="bc0e9e90-4e97-4b17-b654-5fcae3038c01" content="bc0e9e90-4e97-4b17-b654-5fcae3038c01" />
     <link rel="canonical" href="${escapeAttr(canonical)}" />
     
     <!-- Open Graph / Social Sharing -->
