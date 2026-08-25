@@ -12,7 +12,7 @@ export default function AffiliateCTA({
         name: "Helium 10",
         badge: "Top FBA Tool",
         desc: "Product research, Amazon keyword tracker, and automated FBA inventory forecasting.",
-        tag: "Save 20% Off",
+        tag: "Save 30% Off",
         url: "https://i.helium10.com/c/7672631/3054775/37271",
         color: "from-blue-600 to-indigo-600"
       },
