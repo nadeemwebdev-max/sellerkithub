@@ -2,14 +2,14 @@
   "version": 2,
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [
         {
           "type": "host",
-          "value": "sellerkithub-uxjg.vercel.app"
+          "value": "(.*)\\.vercel\\.app"
         }
       ],
-      "destination": "https://sellerkithub.com/:path*",
+      "destination": "https://sellerkithub.com/$1",
       "permanent": true
     }
   ],
