@@ -34,11 +34,21 @@ import ServerError from './pages/ServerError';
 import BadRequest from './pages/BadRequest';
 
 function NavigationTracker() {
-  const { pathname, search } = useLocation();
+  const { pathname, search, hash } = useLocation();
   useEffect(() => {
+    if (hash) {
+      setTimeout(() => {
+        const el = document.getElementById(hash.replace('#', ''));
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+      trackPageView(pathname + search + hash, document.title);
+      return;
+    }
     window.scrollTo(0, 0);
     trackPageView(pathname + search, document.title);
-  }, [pathname, search]);
+  }, [pathname, search, hash]);
   return null;
 }
 

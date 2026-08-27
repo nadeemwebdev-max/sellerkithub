@@ -100,8 +100,14 @@ export default function RelatedTools({ currentPath = '', title = "Explore More F
           </h2>
         </div>
         <Link
-          to="/"
-          onClick={() => trackEvent(TRACKED_EVENTS.TOOL_CLICK, { tool: 'all_tools_home' })}
+          to="/#all-calculators-directory"
+          onClick={() => {
+            trackEvent(TRACKED_EVENTS.TOOL_CLICK, { tool: 'all_tools_home' });
+            const el = document.getElementById('all-calculators-directory');
+            if (el) {
+              el.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition"
         >
           <span>View All Calculators</span>

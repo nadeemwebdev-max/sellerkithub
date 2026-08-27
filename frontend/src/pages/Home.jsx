@@ -540,7 +540,7 @@ Calculated via SellerKitHub.com`;
       </div>
 
       {/* Programmatic SEO Discrete Tool Cards Suite Directory */}
-      <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] shadow-xl">
+      <section id="all-calculators-directory" className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] shadow-xl scroll-mt-24">
         <div className="border-b border-slate-200 dark:border-white/10 pb-4 mb-6">
           <span className="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">
             Dedicated Search-Engine-Indexable Tools Suite
