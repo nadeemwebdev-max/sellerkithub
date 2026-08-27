@@ -50,11 +50,6 @@ export const ROUTES_SEO = {
             'price': '0',
             'priceCurrency': 'USD'
           },
-          'aggregateRating': {
-            '@type': 'AggregateRating',
-            'ratingValue': '4.9',
-            'ratingCount': '1420'
-          },
           'description': 'Real-time multi-channel e-commerce calculator supporting Amazon FBA, Etsy, eBay, Shopify, and Meesho with return rate, marketing, and fee modeling.'
         }
       ]
@@ -81,7 +76,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.95', 'ratingCount': '1850' },
           'description': 'Amazon FBA vs FBM profit and fee calculator supporting 2026 referral fees, fulfillment rates, and storage surcharges.'
         },
         {
@@ -114,7 +108,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.90', 'ratingCount': '1240' },
           'description': 'Calculate gross margin, cost markup, keystone pricing tiers, and retail selling price ladders.'
         },
         {
@@ -147,7 +140,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.96', 'ratingCount': '890' },
           'description': 'Target and Break-Even ROAS calculator modeling ad revenue, product COGS, platform fees, and CAC.'
         },
         {
@@ -180,7 +172,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.93', 'ratingCount': '1050' },
           'description': 'Calculate GST inclusive and exclusive net prices, CGST/SGST/IGST tax splits, and export itemized invoices.'
         },
         {
@@ -213,7 +204,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.9', 'ratingCount': '980' },
           'description': 'Accurate Etsy seller profit calculator calculating listing fees, transaction fees, payment processing, and offsite ads.'
         },
         {
@@ -246,7 +236,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.88', 'ratingCount': '760' },
           'description': 'Compare net profit margin and fee structure between Amazon, Etsy, eBay, Shopify, and Meesho simultaneously.'
         },
         {
@@ -279,7 +268,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.85', 'ratingCount': '610' },
           'description': 'Bulk product SKU profit calculator and cash flow forecaster with CSV export.'
         },
         {
@@ -312,7 +300,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'MultimediaApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.92', 'ratingCount': '1120' },
           'description': 'In-browser product photo resizer and padding utility creating 1:1 square canvas.'
         },
         {
@@ -345,7 +332,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.91', 'ratingCount': '1290' },
           'description': 'Generate industrial barcodes and printable 30-up label sheets.'
         },
         {
@@ -380,7 +366,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.9', 'ratingCount': '980' },
           'description': 'Accurate Etsy seller profit calculator calculating listing fees, transaction fees, and offsite ads.'
         }
       ]
@@ -405,7 +390,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.95', 'ratingCount': '1850' },
           'description': 'Comprehensive Amazon FBA and FBM seller fee and net margin calculator.'
         }
       ]
@@ -430,7 +414,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.89', 'ratingCount': '840' },
           'description': 'Interactive profit margin and markup table showing exact pricing tiers.'
         }
       ]
@@ -455,7 +438,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.96', 'ratingCount': '890' },
           'description': 'Target and Break-Even ROAS calculator modeling ad revenue, product COGS, and CAC.'
         }
       ]
@@ -480,7 +462,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.93', 'ratingCount': '1050' },
           'description': 'Calculate GST inclusive and exclusive net prices, CGST/SGST/IGST tax splits.'
         }
       ]
@@ -505,7 +486,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.88', 'ratingCount': '760' },
           'description': 'Compare net profit margin and fee structure between Amazon, Etsy, eBay, Shopify, and Meesho.'
         }
       ]
@@ -530,7 +510,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.85', 'ratingCount': '610' },
           'description': 'Bulk product SKU profit calculator and cash flow forecaster with CSV export.'
         }
       ]
@@ -555,7 +534,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'MultimediaApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.92', 'ratingCount': '1120' },
           'description': 'In-browser product photo resizer and padding utility creating 1:1 square canvas.'
         }
       ]
@@ -580,7 +558,6 @@ export const ROUTES_SEO = {
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'aggregateRating': { '@type': 'AggregateRating', 'ratingValue': '4.91', 'ratingCount': '1290' },
           'description': 'Generate industrial barcodes and printable 30-up label sheets.'
         }
       ]
