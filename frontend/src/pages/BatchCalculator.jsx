@@ -17,6 +17,8 @@ import {
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { exportToCSV } from '../utils/calculations';
+import { trackEvent, TRACKED_EVENTS } from '../utils/analytics';
+import RelatedTools from '../components/RelatedTools';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
@@ -554,6 +556,9 @@ export default function BatchCalculator() {
           </p>
         </div>
       </article>
+
+      {/* Cross-Tool Navigation Component */}
+      <RelatedTools currentPath="/tools/batch-calculator" />
 
       {/* Structured FAQ Section */}
       <FAQSection title="Multi-SKU Batch Profit FAQs" faqs={faqs} />

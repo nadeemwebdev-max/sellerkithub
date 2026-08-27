@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
+import { trackPageView } from './utils/analytics';
 
 // Tool Pages (Synchronous imports for 100% static HTML SSR pre-rendering)
 import Home from './pages/Home';
@@ -32,11 +33,12 @@ import NotFound from './pages/NotFound';
 import ServerError from './pages/ServerError';
 import BadRequest from './pages/BadRequest';
 
-function ScrollToTop() {
-  const { pathname } = useLocation();
+function NavigationTracker() {
+  const { pathname, search } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]);
+    trackPageView(pathname + search, document.title);
+  }, [pathname, search]);
   return null;
 }
 
@@ -44,7 +46,7 @@ export default function App() {
   return (
     <ErrorBoundary>
       <div className="min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
-        <ScrollToTop />
+        <NavigationTracker />
         <Navbar />
         <main className="flex-grow">
           <Routes>

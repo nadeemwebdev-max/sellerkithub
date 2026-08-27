@@ -14,6 +14,8 @@ import {
   Lightbulb,
   ShieldCheck
 } from 'lucide-react';
+import { trackEvent, TRACKED_EVENTS } from '../utils/analytics';
+import RelatedTools from '../components/RelatedTools';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
@@ -605,6 +607,9 @@ export default function ImagePadder() {
           </p>
         </div>
       </article>
+
+      {/* Cross-Tool Navigation Component */}
+      <RelatedTools currentPath="/tools/product-image-resizer" />
 
       {/* Structured FAQ Section */}
       <FAQSection title="Product Image Padder FAQs" faqs={faqs} />

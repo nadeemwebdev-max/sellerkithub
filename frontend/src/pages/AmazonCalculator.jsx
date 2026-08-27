@@ -2,6 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { TrendingUp, Copy, Check, RefreshCw, Layers, ShieldCheck, DollarSign, FileSpreadsheet, BookOpen, BarChart3, Lightbulb, PackageCheck, AlertCircle } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { exportToCSV } from '../utils/calculations';
+import { trackEvent, TRACKED_EVENTS } from '../utils/analytics';
+import RelatedTools from '../components/RelatedTools';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
@@ -585,6 +587,9 @@ Calculated with SellerKitHub.com`;
           </p>
         </div>
       </article>
+
+      {/* Cross-Tool Navigation Component */}
+      <RelatedTools currentPath="/tools/amazon-fba-calculator" />
 
       {/* Structured FAQ Section */}
       <FAQSection title="Amazon FBA vs FBM FAQs" faqs={faqs} />

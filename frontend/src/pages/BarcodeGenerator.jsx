@@ -15,6 +15,8 @@ import {
   SUPPORTED_SYMBOLOGIES, 
   drawUniversalBarcode 
 } from '../utils/barcode';
+import { trackEvent, TRACKED_EVENTS } from '../utils/analytics';
+import RelatedTools from '../components/RelatedTools';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
@@ -652,6 +654,10 @@ export default function BarcodeGenerator() {
 
         {/* Structured FAQ Section */}
         <div className="no-print">
+          {/* Cross-Tool Navigation Component */}
+          <RelatedTools currentPath="/tools/barcode-generator" />
+
+          {/* Structured FAQ Section */}
           <FAQSection title="Free Barcode Generator FAQs" faqs={faqs} />
         </div>
       </div>

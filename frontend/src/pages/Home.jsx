@@ -19,15 +19,65 @@ import {
   Package,
   Image as ImageIcon,
   Barcode,
-  ArrowRight
+  ArrowRight,
+  Zap
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { calculateMasterProfit, exportToCSV, MARKETPLACE_PRESETS } from '../utils/calculations';
+import { trackEvent, TRACKED_EVENTS } from '../utils/analytics';
+import RelatedTools from '../components/RelatedTools';
 import FAQSection from '../components/FAQSection';
 import SEOGuide from '../components/SEOGuide';
 import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
 import AffiliateCTA from '../components/AffiliateCTA';
+
+const SAMPLE_PRESETS = [
+  {
+    emoji: '👕',
+    label: '$30 Amazon FBA Apparel',
+    platform: 'amazon',
+    price: 29.99,
+    cost: 8.50,
+    shipping: 0,
+    referral: 15,
+    fbaFee: 4.75,
+    marketing: 2.50
+  },
+  {
+    emoji: '🎨',
+    label: '$20 Etsy Handmade Gift',
+    platform: 'etsy',
+    price: 20.00,
+    cost: 4.00,
+    shipping: 3.50,
+    referral: 6.5,
+    fbaFee: 0,
+    marketing: 1.00
+  },
+  {
+    emoji: '📱',
+    label: '$250 eBay Electronics',
+    platform: 'ebay',
+    price: 250.00,
+    cost: 140.00,
+    shipping: 12.00,
+    referral: 13.25,
+    fbaFee: 0,
+    marketing: 10.00
+  },
+  {
+    emoji: '👗',
+    label: '₹1,200 Meesho Fashion',
+    platform: 'meesho',
+    price: 1200,
+    cost: 450,
+    shipping: 80,
+    referral: 0,
+    fbaFee: 0,
+    marketing: 100
+  }
+];
 
 export default function Home() {
   const { activeCurrency, format } = useCurrency();
@@ -55,6 +105,20 @@ export default function Home() {
     if (newPlatform === 'ebay') setReferralRate(13.25);
     if (newPlatform === 'shopify') setReferralRate(0);
     if (newPlatform === 'meesho') setReferralRate(0);
+
+    trackEvent(TRACKED_EVENTS.PLATFORM_CHANGE, { platform: newPlatform });
+  };
+
+  const applyPreset = (preset) => {
+    setPlatform(preset.platform);
+    setSellingPrice(preset.price);
+    setProductCost(preset.cost);
+    setShippingCost(preset.shipping);
+    setReferralRate(preset.referral);
+    setFbaFee(preset.fbaFee);
+    setMarketingSpend(preset.marketing);
+
+    trackEvent(TRACKED_EVENTS.PRESET_CLICK, { preset: preset.label, platform: preset.platform });
   };
 
   // Perform Calculation
@@ -105,6 +169,8 @@ export default function Home() {
     exportToCSV(`${platform}-profit-breakdown`, csv);
     setDownloaded(true);
     setTimeout(() => setDownloaded(false), 2000);
+
+    trackEvent(TRACKED_EVENTS.EXPORT_CSV, { platform: platform, netProfit: result.netProfit });
   };
 
   const copySummary = () => {
@@ -124,6 +190,8 @@ Calculated via SellerKitHub.com`;
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+
+    trackEvent(TRACKED_EVENTS.COPY_SUMMARY, { platform: platform, netProfit: result.netProfit });
   };
 
   const isProfitable = result.netProfit > 0;
@@ -160,10 +228,10 @@ Calculated via SellerKitHub.com`;
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 pb-20 lg:pb-12">
       
       {/* Hero Header */}
-      <div className="text-center max-w-3xl mx-auto mb-10">
+      <div className="text-center max-w-3xl mx-auto mb-8">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 dark:bg-brand-500/10 text-brand-700 dark:text-brand-400 text-xs font-semibold border border-brand-200 dark:border-brand-500/20 mb-3">
           <Sparkles className="w-3.5 h-3.5" />
           <span>Universal Multi-Marketplace Calculator</span>
@@ -174,6 +242,36 @@ Calculated via SellerKitHub.com`;
         <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
           Instantly calculate platform referral fees, shipping costs, payment processing, and exact net profit margins across Amazon, Etsy, eBay, Shopify, and Meesho.
         </p>
+      </div>
+
+      {/* 1-Click Quick Sample Presets */}
+      <div className="max-w-4xl mx-auto mb-8 p-4 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
+        <div className="flex items-center justify-between gap-2 mb-3">
+          <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">
+            <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
+            <span>1-Click Sample Presets:</span>
+          </div>
+          <span className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:inline">
+            Click to populate instant calculations
+          </span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          {SAMPLE_PRESETS.map((preset) => (
+            <button
+              key={preset.label}
+              onClick={() => applyPreset(preset)}
+              className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 hover:bg-brand-50 dark:hover:bg-brand-500/20 text-slate-800 dark:text-slate-200 text-xs font-medium border border-slate-200/80 dark:border-white/10 hover:border-brand-400 dark:hover:border-brand-500/40 transition-all text-left flex flex-col justify-between group shadow-2xs"
+            >
+              <div className="flex items-center gap-1.5 font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition">
+                <span>{preset.emoji}</span>
+                <span className="truncate">{preset.label}</span>
+              </div>
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">
+                {preset.platform.toUpperCase()} • Live Demo
+              </span>
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Marketplace Selector Tabs */}
@@ -347,7 +445,7 @@ Calculated via SellerKitHub.com`;
         </div>
 
         {/* Right Output Results Panel (5 Cols) */}
-        <div className="lg:col-span-5 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/[0.02] p-6 sm:p-8 space-y-6 shadow-sm">
+        <div id="profit-breakdown-card" className="lg:col-span-5 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/[0.02] p-6 sm:p-8 space-y-6 shadow-sm">
           
           <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4">
             <h2 className="font-display text-lg font-bold text-slate-900 dark:text-white">
@@ -416,6 +514,31 @@ Calculated via SellerKitHub.com`;
 
       </div>
 
+      {/* Sticky Mobile Floating Profit Summary Banner */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-white/10 px-4 py-3 shadow-2xl flex items-center justify-between">
+        <div>
+          <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">
+            Calculated Net Profit ({platform.toUpperCase()})
+          </span>
+          <div className="flex items-baseline gap-2">
+            <span className={`text-lg font-extrabold font-mono ${isProfitable ? 'text-emerald-400' : 'text-rose-400'}`}>
+              {format(result.netProfit)}
+            </span>
+            <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${isProfitable ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>
+              {result.netMarginPercent.toFixed(1)}% margin
+            </span>
+          </div>
+        </div>
+        <button
+          onClick={() => {
+            document.getElementById('profit-breakdown-card')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="px-3.5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold shadow-lg transition"
+        >
+          View Details ↓
+        </button>
+      </div>
+
       {/* Programmatic SEO Discrete Tool Cards Suite Directory */}
       <section className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] shadow-xl">
         <div className="border-b border-slate-200 dark:border-white/10 pb-4 mb-6">
@@ -437,6 +560,7 @@ Calculated via SellerKitHub.com`;
               <Link
                 key={tool.path}
                 to={tool.path}
+                onClick={() => trackEvent(TRACKED_EVENTS.TOOL_CLICK, { target: tool.path })}
                 className="p-4 rounded-xl border border-slate-200 dark:border-white/10 hover:border-brand-500/50 bg-slate-50/50 dark:bg-white/[0.02] hover:bg-white dark:hover:bg-white/5 transition flex items-center justify-between group shadow-sm"
               >
                 <div className="flex items-center gap-3">
@@ -470,6 +594,9 @@ Calculated via SellerKitHub.com`;
       />
 
       <AdPlaceholder slot="horizontal" />
+
+      {/* Cross-Tool Navigation Component */}
+      <RelatedTools currentPath="/" />
 
       {/* SEO Guide & Formula Article */}
       <SEOGuide

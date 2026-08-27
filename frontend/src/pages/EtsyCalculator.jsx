@@ -2,6 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { TrendingUp, Copy, Check, RefreshCw, Layers, ShieldCheck, DollarSign, FileSpreadsheet, BookOpen, BarChart3, Lightbulb } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { calculateMasterProfit, exportToCSV } from '../utils/calculations';
+import { trackEvent, TRACKED_EVENTS } from '../utils/analytics';
+import RelatedTools from '../components/RelatedTools';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
@@ -485,6 +487,9 @@ Calculated with SellerKitHub.com`;
           </p>
         </div>
       </article>
+
+      {/* Cross-Tool Navigation Component */}
+      <RelatedTools currentPath="/tools/etsy-fee-calculator" />
 
       {/* Structured FAQ Section */}
       <FAQSection title="Etsy Fee & Profit FAQs" faqs={faqs} />
