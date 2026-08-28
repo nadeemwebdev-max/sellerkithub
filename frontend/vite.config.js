@@ -4,8 +4,13 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  esbuild: {
+    drop: ['console', 'debugger'],
+  },
   build: {
     outDir: 'dist',
+    target: 'es2020',
+    cssCodeSplit: true,
     sourcemap: false,
     chunkSizeWarningLimit: 1200,
     rollupOptions: {
