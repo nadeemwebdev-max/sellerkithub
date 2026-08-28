@@ -149,6 +149,9 @@ export default function Navbar() {
             <div className="relative" ref={calcDropdownRef}>
               <button
                 type="button"
+                aria-expanded={calcDropdownOpen}
+                aria-haspopup="true"
+                aria-label="Calculators & Tools Menu"
                 onClick={() => setCalcDropdownOpen(!calcDropdownOpen)}
                 className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
                   isCalcActive
@@ -227,6 +230,9 @@ export default function Navbar() {
             <div className="relative" ref={currencyDropdownRef}>
               <button
                 type="button"
+                aria-expanded={currencyDropdownOpen}
+                aria-haspopup="true"
+                aria-label="Select Currency"
                 onClick={() => setCurrencyDropdownOpen(!currencyDropdownOpen)}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-xs font-semibold text-slate-800 dark:text-slate-200 transition"
                 title="Change Currency"

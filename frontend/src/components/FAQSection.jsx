@@ -49,6 +49,7 @@ export default function FAQSection({ title = "Frequently Asked Questions", faqs 
             >
               <button
                 type="button"
+                aria-expanded={isOpen}
                 onClick={() => toggleFAQ(index)}
                 className="w-full text-left px-5 py-4 flex items-center justify-between gap-4 focus:outline-none"
               >

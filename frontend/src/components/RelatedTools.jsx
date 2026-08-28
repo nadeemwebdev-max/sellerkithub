@@ -132,7 +132,7 @@ export default function RelatedTools({ currentPath = '', title = "Explore More F
                 <h3 className="font-bold text-sm text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                   {tool.name}
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
                   {tool.description}
                 </p>
               </div>

@@ -189,7 +189,7 @@ export default function GstCalculator() {
           <span className="font-mono text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white block mt-1">
             {format(result.netBasePrice)}
           </span>
-          <span className="text-[11px] text-slate-500">Price Before Tax</span>
+          <span className="text-[11px] text-slate-600 dark:text-slate-400">Price Before Tax</span>
         </div>
 
         <div className="p-4 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] shadow-sm">
@@ -197,7 +197,7 @@ export default function GstCalculator() {
           <span className="font-mono text-xl sm:text-2xl font-extrabold text-amber-600 dark:text-amber-400 block mt-1">
             {format(result.gstAmount)}
           </span>
-          <span className="text-[11px] text-slate-500">Tax Payable</span>
+          <span className="text-[11px] text-slate-600 dark:text-slate-400">Tax Payable</span>
         </div>
 
         <div className="p-4 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] shadow-sm">
@@ -207,7 +207,7 @@ export default function GstCalculator() {
               ? `CGST: ${format(result.cgst)}` 
               : `IGST: ${format(result.igst)}`}
           </span>
-          <span className="text-[11px] text-slate-500">
+          <span className="text-[11px] text-slate-600 dark:text-slate-400">
             {transactionType === 'intrastate' ? `SGST: ${format(result.sgst)}` : 'Interstate 100%'}
           </span>
         </div>

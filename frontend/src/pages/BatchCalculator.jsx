@@ -198,7 +198,7 @@ export default function BatchCalculator() {
           <span className="font-mono text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white block mt-1">
             {format(summary.totalRevenue)}
           </span>
-          <span className="text-[11px] text-slate-500">{summary.totalUnits} Units Total</span>
+          <span className="text-[11px] text-slate-600 dark:text-slate-400">{summary.totalUnits} Units Total</span>
         </div>
 
         <div className="p-4 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] shadow-sm">
@@ -206,7 +206,7 @@ export default function BatchCalculator() {
           <span className="font-mono text-xl sm:text-2xl font-extrabold text-rose-600 dark:text-rose-400 block mt-1">
             {format(summary.totalCogs)}
           </span>
-          <span className="text-[11px] text-slate-500">Capital Invested</span>
+          <span className="text-[11px] text-slate-600 dark:text-slate-400">Capital Invested</span>
         </div>
 
         <div className="p-4 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] shadow-sm">
@@ -214,7 +214,7 @@ export default function BatchCalculator() {
           <span className="font-mono text-xl sm:text-2xl font-extrabold text-amber-600 dark:text-amber-400 block mt-1">
             {format(summary.totalPlatformFees + summary.totalShipping)}
           </span>
-          <span className="text-[11px] text-slate-500">Total Fees & Postage</span>
+          <span className="text-[11px] text-slate-600 dark:text-slate-400">Total Fees & Postage</span>
         </div>
 
         <div className="p-4 rounded-xl border border-brand-200 dark:border-brand-500/30 bg-brand-50/50 dark:bg-brand-500/10 shadow-sm">
