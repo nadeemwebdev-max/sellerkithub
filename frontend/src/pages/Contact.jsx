@@ -125,10 +125,12 @@ export default function Contact() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label htmlFor="contact-name" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1">
                     Your Name
                   </label>
                   <input
+                    id="contact-name"
+                    aria-label="Your Name"
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -138,10 +140,12 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label htmlFor="contact-email" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1">
                     Your Email Address *
                   </label>
                   <input
+                    id="contact-email"
+                    aria-label="Your Email Address"
                     type="email"
                     required
                     value={email}
@@ -153,10 +157,12 @@ export default function Contact() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label htmlFor="contact-subject" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1">
                   Topic / Inquiry Subject
                 </label>
                 <select
+                  id="contact-subject"
+                  aria-label="Topic / Inquiry Subject"
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#090d16] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-xs focus:outline-none"
@@ -170,10 +176,12 @@ export default function Contact() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label htmlFor="contact-message" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1">
                   Message *
                 </label>
                 <textarea
+                  id="contact-message"
+                  aria-label="Your Message"
                   required
                   rows={4}
                   value={message}

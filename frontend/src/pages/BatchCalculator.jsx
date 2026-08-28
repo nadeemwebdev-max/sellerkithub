@@ -289,6 +289,7 @@ export default function BatchCalculator() {
                 <tr key={sku.id} className="hover:bg-slate-50/50 dark:hover:bg-white/[0.02]">
                   <td className="p-2">
                     <input
+                      aria-label="SKU Name"
                       type="text"
                       value={sku.name}
                       onChange={(e) => updateSku(sku.id, 'name', e.target.value)}
@@ -297,6 +298,7 @@ export default function BatchCalculator() {
                   </td>
                   <td className="p-2 w-20">
                     <input
+                      aria-label="Quantity"
                       type="number"
                       value={sku.quantity}
                       onChange={(e) => updateSku(sku.id, 'quantity', parseFloat(e.target.value) || 0)}
@@ -305,6 +307,7 @@ export default function BatchCalculator() {
                   </td>
                   <td className="p-2 w-24">
                     <input
+                      aria-label="Price"
                       type="number"
                       value={sku.price}
                       onChange={(e) => updateSku(sku.id, 'price', parseFloat(e.target.value) || 0)}
@@ -313,6 +316,7 @@ export default function BatchCalculator() {
                   </td>
                   <td className="p-2 w-24">
                     <input
+                      aria-label="Unit Cost"
                       type="number"
                       value={sku.cost}
                       onChange={(e) => updateSku(sku.id, 'cost', parseFloat(e.target.value) || 0)}
@@ -321,6 +325,7 @@ export default function BatchCalculator() {
                   </td>
                   <td className="p-2 w-20">
                     <input
+                      aria-label="Platform Fee percentage"
                       type="number"
                       value={sku.platformFeePct}
                       onChange={(e) => updateSku(sku.id, 'platformFeePct', parseFloat(e.target.value) || 0)}
@@ -329,6 +334,7 @@ export default function BatchCalculator() {
                   </td>
                   <td className="p-2 w-24">
                     <input
+                      aria-label="Shipping Postage"
                       type="number"
                       value={sku.shipping}
                       onChange={(e) => updateSku(sku.id, 'shipping', parseFloat(e.target.value) || 0)}

@@ -55,8 +55,11 @@ export default function BlogIndex() {
       {/* Search & Category Filter Controls */}
       <div className="max-w-4xl mx-auto mb-10 space-y-4">
         <div className="relative">
+          <label htmlFor="blog-search" className="sr-only">Search articles</label>
           <Search className="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
           <input
+            id="blog-search"
+            aria-label="Search articles on Amazon FBA, Etsy fees, margin vs markup"
             type="text"
             placeholder="Search articles on Amazon FBA, Etsy fees, margin vs markup..."
             value={searchTerm}

@@ -44,8 +44,11 @@ export default function NewsletterBox({
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-center gap-3 pt-2">
             <div className="relative w-full flex-1">
+              <label htmlFor="newsletter-email" className="sr-only">Business Email Address</label>
               <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input 
+                id="newsletter-email"
+                aria-label="Enter your business email"
                 type="email" 
                 required
                 value={email}

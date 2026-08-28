@@ -231,10 +231,12 @@ export default function ImagePadder() {
 
           <div className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="img-target-size" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Target Canvas Resolution
               </label>
               <select
+                id="img-target-size"
+                aria-label="Target Canvas Resolution"
                 value={targetSize}
                 onChange={(e) => setTargetSize(e.target.value)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
@@ -248,11 +250,13 @@ export default function ImagePadder() {
 
             <div>
               <div className="flex justify-between items-center mb-1.5">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                <label htmlFor="img-padding-percent" className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                   Padding Margin Buffer: {paddingPercent}%
                 </label>
               </div>
               <input
+                id="img-padding-percent"
+                aria-label="Padding Margin Buffer percentage"
                 type="range"
                 min="0"
                 max="35"
@@ -265,7 +269,7 @@ export default function ImagePadder() {
             {/* Photo Rotation Control */}
             <div>
               <div className="flex justify-between items-center mb-1.5">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                <label className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                   Rotate Photo Orientation ({rotationAngle}°)
                 </label>
                 {rotationAngle !== 0 && (
@@ -300,11 +304,13 @@ export default function ImagePadder() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="img-bg-color" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Canvas Background Color
               </label>
               <div className="flex items-center gap-3">
                 <input
+                  id="img-bg-color"
+                  aria-label="Canvas Background Color Picker"
                   type="color"
                   value={bgColor}
                   disabled={isTransparent}
@@ -320,8 +326,10 @@ export default function ImagePadder() {
                     Pure White (#FFF)
                   </button>
 
-                  <label className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 cursor-pointer ml-2">
+                  <label htmlFor="img-transparent" className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 cursor-pointer ml-2">
                     <input
+                      id="img-transparent"
+                      aria-label="Transparent PNG background"
                       type="checkbox"
                       checked={isTransparent}
                       onChange={(e) => setIsTransparent(e.target.checked)}

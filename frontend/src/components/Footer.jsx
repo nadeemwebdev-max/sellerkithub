@@ -163,14 +163,14 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-10 pt-6 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 dark:text-slate-500">
+        <div className="mt-10 pt-6 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-600 dark:text-slate-400">
           <p>
             &copy; {new Date().getFullYear()} SellerKitHub.com. All rights reserved. Calculations are estimates based on standard marketplace fee schedules.
           </p>
           <div className="flex items-center gap-4">
-            <Link to="/privacy-policy" className="hover:underline">Privacy</Link>
-            <Link to="/terms" className="hover:underline">Terms</Link>
-            <Link to="/contact" className="hover:underline">Contact</Link>
+            <Link to="/privacy-policy" className="hover:underline hover:text-slate-900 dark:hover:text-white transition">Privacy</Link>
+            <Link to="/terms" className="hover:underline hover:text-slate-900 dark:hover:text-white transition">Terms</Link>
+            <Link to="/contact" className="hover:underline hover:text-slate-900 dark:hover:text-white transition">Contact</Link>
           </div>
         </div>
       </div>

@@ -168,10 +168,12 @@ Calculated with SellerKitHub.com`;
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="etsy-selling-price" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Item Selling Price ({activeCurrency.symbol})
               </label>
               <input
+                id="etsy-selling-price"
+                aria-label={`Item Selling Price in ${activeCurrency.symbol}`}
                 type="number"
                 value={sellingPrice || ''}
                 onChange={(e) => setSellingPrice(parseFloat(e.target.value) || 0)}
@@ -180,10 +182,12 @@ Calculated with SellerKitHub.com`;
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="etsy-shipping-charged" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Shipping Charged to Buyer ({activeCurrency.symbol})
               </label>
               <input
+                id="etsy-shipping-charged"
+                aria-label={`Shipping Charged to Buyer in ${activeCurrency.symbol}`}
                 type="number"
                 value={shippingCharged || ''}
                 onChange={(e) => setShippingCharged(parseFloat(e.target.value) || 0)}
@@ -192,10 +196,12 @@ Calculated with SellerKitHub.com`;
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="etsy-item-cost" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Crafting / Material Cost ({activeCurrency.symbol})
               </label>
               <input
+                id="etsy-item-cost"
+                aria-label={`Crafting Material Cost in ${activeCurrency.symbol}`}
                 type="number"
                 value={itemCost || ''}
                 onChange={(e) => setItemCost(parseFloat(e.target.value) || 0)}
@@ -204,10 +210,12 @@ Calculated with SellerKitHub.com`;
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="etsy-postage-cost" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Actual Shipping Postage Cost ({activeCurrency.symbol})
               </label>
               <input
+                id="etsy-postage-cost"
+                aria-label={`Actual Shipping Postage Cost in ${activeCurrency.symbol}`}
                 type="number"
                 value={actualShippingCost || ''}
                 onChange={(e) => setActualShippingCost(parseFloat(e.target.value) || 0)}
@@ -217,10 +225,12 @@ Calculated with SellerKitHub.com`;
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+            <label htmlFor="etsy-offsite-ads" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
               Etsy Offsite Ads Rate
             </label>
             <select
+              id="etsy-offsite-ads"
+              aria-label="Etsy Offsite Ads Rate"
               value={offsiteAdsTier}
               onChange={(e) => setOffsiteAdsTier(parseFloat(e.target.value))}
               className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-orange-500"

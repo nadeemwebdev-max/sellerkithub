@@ -332,14 +332,16 @@ Calculated via SellerKitHub.com`;
             
             {/* Selling Price */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="home-selling-price" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Target Selling Price ({activeCurrency.symbol})
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 font-bold text-sm">
                   {activeCurrency.symbol}
                 </span>
                 <input
+                  id="home-selling-price"
+                  aria-label={`Target Selling Price in ${activeCurrency.symbol}`}
                   type="number"
                   step="0.01"
                   value={sellingPrice || ''}
@@ -351,14 +353,16 @@ Calculated via SellerKitHub.com`;
 
             {/* Product Sourcing Cost */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="home-product-cost" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Product Sourcing Cost (COGS) ({activeCurrency.symbol})
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 font-bold text-sm">
                   {activeCurrency.symbol}
                 </span>
                 <input
+                  id="home-product-cost"
+                  aria-label={`Product Sourcing Cost in ${activeCurrency.symbol}`}
                   type="number"
                   step="0.01"
                   value={productCost || ''}
@@ -375,14 +379,16 @@ Calculated via SellerKitHub.com`;
             
             {/* Outbound Shipping Cost */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="home-shipping-cost" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Outbound Shipping / Postage ({activeCurrency.symbol})
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 font-bold text-sm">
                   {activeCurrency.symbol}
                 </span>
                 <input
+                  id="home-shipping-cost"
+                  aria-label={`Outbound Shipping Postage in ${activeCurrency.symbol}`}
                   type="number"
                   step="0.01"
                   value={shippingCost || ''}
@@ -394,18 +400,20 @@ Calculated via SellerKitHub.com`;
 
             {/* Platform Referral Rate */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="home-referral-rate" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Marketplace Referral Fee %
               </label>
               <div className="relative">
                 <input
+                  id="home-referral-rate"
+                  aria-label="Marketplace Referral Fee percentage"
                   type="number"
                   step="0.1"
                   value={referralRate || ''}
                   onChange={(e) => setReferralRate(parseFloat(e.target.value) || 0)}
                   className="w-full pl-3 pr-8 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
                 />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 font-bold text-sm">
                   %
                 </span>
               </div>
@@ -416,10 +424,12 @@ Calculated via SellerKitHub.com`;
           {/* Marketing & Return Overhead */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="home-marketing-spend" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Estimated Ad Spend / PPC per Unit ({activeCurrency.symbol})
               </label>
               <input
+                id="home-marketing-spend"
+                aria-label={`Estimated Ad Spend per Unit in ${activeCurrency.symbol}`}
                 type="number"
                 step="0.1"
                 value={marketingSpend || ''}
@@ -429,10 +439,12 @@ Calculated via SellerKitHub.com`;
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="home-return-rate" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Return Rate Buffer (%)
               </label>
               <input
+                id="home-return-rate"
+                aria-label="Return Rate Buffer percentage"
                 type="number"
                 step="0.5"
                 value={returnRate || ''}
@@ -462,13 +474,13 @@ Calculated via SellerKitHub.com`;
 
           <div className="space-y-4">
             <div className="p-4 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5 shadow-sm space-y-1">
-              <span className="text-xs text-slate-500 dark:text-slate-400 uppercase font-semibold">Net Profit per Unit</span>
+              <span className="text-xs text-slate-600 dark:text-slate-400 uppercase font-semibold">Net Profit per Unit</span>
               <p className={`font-mono text-3xl font-extrabold ${
                 isProfitable ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
               }`}>
                 {format(result.netProfit)}
               </p>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-600 dark:text-slate-400">
                 Profit Margin: <span className="font-bold text-slate-900 dark:text-white font-mono">{result.netMarginPercent.toFixed(2)}%</span>
               </p>
             </div>

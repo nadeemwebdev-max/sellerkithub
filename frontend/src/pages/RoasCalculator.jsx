@@ -235,10 +235,12 @@ export default function RoasCalculator() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+              <label htmlFor="roas-ad-spend" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1">
                 Monthly Ad Spend ({activeCurrency.symbol})
               </label>
               <input
+                id="roas-ad-spend"
+                aria-label={`Monthly Ad Spend in ${activeCurrency.symbol}`}
                 type="number"
                 value={monthlyAdSpend}
                 onChange={(e) => setMonthlyAdSpend(parseFloat(e.target.value) || 0)}
@@ -247,10 +249,12 @@ export default function RoasCalculator() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+              <label htmlFor="roas-ad-revenue" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1">
                 Attributed Ad Revenue ({activeCurrency.symbol})
               </label>
               <input
+                id="roas-ad-revenue"
+                aria-label={`Attributed Ad Revenue in ${activeCurrency.symbol}`}
                 type="number"
                 value={adRevenue}
                 onChange={(e) => setAdRevenue(parseFloat(e.target.value) || 0)}
@@ -261,10 +265,12 @@ export default function RoasCalculator() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+              <label htmlFor="roas-unit-price" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1">
                 Unit Selling Price ({activeCurrency.symbol})
               </label>
               <input
+                id="roas-unit-price"
+                aria-label={`Unit Selling Price in ${activeCurrency.symbol}`}
                 type="number"
                 value={unitSellingPrice}
                 onChange={(e) => setUnitSellingPrice(parseFloat(e.target.value) || 0)}
@@ -273,10 +279,12 @@ export default function RoasCalculator() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+              <label htmlFor="roas-unit-cost" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1">
                 Unit Sourcing Cost ({activeCurrency.symbol})
               </label>
               <input
+                id="roas-unit-cost"
+                aria-label={`Unit Sourcing Cost in ${activeCurrency.symbol}`}
                 type="number"
                 value={unitCost}
                 onChange={(e) => setUnitCost(parseFloat(e.target.value) || 0)}
@@ -287,10 +295,12 @@ export default function RoasCalculator() {
 
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+              <label htmlFor="roas-platform-fee" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1">
                 Platform Fee %
               </label>
               <input
+                id="roas-platform-fee"
+                aria-label="Platform Fee percentage"
                 type="number"
                 value={platformFeePct}
                 onChange={(e) => setPlatformFeePct(parseFloat(e.target.value) || 0)}
@@ -299,10 +309,12 @@ export default function RoasCalculator() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+              <label htmlFor="roas-shipping-cost" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1">
                 Postage/Unit ({activeCurrency.symbol})
               </label>
               <input
+                id="roas-shipping-cost"
+                aria-label={`Postage per unit in ${activeCurrency.symbol}`}
                 type="number"
                 value={shippingCost}
                 onChange={(e) => setShippingCost(parseFloat(e.target.value) || 0)}

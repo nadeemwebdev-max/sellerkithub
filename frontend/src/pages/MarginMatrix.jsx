@@ -163,10 +163,12 @@ export default function MarginMatrix() {
         </div>
 
         <div className="max-w-md">
-          <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+          <label htmlFor="matrix-cost" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
             Product Sourcing / Unit Manufacturing Cost ({activeCurrency.symbol})
           </label>
           <input
+            id="matrix-cost"
+            aria-label={`Product Sourcing Cost in ${activeCurrency.symbol}`}
             type="number"
             value={cost || ''}
             onChange={(e) => setCost(parseFloat(e.target.value) || 0)}

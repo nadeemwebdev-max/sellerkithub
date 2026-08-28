@@ -178,10 +178,12 @@ export default function MarketplaceComparison() {
 
           <div className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="cmp-selling-price" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Target Selling Price ({activeCurrency.symbol})
               </label>
               <input
+                id="cmp-selling-price"
+                aria-label={`Target Selling Price in ${activeCurrency.symbol}`}
                 type="number"
                 value={sellingPrice || ''}
                 onChange={(e) => setSellingPrice(parseFloat(e.target.value) || 0)}
@@ -190,10 +192,12 @@ export default function MarketplaceComparison() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="cmp-product-cost" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Product Sourcing / Manufacturing Cost ({activeCurrency.symbol})
               </label>
               <input
+                id="cmp-product-cost"
+                aria-label={`Product Sourcing Cost in ${activeCurrency.symbol}`}
                 type="number"
                 value={productCost || ''}
                 onChange={(e) => setProductCost(parseFloat(e.target.value) || 0)}
@@ -202,10 +206,12 @@ export default function MarketplaceComparison() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="cmp-shipping-cost" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Shipping Postage Paid by Seller ({activeCurrency.symbol})
               </label>
               <input
+                id="cmp-shipping-cost"
+                aria-label={`Shipping Postage in ${activeCurrency.symbol}`}
                 type="number"
                 value={shippingCost || ''}
                 onChange={(e) => setShippingCost(parseFloat(e.target.value) || 0)}
@@ -214,10 +220,12 @@ export default function MarketplaceComparison() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="cmp-marketing-spend" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Marketing Spend / Ad Budget per Unit ({activeCurrency.symbol})
               </label>
               <input
+                id="cmp-marketing-spend"
+                aria-label={`Marketing Spend per unit in ${activeCurrency.symbol}`}
                 type="number"
                 value={marketingSpend || ''}
                 onChange={(e) => setMarketingSpend(parseFloat(e.target.value) || 0)}
@@ -226,10 +234,12 @@ export default function MarketplaceComparison() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="cmp-return-rate" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Estimated Customer Return Rate (%)
               </label>
               <input
+                id="cmp-return-rate"
+                aria-label="Estimated Customer Return Rate percentage"
                 type="number"
                 value={returnRate || ''}
                 onChange={(e) => setReturnRate(parseFloat(e.target.value) || 0)}

@@ -352,10 +352,12 @@ export default function BarcodeGenerator() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                <label htmlFor="bc-data-text" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                   Barcode Encoded Data String
                 </label>
                 <input
+                  id="bc-data-text"
+                  aria-label="Barcode Encoded Data String"
                   type="text"
                   value={dataText}
                   onChange={(e) => setDataText(e.target.value)}
@@ -367,10 +369,12 @@ export default function BarcodeGenerator() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                <label htmlFor="bc-product-title" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                   Product Title (For Printed Label)
                 </label>
                 <input
+                  id="bc-product-title"
+                  aria-label="Product Title for Printed Label"
                   type="text"
                   value={productTitle}
                   onChange={(e) => setProductTitle(e.target.value)}
@@ -379,10 +383,12 @@ export default function BarcodeGenerator() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+                <label htmlFor="bc-product-price" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                   Product Price ({activeCurrency.symbol})
                 </label>
                 <input
+                  id="bc-product-price"
+                  aria-label={`Product Price in ${activeCurrency.symbol}`}
                   type="number"
                   step="0.01"
                   value={productPrice || ''}
@@ -393,10 +399,12 @@ export default function BarcodeGenerator() {
 
               <div className="grid grid-cols-2 gap-3 pt-2">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label htmlFor="bc-bar-height" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1">
                     Bar Height: {barHeight}px
                   </label>
                   <input
+                    id="bc-bar-height"
+                    aria-label="Bar Height in pixels"
                     type="range"
                     min="40"
                     max="120"
@@ -407,10 +415,12 @@ export default function BarcodeGenerator() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label htmlFor="bc-bar-width" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1">
                     Bar Width: {barWidth}px
                   </label>
                   <input
+                    id="bc-bar-width"
+                    aria-label="Bar Width in pixels"
                     type="range"
                     min="1"
                     max="4"
@@ -423,10 +433,12 @@ export default function BarcodeGenerator() {
 
               {viewMode === 'sheet' && (
                 <div className="pt-1">
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label htmlFor="bc-label-qty" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1">
                     Labels Per Sheet: {labelQuantity} (Max 30)
                   </label>
                   <input
+                    id="bc-label-qty"
+                    aria-label="Labels per sheet quantity"
                     type="range"
                     min="1"
                     max="30"
@@ -438,8 +450,10 @@ export default function BarcodeGenerator() {
               )}
 
               <div className="space-y-2 pt-1">
-                <label className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 cursor-pointer">
+                <label htmlFor="bc-show-human-text" className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 cursor-pointer">
                   <input
+                    id="bc-show-human-text"
+                    aria-label="Include Human-Readable Text Below Bars"
                     type="checkbox"
                     checked={showHumanText}
                     onChange={(e) => setShowHumanText(e.target.checked)}
@@ -449,8 +463,10 @@ export default function BarcodeGenerator() {
                 </label>
 
                 {viewMode === 'sheet' && (
-                  <label className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 cursor-pointer">
+                  <label htmlFor="bc-show-outline" className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 cursor-pointer">
                     <input
+                      id="bc-show-outline"
+                      aria-label="Show Dashed Grid Outline"
                       type="checkbox"
                       checked={showOutline}
                       onChange={(e) => setShowOutline(e.target.checked)}

@@ -205,10 +205,12 @@ Calculated with SellerKitHub.com`;
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="amz-selling-price" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Target Selling Price ({activeCurrency.symbol})
               </label>
               <input
+                id="amz-selling-price"
+                aria-label={`Target Selling Price in ${activeCurrency.symbol}`}
                 type="number"
                 value={sellingPrice || ''}
                 onChange={(e) => setSellingPrice(parseFloat(e.target.value) || 0)}
@@ -217,10 +219,12 @@ Calculated with SellerKitHub.com`;
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="amz-item-cost" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Item Sourcing / Manufacturing Cost ({activeCurrency.symbol})
               </label>
               <input
+                id="amz-item-cost"
+                aria-label={`Item Sourcing Cost in ${activeCurrency.symbol}`}
                 type="number"
                 value={itemCost || ''}
                 onChange={(e) => setItemCost(parseFloat(e.target.value) || 0)}
@@ -229,10 +233,12 @@ Calculated with SellerKitHub.com`;
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="amz-inbound-freight" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Inbound Freight to Amazon FBA ({activeCurrency.symbol})
               </label>
               <input
+                id="amz-inbound-freight"
+                aria-label={`Inbound Freight in ${activeCurrency.symbol}`}
                 type="number"
                 value={shippingToAmazon || ''}
                 onChange={(e) => setShippingToAmazon(parseFloat(e.target.value) || 0)}
@@ -241,10 +247,12 @@ Calculated with SellerKitHub.com`;
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="amz-merchant-shipping" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Merchant Shipping Postage (FBM) ({activeCurrency.symbol})
               </label>
               <input
+                id="amz-merchant-shipping"
+                aria-label={`Merchant Shipping Postage in ${activeCurrency.symbol}`}
                 type="number"
                 value={merchantShippingCost || ''}
                 onChange={(e) => setMerchantShippingCost(parseFloat(e.target.value) || 0)}
@@ -253,10 +261,12 @@ Calculated with SellerKitHub.com`;
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="amz-referral-rate" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Category Referral Fee Rate (%)
               </label>
               <select
+                id="amz-referral-rate"
+                aria-label="Category Referral Fee Rate percentage"
                 value={referralRate}
                 onChange={(e) => setReferralRate(parseFloat(e.target.value))}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-amber-500"
@@ -270,10 +280,12 @@ Calculated with SellerKitHub.com`;
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="amz-fba-fee" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 FBA Fulfillment Fee per Unit ({activeCurrency.symbol})
               </label>
               <input
+                id="amz-fba-fee"
+                aria-label={`FBA Fulfillment Fee per Unit in ${activeCurrency.symbol}`}
                 type="number"
                 value={fbaFee || ''}
                 onChange={(e) => setFbaFee(parseFloat(e.target.value) || 0)}
@@ -282,10 +294,12 @@ Calculated with SellerKitHub.com`;
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="amz-ppc-spend" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Amazon PPC Ad Spend per Unit ({activeCurrency.symbol})
               </label>
               <input
+                id="amz-ppc-spend"
+                aria-label={`Amazon PPC Ad Spend in ${activeCurrency.symbol}`}
                 type="number"
                 value={ppcSpend || ''}
                 onChange={(e) => setPpcSpend(parseFloat(e.target.value) || 0)}
@@ -294,10 +308,12 @@ Calculated with SellerKitHub.com`;
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="amz-return-rate" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
                 Estimated Return Rate (%)
               </label>
               <input
+                id="amz-return-rate"
+                aria-label="Estimated Return Rate percentage"
                 type="number"
                 value={returnRate || ''}
                 onChange={(e) => setReturnRate(parseFloat(e.target.value) || 0)}

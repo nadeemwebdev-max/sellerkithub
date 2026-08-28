@@ -245,10 +245,12 @@ export default function GstCalculator() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+            <label htmlFor="gst-amount" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
               Enter Amount ({activeCurrency.symbol})
             </label>
             <input
+              id="gst-amount"
+              aria-label={`Enter Amount in ${activeCurrency.symbol}`}
               type="number"
               value={amount || ''}
               onChange={(e) => setAmount(parseFloat(e.target.value) || 0)}
@@ -257,7 +259,7 @@ export default function GstCalculator() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+            <label className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
               Select GST Rate Slab
             </label>
             <div className="flex flex-wrap items-center gap-2 mb-3">
@@ -277,8 +279,10 @@ export default function GstCalculator() {
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-500">Custom Rate %:</span>
+              <label htmlFor="gst-custom-rate" className="text-xs text-slate-600 dark:text-slate-400 font-semibold">Custom Rate %:</label>
               <input
+                id="gst-custom-rate"
+                aria-label="Custom GST Rate percentage"
                 type="number"
                 value={gstRate}
                 onChange={(e) => setGstRate(parseFloat(e.target.value) || 0)}
