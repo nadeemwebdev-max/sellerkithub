@@ -3,14 +3,19 @@
   <head>
     <meta charset="UTF-8" />
 
-    <!-- Google tag (gtag.js) GA4 Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8LF9KE5EWG"></script>
+    <!-- Google tag (gtag.js) GA4 Analytics - Async & Defer for Mobile Performance -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-8LF9KE5EWG');
+
+      (function() {
+        var el = document.createElement('script');
+        el.async = true;
+        el.src = 'https://www.googletagmanager.com/gtag/js?id=G-8LF9KE5EWG';
+        document.head.appendChild(el);
+      })();
     </script>
     
     <!-- Instant Theme Preloader (Prevents FOUC / Light Flash) -->
@@ -66,7 +71,6 @@
     <!-- Non-Render-Blocking Google Fonts Loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript>
       <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
