@@ -11,6 +11,7 @@ import Home from './pages/Home';
 // Lazy-loaded Tool Pages (separates heavy barcode/image/calculator modules into small chunks)
 const EtsyCalculator = lazy(() => import('./pages/EtsyCalculator'));
 const AmazonCalculator = lazy(() => import('./pages/AmazonCalculator'));
+const WalmartCalculator = lazy(() => import('./pages/WalmartCalculator'));
 const MarketplaceComparison = lazy(() => import('./pages/MarketplaceComparison'));
 const BatchCalculator = lazy(() => import('./pages/BatchCalculator'));
 const ImagePadder = lazy(() => import('./pages/ImagePadder'));
@@ -73,7 +74,9 @@ export default function App() {
               {/* Programmatic Discrete SEO Routes under /tools/ */}
               <Route path="/tools/amazon-fba-calculator" element={<AmazonCalculator />} />
               <Route path="/tools/fba-shipping-calculator" element={<AmazonCalculator />} />
+              <Route path="/tools/walmart-fee-calculator" element={<WalmartCalculator />} />
               <Route path="/tools/etsy-fee-calculator" element={<EtsyCalculator />} />
+              <Route path="/tools/etsy-digital-fee-calculator" element={<EtsyCalculator />} />
               <Route path="/tools/profit-margin-calculator" element={<MarginMatrix />} />
               <Route path="/tools/roas-calculator" element={<RoasCalculator />} />
               <Route path="/tools/gst-calculator" element={<GstCalculator />} />
@@ -87,7 +90,9 @@ export default function App() {
               {/* Canonical Short Aliases */}
               <Route path="/amazon-fee-calculator" element={<AmazonCalculator />} />
               <Route path="/fba-shipping-calculator" element={<AmazonCalculator />} />
+              <Route path="/walmart-fee-calculator" element={<WalmartCalculator />} />
               <Route path="/etsy-fee-calculator" element={<EtsyCalculator />} />
+              <Route path="/etsy-digital-fee-calculator" element={<EtsyCalculator />} />
               <Route path="/margin-matrix" element={<MarginMatrix />} />
               <Route path="/roas-calculator" element={<RoasCalculator />} />
               <Route path="/gst-calculator" element={<GstCalculator />} />

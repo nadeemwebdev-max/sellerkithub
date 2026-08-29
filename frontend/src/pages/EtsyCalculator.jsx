@@ -1,5 +1,6 @@
-import React, { useState, useMemo } from 'react';
-import { TrendingUp, Copy, Check, RefreshCw, Layers, ShieldCheck, FileSpreadsheet, BookOpen, BarChart3, Lightbulb } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { TrendingUp, Copy, Check, RefreshCw, Layers, ShieldCheck, FileSpreadsheet, BookOpen, BarChart3, Lightbulb, DownloadCloud, Sparkles, Package } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { calculateMasterProfit, exportToCSV } from '../utils/calculations';
 import { trackEvent, TRACKED_EVENTS } from '../utils/analytics';
@@ -11,35 +12,63 @@ import AffiliateCTA from '../components/AffiliateCTA';
 
 export default function EtsyCalculator() {
   const { activeCurrency, format } = useCurrency();
+  const location = useLocation();
+  const isDigitalRoute = location?.pathname?.includes('digital');
 
   // Input States
-  const [sellingPrice, setSellingPrice] = useState(45.00);
+  const [productType, setProductType] = useState(isDigitalRoute ? 'digital' : 'physical');
+  const [sellingPrice, setSellingPrice] = useState(isDigitalRoute ? 12.00 : 45.00);
   const [shippingCharged, setShippingCharged] = useState(0.00);
-  const [itemCost, setItemCost] = useState(12.00);
-  const [actualShippingCost, setActualShippingCost] = useState(4.50);
+  const [itemCost, setItemCost] = useState(isDigitalRoute ? 0.50 : 12.00);
+  const [actualShippingCost, setActualShippingCost] = useState(isDigitalRoute ? 0.00 : 4.50);
   const [offsiteAdsTier, setOffsiteAdsTier] = useState(0); // 0 = None, 15 = Optional 15%, 12 = Mandatory 12%
   const [copied, setCopied] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
 
+  useEffect(() => {
+    if (isDigitalRoute) {
+      setProductType('digital');
+      setShippingCharged(0);
+      setActualShippingCost(0);
+    }
+  }, [isDigitalRoute]);
+
+  const handleProductTypeChange = (type) => {
+    setProductType(type);
+    if (type === 'digital') {
+      setShippingCharged(0);
+      setActualShippingCost(0);
+      if (sellingPrice === 45.00) setSellingPrice(12.00);
+      if (itemCost === 12.00) setItemCost(0.50);
+    } else {
+      if (actualShippingCost === 0) setActualShippingCost(4.50);
+      if (sellingPrice === 12.00) setSellingPrice(45.00);
+      if (itemCost === 0.50) setItemCost(12.00);
+    }
+  };
+
   // Etsy Calculations
   const calculations = useMemo(() => {
+    const effectiveShippingCharged = productType === 'digital' ? 0 : shippingCharged;
+    const effectiveShippingCost = productType === 'digital' ? 0 : actualShippingCost;
+
     const res = calculateMasterProfit({
       sellingPrice,
-      shippingCharged,
+      shippingCharged: effectiveShippingCharged,
       productCost: itemCost,
-      shippingCost: actualShippingCost,
+      shippingCost: effectiveShippingCost,
       platform: 'etsy',
       fulfillmentType: 'fbm',
       referralRate: 6.5,
       marketingSpend: 0,
-      returnRate: 2,
+      returnRate: productType === 'digital' ? 0.5 : 2,
       miscellaneousCost: 0.20, // $0.20 listing fee
       offsiteAdsActive: offsiteAdsTier > 0,
       currencyRate: activeCurrency.rate
     });
 
     const price = Number(sellingPrice) || 0;
-    const shipCharged = Number(shippingCharged) || 0;
+    const shipCharged = Number(effectiveShippingCharged) || 0;
     const totalBuyerPaid = price + shipCharged;
 
     const listingFee = 0.20 * activeCurrency.rate;
@@ -57,7 +86,7 @@ export default function EtsyCalculator() {
       offsiteAdsFee,
       totalEtsyFees
     };
-  }, [sellingPrice, shippingCharged, itemCost, actualShippingCost, offsiteAdsTier, activeCurrency]);
+  }, [sellingPrice, shippingCharged, itemCost, actualShippingCost, offsiteAdsTier, productType, activeCurrency]);
 
   const handleDownloadExcel = () => {
     let csv = `Metric,Value (${activeCurrency.code})\n`;
@@ -131,15 +160,53 @@ Calculated with SellerKitHub.com`;
       {/* Title Header */}
       <div className="text-center max-w-3xl mx-auto mb-10">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-50 dark:bg-orange-500/10 text-orange-700 dark:text-orange-400 text-xs font-semibold border border-orange-200 dark:border-orange-500/20 mb-3">
-          <TrendingUp className="w-3.5 h-3.5" />
-          <span>Updated for 2026 Official Etsy Seller Fee Schedule</span>
+          {productType === 'digital' ? <DownloadCloud className="w-3.5 h-3.5" /> : <TrendingUp className="w-3.5 h-3.5" />}
+          <span>
+            {productType === 'digital'
+              ? 'Etsy Digital Downloads & Printables Fee Calculator (2026)'
+              : 'Updated for 2026 Official Etsy Seller Fee Schedule'}
+          </span>
         </div>
         <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-          Etsy Seller <span className="text-orange-600 dark:text-orange-400">Fee & Profit</span> Calculator
+          {productType === 'digital' ? (
+            <>Etsy <span className="text-orange-600 dark:text-orange-400">Digital Product</span> Fee & Profit Calculator</>
+          ) : (
+            <>Etsy Seller <span className="text-orange-600 dark:text-orange-400">Fee & Profit</span> Calculator</>
+          )}
         </h1>
         <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
-          Calculate listing fees, 6.5% transaction cuts, payment processing rates, Offsite Ads tiers, net profit margins, and ROI in real-time.
+          {productType === 'digital'
+            ? 'Model Etsy fees for digital art, Canva templates, planners, SVGs, and printables with zero shipping overhead.'
+            : 'Calculate listing fees, 6.5% transaction cuts, payment processing rates, Offsite Ads tiers, net profit margins, and ROI in real-time.'}
         </p>
+
+        {/* Product Format Selector Toggle */}
+        <div className="flex justify-center mt-6">
+          <div className="p-1 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 inline-flex gap-1">
+            <button
+              onClick={() => handleProductTypeChange('physical')}
+              className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
+                productType === 'physical'
+                  ? 'bg-orange-600 text-white shadow-md'
+                  : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10'
+              }`}
+            >
+              <Package className="w-3.5 h-3.5" />
+              <span>Physical Goods</span>
+            </button>
+            <button
+              onClick={() => handleProductTypeChange('digital')}
+              className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
+                productType === 'digital'
+                  ? 'bg-orange-600 text-white shadow-md'
+                  : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10'
+              }`}
+            >
+              <DownloadCloud className="w-3.5 h-3.5" />
+              <span>Digital Downloads & Printables</span>
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Main Interactive Calculation Grid */}
@@ -149,14 +216,21 @@ Calculated with SellerKitHub.com`;
         <div className="lg:col-span-7 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] p-6 sm:p-8 space-y-5 shadow-xl dark:shadow-2xl">
           <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4">
             <h2 className="font-display text-lg font-bold text-slate-900 dark:text-white">
-              Listing & Production Inputs
+              {productType === 'digital' ? 'Digital Listing & Sourcing Inputs' : 'Listing & Production Inputs'}
             </h2>
             <button
               onClick={() => {
-                setSellingPrice(45.00);
-                setShippingCharged(0.00);
-                setItemCost(12.00);
-                setActualShippingCost(4.50);
+                if (productType === 'digital') {
+                  setSellingPrice(12.00);
+                  setItemCost(0.50);
+                  setShippingCharged(0.00);
+                  setActualShippingCost(0.00);
+                } else {
+                  setSellingPrice(45.00);
+                  setItemCost(12.00);
+                  setShippingCharged(0.00);
+                  setActualShippingCost(4.50);
+                }
                 setOffsiteAdsTier(0);
               }}
               className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition"
@@ -182,28 +256,40 @@ Calculated with SellerKitHub.com`;
               />
             </div>
 
-            <div>
-              <label htmlFor="etsy-shipping-charged" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
-                Shipping Charged to Buyer ({activeCurrency.symbol})
-              </label>
-              <input
-                id="etsy-shipping-charged"
-                aria-label={`Shipping Charged to Buyer in ${activeCurrency.symbol}`}
-                type="number"
-                inputMode="decimal"
-                value={shippingCharged || ''}
-                onChange={(e) => setShippingCharged(parseFloat(e.target.value) || 0)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-orange-500"
-              />
-            </div>
+            {productType === 'physical' ? (
+              <div>
+                <label htmlFor="etsy-shipping-charged" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
+                  Shipping Charged to Buyer ({activeCurrency.symbol})
+                </label>
+                <input
+                  id="etsy-shipping-charged"
+                  aria-label={`Shipping Charged to Buyer in ${activeCurrency.symbol}`}
+                  type="number"
+                  inputMode="decimal"
+                  value={shippingCharged || ''}
+                  onChange={(e) => setShippingCharged(parseFloat(e.target.value) || 0)}
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-orange-500"
+                />
+              </div>
+            ) : (
+              <div>
+                <label className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
+                  Fulfillment Type
+                </label>
+                <div className="w-full px-3.5 py-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-800 dark:text-emerald-300 font-mono text-xs flex items-center gap-1.5">
+                  <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                  <span>Instant Digital Delivery ($0 Shipping)</span>
+                </div>
+              </div>
+            )}
 
             <div>
               <label htmlFor="etsy-item-cost" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
-                Crafting / Material Cost ({activeCurrency.symbol})
+                {productType === 'digital' ? `Asset / Software Cost (${activeCurrency.symbol})` : `Crafting / Material Cost (${activeCurrency.symbol})`}
               </label>
               <input
                 id="etsy-item-cost"
-                aria-label={`Crafting Material Cost in ${activeCurrency.symbol}`}
+                aria-label={`Production Cost in ${activeCurrency.symbol}`}
                 type="number"
                 inputMode="decimal"
                 value={itemCost || ''}
@@ -212,20 +298,22 @@ Calculated with SellerKitHub.com`;
               />
             </div>
 
-            <div>
-              <label htmlFor="etsy-postage-cost" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
-                Actual Shipping Postage Cost ({activeCurrency.symbol})
-              </label>
-              <input
-                id="etsy-postage-cost"
-                aria-label={`Actual Shipping Postage Cost in ${activeCurrency.symbol}`}
-                type="number"
-                inputMode="decimal"
-                value={actualShippingCost || ''}
-                onChange={(e) => setActualShippingCost(parseFloat(e.target.value) || 0)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-orange-500"
-              />
-            </div>
+            {productType === 'physical' && (
+              <div>
+                <label htmlFor="etsy-postage-cost" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
+                  Actual Shipping Postage Cost ({activeCurrency.symbol})
+                </label>
+                <input
+                  id="etsy-postage-cost"
+                  aria-label={`Actual Shipping Cost in ${activeCurrency.symbol}`}
+                  type="number"
+                  inputMode="decimal"
+                  value={actualShippingCost || ''}
+                  onChange={(e) => setActualShippingCost(parseFloat(e.target.value) || 0)}
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-orange-500"
+                />
+              </div>
+            )}
           </div>
 
           <div>

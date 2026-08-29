@@ -442,7 +442,119 @@ export const ROUTES_SEO = {
     }
   },
 
+  '/tools/walmart-fee-calculator': {
+    title: 'Walmart Seller Fee & Profit Calculator (2026) – WFS & Referral Margins | SellerKit',
+    description: 'Free Walmart Marketplace profit calculator. Model 6%-15% category referral fees, Walmart Fulfillment Services (WFS) rates, storage, ad spend, and net margins.',
+    keywords: 'walmart seller profit calculator, walmart fee calculator, walmart marketplace calculator, walmart wfs fee calculator, walmart seller calculator',
+    canonical: `${SITE_URL}/tools/walmart-fee-calculator`,
+    ogTitle: 'Walmart Marketplace Fee & Profit Margin Calculator (2026)',
+    ogDescription: 'Calculate Walmart seller referral fees, WFS fulfillment rates, storage, and net margins.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Walmart Seller Fee & Profit Calculator',
+          'url': `${SITE_URL}/tools/walmart-fee-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'description': 'Calculate Walmart marketplace category referral fees, WFS rates, and seller profit margins.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Tools', 'item': `${SITE_URL}/tools/walmart-fee-calculator` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'Walmart Fee Calculator', 'item': `${SITE_URL}/tools/walmart-fee-calculator` }
+          ]
+        }
+      ]
+    }
+  },
+
+  '/tools/etsy-digital-fee-calculator': {
+    title: 'Etsy Digital Product Fee Calculator (2026) – Printables & Downloads | SellerKit',
+    description: 'Calculate Etsy seller fees and profit margins for digital downloads, printables, Canva templates, and SVGs with $0 shipping and instant delivery modeling.',
+    keywords: 'etsy fee calculator for digital products, etsy digital downloads fee calculator, etsy printable profit calculator, digital etsy seller calculator',
+    canonical: `${SITE_URL}/tools/etsy-digital-fee-calculator`,
+    ogTitle: 'Etsy Digital Downloads Fee & Profit Calculator (2026)',
+    ogDescription: 'Calculate Etsy fees and net profit for digital art, templates, and downloadable printables.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Etsy Digital Product Fee Calculator',
+          'url': `${SITE_URL}/tools/etsy-digital-fee-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'description': 'Calculate Etsy seller fees and profit for instant digital downloads and printables.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Tools', 'item': `${SITE_URL}/tools/etsy-digital-fee-calculator` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'Etsy Digital Calculator', 'item': `${SITE_URL}/tools/etsy-digital-fee-calculator` }
+          ]
+        }
+      ]
+    }
+  },
+
   /* Short Aliases for Canonical URLs */
+
+  '/walmart-fee-calculator': {
+    title: 'Walmart Seller Fee & Profit Calculator (2026) – WFS & Referral Margins | SellerKit',
+    description: 'Free Walmart Marketplace profit calculator. Model 6%-15% category referral fees, Walmart Fulfillment Services (WFS) rates, storage, ad spend, and net margins.',
+    keywords: 'walmart seller profit calculator, walmart fee calculator, walmart marketplace calculator',
+    canonical: `${SITE_URL}/tools/walmart-fee-calculator`,
+    ogTitle: 'Walmart Marketplace Fee & Profit Margin Calculator (2026)',
+    ogDescription: 'Calculate Walmart seller referral fees, WFS fulfillment rates, storage, and net margins.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Walmart Seller Fee & Profit Calculator',
+          'url': `${SITE_URL}/walmart-fee-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'description': 'Calculate Walmart marketplace category referral fees, WFS rates, and seller profit margins.'
+        }
+      ]
+    }
+  },
+
+  '/etsy-digital-fee-calculator': {
+    title: 'Etsy Digital Product Fee Calculator (2026) – Printables & Downloads | SellerKit',
+    description: 'Calculate Etsy seller fees and profit margins for digital downloads, printables, Canva templates, and SVGs with $0 shipping and instant delivery modeling.',
+    keywords: 'etsy fee calculator for digital products, etsy digital downloads fee calculator',
+    canonical: `${SITE_URL}/tools/etsy-digital-fee-calculator`,
+    ogTitle: 'Etsy Digital Downloads Fee & Profit Calculator (2026)',
+    ogDescription: 'Calculate Etsy fees and net profit for digital art, templates, and downloadable printables.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Etsy Digital Product Fee Calculator',
+          'url': `${SITE_URL}/etsy-digital-fee-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'description': 'Calculate Etsy seller fees and profit for instant digital downloads and printables.'
+        }
+      ]
+    }
+  },
 
   '/avery-qr-code-generator': {
     title: 'Free Avery QR Code Generator – Printable Label Sheets (5160, 5163, 5164) | SellerKit',

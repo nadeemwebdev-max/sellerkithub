@@ -160,6 +160,103 @@ export default function BlogPost() {
       {/* HTML Article Body */}
       <article className="my-10 p-6 sm:p-10 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c1322] shadow-xl blog-article-content">
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
+        
+        {/* Direct In-Article Tool Conversion Card */}
+        {post.slug === 'how-to-optimize-product-images-for-amazon-etsy' && (
+          <div className="mt-8 p-6 rounded-2xl bg-gradient-to-br from-brand-50 to-indigo-50 dark:from-brand-950/40 dark:to-indigo-950/30 border border-brand-200 dark:border-brand-500/20 shadow-lg text-left not-prose">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400 block">
+                  Free In-Browser Utility
+                </span>
+                <h3 className="text-lg font-bold font-display text-slate-900 dark:text-white">
+                  Pad Your Product Photos to 1:1 Pure White Squares
+                </h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300">
+                  Zero upload delay, 100% private in-browser canvas padder with custom margins and rotation.
+                </p>
+              </div>
+              <Link
+                to="/tools/product-image-resizer"
+                className="px-5 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs whitespace-nowrap text-center transition shadow-md shadow-brand-600/20"
+              >
+                Launch Image Padder →
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {post.slug === 'etsy-seller-fee-breakdown-guide' && (
+          <div className="mt-8 p-6 rounded-2xl bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/40 dark:to-amber-950/30 border border-orange-200 dark:border-orange-500/20 shadow-lg text-left not-prose">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400 block">
+                  Free Seller Calculator
+                </span>
+                <h3 className="text-lg font-bold font-display text-slate-900 dark:text-white">
+                  Calculate Real Net Profit for Physical & Digital Etsy Listings
+                </h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300">
+                  Includes 6.5% transaction cut, $0.20 listing renewals, processing, and Offsite Ads tiers.
+                </p>
+              </div>
+              <Link
+                to="/tools/etsy-fee-calculator"
+                className="px-5 py-3 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs whitespace-nowrap text-center transition shadow-md shadow-orange-600/20"
+              >
+                Calculate Etsy Profit →
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {post.slug === 'amazon-fba-fee-changes-2026' && (
+          <div className="mt-8 p-6 rounded-2xl bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-950/40 dark:to-yellow-950/30 border border-amber-200 dark:border-amber-500/20 shadow-lg text-left not-prose">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 block">
+                  Interactive Simulator
+                </span>
+                <h3 className="text-lg font-bold font-display text-slate-900 dark:text-white">
+                  Model Amazon FBA vs FBM Fees with 2026 Placement Surcharges
+                </h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300">
+                  Model category referral rates, pick & pack fees, monthly storage, and return loss reserves.
+                </p>
+              </div>
+              <Link
+                to="/tools/amazon-fba-calculator"
+                className="px-5 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs whitespace-nowrap text-center transition shadow-md shadow-amber-600/20"
+              >
+                Open FBA Calculator →
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {post.slug === 'ecommerce-pricing-strategies-margin-vs-markup' && (
+          <div className="mt-8 p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/40 dark:to-pink-950/30 border border-purple-200 dark:border-purple-500/20 shadow-lg text-left not-prose">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400 block">
+                  Wholesale Matrix Tool
+                </span>
+                <h3 className="text-lg font-bold font-display text-slate-900 dark:text-white">
+                  Generate Custom Profit Margin & Markup Price Ladders
+                </h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300">
+                  Calculate target retail prices across 15 margin tiers from 10% to 90% instantly.
+                </p>
+              </div>
+              <Link
+                to="/tools/profit-margin-calculator"
+                className="px-5 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs whitespace-nowrap text-center transition shadow-md shadow-purple-600/20"
+              >
+                Generate Price Matrix →
+              </Link>
+            </div>
+          </div>
+        )}
       </article>
 
       {/* Article Specific FAQs */}

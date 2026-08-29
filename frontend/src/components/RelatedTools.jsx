@@ -72,6 +72,22 @@ const ALL_TOOLS = [
     color: 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/10 border-amber-200 dark:border-amber-500/20'
   },
   {
+    id: 'walmart',
+    name: 'Walmart Seller Calculator',
+    path: '/tools/walmart-fee-calculator',
+    description: 'Model Walmart 6%-15% referral rates, WFS fulfillment & net margins.',
+    icon: ShoppingBag,
+    color: 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 border-blue-200 dark:border-blue-500/20'
+  },
+  {
+    id: 'etsy-digital',
+    name: 'Etsy Digital Fee Calculator',
+    path: '/tools/etsy-digital-fee-calculator',
+    description: 'Calculate fees for digital downloads, printables & templates ($0 shipping).',
+    icon: ShoppingBag,
+    color: 'text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-500/10 border-orange-200 dark:border-orange-500/20'
+  },
+  {
     id: 'resizer',
     name: '1:1 Product Photo Resizer',
     path: '/tools/product-image-resizer',
