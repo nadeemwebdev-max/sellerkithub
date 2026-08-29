@@ -73,7 +73,7 @@ async function prerender() {
     const canonical = meta.canonical || `${SITE_URL}${route === '/' ? '' : route}`;
     const ogTitle = meta.ogTitle || title;
     const ogDesc = meta.ogDescription || description;
-    const ogImage = `${SITE_URL}/favicon.svg`;
+    const ogImage = `${SITE_URL}/favicon-512x512.png`;
 
     // Render component tree to static HTML string
     let appHtml = '';
