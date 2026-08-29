@@ -73,10 +73,17 @@
     <meta property="twitter:title" content="SellerKit – E-Commerce Seller Utility Hub" />
     <meta property="twitter:description" content="Free calculators and utilities for online marketplace sellers. Real-time profit breakdowns, square photo padder, and barcode maker." />
 
-    <!-- Non-Render-Blocking Google Fonts Loading -->
+    <!-- 100% Non-Render-Blocking Google Fonts Loader -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <script>
+      (function() {
+        var l = document.createElement('link');
+        l.rel = 'stylesheet';
+        l.href = 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap';
+        document.head.appendChild(l);
+      })();
+    </script>
     <noscript>
       <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     </noscript>
