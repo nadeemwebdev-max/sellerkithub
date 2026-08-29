@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { TrendingUp, Copy, Check, RefreshCw, Layers, ShieldCheck, DollarSign, FileSpreadsheet, BookOpen, BarChart3, Lightbulb } from 'lucide-react';
+import { TrendingUp, Copy, Check, RefreshCw, Layers, ShieldCheck, FileSpreadsheet, BookOpen, BarChart3, Lightbulb } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { calculateMasterProfit, exportToCSV } from '../utils/calculations';
 import { trackEvent, TRACKED_EVENTS } from '../utils/analytics';
@@ -175,6 +175,7 @@ Calculated with SellerKitHub.com`;
                 id="etsy-selling-price"
                 aria-label={`Item Selling Price in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 value={sellingPrice || ''}
                 onChange={(e) => setSellingPrice(parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-orange-500"
@@ -189,6 +190,7 @@ Calculated with SellerKitHub.com`;
                 id="etsy-shipping-charged"
                 aria-label={`Shipping Charged to Buyer in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 value={shippingCharged || ''}
                 onChange={(e) => setShippingCharged(parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-orange-500"
@@ -203,6 +205,7 @@ Calculated with SellerKitHub.com`;
                 id="etsy-item-cost"
                 aria-label={`Crafting Material Cost in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 value={itemCost || ''}
                 onChange={(e) => setItemCost(parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-orange-500"
@@ -217,6 +220,7 @@ Calculated with SellerKitHub.com`;
                 id="etsy-postage-cost"
                 aria-label={`Actual Shipping Postage Cost in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 value={actualShippingCost || ''}
                 onChange={(e) => setActualShippingCost(parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-orange-500"

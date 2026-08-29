@@ -1,8 +1,5 @@
 import React, { useState, useMemo } from 'react';
 import { 
-  Percent, 
-  DollarSign, 
-  HelpCircle, 
   Copy, 
   Check, 
   RefreshCw, 
@@ -11,8 +8,7 @@ import {
   BookOpen,
   Lightbulb,
   FileSpreadsheet,
-  Building2,
-  ShieldCheck
+  Building2
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { exportToCSV } from '../utils/calculations';
@@ -252,6 +248,7 @@ export default function GstCalculator() {
               id="gst-amount"
               aria-label={`Enter Amount in ${activeCurrency.symbol}`}
               type="number"
+              inputMode="decimal"
               value={amount || ''}
               onChange={(e) => setAmount(parseFloat(e.target.value) || 0)}
               className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-lg font-bold focus:outline-none focus:border-brand-500"
@@ -284,6 +281,7 @@ export default function GstCalculator() {
                 id="gst-custom-rate"
                 aria-label="Custom GST Rate percentage"
                 type="number"
+                inputMode="decimal"
                 value={gstRate}
                 onChange={(e) => setGstRate(parseFloat(e.target.value) || 0)}
                 className="w-24 px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-xs text-center"

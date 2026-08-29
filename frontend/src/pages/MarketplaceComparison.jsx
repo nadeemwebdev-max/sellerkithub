@@ -3,7 +3,6 @@ import {
   GitCompare, 
   Trophy, 
   TrendingUp, 
-  DollarSign, 
   Check, 
   Copy, 
   FileSpreadsheet, 
@@ -185,6 +184,7 @@ export default function MarketplaceComparison() {
                 id="cmp-selling-price"
                 aria-label={`Target Selling Price in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 value={sellingPrice || ''}
                 onChange={(e) => setSellingPrice(parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
@@ -199,6 +199,7 @@ export default function MarketplaceComparison() {
                 id="cmp-product-cost"
                 aria-label={`Product Sourcing Cost in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 value={productCost || ''}
                 onChange={(e) => setProductCost(parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
@@ -213,6 +214,7 @@ export default function MarketplaceComparison() {
                 id="cmp-shipping-cost"
                 aria-label={`Shipping Postage in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 value={shippingCost || ''}
                 onChange={(e) => setShippingCost(parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
@@ -227,6 +229,7 @@ export default function MarketplaceComparison() {
                 id="cmp-marketing-spend"
                 aria-label={`Marketing Spend per unit in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 value={marketingSpend || ''}
                 onChange={(e) => setMarketingSpend(parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
@@ -241,6 +244,8 @@ export default function MarketplaceComparison() {
                 id="cmp-return-rate"
                 aria-label="Estimated Customer Return Rate percentage"
                 type="number"
+                inputMode="decimal"
+                step="0.5"
                 value={returnRate || ''}
                 onChange={(e) => setReturnRate(parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"

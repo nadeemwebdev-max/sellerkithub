@@ -170,6 +170,7 @@ export default function MarginMatrix() {
             id="matrix-cost"
             aria-label={`Product Sourcing Cost in ${activeCurrency.symbol}`}
             type="number"
+            inputMode="decimal"
             value={cost || ''}
             onChange={(e) => setCost(parseFloat(e.target.value) || 0)}
             className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-lg font-bold focus:outline-none focus:border-brand-500"

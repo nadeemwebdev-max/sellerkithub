@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, TrendingUp, AlertCircle, ShieldCheck, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Calendar, TrendingUp, ShieldCheck, CheckCircle2, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';

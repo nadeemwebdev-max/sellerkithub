@@ -86,8 +86,9 @@ export default function AffiliateCTA({
             key={index}
             href={item.url}
             target="_blank"
-            rel="noopener noreferrer font-sans"
-            className="group relative p-4 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 hover:border-brand-500 transition-all flex flex-col justify-between"
+            rel="noopener noreferrer"
+            aria-label={`Visit ${item.name} - ${item.badge} (opens in new tab)`}
+            className="group relative p-4 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 hover:border-brand-500 transition-all flex flex-col justify-between font-sans"
           >
             <div>
               <div className="flex items-center justify-between gap-2 mb-1.5">

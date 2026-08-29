@@ -5,7 +5,6 @@ import {
   Calendar, 
   User, 
   ArrowLeft, 
-  Share2, 
   ChevronRight,
   MessageCircle,
   Twitter,

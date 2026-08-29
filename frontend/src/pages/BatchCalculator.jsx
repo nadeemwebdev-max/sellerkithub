@@ -10,7 +10,6 @@ import {
   Copy, 
   RefreshCw, 
   Sparkles,
-  PieChart,
   BookOpen,
   BarChart3,
   Lightbulb
@@ -300,6 +299,7 @@ export default function BatchCalculator() {
                     <input
                       aria-label="Quantity"
                       type="number"
+                      inputMode="numeric"
                       value={sku.quantity}
                       onChange={(e) => updateSku(sku.id, 'quantity', parseFloat(e.target.value) || 0)}
                       className="w-full px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-center focus:outline-none focus:border-brand-500"
@@ -309,6 +309,7 @@ export default function BatchCalculator() {
                     <input
                       aria-label="Price"
                       type="number"
+                      inputMode="decimal"
                       value={sku.price}
                       onChange={(e) => updateSku(sku.id, 'price', parseFloat(e.target.value) || 0)}
                       className="w-full px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-right focus:outline-none focus:border-brand-500"
@@ -318,6 +319,7 @@ export default function BatchCalculator() {
                     <input
                       aria-label="Unit Cost"
                       type="number"
+                      inputMode="decimal"
                       value={sku.cost}
                       onChange={(e) => updateSku(sku.id, 'cost', parseFloat(e.target.value) || 0)}
                       className="w-full px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-right focus:outline-none focus:border-brand-500"
@@ -327,6 +329,7 @@ export default function BatchCalculator() {
                     <input
                       aria-label="Platform Fee percentage"
                       type="number"
+                      inputMode="decimal"
                       value={sku.platformFeePct}
                       onChange={(e) => updateSku(sku.id, 'platformFeePct', parseFloat(e.target.value) || 0)}
                       className="w-full px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-center focus:outline-none focus:border-brand-500"
@@ -336,6 +339,7 @@ export default function BatchCalculator() {
                     <input
                       aria-label="Shipping Postage"
                       type="number"
+                      inputMode="decimal"
                       value={sku.shipping}
                       onChange={(e) => updateSku(sku.id, 'shipping', parseFloat(e.target.value) || 0)}
                       className="w-full px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-right focus:outline-none focus:border-brand-500"

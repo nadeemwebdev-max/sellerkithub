@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, UserCheck, Clock, FileText } from 'lucide-react';
+import { ShieldCheck, Clock, FileText } from 'lucide-react';
 
 export default function AuthorBio({ 
   authorName = "SellerKit Analytics & Editorial Team",

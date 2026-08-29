@@ -1,11 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  Calculator, 
   TrendingUp, 
-  DollarSign, 
-  Percent, 
-  HelpCircle, 
   Copy, 
   Check, 
   RefreshCw, 
@@ -23,7 +19,7 @@ import {
   Zap
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
-import { calculateMasterProfit, exportToCSV, MARKETPLACE_PRESETS } from '../utils/calculations';
+import { calculateMasterProfit, exportToCSV } from '../utils/calculations';
 import { trackEvent, TRACKED_EVENTS } from '../utils/analytics';
 import RelatedTools from '../components/RelatedTools';
 import FAQSection from '../components/FAQSection';
@@ -321,6 +317,7 @@ Calculated via SellerKitHub.com`;
               }}
               className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition"
               title="Reset values"
+              aria-label="Reset calculator inputs to default"
             >
               <RefreshCw className="w-3 h-3" />
               <span>Reset</span>
@@ -343,6 +340,7 @@ Calculated via SellerKitHub.com`;
                   id="home-selling-price"
                   aria-label={`Target Selling Price in ${activeCurrency.symbol}`}
                   type="number"
+                  inputMode="decimal"
                   step="0.01"
                   value={sellingPrice || ''}
                   onChange={(e) => setSellingPrice(parseFloat(e.target.value) || 0)}
@@ -364,6 +362,7 @@ Calculated via SellerKitHub.com`;
                   id="home-product-cost"
                   aria-label={`Product Sourcing Cost in ${activeCurrency.symbol}`}
                   type="number"
+                  inputMode="decimal"
                   step="0.01"
                   value={productCost || ''}
                   onChange={(e) => setProductCost(parseFloat(e.target.value) || 0)}
@@ -390,6 +389,7 @@ Calculated via SellerKitHub.com`;
                   id="home-shipping-cost"
                   aria-label={`Outbound Shipping Postage in ${activeCurrency.symbol}`}
                   type="number"
+                  inputMode="decimal"
                   step="0.01"
                   value={shippingCost || ''}
                   onChange={(e) => setShippingCost(parseFloat(e.target.value) || 0)}
@@ -408,6 +408,7 @@ Calculated via SellerKitHub.com`;
                   id="home-referral-rate"
                   aria-label="Marketplace Referral Fee percentage"
                   type="number"
+                  inputMode="decimal"
                   step="0.1"
                   value={referralRate || ''}
                   onChange={(e) => setReferralRate(parseFloat(e.target.value) || 0)}
@@ -431,6 +432,7 @@ Calculated via SellerKitHub.com`;
                 id="home-marketing-spend"
                 aria-label={`Estimated Ad Spend per Unit in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 step="0.1"
                 value={marketingSpend || ''}
                 onChange={(e) => setMarketingSpend(parseFloat(e.target.value) || 0)}
@@ -446,6 +448,7 @@ Calculated via SellerKitHub.com`;
                 id="home-return-rate"
                 aria-label="Return Rate Buffer percentage"
                 type="number"
+                inputMode="decimal"
                 step="0.5"
                 value={returnRate || ''}
                 onChange={(e) => setReturnRate(parseFloat(e.target.value) || 0)}

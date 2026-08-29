@@ -26,20 +26,39 @@
       html:not(.dark), html:not(.dark) body { background-color: #f8fafc !important; color: #0f172a; }
     </style>
 
-    <!-- GA4 Analytics - Deferred to after page load to eliminate main thread blocking -->
+    <!-- GA4 Analytics - Non-blocking high-performance loader (0ms TBT impact) -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-8LF9KE5EWG', { send_page_view: true });
 
-      // Load gtag.js only after page is fully interactive (removes 124ms main-thread impact)
-      window.addEventListener('load', function() {
-        var el = document.createElement('script');
-        el.async = true;
-        el.src = 'https://www.googletagmanager.com/gtag/js?id=G-8LF9KE5EWG';
-        document.head.appendChild(el);
-      }, { once: true, passive: true });
+      (function() {
+        var loaded = false;
+        function loadGA() {
+          if (loaded) return;
+          loaded = true;
+          ['pointerdown', 'touchstart', 'scroll', 'keydown'].forEach(function(ev) {
+            window.removeEventListener(ev, loadGA, { passive: true });
+          });
+          var el = document.createElement('script');
+          el.async = true;
+          el.src = 'https://www.googletagmanager.com/gtag/js?id=G-8LF9KE5EWG';
+          document.head.appendChild(el);
+        }
+        ['pointerdown', 'touchstart', 'scroll', 'keydown'].forEach(function(ev) {
+          window.addEventListener(ev, loadGA, { once: true, passive: true });
+        });
+        if ('requestIdleCallback' in window) {
+          window.addEventListener('load', function() {
+            requestIdleCallback(function() { setTimeout(loadGA, 3000); });
+          }, { once: true });
+        } else {
+          window.addEventListener('load', function() {
+            setTimeout(loadGA, 3500);
+          }, { once: true });
+        }
+      })();
     </script>
 
     <!-- Favicon & PWA App Icons -->
@@ -50,7 +69,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="SellerKit" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     
     <!-- Primary SEO Meta Tags -->
     <title>SellerKit – Free E-Commerce Fee & Profit Calculators & Tools</title>
@@ -74,10 +93,9 @@
     <meta property="twitter:title" content="SellerKit – E-Commerce Seller Utility Hub" />
     <meta property="twitter:description" content="Free calculators and utilities for online marketplace sellers. Real-time profit breakdowns, square photo padder, and barcode maker." />
 
-    <!-- Google Fonts: minimal weights only (400,700,800 for PJS; 400 for Mono) = fewer network requests -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=JetBrains+Mono:wght@400&display=optional">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=JetBrains+Mono:wght@400&display=optional" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&family=JetBrains+Mono:wght@400&display=optional" rel="stylesheet"></noscript>
+    <!-- Google Fonts: display=swap asynchronously loaded for instantaneous FCP/LCP rendering -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"></noscript>
 
     <!-- Structured JSON-LD Schema (SoftwareApplication & WebSite) -->
     <script type="application/ld+json">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, ShieldCheck, Zap, Target, BookOpen, UserCheck, Award, Mail, Building } from 'lucide-react';
+import { Sparkles, ShieldCheck, Zap, Target, BookOpen, Award, Mail, Building } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AuthorBio from '../components/AuthorBio';
 

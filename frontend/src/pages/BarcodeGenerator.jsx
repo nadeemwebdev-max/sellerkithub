@@ -390,6 +390,7 @@ export default function BarcodeGenerator() {
                   id="bc-product-price"
                   aria-label={`Product Price in ${activeCurrency.symbol}`}
                   type="number"
+                  inputMode="decimal"
                   step="0.01"
                   value={productPrice || ''}
                   onChange={(e) => setProductPrice(parseFloat(e.target.value) || 0)}
@@ -519,7 +520,7 @@ export default function BarcodeGenerator() {
                 </span>
                 <div className="flex justify-center my-2 min-h-[100px] items-center">
                   {barcodeDataUrl ? (
-                    <img src={barcodeDataUrl} alt="Barcode Preview" className="max-w-full h-auto" />
+                    <img src={barcodeDataUrl} alt="Barcode Preview" width="300" height="100" decoding="async" className="max-w-full h-auto" />
                   ) : (
                     <span className="text-xs text-slate-400">Rendering barcode...</span>
                   )}
@@ -569,7 +570,7 @@ export default function BarcodeGenerator() {
                         </span>
                         <div className="flex-1 flex items-center justify-center my-1 max-w-full">
                           {barcodeDataUrl ? (
-                            <img src={barcodeDataUrl} alt="Barcode" className="max-h-[48px] max-w-full object-contain" />
+                            <img src={barcodeDataUrl} alt="Barcode" width="140" height="48" decoding="async" className="max-h-[48px] max-w-full object-contain" />
                           ) : (
                             <span className="font-mono text-[9px] text-slate-400">Barcode</span>
                           )}
@@ -687,7 +688,7 @@ export default function BarcodeGenerator() {
                 {productTitle}
               </span>
               {barcodeDataUrl && (
-                <img src={barcodeDataUrl} alt="Barcode" className="my-0.5 max-h-[0.52in] object-contain" />
+                <img src={barcodeDataUrl} alt="Barcode" width="140" height="48" decoding="async" className="my-0.5 max-h-[0.52in] object-contain" />
               )}
               <div className="w-full flex items-center justify-end text-[8px] pt-0.5">
                 <span className="font-mono font-bold text-indigo-700">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, MessageSquare, Send, CheckCircle2, Clock, ShieldCheck, HelpCircle, MapPin } from 'lucide-react';
+import { Mail, Send, CheckCircle2, Clock, ShieldCheck, HelpCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AuthorBio from '../components/AuthorBio';
 

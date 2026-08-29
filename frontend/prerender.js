@@ -47,6 +47,24 @@ async function prerender() {
   const routes = Object.keys(ROUTES_SEO);
   console.log(`⚡ Prerendering ${routes.length} routes into static HTML...`);
 
+  // Extract compiled CSS from dist/assets to inline directly into static HTML head (eliminates render-blocking CSS network roundtrip)
+  let inlinedCss = '';
+  let localCssTag = '';
+  const allCssLinks = rawTemplate.matchAll(/<link\s+[^>]*href=["']([^"']+\.css)["'][^>]*>/gi);
+  for (const match of allCssLinks) {
+    const href = match[1];
+    if (!href.startsWith('http') && !href.startsWith('//')) {
+      const cssHref = href.replace(/^\//, '');
+      const cssPath = path.join(distDir, cssHref);
+      if (fs.existsSync(cssPath)) {
+        inlinedCss = fs.readFileSync(cssPath, 'utf-8');
+        localCssTag = match[0];
+        console.log(`  ⚡ Inlining critical CSS "${cssHref}" (${(Buffer.byteLength(inlinedCss, 'utf-8') / 1024).toFixed(1)} KB) directly into HTML head for instant FCP/LCP...`);
+        break;
+      }
+    }
+  }
+
   for (const route of routes) {
     const meta = ROUTES_SEO[route] || {};
     const title = meta.title || 'SellerKit – Free E-Commerce Fee & Profit Calculators';
@@ -97,9 +115,10 @@ async function prerender() {
     // Inject into template
     let html = rawTemplate;
 
-    // NOTE: CSS is loaded normally (blocking) to prevent Cumulative Layout Shift (CLS).
-    // Non-blocking async CSS causes massive CLS because pre-rendered HTML renders
-    // unstyled first, then reflowing when CSS finally loads.
+    // Replace external stylesheet link with inlined <style> for 0ms CSS blocking time
+    if (inlinedCss && localCssTag) {
+      html = html.replace(localCssTag, `<style id="sellerkit-critical-css">${inlinedCss}</style>`);
+    }
 
     // Deduplicate <link rel="preconnect"> and <link rel="dns-prefetch"> tags
     // (prevents the duplicate preconnect warnings in Lighthouse Network dependency tree)

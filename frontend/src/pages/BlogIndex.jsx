@@ -100,6 +100,8 @@ export default function BlogIndex() {
                 <img 
                   src={post.image} 
                   alt={post.title}
+                  width="600"
+                  height="300"
                   className="w-full h-48 object-cover hover:scale-105 transition duration-500"
                   loading="lazy"
                   decoding="async"

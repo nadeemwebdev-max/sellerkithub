@@ -1,9 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { 
   TrendingUp, 
-  DollarSign, 
-  Percent, 
-  HelpCircle, 
   Copy, 
   Check, 
   RefreshCw, 
@@ -272,6 +269,7 @@ export default function RoasCalculator() {
                 id="roas-unit-price"
                 aria-label={`Unit Selling Price in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 value={unitSellingPrice}
                 onChange={(e) => setUnitSellingPrice(parseFloat(e.target.value) || 0)}
                 className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
@@ -286,6 +284,7 @@ export default function RoasCalculator() {
                 id="roas-unit-cost"
                 aria-label={`Unit Sourcing Cost in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 value={unitCost}
                 onChange={(e) => setUnitCost(parseFloat(e.target.value) || 0)}
                 className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
@@ -302,6 +301,7 @@ export default function RoasCalculator() {
                 id="roas-platform-fee"
                 aria-label="Platform Fee percentage"
                 type="number"
+                inputMode="decimal"
                 value={platformFeePct}
                 onChange={(e) => setPlatformFeePct(parseFloat(e.target.value) || 0)}
                 className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
@@ -316,6 +316,7 @@ export default function RoasCalculator() {
                 id="roas-shipping-cost"
                 aria-label={`Postage per unit in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 value={shippingCost}
                 onChange={(e) => setShippingCost(parseFloat(e.target.value) || 0)}
                 className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
@@ -328,6 +329,7 @@ export default function RoasCalculator() {
               </label>
               <input
                 type="number"
+                inputMode="numeric"
                 value={totalOrders}
                 onChange={(e) => setTotalOrders(parseInt(e.target.value, 10) || 1)}
                 className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"

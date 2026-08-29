@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { TrendingUp, Copy, Check, RefreshCw, Layers, ShieldCheck, DollarSign, FileSpreadsheet, BookOpen, BarChart3, Lightbulb, PackageCheck, AlertCircle } from 'lucide-react';
+import { TrendingUp, Copy, Check, RefreshCw, Layers, ShieldCheck, FileSpreadsheet, BookOpen, BarChart3, Lightbulb, PackageCheck } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { exportToCSV } from '../utils/calculations';
 import { trackEvent, TRACKED_EVENTS } from '../utils/analytics';
@@ -212,6 +212,7 @@ Calculated with SellerKitHub.com`;
                 id="amz-selling-price"
                 aria-label={`Target Selling Price in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 value={sellingPrice || ''}
                 onChange={(e) => setSellingPrice(parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-amber-500"
@@ -226,6 +227,7 @@ Calculated with SellerKitHub.com`;
                 id="amz-item-cost"
                 aria-label={`Item Sourcing Cost in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 value={itemCost || ''}
                 onChange={(e) => setItemCost(parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-amber-500"
@@ -240,6 +242,7 @@ Calculated with SellerKitHub.com`;
                 id="amz-inbound-freight"
                 aria-label={`Inbound Freight in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 value={shippingToAmazon || ''}
                 onChange={(e) => setShippingToAmazon(parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-amber-500"
@@ -254,6 +257,7 @@ Calculated with SellerKitHub.com`;
                 id="amz-merchant-shipping"
                 aria-label={`Merchant Shipping Postage in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 value={merchantShippingCost || ''}
                 onChange={(e) => setMerchantShippingCost(parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-amber-500"
@@ -287,6 +291,7 @@ Calculated with SellerKitHub.com`;
                 id="amz-fba-fee"
                 aria-label={`FBA Fulfillment Fee per Unit in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 value={fbaFee || ''}
                 onChange={(e) => setFbaFee(parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-amber-500"
@@ -301,6 +306,7 @@ Calculated with SellerKitHub.com`;
                 id="amz-ppc-spend"
                 aria-label={`Amazon PPC Ad Spend in ${activeCurrency.symbol}`}
                 type="number"
+                inputMode="decimal"
                 value={ppcSpend || ''}
                 onChange={(e) => setPpcSpend(parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-amber-500"
@@ -315,6 +321,7 @@ Calculated with SellerKitHub.com`;
                 id="amz-return-rate"
                 aria-label="Estimated Return Rate percentage"
                 type="number"
+                inputMode="decimal"
                 value={returnRate || ''}
                 onChange={(e) => setReturnRate(parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-amber-500"
