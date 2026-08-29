@@ -11,6 +11,9 @@ export default defineConfig({
     outDir: 'dist',
     target: 'es2020',
     cssCodeSplit: true,
+    modulePreload: {
+      polyfill: false,
+    },
     sourcemap: false,
     chunkSizeWarningLimit: 1200,
     rollupOptions: {
