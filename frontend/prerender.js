@@ -180,7 +180,7 @@ ${routes.map(r => {
   let changefreq = 'weekly';
   if (r === '/') {
     priority = '1.0';
-  } else if (r.includes('calculator') || r.includes('comparison') || r.includes('resizer') || r.includes('barcode') || r.includes('matrix')) {
+  } else if (r.includes('calculator') || r.includes('comparison') || r.includes('resizer') || r.includes('barcode') || r.includes('matrix') || r.includes('generator') || r.includes('avery')) {
     priority = '0.95';
   } else if (r.includes('fee-updates')) {
     priority = '0.90';

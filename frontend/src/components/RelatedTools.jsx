@@ -56,6 +56,22 @@ const ALL_TOOLS = [
     color: 'text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-500/10 border-violet-200 dark:border-violet-500/20'
   },
   {
+    id: 'avery-qr',
+    name: 'Avery QR Code Generator',
+    path: '/tools/avery-qr-code-generator',
+    description: 'Printable QR code label sheets for Avery 5160, 5163 & 5164.',
+    icon: Barcode,
+    color: 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 border-blue-200 dark:border-blue-500/20'
+  },
+  {
+    id: 'fba-shipping',
+    name: 'FBA Shipping & Freight',
+    path: '/tools/fba-shipping-calculator',
+    description: 'Model Amazon inbound freight and placement service fees.',
+    icon: TrendingUp,
+    color: 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/10 border-amber-200 dark:border-amber-500/20'
+  },
+  {
     id: 'resizer',
     name: '1:1 Product Photo Resizer',
     path: '/tools/product-image-resizer',

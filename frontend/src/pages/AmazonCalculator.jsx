@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { TrendingUp, Copy, Check, RefreshCw, Layers, ShieldCheck, FileSpreadsheet, BookOpen, BarChart3, Lightbulb, PackageCheck } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
+import { TrendingUp, Copy, Check, RefreshCw, Layers, ShieldCheck, FileSpreadsheet, BookOpen, BarChart3, Lightbulb, PackageCheck, Truck } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { exportToCSV } from '../utils/calculations';
 import { trackEvent, TRACKED_EVENTS } from '../utils/analytics';
@@ -11,6 +12,9 @@ import AffiliateCTA from '../components/AffiliateCTA';
 
 export default function AmazonCalculator() {
   const { activeCurrency, format } = useCurrency();
+  const location = useLocation();
+  const isShippingRoute = location?.pathname?.includes('shipping');
+
   const [copied, setCopied] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
 
@@ -164,14 +168,24 @@ Calculated with SellerKitHub.com`;
       {/* Title Header */}
       <div className="text-center max-w-3xl mx-auto mb-10">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 text-xs font-semibold border border-amber-200 dark:border-amber-500/20 mb-3">
-          <PackageCheck className="w-3.5 h-3.5" />
-          <span>Updated for 2026 Amazon Fee Schedules & Placement Rates</span>
+          {isShippingRoute ? <Truck className="w-3.5 h-3.5" /> : <PackageCheck className="w-3.5 h-3.5" />}
+          <span>
+            {isShippingRoute 
+              ? 'Amazon FBA Inbound Freight, Placement & Shipping Calculator (2026)' 
+              : 'Updated for 2026 Amazon Fee Schedules & Placement Rates'}
+          </span>
         </div>
         <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-          Amazon <span className="text-amber-600 dark:text-amber-400">FBA vs FBM</span> Fee & Margin Calculator
+          {isShippingRoute ? (
+            <>Amazon FBA <span className="text-amber-600 dark:text-amber-400">Shipping & Placement Fee</span> Calculator</>
+          ) : (
+            <>Amazon <span className="text-amber-600 dark:text-amber-400">FBA vs FBM</span> Fee & Margin Calculator</>
+          )}
         </h1>
         <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
-          Model Amazon referral fee tiers, FBA pick & pack rates, storage surcharges, merchant shipping overhead, PPC advertising spend, and customer return allowances.
+          {isShippingRoute
+            ? 'Calculate total Amazon FBA inbound freight costs, inbound placement service fee tiers, FBA pick & pack rates, and merchant shipping expenses for 2026.'
+            : 'Model Amazon referral fee tiers, FBA pick & pack rates, storage surcharges, merchant shipping overhead, PPC advertising spend, and customer return allowances.'}
         </p>
       </div>
 

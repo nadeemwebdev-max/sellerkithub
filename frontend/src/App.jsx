@@ -72,6 +72,7 @@ export default function App() {
 
               {/* Programmatic Discrete SEO Routes under /tools/ */}
               <Route path="/tools/amazon-fba-calculator" element={<AmazonCalculator />} />
+              <Route path="/tools/fba-shipping-calculator" element={<AmazonCalculator />} />
               <Route path="/tools/etsy-fee-calculator" element={<EtsyCalculator />} />
               <Route path="/tools/profit-margin-calculator" element={<MarginMatrix />} />
               <Route path="/tools/roas-calculator" element={<RoasCalculator />} />
@@ -80,9 +81,12 @@ export default function App() {
               <Route path="/tools/batch-calculator" element={<BatchCalculator />} />
               <Route path="/tools/product-image-resizer" element={<ImagePadder />} />
               <Route path="/tools/barcode-generator" element={<BarcodeGenerator />} />
+              <Route path="/tools/avery-qr-code-generator" element={<BarcodeGenerator />} />
+              <Route path="/tools/avery-5160-barcode-generator" element={<BarcodeGenerator />} />
 
               {/* Canonical Short Aliases */}
               <Route path="/amazon-fee-calculator" element={<AmazonCalculator />} />
+              <Route path="/fba-shipping-calculator" element={<AmazonCalculator />} />
               <Route path="/etsy-fee-calculator" element={<EtsyCalculator />} />
               <Route path="/margin-matrix" element={<MarginMatrix />} />
               <Route path="/roas-calculator" element={<RoasCalculator />} />
@@ -91,6 +95,8 @@ export default function App() {
               <Route path="/batch-calculator" element={<BatchCalculator />} />
               <Route path="/product-image-resizer" element={<ImagePadder />} />
               <Route path="/barcode-generator" element={<BarcodeGenerator />} />
+              <Route path="/avery-qr-code-generator" element={<BarcodeGenerator />} />
+              <Route path="/avery-5160-barcode-generator" element={<BarcodeGenerator />} />
               <Route path="/fee-updates" element={<FeeUpdates />} />
 
               {/* Blog & SEO Content Pages */}

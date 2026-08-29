@@ -317,7 +317,7 @@ export const ROUTES_SEO = {
   '/tools/barcode-generator': {
     title: 'Free Barcode & QR Code Generator – Printable 30-Up Label Sheets | SellerKit',
     description: 'Generate Code 128, EAN-13, UPC-A, Code 39, and QR code barcode labels. Export single high-res PNG/SVG or print standard 30-per-sheet (Avery 5160) labels.',
-    keywords: 'barcode generator, free upc barcode maker, code 128 generator',
+    keywords: 'barcode generator, free upc barcode maker, code 128 generator, avery 5160 barcode generator',
     canonical: `${SITE_URL}/tools/barcode-generator`,
     ogTitle: 'Free Barcode Generator & Printable 30-Up Label Maker',
     ogDescription: 'Generate barcode labels for Amazon FNSKU, UPC, EAN, and SKU tracking.',
@@ -346,7 +346,175 @@ export const ROUTES_SEO = {
     }
   },
 
+  '/tools/avery-qr-code-generator': {
+    title: 'Free Avery QR Code Generator – Printable Label Sheets (5160, 5163, 5164) | SellerKit',
+    description: 'Generate free printable QR code label sheets for Avery 5160 (30-up), Avery 5163 (10-up), and Avery 5164 (6-up). Download high-res 300 DPI PNG or print directly in-browser.',
+    keywords: 'avery qr code generator, printable qr code labels, avery 5160 qr code, avery 5163 qr code generator, free qr code label maker, qr code sheet generator',
+    canonical: `${SITE_URL}/tools/avery-qr-code-generator`,
+    ogTitle: 'Free Avery QR Code Generator (Printable 5160 & 5163 Label Sheets)',
+    ogDescription: 'Create and print sheets of QR codes formatted for Avery 5160, 5163, and 5164 label paper. 100% free and client-side.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Free Avery QR Code Generator',
+          'url': `${SITE_URL}/tools/avery-qr-code-generator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'description': 'Print custom QR code labels on standard Avery 5160, 5163, and 5164 sheets.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Tools', 'item': `${SITE_URL}/tools/avery-qr-code-generator` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'Avery QR Code Generator', 'item': `${SITE_URL}/tools/avery-qr-code-generator` }
+          ]
+        }
+      ]
+    }
+  },
+
+  '/tools/avery-5160-barcode-generator': {
+    title: 'Avery 5160 Barcode Generator – Free Printable 30-Up Label Sheets | SellerKit',
+    description: 'Generate Amazon FNSKU and UPC/EAN barcode labels formatted for standard Avery 5160, 5260, and 8160 30-per-page sheets. High-res 300 DPI PNG export.',
+    keywords: 'avery 5160 barcode generator, avery 30 up barcode generator, amazon fnsku avery 5160, printable barcode sheet 5160, free avery barcode maker',
+    canonical: `${SITE_URL}/tools/avery-5160-barcode-generator`,
+    ogTitle: 'Avery 5160 Barcode Generator (30-Up Printable Sheets)',
+    ogDescription: 'Generate 1" x 2-5/8" barcode labels formatted for Avery 5160 label sheets. Print Amazon FNSKU, Code 128, and UPC-A labels.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Avery 5160 Barcode Generator',
+          'url': `${SITE_URL}/tools/avery-5160-barcode-generator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'description': 'Generate printable 30-up barcode sheets for Avery 5160 and Amazon FNSKU labels.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Tools', 'item': `${SITE_URL}/tools/avery-5160-barcode-generator` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'Avery 5160 Barcode Generator', 'item': `${SITE_URL}/tools/avery-5160-barcode-generator` }
+          ]
+        }
+      ]
+    }
+  },
+
+  '/tools/fba-shipping-calculator': {
+    title: 'Amazon FBA Shipping Calculator (2026) – Inbound Freight & Placement Fees | SellerKit',
+    description: 'Calculate Amazon FBA inbound shipping postage, carrier partner freight costs, and 2026 Inbound Placement Service Fee splits ($0.21 - $0.68/unit) per product.',
+    keywords: 'fba shipping calculator, amazon inbound placement fee calculator, amazon fba shipping cost, inbound freight calculator amazon fba, fba shipping fee estimator',
+    canonical: `${SITE_URL}/tools/fba-shipping-calculator`,
+    ogTitle: 'Amazon FBA Shipping & Inbound Freight Calculator (2026)',
+    ogDescription: 'Calculate Amazon FBA inbound freight costs, placement fee surcharges, and total landing unit cost.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Amazon FBA Shipping & Inbound Placement Calculator',
+          'url': `${SITE_URL}/tools/fba-shipping-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'description': 'Calculate Amazon FBA inbound freight costs, carrier rates, and placement fees.'
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
+            { '@type': 'ListItem', 'position': 2, 'name': 'Tools', 'item': `${SITE_URL}/tools/fba-shipping-calculator` },
+            { '@type': 'ListItem', 'position': 3, 'name': 'FBA Shipping Calculator', 'item': `${SITE_URL}/tools/fba-shipping-calculator` }
+          ]
+        }
+      ]
+    }
+  },
+
   /* Short Aliases for Canonical URLs */
+
+  '/avery-qr-code-generator': {
+    title: 'Free Avery QR Code Generator – Printable Label Sheets (5160, 5163, 5164) | SellerKit',
+    description: 'Generate free printable QR code label sheets for Avery 5160 (30-up), Avery 5163 (10-up), and Avery 5164 (6-up). Download high-res 300 DPI PNG.',
+    keywords: 'avery qr code generator, printable qr code labels, avery 5160 qr code, free qr code label maker',
+    canonical: `${SITE_URL}/tools/avery-qr-code-generator`,
+    ogTitle: 'Free Avery QR Code Generator (Printable 5160 & 5163 Label Sheets)',
+    ogDescription: 'Create and print sheets of QR codes formatted for Avery label paper.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Free Avery QR Code Generator',
+          'url': `${SITE_URL}/avery-qr-code-generator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'description': 'Print custom QR code labels on standard Avery sheets.'
+        }
+      ]
+    }
+  },
+
+  '/avery-5160-barcode-generator': {
+    title: 'Avery 5160 Barcode Generator – Free Printable 30-Up Label Sheets | SellerKit',
+    description: 'Generate Amazon FNSKU and UPC/EAN barcode labels formatted for standard Avery 5160 30-per-page sheets. High-res 300 DPI PNG export.',
+    keywords: 'avery 5160 barcode generator, avery 30 up barcode generator, amazon fnsku avery 5160',
+    canonical: `${SITE_URL}/tools/avery-5160-barcode-generator`,
+    ogTitle: 'Avery 5160 Barcode Generator (30-Up Printable Sheets)',
+    ogDescription: 'Generate 1" x 2-5/8" barcode labels formatted for Avery 5160 label sheets.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Avery 5160 Barcode Generator',
+          'url': `${SITE_URL}/avery-5160-barcode-generator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'description': 'Generate printable 30-up barcode sheets for Avery 5160 labels.'
+        }
+      ]
+    }
+  },
+
+  '/fba-shipping-calculator': {
+    title: 'Amazon FBA Shipping Calculator (2026) – Inbound Freight & Placement Fees | SellerKit',
+    description: 'Calculate Amazon FBA inbound shipping postage, carrier partner freight costs, and 2026 Inbound Placement Service Fee splits ($0.21 - $0.68/unit) per product.',
+    keywords: 'fba shipping calculator, amazon inbound placement fee calculator, amazon fba shipping cost',
+    canonical: `${SITE_URL}/tools/fba-shipping-calculator`,
+    ogTitle: 'Amazon FBA Shipping & Inbound Freight Calculator (2026)',
+    ogDescription: 'Calculate Amazon FBA inbound freight costs, placement fee surcharges, and total landing unit cost.',
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        ORGANIZATION_SCHEMA,
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Amazon FBA Shipping & Inbound Placement Calculator',
+          'url': `${SITE_URL}/fba-shipping-calculator`,
+          'applicationCategory': 'BusinessApplication',
+          'operatingSystem': 'All',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'description': 'Calculate Amazon FBA inbound freight costs, carrier rates, and placement fees.'
+        }
+      ]
+    }
+  },
 
   '/etsy-fee-calculator': {
     title: 'Etsy Fee & Profit Calculator (2026) – Real Net Margin Breakdown | SellerKit',
