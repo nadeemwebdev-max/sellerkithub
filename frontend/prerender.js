@@ -100,6 +100,17 @@ async function prerender() {
     // NOTE: CSS is loaded normally (blocking) to prevent Cumulative Layout Shift (CLS).
     // Non-blocking async CSS causes massive CLS because pre-rendered HTML renders
     // unstyled first, then reflowing when CSS finally loads.
+
+    // Deduplicate <link rel="preconnect"> and <link rel="dns-prefetch"> tags
+    // (prevents the duplicate preconnect warnings in Lighthouse Network dependency tree)
+    const seenLinks = new Set();
+    html = html.replace(/<link\s+rel=["'](preconnect|dns-prefetch)["'][^>]*>/gi, (match) => {
+      const key = match.toLowerCase().replace(/\s+/g, ' ').trim();
+      if (seenLinks.has(key)) return ''; // remove duplicate
+      seenLinks.add(key);
+      return match;
+    });
+
     // Replace <title>...</title> if present
     html = html.replace(/<title>[\s\S]*?<\/title>/i, '');
     // Remove existing meta tags that we are replacing
