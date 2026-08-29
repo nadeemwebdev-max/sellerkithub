@@ -97,11 +97,9 @@ async function prerender() {
     // Inject into template
     let html = rawTemplate;
 
-    // Replace render-blocking CSS link with non-blocking preloaded CSS for instant mobile paint
-    html = html.replace(/<link\s+rel="stylesheet"\s+(?:crossorigin\s+)?href="(\/assets\/[^"]+\.css)"\s*\/?>/gi, (match, cssHref) => {
-      return `<link rel="preload" href="${cssHref}" as="style">\n    <link rel="stylesheet" href="${cssHref}" media="print" onload="this.media='all'">\n    <noscript><link rel="stylesheet" href="${cssHref}"></noscript>`;
-    });
-
+    // NOTE: CSS is loaded normally (blocking) to prevent Cumulative Layout Shift (CLS).
+    // Non-blocking async CSS causes massive CLS because pre-rendered HTML renders
+    // unstyled first, then reflowing when CSS finally loads.
     // Replace <title>...</title> if present
     html = html.replace(/<title>[\s\S]*?<\/title>/i, '');
     // Remove existing meta tags that we are replacing
