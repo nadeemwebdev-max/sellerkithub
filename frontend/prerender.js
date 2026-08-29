@@ -132,6 +132,12 @@ async function prerender() {
       filePath = path.join(routeDir, 'index.html');
     }
 
+    // Ensure html element has lang="en" for accessibility and Lighthouse
+    html = html.replace(/^(<html[^>]*)(?!\s+lang=)/i, '$1 lang="en"');
+    if (!html.includes('lang="en"')) {
+      html = html.replace(/^<html/i, '<html lang="en"');
+    }
+
     fs.writeFileSync(filePath, html, 'utf-8');
     console.log(`  ✓ ${route} -> ${path.relative(distDir, filePath)} (${(Buffer.byteLength(html, 'utf-8') / 1024).toFixed(1)} KB)`);
   }

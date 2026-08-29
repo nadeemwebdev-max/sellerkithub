@@ -9,7 +9,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    target: 'es2020',
+    target: ['es2020', 'chrome87', 'safari14'],
     cssCodeSplit: true,
     modulePreload: {
       polyfill: false,

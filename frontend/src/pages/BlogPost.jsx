@@ -148,6 +148,11 @@ export default function BlogPost() {
           src={post.image} 
           alt={post.title}
           className="w-full h-auto max-h-[420px] object-cover"
+          width="840"
+          height="420"
+          fetchpriority="high"
+          loading="eager"
+          decoding="async"
         />
       </div>
 
