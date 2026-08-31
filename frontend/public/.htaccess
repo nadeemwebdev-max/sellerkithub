@@ -10,13 +10,6 @@ DirectoryIndex index.html
   RewriteEngine On
   RewriteBase /
 
-  # Redirect HTTP to HTTPS
-  RewriteCond %{HTTPS} off
-  RewriteRule ^(.*)$ https://sellerkithub.com/$1 [R=301,L]
-
-  # Redirect WWW to non-WWW
-  RewriteCond %{HTTP_HOST} ^www\.sellerkithub\.com$ [NC]
-  RewriteRule ^(.*)$ https://sellerkithub.com/$1 [R=301,L]
 
   # 301 Permanent Redirects for Legacy Short URLs to Canonical /tools/ Paths
   RewriteRule ^etsy-fee-calculator/?$ /tools/etsy-fee-calculator [R=301,L]

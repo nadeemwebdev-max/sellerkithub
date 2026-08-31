@@ -12,17 +12,7 @@
       "destination": "https://sellerkithub.com/$1",
       "permanent": true
     },
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.sellerkithub.com"
-        }
-      ],
-      "destination": "https://sellerkithub.com/$1",
-      "permanent": true
-    },
+
     {
       "source": "/etsy-fee-calculator",
       "destination": "/tools/etsy-fee-calculator",
