@@ -11,6 +11,87 @@
       ],
       "destination": "https://sellerkithub.com/$1",
       "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.sellerkithub.com"
+        }
+      ],
+      "destination": "https://sellerkithub.com/$1",
+      "permanent": true
+    },
+    {
+      "source": "/etsy-fee-calculator",
+      "destination": "/tools/etsy-fee-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/etsy-digital-fee-calculator",
+      "destination": "/tools/etsy-digital-fee-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/amazon-fee-calculator",
+      "destination": "/tools/amazon-fba-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/fba-shipping-calculator",
+      "destination": "/tools/fba-shipping-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/walmart-fee-calculator",
+      "destination": "/tools/walmart-fee-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/margin-matrix",
+      "destination": "/tools/profit-margin-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/roas-calculator",
+      "destination": "/tools/roas-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/gst-calculator",
+      "destination": "/tools/gst-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/marketplace-comparison",
+      "destination": "/tools/marketplace-comparison",
+      "permanent": true
+    },
+    {
+      "source": "/batch-calculator",
+      "destination": "/tools/batch-calculator",
+      "permanent": true
+    },
+    {
+      "source": "/product-image-resizer",
+      "destination": "/tools/product-image-resizer",
+      "permanent": true
+    },
+    {
+      "source": "/barcode-generator",
+      "destination": "/tools/barcode-generator",
+      "permanent": true
+    },
+    {
+      "source": "/avery-qr-code-generator",
+      "destination": "/tools/avery-qr-code-generator",
+      "permanent": true
+    },
+    {
+      "source": "/avery-5160-barcode-generator",
+      "destination": "/tools/avery-5160-barcode-generator",
+      "permanent": true
     }
   ],
   "headers": [

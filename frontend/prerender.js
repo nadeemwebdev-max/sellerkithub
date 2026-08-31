@@ -170,11 +170,21 @@ async function prerender() {
     console.log(`  ✓ ${route} -> ${path.relative(distDir, filePath)} (${(Buffer.byteLength(html, 'utf-8') / 1024).toFixed(1)} KB)`);
   }
 
-  // 3. Generate dynamic sitemap.xml in dist/
+  // 3. Generate dynamic sitemap.xml in dist/ containing only canonical 200 OK URLs
   const today = new Date().toISOString().split('T')[0];
+  const canonicalRoutes = routes.filter(r => {
+    const meta = ROUTES_SEO[r] || {};
+    const expectedCanonical = r === '/' ? `${SITE_URL}/` : `${SITE_URL}${r}`;
+    // Exclude error pages
+    if (['/404', '/500', '/400'].includes(r)) return false;
+    // Exclude aliases that canonicalize to another path
+    if (meta.canonical && meta.canonical !== expectedCanonical) return false;
+    return true;
+  });
+
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${routes.map(r => {
+${canonicalRoutes.map(r => {
   const loc = `${SITE_URL}${r === '/' ? '/' : r}`;
   let priority = '0.80';
   let changefreq = 'weekly';
@@ -182,6 +192,9 @@ ${routes.map(r => {
     priority = '1.0';
   } else if (r.includes('calculator') || r.includes('comparison') || r.includes('resizer') || r.includes('barcode') || r.includes('matrix') || r.includes('generator') || r.includes('avery')) {
     priority = '0.95';
+  } else if (r.includes('blog/')) {
+    priority = '0.85';
+    changefreq = 'monthly';
   } else if (r.includes('fee-updates')) {
     priority = '0.90';
   } else {
@@ -198,7 +211,7 @@ ${routes.map(r => {
 </urlset>`;
 
   fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapXml, 'utf-8');
-  console.log(`  ✓ dist/sitemap.xml generated with ${routes.length} URLs`);
+  console.log(`  ✓ dist/sitemap.xml generated with ${canonicalRoutes.length} canonical URLs`);
 
   // 4. Cleanup temporary SSR build directory
   try {

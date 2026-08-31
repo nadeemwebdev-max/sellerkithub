@@ -5,11 +5,35 @@
 # Ensure DirectoryIndex finds index.html first
 DirectoryIndex index.html
 
-# 1. Prerendered Static Routes & SPA Fallback Routing
+# 1. Canonical Domain (Force HTTPS and non-WWW) & 301 URL Aliases
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-  
+
+  # Redirect HTTP to HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://sellerkithub.com/$1 [R=301,L]
+
+  # Redirect WWW to non-WWW
+  RewriteCond %{HTTP_HOST} ^www\.sellerkithub\.com$ [NC]
+  RewriteRule ^(.*)$ https://sellerkithub.com/$1 [R=301,L]
+
+  # 301 Permanent Redirects for Legacy Short URLs to Canonical /tools/ Paths
+  RewriteRule ^etsy-fee-calculator/?$ /tools/etsy-fee-calculator [R=301,L]
+  RewriteRule ^etsy-digital-fee-calculator/?$ /tools/etsy-digital-fee-calculator [R=301,L]
+  RewriteRule ^amazon-fee-calculator/?$ /tools/amazon-fba-calculator [R=301,L]
+  RewriteRule ^fba-shipping-calculator/?$ /tools/fba-shipping-calculator [R=301,L]
+  RewriteRule ^walmart-fee-calculator/?$ /tools/walmart-fee-calculator [R=301,L]
+  RewriteRule ^margin-matrix/?$ /tools/profit-margin-calculator [R=301,L]
+  RewriteRule ^roas-calculator/?$ /tools/roas-calculator [R=301,L]
+  RewriteRule ^gst-calculator/?$ /tools/gst-calculator [R=301,L]
+  RewriteRule ^marketplace-comparison/?$ /tools/marketplace-comparison [R=301,L]
+  RewriteRule ^batch-calculator/?$ /tools/batch-calculator [R=301,L]
+  RewriteRule ^product-image-resizer/?$ /tools/product-image-resizer [R=301,L]
+  RewriteRule ^barcode-generator/?$ /tools/barcode-generator [R=301,L]
+  RewriteRule ^avery-qr-code-generator/?$ /tools/avery-qr-code-generator [R=301,L]
+  RewriteRule ^avery-5160-barcode-generator/?$ /tools/avery-5160-barcode-generator [R=301,L]
+
   # Ensure root index.html is not rewritten in a loop
   RewriteRule ^index\.html$ - [L]
 

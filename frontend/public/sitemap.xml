@@ -4,97 +4,159 @@
   <!-- Homepage / Multi-Marketplace Calculator -->
   <url>
     <loc>https://sellerkithub.com/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Side-by-Side Comparison Tool -->
+  <!-- Core E-Commerce Calculators & Tools -->
   <url>
-    <loc>https://sellerkithub.com/marketplace-comparison</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://sellerkithub.com/tools/amazon-fba-calculator</loc>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
-
-  <!-- Dedicated Etsy Fee & Profit Calculator -->
   <url>
-    <loc>https://sellerkithub.com/etsy-fee-calculator</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://sellerkithub.com/tools/etsy-fee-calculator</loc>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
-
-  <!-- Dedicated Amazon FBA / FBM Calculator -->
   <url>
-    <loc>https://sellerkithub.com/amazon-fee-calculator</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://sellerkithub.com/tools/barcode-generator</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://sellerkithub.com/tools/roas-calculator</loc>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
-
-  <!-- Multi-SKU Batch Profit Calculator -->
   <url>
-    <loc>https://sellerkithub.com/batch-calculator</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://sellerkithub.com/tools/gst-calculator</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://sellerkithub.com/tools/profit-margin-calculator</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://sellerkithub.com/tools/marketplace-comparison</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://sellerkithub.com/tools/batch-calculator</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://sellerkithub.com/tools/product-image-resizer</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://sellerkithub.com/tools/avery-qr-code-generator</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://sellerkithub.com/tools/avery-5160-barcode-generator</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://sellerkithub.com/tools/fba-shipping-calculator</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://sellerkithub.com/tools/walmart-fee-calculator</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://sellerkithub.com/tools/etsy-digital-fee-calculator</loc>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
 
-  <!-- 1:1 Square Product Image Padder -->
-  <url>
-    <loc>https://sellerkithub.com/product-image-resizer</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.90</priority>
-  </url>
-
-  <!-- Free Barcode & QR Code Generator -->
-  <url>
-    <loc>https://sellerkithub.com/barcode-generator</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.90</priority>
-  </url>
-
-  <!-- Profit Margin & Markup Matrix -->
-  <url>
-    <loc>https://sellerkithub.com/margin-matrix</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- 2026 Marketplace Fee Update Hub -->
+  <!-- Fee Update Hub -->
   <url>
     <loc>https://sellerkithub.com/fee-updates</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Blog & Educational Guides -->
+  <url>
+    <loc>https://sellerkithub.com/blog</loc>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
+  <url>
+    <loc>https://sellerkithub.com/blog/amazon-fba-fee-changes-2026</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://sellerkithub.com/blog/etsy-seller-fee-breakdown-guide</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://sellerkithub.com/blog/ecommerce-pricing-strategies-margin-vs-markup</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://sellerkithub.com/blog/how-to-optimize-product-images-for-amazon-etsy</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
 
-  <!-- Legal & Company Pages (AdSense Compliance) -->
+  <!-- Legal & Company Pages -->
   <url>
     <loc>https://sellerkithub.com/about</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
     <loc>https://sellerkithub.com/privacy-policy</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
     <loc>https://sellerkithub.com/terms</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
     <loc>https://sellerkithub.com/contact</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
