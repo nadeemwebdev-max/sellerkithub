@@ -12,6 +12,8 @@ __pycache__/
 frontend/dist/
 dist/
 build/
+.astro/
+frontend/.astro/
 
 # Local database & environment
 *.db

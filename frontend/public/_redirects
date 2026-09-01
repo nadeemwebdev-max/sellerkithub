@@ -1,0 +1,15 @@
+# Cloudflare Pages 301 Permanent Redirects for SellerKitHub
+/amazon-fee-calculator /tools/amazon-fba-calculator 301
+/fba-shipping-calculator /tools/fba-shipping-calculator 301
+/walmart-fee-calculator /tools/walmart-fee-calculator 301
+/etsy-fee-calculator /tools/etsy-fee-calculator 301
+/etsy-digital-fee-calculator /tools/etsy-digital-fee-calculator 301
+/margin-matrix /tools/profit-margin-calculator 301
+/roas-calculator /tools/roas-calculator 301
+/gst-calculator /tools/gst-calculator 301
+/marketplace-comparison /tools/marketplace-comparison 301
+/batch-calculator /tools/batch-calculator 301
+/product-image-resizer /tools/product-image-resizer 301
+/barcode-generator /tools/barcode-generator 301
+/avery-qr-code-generator /tools/avery-qr-code-generator 301
+/avery-5160-barcode-generator /tools/avery-5160-barcode-generator 301

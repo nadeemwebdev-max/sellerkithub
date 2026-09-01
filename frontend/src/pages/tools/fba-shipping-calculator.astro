@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AmazonCalculator from '../../views/AmazonCalculator.jsx';
+---
+
+<BaseLayout>
+  <AmazonCalculator client:load isShippingRoute={true} />
+</BaseLayout>

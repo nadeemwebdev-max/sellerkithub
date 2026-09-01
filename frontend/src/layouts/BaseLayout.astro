@@ -1,0 +1,168 @@
+---
+import '../index.css';
+import Navbar from '../components/Navbar.jsx';
+import Footer from '../components/Footer.jsx';
+import { ROUTES_SEO, SITE_URL, DEFAULT_OG_IMAGE } from '../routes-seo.js';
+import { getLangFromUrl, getCleanPath, getAlternateHreflangs, getLocalizedPath } from '../i18n/utils.js';
+
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  canonical?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  schema?: any;
+  currentPath?: string;
+  lang?: string;
+}
+
+const { pathname } = Astro.url;
+const currentLang = Astro.props.lang || Astro.currentLocale || getLangFromUrl(Astro.url);
+const cleanPath = getCleanPath(pathname);
+const normalizedCleanPath = cleanPath.replace(/\/$/, '') || '/';
+const routeMeta = ROUTES_SEO[normalizedCleanPath] || ROUTES_SEO[cleanPath] || {};
+
+const {
+  title = routeMeta.title || 'SellerKit – Free E-Commerce Fee & Profit Calculators & Tools',
+  description = routeMeta.description || 'Free multi-marketplace profit and fee calculators for Amazon FBA, Etsy, eBay, Shopify, and Meesho.',
+  keywords = routeMeta.keywords || 'amazon fee calculator, etsy fee calculator, ebay profit calculator, meesho profit calculator',
+  canonical = `${SITE_URL}${pathname}`,
+  ogTitle = routeMeta.ogTitle || title,
+  ogDescription = routeMeta.ogDescription || description,
+  ogImage = routeMeta.ogImage || DEFAULT_OG_IMAGE,
+  schema = routeMeta.schema
+} = Astro.props;
+
+const jsonLd = schema ? JSON.stringify(schema) : null;
+const hreflangAlternates = getAlternateHreflangs(pathname);
+---
+
+<!doctype html>
+<html lang={currentLang} class="dark">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- Hreflang Multi-Language Alternate Tags for International SEO -->
+    {hreflangAlternates.map(alt => (
+      <link rel="alternate" hreflang={alt.lang} href={alt.href} />
+    ))}
+
+    <!-- Network Preconnect & DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Instant Theme Preloader (Prevents FOUC / Light Flash) -->
+    <script is:inline>
+      (function() {
+        try {
+          var t = localStorage.getItem('sellerkit_theme');
+          if (t === 'light') {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+          } else {
+            document.documentElement.classList.remove('light');
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <style is:inline>
+      html.dark, html.dark body { background-color: #090d16 !important; color: #f1f5f9; }
+      html:not(.dark), html:not(.dark) body { background-color: #f8fafc !important; color: #0f172a; }
+    </style>
+
+    <!-- GA4 Analytics - Non-blocking high-performance loader -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8LF9KE5EWG', { send_page_view: true });
+
+      (function() {
+        var loaded = false;
+        function loadGA() {
+          if (loaded) return;
+          loaded = true;
+          ['pointerdown', 'touchstart', 'scroll', 'keydown'].forEach(function(ev) {
+            window.removeEventListener(ev, loadGA, { passive: true });
+          });
+          var el = document.createElement('script');
+          el.async = true;
+          el.src = 'https://www.googletagmanager.com/gtag/js?id=G-8LF9KE5EWG';
+          document.head.appendChild(el);
+        }
+        ['pointerdown', 'touchstart', 'scroll', 'keydown'].forEach(function(ev) {
+          window.addEventListener(ev, loadGA, { once: true, passive: true });
+        });
+        if ('requestIdleCallback' in window) {
+          window.addEventListener('load', function() {
+            requestIdleCallback(function() { setTimeout(loadGA, 3000); });
+          }, { once: true });
+        } else {
+          window.addEventListener('load', function() {
+            setTimeout(loadGA, 3500);
+          }, { once: true });
+        }
+      })();
+    </script>
+
+    <!-- Favicon & PWA App Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#4f46e5" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="SellerKit" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content="SellerKit" />
+    <meta name="robots" content="index, follow" />
+    <meta name="Impact-Site-Verification" value="bc0e9e90-4e97-4b17-b654-5fcae3038c01" content="bc0e9e90-4e97-4b17-b654-5fcae3038c01" />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonical} />
+    <meta property="twitter:title" content={ogTitle} />
+    <meta property="twitter:description" content={ogDescription} />
+    <meta property="twitter:image" content={ogImage} />
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" /></noscript>
+
+    {jsonLd && (
+      <script type="application/ld+json" set:html={jsonLd} />
+    )}
+  </head>
+  <body class="bg-[#090d16] text-slate-100 antialiased selection:bg-brand-500 selection:text-white min-h-screen flex flex-col">
+    <Navbar client:load currentPath={pathname} currentLang={currentLang} />
+    <main class="flex-grow">
+      <slot />
+    </main>
+    <Footer currentLang={currentLang} />
+  </body>
+</html>

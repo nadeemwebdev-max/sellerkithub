@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import WalmartCalculator from '../../../views/WalmartCalculator.jsx';
+
+export function getStaticPaths() {
+  return ['es', 'ja', 'fr', 'de', 'pt', 'ko', 'it'].map(lang => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+---
+
+<BaseLayout lang={lang}>
+  <WalmartCalculator client:load lang={lang} />
+</BaseLayout>

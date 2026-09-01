@@ -5,11 +5,14 @@
   "description": "SellerKitHub - Free E-Commerce Fee & Profit Calculators & Tools for Amazon, Etsy, eBay & Shopify",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build && node prerender.js",
-    "preview": "vite preview"
+    "dev": "node dev.js",
+    "build": "astro build",
+    "preview": "node preview.js"
   },
   "dependencies": {
+    "@astrojs/react": "^6.0.5",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.2.10",
     "jsbarcode": "^3.12.3",
     "lucide-react": "^0.359.0",
     "qrcode": "^1.5.4",

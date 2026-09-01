@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from './Link';
+import Logo from './Logo';
 import { 
   Calculator, 
   Image as ImageIcon, 
@@ -17,21 +18,34 @@ import {
   Calendar,
   BookOpen,
   Target,
-  Building2
+  Building2,
+  Globe
 } from 'lucide-react';
-import { useCurrency, CURRENCIES } from '../context/CurrencyContext';
+import { useCurrency, CURRENCIES, LANG_DEFAULT_CURRENCY } from '../context/CurrencyContext';
+import { LANGUAGES, DEFAULT_LANG } from '../i18n/ui';
+import { getLangFromUrl, useTranslations, getLocalizedPath, getCleanPath } from '../i18n/utils';
 
-export default function Navbar() {
+export default function Navbar({ currentPath = '', currentLang = DEFAULT_LANG }) {
   const [calcDropdownOpen, setCalcDropdownOpen] = useState(false);
   const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { currency, setCurrency, activeCurrency, theme, toggleTheme } = useCurrency();
 
-  const location = useLocation();
-  const currentPath = location.pathname;
+  const [activePath, setActivePath] = useState(currentPath);
+  const [activeLang, setActiveLang] = useState(currentLang);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname;
+      setActivePath(path);
+      setActiveLang(getLangFromUrl(path));
+    }
+  }, [currentPath, currentLang]);
 
   const calcDropdownRef = useRef(null);
   const currencyDropdownRef = useRef(null);
+  const langDropdownRef = useRef(null);
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -42,65 +56,81 @@ export default function Navbar() {
       if (currencyDropdownRef.current && !currencyDropdownRef.current.contains(event.target)) {
         setCurrencyDropdownOpen(false);
       }
+      if (langDropdownRef.current && !langDropdownRef.current.contains(event.target)) {
+        setLangDropdownOpen(false);
+      }
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Organized Programmatic SEO Calculator Suite Dropdown
+  const t = useTranslations(activeLang);
+  const effectivePath = activePath || currentPath;
+  const currentLangObj = LANGUAGES[activeLang] || LANGUAGES.en;
+
+  const getUrl = (path) => getLocalizedPath(path, activeLang);
+
+  // Localized Calculator Tools
   const calculatorTools = [
     {
-      name: 'Amazon FBA Calculator',
-      desc: '2026 referral rates, FBA pick & pack & storage',
+      name: t('tool.amazon'),
+      desc: t('tool.amazonDesc'),
       path: '/tools/amazon-fba-calculator',
       icon: TrendingUp,
       color: 'text-amber-500 bg-amber-500/10',
     },
     {
-      name: 'Etsy Fee Calculator',
-      desc: 'Listing renewals, 6.5% cut & offsite ads math',
+      name: t('tool.etsy'),
+      desc: t('tool.etsyDesc'),
       path: '/tools/etsy-fee-calculator',
       icon: ShoppingBag,
       color: 'text-orange-500 bg-orange-500/10',
     },
     {
-      name: 'Profit Margin Calculator',
-      desc: 'Tiered wholesale price points & gross margin ladders',
+      name: t('tool.walmart'),
+      desc: t('tool.walmartDesc'),
+      path: '/tools/walmart-fee-calculator',
+      icon: ShoppingBag,
+      color: 'text-blue-500 bg-blue-500/10',
+    },
+    {
+      name: t('tool.margin'),
+      desc: t('tool.marginDesc'),
       path: '/tools/profit-margin-calculator',
       icon: Grid,
       color: 'text-purple-500 bg-purple-500/10',
     },
     {
-      name: 'ROAS Ad Calculator',
-      desc: 'Target & Break-Even ROAS, CAC & net ad profit',
+      name: t('tool.roas'),
+      desc: t('tool.roasDesc'),
       path: '/tools/roas-calculator',
       icon: Target,
       color: 'text-emerald-500 bg-emerald-500/10',
     },
     {
-      name: 'GST Tax Calculator',
-      desc: 'Inclusive/Exclusive GST, CGST/SGST/IGST splits',
+      name: t('tool.gst'),
+      desc: t('tool.gstDesc'),
       path: '/tools/gst-calculator',
       icon: Building2,
       color: 'text-blue-500 bg-blue-500/10',
     },
     {
-      name: 'Side-by-Side Comparison',
-      desc: 'Compare net profit across Amazon, Etsy & Shopify',
+      name: t('tool.comparison'),
+      desc: t('tool.comparisonDesc'),
       path: '/tools/marketplace-comparison',
       icon: GitCompare,
       color: 'text-indigo-500 bg-indigo-500/10',
     },
     {
-      name: 'Batch SKU Calculator',
-      desc: 'Portfolio cash flow & inventory profit modeling',
+      name: t('tool.batch'),
+      desc: t('tool.batchDesc'),
       path: '/tools/batch-calculator',
       icon: Package,
       color: 'text-cyan-500 bg-cyan-500/10',
     },
     {
-      name: 'Universal Fee Calculator',
-      desc: 'All-in-one multi-channel calculator',
+      name: t('nav.universalCalc'),
+      desc: t('nav.universalDesc'),
       path: '/',
       icon: Calculator,
       color: 'text-slate-500 bg-slate-500/10',
@@ -108,13 +138,14 @@ export default function Navbar() {
   ];
 
   const directNavLinks = [
-    { name: '1:1 Image Padder', path: '/tools/product-image-resizer', icon: ImageIcon },
-    { name: 'Barcode & QR Maker', path: '/tools/barcode-generator', icon: Barcode },
-    { name: 'Blog Guides', path: '/blog', icon: BookOpen },
-    { name: '2026 Fee Hub', path: '/fee-updates', icon: Calendar },
+    { name: t('nav.imagePadder'), path: '/tools/product-image-resizer', icon: ImageIcon },
+    { name: t('nav.barcode'), path: '/tools/barcode-generator', icon: Barcode },
+    { name: t('nav.blog'), path: '/blog', icon: BookOpen },
+    { name: t('nav.feeHub'), path: '/fee-updates', icon: Calendar },
   ];
 
-  const isCalcActive = calculatorTools.some(tool => tool.path === currentPath);
+  const cleanCurrentPath = getCleanPath(effectivePath);
+  const isCalcActive = calculatorTools.some(tool => tool.path === cleanCurrentPath);
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/90 dark:bg-[#090d16]/90 border-b border-slate-200 dark:border-white/10 transition-colors">
@@ -122,28 +153,12 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           
           {/* Brand Logo */}
-          <Link to="/" className="flex items-center gap-2.5 group shrink-0">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-500 to-emerald-400 p-0.5 shadow-glow-brand transition-transform group-hover:scale-105 flex items-center justify-center">
-              <div className="w-full h-full bg-white dark:bg-[#090d16] rounded-[10px] flex items-center justify-center p-1.5">
-                <svg className="w-full h-full" viewBox="0 0 48 48" fill="none">
-                  <path d="M24 8L38 16V32L24 40L10 32V16L24 8Z" stroke="currentColor" className="text-brand-600 dark:text-brand-400" strokeWidth="3" strokeLinejoin="round" />
-                  <path d="M24 8V24M24 24L38 32M24 24L10 32" stroke="currentColor" className="text-brand-600 dark:text-brand-400" strokeWidth="2.5" strokeLinecap="round" opacity="0.6" />
-                  <circle cx="24" cy="24" r="5" className="fill-emerald-500 dark:fill-emerald-400" />
-                </svg>
-              </div>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-display font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">
-                Seller<span className="text-brand-600 dark:text-brand-400">Kit</span>
-              </span>
-              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30 uppercase tracking-wide">
-                HUB
-              </span>
-            </div>
+          <Link to={getUrl('/')} className="shrink-0">
+            <Logo />
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1.5">
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5 shrink-0">
             
             {/* Calculators Dropdown Button */}
             <div className="relative" ref={calcDropdownRef}>
@@ -151,17 +166,17 @@ export default function Navbar() {
                 type="button"
                 aria-expanded={calcDropdownOpen}
                 aria-haspopup="true"
-                aria-label="Calculators & Tools Menu"
+                aria-label={t('nav.calculators')}
                 onClick={() => setCalcDropdownOpen(!calcDropdownOpen)}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
+                className={`flex items-center gap-1.5 px-2.5 xl:px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
                   isCalcActive
                     ? 'bg-brand-50 text-brand-700 dark:bg-brand-500/15 dark:text-brand-400'
                     : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
                 }`}
               >
-                <Calculator className="w-4 h-4 text-brand-600 dark:text-brand-400" />
-                <span>Calculators & Tools</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${calcDropdownOpen ? 'rotate-180 text-brand-600 dark:text-brand-400' : 'text-slate-400'}`} />
+                <Calculator className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" />
+                <span className="whitespace-nowrap">{t('nav.calculators')}</span>
+                <ChevronDown className={`w-3.5 h-3.5 shrink-0 transition-transform duration-200 ${calcDropdownOpen ? 'rotate-180 text-brand-600 dark:text-brand-400' : 'text-slate-400'}`} />
               </button>
 
               {/* Mega Dropdown Menu */}
@@ -171,11 +186,11 @@ export default function Navbar() {
                 >
                   {calculatorTools.map((tool) => {
                     const Icon = tool.icon;
-                    const active = currentPath === tool.path;
+                    const active = cleanCurrentPath === tool.path;
                     return (
                       <Link
                         key={tool.path}
-                        to={tool.path}
+                        to={getUrl(tool.path)}
                         onClick={() => setCalcDropdownOpen(false)}
                         className={`flex items-start gap-2.5 p-2.5 rounded-xl transition ${
                           active 
@@ -204,19 +219,19 @@ export default function Navbar() {
             {/* Direct Tool Links */}
             {directNavLinks.map((link) => {
               const Icon = link.icon;
-              const active = currentPath === link.path;
+              const active = cleanCurrentPath === link.path;
               return (
                 <Link
                   key={link.path}
-                  to={link.path}
-                  className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
+                  to={getUrl(link.path)}
+                  className={`flex items-center gap-1.5 px-2.5 xl:px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition shrink-0 ${
                     active
                       ? 'bg-brand-50 text-brand-700 dark:bg-brand-500/15 dark:text-brand-400'
                       : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${active ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400'}`} />
-                  <span>{link.name}</span>
+                  <Icon className={`w-4 h-4 shrink-0 ${active ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400'}`} />
+                  <span className="whitespace-nowrap">{link.name}</span>
                 </Link>
               );
             })}
@@ -224,32 +239,85 @@ export default function Navbar() {
           </nav>
 
           {/* Right Action Controls */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 xl:gap-2 shrink-0">
             
+            {/* Language Selector Dropdown */}
+            <div className="relative" ref={langDropdownRef}>
+              <button
+                type="button"
+                aria-expanded={langDropdownOpen}
+                aria-haspopup="true"
+                aria-label={t('nav.selectLang')}
+                onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-xs font-semibold text-slate-800 dark:text-slate-200 transition"
+                title={t('nav.selectLang')}
+              >
+                <span className="text-sm leading-none">{currentLangObj.flag}</span>
+                <span className="font-sans uppercase font-bold text-[11px]">{currentLangObj.code}</span>
+                <ChevronDown className="w-3 h-3 text-slate-400" />
+              </button>
+
+              {langDropdownOpen && (
+                <div 
+                  className="absolute right-0 mt-2 w-44 rounded-2xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 shadow-2xl p-1.5 z-50 animate-in fade-in duration-100"
+                >
+                  <div className="text-[10px] font-bold text-slate-400 px-2 py-1 uppercase tracking-wider">
+                    {t('nav.selectLang')}
+                  </div>
+                  {Object.values(LANGUAGES).map((l) => (
+                    <a
+                      key={l.code}
+                      href={getLocalizedPath(effectivePath, l.code)}
+                      onClick={() => {
+                        setLangDropdownOpen(false);
+                        try {
+                          localStorage.removeItem('sellerkit_manual_currency');
+                          const newCurr = LANG_DEFAULT_CURRENCY[l.code] || 'USD';
+                          localStorage.setItem('sellerkit_currency', newCurr);
+                          window.dispatchEvent(new CustomEvent('sellerkit:currency', { detail: newCurr }));
+                        } catch (e) {}
+                      }}
+                      className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition ${
+                        activeLang === l.code
+                          ? 'bg-brand-600 text-white font-semibold'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
+                      }`}
+                    >
+                      <span className="flex items-center gap-2">
+                        <span className="text-sm leading-none">{l.flag}</span>
+                        <span>{l.name}</span>
+                      </span>
+                      <span className="text-[10px] font-mono opacity-70 uppercase">{l.code}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {/* Currency Selector Pill */}
             <div className="relative" ref={currencyDropdownRef}>
               <button
                 type="button"
                 aria-expanded={currencyDropdownOpen}
                 aria-haspopup="true"
-                aria-label="Select Currency"
+                aria-label={t('nav.selectCurrency')}
                 onClick={() => setCurrencyDropdownOpen(!currencyDropdownOpen)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-xs font-semibold text-slate-800 dark:text-slate-200 transition"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-xs font-semibold text-slate-800 dark:text-slate-200 transition"
                 title="Change Currency"
               >
                 <span className="w-4 h-4 rounded-full bg-brand-500/20 text-brand-600 dark:text-brand-400 font-bold flex items-center justify-center text-[10px]">
                   {activeCurrency.symbol}
                 </span>
-                <span className="font-mono">{currency}</span>
+                <span className="font-mono text-[11px]">{currency}</span>
                 <ChevronDown className="w-3 h-3 text-slate-400" />
               </button>
 
               {currencyDropdownOpen && (
                 <div 
-                  className="absolute right-0 mt-2 w-48 rounded-2xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 shadow-2xl p-1.5 z-50"
+                  className="absolute right-0 mt-2 w-56 max-h-80 overflow-y-auto rounded-2xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 shadow-2xl p-1.5 z-50 animate-in fade-in duration-100"
                 >
-                  <div className="text-[10px] font-bold text-slate-400 px-2 py-1 uppercase tracking-wider">
-                    Select Currency
+                  <div className="text-[10px] font-bold text-slate-400 px-2 py-1 uppercase tracking-wider sticky top-0 bg-white dark:bg-[#0f172a]">
+                    {t('nav.selectCurrency')}
                   </div>
                   {Object.values(CURRENCIES).map((c) => (
                     <button
@@ -265,10 +333,10 @@ export default function Navbar() {
                       }`}
                     >
                       <span className="flex items-center gap-2">
-                        <span className="font-mono font-bold">{c.symbol}</span>
+                        <span className="font-mono font-bold w-4 text-center">{c.symbol}</span>
                         <span>{c.code}</span>
                       </span>
-                      <span className="text-[10px] opacity-70">{c.name}</span>
+                      <span className="text-[10px] opacity-70 truncate max-w-[100px]">{c.name}</span>
                     </button>
                   ))}
                 </div>
@@ -292,7 +360,7 @@ export default function Navbar() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10"
+              className="lg:hidden p-2 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10"
               aria-label="Toggle mobile menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -304,18 +372,77 @@ export default function Navbar() {
 
         {/* Mobile Accordion Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-slate-200 dark:border-white/10 space-y-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 block">
-              Calculators & Tools
+          <div className="lg:hidden py-4 border-t border-slate-200 dark:border-white/10 space-y-3">
+            
+            {/* Language Switcher in Mobile Drawer */}
+            <div className="px-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2">
+                {t('nav.selectLang')}
+              </span>
+              <div className="grid grid-cols-4 gap-1.5">
+                {Object.values(LANGUAGES).map((l) => (
+                  <a
+                    key={l.code}
+                    href={getLocalizedPath(effectivePath, l.code)}
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      try {
+                        localStorage.removeItem('sellerkit_manual_currency');
+                        const newCurr = LANG_DEFAULT_CURRENCY[l.code] || 'USD';
+                        localStorage.setItem('sellerkit_currency', newCurr);
+                        window.dispatchEvent(new CustomEvent('sellerkit:currency', { detail: newCurr }));
+                      } catch (e) {}
+                    }}
+                    className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-semibold transition ${
+                      activeLang === l.code
+                        ? 'bg-brand-600 text-white'
+                        : 'bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-slate-200'
+                    }`}
+                  >
+                    <span>{l.flag}</span>
+                    <span className="uppercase text-[10px]">{l.code}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Currency Switcher in Mobile Drawer */}
+            <div className="px-2 pt-1">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2">
+                {t('nav.selectCurrency')}
+              </span>
+              <div className="grid grid-cols-5 gap-1.5">
+                {Object.values(CURRENCIES).map((c) => (
+                  <button
+                    key={c.code}
+                    onClick={() => {
+                      setCurrency(c.code);
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`flex items-center justify-center gap-1 py-1.5 px-1.5 rounded-lg text-xs font-semibold transition ${
+                      currency === c.code
+                        ? 'bg-brand-600 text-white'
+                        : 'bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-slate-200'
+                    }`}
+                  >
+                    <span className="font-mono text-[10px]">{c.symbol}</span>
+                    <span className="uppercase text-[10px]">{c.code}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 block pt-2">
+              {t('nav.calculators')}
             </span>
             <div className="grid grid-cols-1 gap-1">
               {calculatorTools.map((tool) => {
                 const Icon = tool.icon;
-                const active = currentPath === tool.path;
+                const active = cleanCurrentPath === tool.path;
                 return (
                   <Link
                     key={tool.path}
-                    to={tool.path}
+                    to={getUrl(tool.path)}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
                       active
@@ -336,11 +463,11 @@ export default function Navbar() {
             <div className="grid grid-cols-1 gap-1">
               {directNavLinks.map((link) => {
                 const Icon = link.icon;
-                const active = currentPath === link.path;
+                const active = cleanCurrentPath === link.path;
                 return (
                   <Link
                     key={link.path}
-                    to={link.path}
+                    to={getUrl(link.path)}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
                       active

@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
+import { useI18n } from '../i18n/utils';
 
-export default function FAQSection({ title = "Frequently Asked Questions", faqs = [] }) {
+export default function FAQSection({ title, faqs = [], lang: propLang }) {
+  const { t } = useI18n(propLang);
   const [openIndex, setOpenIndex] = useState(0);
+
+  const displayTitle = title || t('faq.title', 'Frequently Asked Questions');
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? -1 : index);
@@ -35,7 +39,7 @@ export default function FAQSection({ title = "Frequently Asked Questions", faqs 
           <HelpCircle className="w-5 h-5" />
         </div>
         <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white">
-          {title}
+          {displayTitle}
         </h3>
       </div>
 
@@ -62,13 +66,12 @@ export default function FAQSection({ title = "Frequently Asked Questions", faqs 
                   }`}
                 />
               </button>
-              <div
-                className={`px-5 pb-4 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-white/5 pt-3 ${
-                  isOpen ? 'block' : 'hidden'
-                }`}
-              >
-                {faq.answer}
-              </div>
+
+              {isOpen && (
+                <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-white/5">
+                  {faq.answer}
+                </div>
+              )}
             </div>
           );
         })}

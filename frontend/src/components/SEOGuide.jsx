@@ -2,10 +2,14 @@ import React from 'react';
 import { BookOpen, CheckCircle, Lightbulb, BarChart3 } from 'lucide-react';
 
 export default function SEOGuide({
+  badge = 'Comprehensive Guide & Strategy',
   title,
   subtitle,
+  formulaTitle = 'The Mathematical Formula',
   formula,
+  stepsTitle = 'Step-by-Step Instructions:',
   steps = [],
+  tipsTitle = 'Seller Pro Tips & Best Practices',
   tips = [],
   children
 }) {
@@ -16,7 +20,7 @@ export default function SEOGuide({
       <div className="border-b border-slate-200 dark:border-white/10 pb-4">
         <div className="flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-semibold uppercase tracking-wider mb-1">
           <BookOpen className="w-4 h-4" />
-          <span>Comprehensive Guide & Strategy</span>
+          <span>{badge}</span>
         </div>
         <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
           {title}
@@ -33,7 +37,7 @@ export default function SEOGuide({
         <div className="p-4 rounded-xl bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/20 text-brand-900 dark:text-brand-300">
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider mb-1.5 text-brand-600 dark:text-brand-400">
             <BarChart3 className="w-4 h-4" />
-            <span>The Mathematical Formula</span>
+            <span>{formulaTitle}</span>
           </div>
           <code className="font-mono text-xs sm:text-sm font-semibold block bg-white dark:bg-[#090d16]/60 p-3 rounded-lg border border-brand-200 dark:border-brand-500/20 overflow-x-auto text-emerald-700 dark:text-emerald-400">
             {formula}
@@ -48,7 +52,7 @@ export default function SEOGuide({
       {steps.length > 0 && (
         <div className="space-y-3">
           <h3 className="font-display font-bold text-sm text-slate-900 dark:text-white">
-            Step-by-Step Instructions:
+            {stepsTitle}
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {steps.map((step, idx) => (
@@ -78,7 +82,7 @@ export default function SEOGuide({
         <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 text-amber-900 dark:text-amber-300 space-y-2">
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">
             <Lightbulb className="w-4 h-4" />
-            <span>Seller Pro Tips & Best Practices</span>
+            <span>{tipsTitle}</span>
           </div>
           <ul className="space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
             {tips.map((tip, idx) => (

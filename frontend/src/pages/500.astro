@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ServerError from '../views/ServerError.jsx';
+---
+
+<BaseLayout title="500 – Internal Server Error | SellerKitHub" description="An unexpected error occurred.">
+  <ServerError client:load />
+</BaseLayout>

@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FeeUpdates from '../../views/FeeUpdates.jsx';
+
+export function getStaticPaths() {
+  return ['es', 'ja', 'fr', 'de', 'pt', 'ko', 'it'].map(lang => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+---
+
+<BaseLayout lang={lang}>
+  <FeeUpdates client:idle lang={lang} />
+</BaseLayout>

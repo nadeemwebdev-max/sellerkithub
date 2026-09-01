@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogPost from '../../../views/BlogPost.jsx';
+import { BLOG_POSTS } from '../../../data/blogPosts';
+import { SITE_URL } from '../../../routes-seo';
+
+export async function getStaticPaths() {
+  const languages = ['es', 'ja', 'fr', 'de', 'pt', 'ko', 'it'];
+  const paths = [];
+
+  for (const lang of languages) {
+    for (const post of BLOG_POSTS) {
+      paths.push({
+        params: { lang, slug: post.slug },
+        props: { post, lang }
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { post, lang } = Astro.props;
+
+const pageTitle = `${post.title} | SellerKitHub`;
+const canonical = `${SITE_URL}/${lang}/blog/${post.slug}`;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  'headline': post.title,
+  'description': post.excerpt,
+  'datePublished': post.date,
+  'dateModified': post.dateModified || post.date,
+  'author': {
+    '@type': 'Person',
+    'name': post.author
+  },
+  'publisher': {
+    '@type': 'Organization',
+    'name': 'SellerKitHub',
+    'url': SITE_URL
+  },
+  'mainEntityOfPage': {
+    '@type': 'WebPage',
+    '@id': canonical
+  }
+};
+---
+
+<BaseLayout
+  lang={lang}
+  title={pageTitle}
+  description={post.excerpt}
+  canonical={canonical}
+  ogTitle={post.title}
+  ogDescription={post.excerpt}
+  schema={schema}
+>
+  <BlogPost client:load lang={lang} post={post} />
+</BaseLayout>

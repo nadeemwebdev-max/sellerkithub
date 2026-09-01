@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BarcodeGenerator from '../../views/BarcodeGenerator.jsx';
+---
+
+<BaseLayout>
+  <BarcodeGenerator client:load initialType="qrcode" initialTemplateId="avery-5163" />
+</BaseLayout>

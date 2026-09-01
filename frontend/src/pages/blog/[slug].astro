@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogPost from '../../views/BlogPost.jsx';
+import { BLOG_POSTS } from '../../data/blogPosts';
+import { SITE_URL } from '../../routes-seo';
+
+export async function getStaticPaths() {
+  return BLOG_POSTS.map(post => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+
+const pageTitle = `${post.title} | SellerKitHub`;
+const canonical = `${SITE_URL}/blog/${post.slug}`;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  'headline': post.title,
+  'description': post.excerpt,
+  'datePublished': post.date,
+  'dateModified': post.dateModified || post.date,
+  'author': {
+    '@type': 'Person',
+    'name': post.author
+  },
+  'publisher': {
+    '@type': 'Organization',
+    'name': 'SellerKitHub',
+    'url': SITE_URL
+  },
+  'mainEntityOfPage': {
+    '@type': 'WebPage',
+    '@id': canonical
+  }
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={post.excerpt}
+  canonical={canonical}
+  ogTitle={post.title}
+  ogDescription={post.excerpt}
+  schema={schema}
+>
+  <BlogPost client:load post={post} />
+</BaseLayout>

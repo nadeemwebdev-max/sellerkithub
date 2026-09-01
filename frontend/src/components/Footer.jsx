@@ -1,13 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from './Link';
+import Logo from './Logo';
 import { ShieldCheck, ArrowUp } from 'lucide-react';
+import { getLocalizedPath } from '../i18n/utils';
+import { DEFAULT_LANG, LANGUAGES } from '../i18n/ui';
 
-export default function Footer() {
+export default function Footer({ currentLang = DEFAULT_LANG }) {
   const scrollToTop = () => {
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
+
+  const getUrl = (path) => getLocalizedPath(path, currentLang);
 
   return (
     <footer className="mt-20 border-t border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-[#060a12] transition-colors">
@@ -16,18 +21,8 @@ export default function Footer() {
           
           {/* Col 1: Brand & Mission */}
           <div className="space-y-4 md:col-span-1">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-emerald-400 p-0.5 flex items-center justify-center">
-                <div className="w-full h-full bg-white dark:bg-[#090d16] rounded-[6px] flex items-center justify-center p-1">
-                  <svg className="w-full h-full" viewBox="0 0 48 48" fill="none">
-                    <path d="M24 8L38 16V32L24 40L10 32V16L24 8Z" stroke="currentColor" className="text-brand-600 dark:text-brand-400" strokeWidth="3" strokeLinejoin="round" />
-                    <circle cx="24" cy="24" r="5" className="fill-emerald-500 dark:fill-emerald-400" />
-                  </svg>
-                </div>
-              </div>
-              <span className="font-display font-bold text-lg tracking-tight text-slate-900 dark:text-white">
-                Seller<span className="text-brand-600 dark:text-brand-400">Kit</span><span className="text-emerald-600 dark:text-emerald-400 text-xs font-black ml-0.5 uppercase">Hub</span>
-              </span>
+            <Link to={getUrl('/')}>
+              <Logo />
             </Link>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
               Empowering online e-commerce sellers with 100% free, private, client-side financial calculators, product image visualizers, and inventory utilities.
@@ -45,42 +40,42 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link to="/" className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                <Link to={getUrl('/')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
                   Multi-Marketplace Profit Calculator
                 </Link>
               </li>
               <li>
-                <Link to="/marketplace-comparison" className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                <Link to={getUrl('/tools/marketplace-comparison')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
                   Side-by-Side Marketplace Comparison
                 </Link>
               </li>
               <li>
-                <Link to="/batch-calculator" className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                <Link to={getUrl('/tools/batch-calculator')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
                   Multi-SKU Batch Profit Calculator
                 </Link>
               </li>
               <li>
-                <Link to="/etsy-fee-calculator" className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                <Link to={getUrl('/tools/etsy-fee-calculator')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
                   Etsy Fee & Profit Calculator
                 </Link>
               </li>
               <li>
-                <Link to="/amazon-fee-calculator" className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                <Link to={getUrl('/tools/amazon-fba-calculator')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
                   Amazon FBA / FBM Fee Calculator
                 </Link>
               </li>
               <li>
-                <Link to="/product-image-resizer" className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                <Link to={getUrl('/tools/product-image-resizer')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
                   1:1 Square Product Image Padder
                 </Link>
               </li>
               <li>
-                <Link to="/barcode-generator" className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                <Link to={getUrl('/tools/barcode-generator')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
                   Free Barcode & Label Sheet Maker
                 </Link>
               </li>
               <li>
-                <Link to="/margin-matrix" className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                <Link to={getUrl('/tools/profit-margin-calculator')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
                   Wholesale Margin & Markup Matrix
                 </Link>
               </li>
@@ -94,85 +89,100 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link to="/blog" className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition font-bold flex items-center gap-1.5">
+                <Link to={getUrl('/blog')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition font-bold flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-brand-500"></span>
                   <span>E-Commerce Seller Blog</span>
                 </Link>
               </li>
               <li>
-                <Link to="/fee-updates" className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                  <span>2026 Marketplace Fee Hub</span>
+                <Link to={getUrl('/blog/amazon-fba-fee-changes-2026')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                  2026 Amazon Inbound Placement Guide
                 </Link>
               </li>
-              <li className="text-slate-600 dark:text-slate-400">
-                Amazon Seller Central (US, UK, IN, CA)
+              <li>
+                <Link to={getUrl('/blog/etsy-seller-fee-breakdown-guide')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                  Etsy Fee Schedule Breakdown (2026)
+                </Link>
               </li>
-              <li className="text-slate-600 dark:text-slate-400">
-                Etsy Handmade & Vintage Stores
+              <li>
+                <Link to={getUrl('/fee-updates')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                  Marketplace Policy & Fee Update Hub
+                </Link>
               </li>
-              <li className="text-slate-600 dark:text-slate-400">
-                eBay Marketplace Standard & Promoted
+              <li>
+                <Link to={getUrl('/tools/roas-calculator')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                  Target ROAS & Advertising ROI Math
+                </Link>
               </li>
-              <li className="text-slate-600 dark:text-slate-400">
-                Shopify Independent Stores
-              </li>
-              <li className="text-slate-600 dark:text-slate-400">
-                Meesho & Flipkart Resellers
+              <li>
+                <Link to={getUrl('/tools/gst-calculator')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                  GST & Sales Tax Accounting
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 4: Legal & Support (AdSense Required) */}
-          <div>
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-200 mb-3">
+          {/* Col 4: Supported Languages & Legal */}
+          <div className="space-y-4">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-200">
+              International Editions
+            </h4>
+            <div className="grid grid-cols-2 gap-1.5 text-[11px]">
+              {Object.values(LANGUAGES).map((l) => (
+                <a
+                  key={l.code}
+                  href={getLocalizedPath('/', l.code)}
+                  className={`flex items-center gap-1.5 py-1 px-1.5 rounded transition ${
+                    currentLang === l.code
+                      ? 'text-brand-600 dark:text-brand-400 font-bold bg-brand-50 dark:bg-brand-500/10'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  <span>{l.flag}</span>
+                  <span>{l.name}</span>
+                </a>
+              ))}
+            </div>
+
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-200 pt-2">
               Company & Legal
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link to="/about" className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
-                  About SellerKit
+                <Link to={getUrl('/about')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                  About SellerKitHub
                 </Link>
               </li>
               <li>
-                <Link to="/privacy-policy" className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
-                  Privacy Policy & Cookies
+                <Link to={getUrl('/contact')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                  Contact Support & Feedback
                 </Link>
               </li>
               <li>
-                <Link to="/terms" className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
-                  Terms of Service & Disclaimer
+                <Link to={getUrl('/privacy-policy')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                  Privacy Policy & Data Security
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
-                  Contact Us & Feedback
+                <Link to={getUrl('/terms')} className="text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                  Terms of Service & Disclaimers
                 </Link>
               </li>
             </ul>
-
-            <button
-              onClick={scrollToTop}
-              aria-label="Back to top"
-              className="mt-4 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-white/5 hover:bg-slate-300 dark:hover:bg-white/10 text-slate-800 dark:text-slate-300 text-xs transition"
-            >
-              <ArrowUp className="w-3.5 h-3.5" />
-              <span>Back to top</span>
-            </button>
           </div>
 
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-10 pt-6 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-600 dark:text-slate-400">
-          <p>
-            &copy; {new Date().getFullYear()} SellerKitHub.com. All rights reserved. Calculations are estimates based on standard marketplace fee schedules.
-          </p>
-          <div className="flex items-center gap-4">
-            <Link to="/privacy-policy" className="hover:underline hover:text-slate-900 dark:hover:text-white transition">Privacy</Link>
-            <Link to="/terms" className="hover:underline hover:text-slate-900 dark:hover:text-white transition">Terms</Link>
-            <Link to="/contact" className="hover:underline hover:text-slate-900 dark:hover:text-white transition">Contact</Link>
-          </div>
+        <div className="mt-12 pt-8 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-500">
+          <p>© {new Date().getFullYear()} SellerKitHub. All rights reserved. Amazon, Etsy, eBay, Walmart, Shopify, and Meesho are trademarks of their respective owners.</p>
+          <button
+            onClick={scrollToTop}
+            className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition"
+          >
+            <span>Back to Top</span>
+            <ArrowUp className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </footer>
