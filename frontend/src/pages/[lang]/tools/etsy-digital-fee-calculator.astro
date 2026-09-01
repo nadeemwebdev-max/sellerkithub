@@ -10,5 +10,5 @@ const { lang } = Astro.params;
 ---
 
 <BaseLayout lang={lang}>
-  <EtsyCalculator client:load isDigitalRoute={true} lang={lang} />
+  <EtsyCalculator client:idle isDigitalRoute={true} lang={lang} />
 </BaseLayout>

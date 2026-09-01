@@ -46,5 +46,5 @@ const schema = {
   ogDescription={post.excerpt}
   schema={schema}
 >
-  <BlogPost client:load post={post} />
+  <BlogPost client:idle post={post} />
 </BaseLayout>

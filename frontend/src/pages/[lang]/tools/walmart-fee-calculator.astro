@@ -10,5 +10,5 @@ const { lang } = Astro.params;
 ---
 
 <BaseLayout lang={lang}>
-  <WalmartCalculator client:load lang={lang} />
+  <WalmartCalculator client:idle lang={lang} />
 </BaseLayout>

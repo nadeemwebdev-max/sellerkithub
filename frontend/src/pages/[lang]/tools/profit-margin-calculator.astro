@@ -10,5 +10,5 @@ const { lang } = Astro.params;
 ---
 
 <BaseLayout lang={lang}>
-  <MarginMatrix client:load lang={lang} />
+  <MarginMatrix client:idle lang={lang} />
 </BaseLayout>

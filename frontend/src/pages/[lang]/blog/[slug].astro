@@ -56,5 +56,5 @@ const schema = {
   ogDescription={post.excerpt}
   schema={schema}
 >
-  <BlogPost client:load lang={lang} post={post} />
+  <BlogPost client:idle lang={lang} post={post} />
 </BaseLayout>

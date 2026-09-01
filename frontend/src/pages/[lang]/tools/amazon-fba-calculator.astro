@@ -10,5 +10,5 @@ const { lang } = Astro.params;
 ---
 
 <BaseLayout lang={lang}>
-  <AmazonCalculator client:load lang={lang} />
+  <AmazonCalculator client:idle lang={lang} />
 </BaseLayout>

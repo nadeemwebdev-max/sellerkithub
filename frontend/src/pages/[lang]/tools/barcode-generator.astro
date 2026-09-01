@@ -10,5 +10,5 @@ const { lang } = Astro.params;
 ---
 
 <BaseLayout lang={lang}>
-  <BarcodeGenerator client:load lang={lang} />
+  <BarcodeGenerator client:idle lang={lang} />
 </BaseLayout>

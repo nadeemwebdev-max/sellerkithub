@@ -10,5 +10,5 @@ const { lang } = Astro.params;
 ---
 
 <BaseLayout lang={lang}>
-  <Home client:load lang={lang} />
+  <Home client:idle lang={lang} />
 </BaseLayout>

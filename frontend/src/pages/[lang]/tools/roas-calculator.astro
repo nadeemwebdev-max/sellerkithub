@@ -10,5 +10,5 @@ const { lang } = Astro.params;
 ---
 
 <BaseLayout lang={lang}>
-  <RoasCalculator client:load lang={lang} />
+  <RoasCalculator client:idle lang={lang} />
 </BaseLayout>

@@ -10,5 +10,5 @@ const { lang } = Astro.params;
 ---
 
 <BaseLayout lang={lang}>
-  <AmazonCalculator client:load isShippingRoute={true} lang={lang} />
+  <AmazonCalculator client:idle isShippingRoute={true} lang={lang} />
 </BaseLayout>

@@ -10,5 +10,5 @@ const { lang } = Astro.params;
 ---
 
 <BaseLayout lang={lang}>
-  <ImagePadder client:load lang={lang} />
+  <ImagePadder client:idle lang={lang} />
 </BaseLayout>
