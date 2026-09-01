@@ -2,9 +2,15 @@
   "name": "sellerkit-web",
   "version": "1.0.0",
   "private": true,
+  "workspaces": [
+    "frontend"
+  ],
   "scripts": {
-    "build": "cd frontend && npm run build",
-    "dev": "cd frontend && npm run dev",
-    "preview": "cd frontend && npm run preview"
+    "build": "npm run build --workspace=frontend",
+    "dev": "npm run dev --workspace=frontend",
+    "preview": "npm run preview --workspace=frontend"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   }
 }
