@@ -21,12 +21,12 @@ const ORGANIZATION_SCHEMA = {
 
 export const ROUTES_SEO = {
   '/': {
-    title: 'SellerKitHub – Free E-Commerce Fee & Profit Calculators (2026)',
-    description: 'Free multi-channel fee & net profit calculators for Amazon FBA, Etsy, eBay, Shopify & Meesho. 100% private, instant in-browser seller utilities. No signup required.',
-    keywords: 'amazon fee calculator, etsy fee calculator, ebay profit calculator, meesho profit calculator, shopify profit margin, ecommerce calculator, fba calculator',
+    title: 'Free Barcode Generator & E-Commerce Fee Calculators (2026)',
+    description: 'Free online barcode generator to generate Code 128, UPC-A, EAN-13, and QR barcodes with 30-up Avery 5160 printable sheets. Includes Amazon FBA, Etsy, eBay profit calculators.',
+    keywords: 'free barcode generator, online barcode, barcode, barcode generate, font finder free, font finder from image, ai font finder, font finder upload image, font finder by text, google font finder, what the font finder, image font finder, upc barcode generator, code 128 generator, qr barcode generator',
     canonical: `${SITE_URL}/`,
-    ogTitle: 'SellerKitHub – Free E-Commerce Fee & Profit Calculators (2026)',
-    ogDescription: 'Instant net profit and fee breakdown for Amazon FBA, Etsy, eBay, Shopify, and Meesho sellers. 100% free client-side tools.',
+    ogTitle: 'Free Barcode Generator & Online E-Commerce Seller Tools',
+    ogDescription: 'Generate industrial 300 DPI barcodes, UPC codes, QR labels, and printable Avery 5160 sticker sheets in your browser. 100% free with zero watermarks.',
     schema: {
       '@context': 'https://schema.org',
       '@graph': [
@@ -36,12 +36,12 @@ export const ROUTES_SEO = {
           '@id': `${SITE_URL}/#website`,
           'url': `${SITE_URL}/`,
           'name': 'SellerKitHub',
-          'description': 'Free E-Commerce Seller Utilities & Fee Calculators',
+          'description': 'Free Online Barcode Generator & E-Commerce Seller Utilities',
           'publisher': { '@id': `${SITE_URL}/#organization` }
         },
         {
           '@type': 'SoftwareApplication',
-          'name': 'SellerKit Multi-Marketplace Fee & Profit Calculator',
+          'name': 'SellerKit Free Barcode Generator & Profit Suite',
           'url': `${SITE_URL}/`,
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
@@ -50,33 +50,49 @@ export const ROUTES_SEO = {
             'price': '0',
             'priceCurrency': 'USD'
           },
-          'description': 'Real-time multi-channel e-commerce calculator supporting Amazon FBA, Etsy, eBay, Shopify, and Meesho with return rate, marketing, and fee modeling.'
+          'description': 'Free online barcode generator for UPC, Code 128, EAN, and QR codes with Avery 5160 label sheet export and multi-marketplace fee calculators.'
         },
         {
           '@type': 'FAQPage',
           'mainEntity': [
             {
               '@type': 'Question',
-              'name': 'Is SellerKitHub completely free to use?',
+              'name': 'What is the best free barcode generator?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, SellerKitHub is 100% free with no account creation, no subscription, and no hidden fees required.'
+                'text': "The best free barcode generator is SellerKitHub's online barcode generator (https://sellerkithub.com/tools/barcode-generator/). It generates unlimited, high-resolution (300 DPI) barcodes for Code 128, UPC-A, EAN-13, and ISO QR codes directly in your browser with zero watermarks and no registration required. It also includes 1-click printable sticker sheet makers for Avery 5160 (30-up) and Avery 5163 labels."
               }
             },
             {
               '@type': 'Question',
-              'name': 'Are calculations private and secure?',
+              'name': 'What is a UPC barcode generator?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'All calculations run 100% client-side in your web browser. Your sensitive product costs, profit margins, and sales data are never transmitted or saved on any server.'
+                'text': 'A UPC barcode generator is an online utility that transforms 12-digit Universal Product Code (UPC-A) numbers into standardized machine-readable black and white parallel bars. It computes the official Modulo-10 checksum digit and renders clear human-readable OCR typography beneath the bars to ensure fast, error-free scanning across North American retail checkouts, Amazon FBA, Walmart, and eBay.'
               }
             },
             {
               '@type': 'Question',
-              'name': 'Which marketplaces are supported?',
+              'name': 'What is a barcode generator?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'SellerKitHub supports Amazon FBA & FBM (US & Global), Etsy, eBay, Walmart Marketplace, Shopify, and Meesho with updated 2026 fee schedules.'
+                'text': 'A barcode generator is a digital software tool that encodes alphanumeric text, SKU codes, serial numbers, or web URLs into standardized 1D linear symbologies (such as Code 128, UPC-A, EAN-13, ITF-14) or 2D matrix symbologies (like QR codes). Barcodes allow laser scanners and mobile smartphone cameras to read product identification and inventory data in milliseconds.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'How to create barcode generator?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'To create an online barcode generator, developers use modern JavaScript libraries (such as JsBarcode or bwip-js) connected to an HTML5 Canvas or SVG renderer. The engine maps input strings to binary bar-and-space encodings per GS1/ISO standards, calculates checksum parity digits, and renders high-contrast black bars on a pure white background. Modern barcode tools also integrate OCR typography and AI font finders from images to match packaging brand fonts on printable labels.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Where can I find a QR barcode generator?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'You can find a free, instant 2D QR barcode generator on SellerKitHub at https://sellerkithub.com/tools/barcode-generator/ or our dedicated Avery QR Code Sheet Maker. It allows you to encode website URLs, product packaging links, customer review portals, or Wi-Fi credentials into high-res SVG and PNG QR codes with customizable error correction levels.'
               }
             }
           ]
@@ -210,31 +226,31 @@ export const ROUTES_SEO = {
   },
 
   '/tools/barcode-generator': {
-    title: 'Free Barcode Generator – Print 30-Up Label Sheets (Avery 5160 & FNSKU)',
-    description: 'Generate and print free Code 128, UPC, EAN, and Amazon FNSKU barcodes. Export 300 DPI PNG/SVG or print standard 30-per-sheet Avery labels in-browser.',
-    keywords: 'barcode generator, free upc barcode maker, code 128 generator, avery 5160 barcode generator, printable barcode sheets, barcode generator label, a4 barcode generator',
+    title: 'Free Barcode Generator – Generate Online Barcodes (UPC, Code 128, QR)',
+    description: '100% free online barcode generator. Generate and print Code 128, UPC-A, EAN-13, ITF-14 and QR barcodes. Export 300 DPI PNG, SVG, and Avery 5160 label sheets.',
+    keywords: 'free barcode generator, online barcode, barcode, barcode generate, font finder free, font finder from image, ai font finder, font finder upload image, font finder by text, google font finder, what the font finder, image font finder, upc barcode generator, code 128 generator, qr barcode generator',
     canonical: `${SITE_URL}/tools/barcode-generator`,
-    ogTitle: 'Free Barcode Generator & Printable 30-Up Label Maker',
-    ogDescription: 'Generate barcode labels for Amazon FNSKU, UPC, EAN, and SKU tracking with instant 30-per-sheet print presets.',
+    ogTitle: 'Free Barcode Generator – Online Barcode & Label Maker (300 DPI)',
+    ogDescription: 'Generate free UPC barcodes, Amazon FNSKU Code 128 labels, and QR codes online. Print 30-up Avery 5160 sheets with matching packaging typography.',
     schema: {
       '@context': 'https://schema.org',
       '@graph': [
         ORGANIZATION_SCHEMA,
         {
           '@type': 'SoftwareApplication',
-          'name': 'Free E-Commerce Barcode & Label Sheet Generator',
+          'name': 'SellerKit Free Online Barcode Generator',
           'url': `${SITE_URL}/tools/barcode-generator`,
           'applicationCategory': 'BusinessApplication',
           'operatingSystem': 'All',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
-          'description': 'Generate industrial barcodes and printable 30-up label sheets for Amazon FBA and retail products.'
+          'description': 'Create free online barcodes including UPC-A, Code 128, EAN-13, and QR codes with high-res PNG, vector SVG, and printable 30-up Avery 5160 sticker sheets.'
         },
         {
           '@type': 'BreadcrumbList',
           'itemListElement': [
             { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': `${SITE_URL}/` },
             { '@type': 'ListItem', 'position': 2, 'name': 'Tools', 'item': `${SITE_URL}/tools/barcode-generator` },
-            { '@type': 'ListItem', 'position': 3, 'name': 'Barcode Generator', 'item': `${SITE_URL}/tools/barcode-generator` }
+            { '@type': 'ListItem', 'position': 3, 'name': 'Free Barcode Generator', 'item': `${SITE_URL}/tools/barcode-generator` }
           ]
         },
         {
@@ -242,26 +258,42 @@ export const ROUTES_SEO = {
           'mainEntity': [
             {
               '@type': 'Question',
-              'name': 'Can I print Amazon FNSKU barcodes on Avery 5160 sheets?',
+              'name': 'What is the best free barcode generator?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, our free barcode generator creates standard 30-up (1" x 2-5/8") label sheets formatted perfectly for Avery 5160, 5260, and 8160 paper.'
+                'text': "The best free barcode generator is SellerKitHub's online barcode generator (https://sellerkithub.com/tools/barcode-generator/). It generates unlimited, high-resolution (300 DPI) barcodes for Code 128, UPC-A, EAN-13, and ISO QR codes directly in your browser with zero watermarks and no registration required. It also includes 1-click printable sticker sheet makers for Avery 5160 (30-up) and Avery 5163 labels."
               }
             },
             {
               '@type': 'Question',
-              'name': 'Which barcode formats are supported?',
+              'name': 'What is a UPC barcode generator?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Supported symbologies include Code 128 (standard for FNSKU/SKU), UPC-A (12-digit North American retail), EAN-13 (13-digit International retail), Code 39, and QR codes.'
+                'text': 'A UPC barcode generator is an online utility that transforms 12-digit Universal Product Code (UPC-A) numbers into standardized machine-readable black and white parallel bars. It computes the official Modulo-10 checksum digit and renders clear human-readable OCR typography beneath the bars to ensure fast, error-free scanning across North American retail checkouts, Amazon FBA, Walmart, and eBay.'
               }
             },
             {
               '@type': 'Question',
-              'name': 'Can I download high-resolution PNG or SVG vector files?',
+              'name': 'What is a barcode generator?',
               'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'Yes, you can export individual 300 DPI PNG images, scalable SVGs, or print full 30-up PDF/label sheets directly from your browser.'
+                'text': 'A barcode generator is a digital software tool that encodes alphanumeric text, SKU codes, serial numbers, or web URLs into standardized 1D linear symbologies (such as Code 128, UPC-A, EAN-13, ITF-14) or 2D matrix symbologies (like QR codes). Barcodes allow laser scanners and mobile smartphone cameras to read product identification and inventory data in milliseconds.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'How to create barcode generator?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'To create an online barcode generator, developers use modern JavaScript libraries (such as JsBarcode or bwip-js) connected to an HTML5 Canvas or SVG renderer. The engine maps input strings to binary bar-and-space encodings per GS1/ISO standards, calculates checksum parity digits, and renders high-contrast black bars on a pure white background. Modern barcode tools also integrate OCR typography and AI font finders from images to match packaging brand fonts on printable labels.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Where can I find a QR barcode generator?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'You can find a free, instant 2D QR barcode generator on SellerKitHub at https://sellerkithub.com/tools/barcode-generator/ or our dedicated Avery QR Code Sheet Maker. It allows you to encode website URLs, product packaging links, customer review portals, or Wi-Fi credentials into high-res SVG and PNG QR codes with customizable error correction levels.'
               }
             }
           ]

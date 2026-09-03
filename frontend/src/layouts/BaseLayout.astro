@@ -138,6 +138,8 @@ const hreflangAlternates = getAlternateHreflangs(pathname);
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SellerKitHub" />
+    <meta property="og:locale" content={currentLang === 'en' ? 'en_US' : currentLang} />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={ogDescription} />

@@ -29,6 +29,7 @@ import SEOGuide from '../components/SEOGuide';
 import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
 import AffiliateCTA from '../components/AffiliateCTA';
+import BarcodeSEOArticle from '../components/BarcodeSEOArticle';
 import { SEO_GUIDE_TRANSLATIONS } from '../i18n/seoGuide';
 
 const SAMPLE_PRESETS = [
@@ -596,6 +597,9 @@ Calculated via SellerKitHub.com`;
 
       {/* Cross-Tool Navigation Component */}
       <RelatedTools currentPath="/" lang={lang} />
+
+      {/* Comprehensive Barcode Generator & Packaging Typography SEO Authority Article (800-1200 words) */}
+      <BarcodeSEOArticle lang={lang} />
 
       {/* SEO Guide & Formula Article */}
       <SEOGuide

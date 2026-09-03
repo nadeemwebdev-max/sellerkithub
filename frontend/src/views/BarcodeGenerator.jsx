@@ -25,6 +25,7 @@ import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
 import AffiliateCTA from '../components/AffiliateCTA';
+import BarcodeSEOArticle from '../components/BarcodeSEOArticle';
 
 export const AVERY_TEMPLATES = [
   {
@@ -767,6 +768,9 @@ export default function BarcodeGenerator({ initialType = '', initialTemplateId =
 
         {/* Structured FAQ Section */}
         <div className="no-print">
+          {/* Comprehensive Barcode SEO Authority Guide */}
+          <BarcodeSEOArticle lang={lang} />
+
           {/* Cross-Tool Navigation Component */}
           <RelatedTools currentPath="/tools/barcode-generator" lang={lang} />
 
