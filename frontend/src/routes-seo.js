@@ -4,9 +4,11 @@ export const DEFAULT_OG_IMAGE = `${SITE_URL}/favicon-512x512.png`;
 const ORGANIZATION_SCHEMA = {
   '@type': 'Organization',
   '@id': `${SITE_URL}/#organization`,
-  'name': 'SellerKitHub',
+  'name': 'SellerKit Hub',
+  'alternateName': ['SellerKit', 'SellerKitHub'],
   'url': SITE_URL,
-  'logo': `${SITE_URL}/favicon.svg`,
+  'logo': `${SITE_URL}/favicon-512x512.png`,
+  'image': `${SITE_URL}/favicon-512x512.png`,
   'sameAs': [
     'https://twitter.com/sellerkithub',
     'https://github.com/sellerkithub'
@@ -35,8 +37,8 @@ export const ROUTES_SEO = {
           '@type': 'WebSite',
           '@id': `${SITE_URL}/#website`,
           'url': `${SITE_URL}/`,
-          'name': 'SellerKitHub',
-          'description': 'Free Online Barcode Generator & E-Commerce Seller Utilities',
+          'name': 'SellerKit Hub',
+          'alternateName': ['SellerKit', 'SellerKitHub', 'sellerkithub.com'],
           'publisher': { '@id': `${SITE_URL}/#organization` }
         },
         {

@@ -1,4 +1,6 @@
 # Cloudflare Pages 301 Permanent Redirects for SellerKitHub
+https://www.sellerkithub.com/* https://sellerkithub.com/:splat 301
+
 /amazon-fee-calculator /tools/amazon-fba-calculator 301
 /fba-shipping-calculator /tools/fba-shipping-calculator 301
 /walmart-fee-calculator /tools/walmart-fee-calculator 301

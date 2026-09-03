@@ -29,10 +29,15 @@ Allow: /tools/
 Allow: /blog/
 Allow: /fee-updates
 
-# Googlebot-Image Rules (Allow full image indexing for product image padder & barcode assets)
+# Googlebot-Image Rules (Allow full image indexing for favicons, product image padder & barcode assets)
 User-agent: Googlebot-Image
 Allow: /
+Allow: /favicon.ico
 Allow: /favicon.svg
+Allow: /favicon-48x48.png
+Allow: /favicon-192x192.png
+Allow: /favicon-512x512.png
+Allow: /apple-touch-icon.png
 
 # Bingbot Specific Rules
 User-agent: Bingbot
