@@ -4,6 +4,7 @@ import Logo from './Logo';
 import { ShieldCheck, ArrowUp } from 'lucide-react';
 import { getLocalizedPath } from '../i18n/utils';
 import { DEFAULT_LANG, LANGUAGES } from '../i18n/ui';
+import FlagIcon from './FlagIcon';
 
 export default function Footer({ currentLang = DEFAULT_LANG }) {
   const scrollToTop = () => {
@@ -138,7 +139,7 @@ export default function Footer({ currentLang = DEFAULT_LANG }) {
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
-                  <span>{l.flag}</span>
+                  <FlagIcon code={l.code} className="w-3.5 h-2.5" />
                   <span>{l.name}</span>
                 </a>
               ))}

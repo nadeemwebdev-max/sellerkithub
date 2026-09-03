@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { useCurrency, CURRENCIES, LANG_DEFAULT_CURRENCY } from '../context/CurrencyContext';
 import { LANGUAGES, DEFAULT_LANG } from '../i18n/ui';
+import FlagIcon from './FlagIcon';
 import { getLangFromUrl, useTranslations, getLocalizedPath, getCleanPath } from '../i18n/utils';
 
 export default function Navbar({ currentPath = '', currentLang = DEFAULT_LANG }) {
@@ -252,7 +253,7 @@ export default function Navbar({ currentPath = '', currentLang = DEFAULT_LANG })
                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-xs font-semibold text-slate-800 dark:text-slate-200 transition"
                 title={t('nav.selectLang')}
               >
-                <span className="text-sm leading-none">{currentLangObj.flag}</span>
+                <FlagIcon code={currentLangObj.code} className="w-4 h-3" />
                 <span className="font-sans uppercase font-bold text-[11px]">{currentLangObj.code}</span>
                 <ChevronDown className="w-3 h-3 text-slate-400" />
               </button>
@@ -284,7 +285,7 @@ export default function Navbar({ currentPath = '', currentLang = DEFAULT_LANG })
                       }`}
                     >
                       <span className="flex items-center gap-2">
-                        <span className="text-sm leading-none">{l.flag}</span>
+                        <FlagIcon code={l.code} className="w-4 h-3" />
                         <span>{l.name}</span>
                       </span>
                       <span className="text-[10px] font-mono opacity-70 uppercase">{l.code}</span>
@@ -399,7 +400,7 @@ export default function Navbar({ currentPath = '', currentLang = DEFAULT_LANG })
                         : 'bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-slate-200'
                     }`}
                   >
-                    <span>{l.flag}</span>
+                    <FlagIcon code={l.code} className="w-3.5 h-2.5" />
                     <span className="uppercase text-[10px]">{l.code}</span>
                   </a>
                 ))}
