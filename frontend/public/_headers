@@ -5,6 +5,9 @@
   X-Frame-Options: SAMEORIGIN
   Referrer-Policy: strict-origin-when-cross-origin
 
+https://sellerkithub.pages.dev/*
+  X-Robots-Tag: noindex
+
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
