@@ -198,6 +198,45 @@ export default function MarginMatrix({ lang: propLang }) {
         </div>
       </div>
 
+      {/* Master Profit Margin & Markup Guide */}
+      <article className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] text-slate-800 dark:text-slate-200 space-y-6 shadow-sm">
+        <div className="border-b border-slate-200 dark:border-white/10 pb-4">
+          <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-1">
+            <Lightbulb className="w-4 h-4" />
+            <span>Pricing Strategy Guide</span>
+          </div>
+          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+            Margin vs. Markup: The Mathematical Difference & Pricing Rules
+          </h2>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+            Understanding why confusing gross margin and cost markup leads to pricing errors and profit losses.
+          </p>
+        </div>
+
+        <div className="space-y-4 text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            1. The Mathematical Difference Between Gross Margin & Cost Markup
+          </h3>
+          <p>
+            Gross Profit Margin measures dollar profit as a percentage of <strong>total selling price (revenue)</strong>, whereas Cost Markup measures dollar profit as a percentage of <strong>cost of goods sold (COGS)</strong>. A common pricing mistake is adding a 50% markup to a $100 product (selling at $150), and assuming you have a 50% profit margin. In reality, $50 profit on a $150 retail price yields a 33.3% gross margin.
+          </p>
+
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            2. The Keystone Pricing Rule (100% Markup = 50% Gross Margin)
+          </h3>
+          <p>
+            In retail and e-commerce, Keystone Pricing refers to setting the retail selling price to double the sourcing cost (100% cost markup). A 100% markup yields exactly a 50% gross profit margin. This 50% margin buffer is essential for multi-channel sellers to absorb marketplace commissions (15%), shipping overhead (10%), and advertising spend (10-15%) while remaining net profitable.
+          </p>
+
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            3. Wholesale Discount Ladders & Retailer Margins
+          </h3>
+          <p>
+            When selling products wholesale to boutique stores or retail chains, retailers expect a 40% to 50% margin off the MSRP (Manufacturer's Suggested Retail Price). Establishing a structured wholesale pricing ladder ensures your brand maintains a healthy 30%+ gross margin even after granting standard wholesale volume discounts.
+          </p>
+        </div>
+      </article>
+
       {/* Author Bio & E-E-A-T Component */}
       <AuthorBio lang={lang} />
 

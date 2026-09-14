@@ -470,6 +470,45 @@ export default function GstCalculator({ lang: propLang }) {
         </div>
       </section>
 
+      {/* Master GST Tax Strategy Article */}
+      <article className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] text-slate-800 dark:text-slate-200 space-y-6 shadow-sm">
+        <div className="border-b border-slate-200 dark:border-white/10 pb-4">
+          <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-1">
+            <Lightbulb className="w-4 h-4" />
+            <span>Tax Compliance Strategy Guide</span>
+          </div>
+          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white">
+            E-Commerce GST Calculation Guide & Input Tax Credit (ITC)
+          </h2>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+            Understanding reverse GST extraction formulas, intra-state CGST/SGST splits, and claiming Input Tax Credit on seller fees.
+          </p>
+        </div>
+
+        <div className="space-y-4 text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            1. Extracting Base Price from GST Inclusive Slabs
+          </h3>
+          <p>
+            When product retail prices are listed as "GST Inclusive", calculating exact net revenue requires extracting the embedded tax component. The formula is: <code>Base Price = Gross Inclusive Price / (1 + (GST Rate / 100))</code>. For example, a $118 GST-inclusive product at 18% GST yields a base price of $100 and a tax amount of $18.
+          </p>
+
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            2. CGST, SGST, and IGST Tax Component Mechanics
+          </h3>
+          <p>
+            For sales completed within the seller's home state (intra-state), total GST is split equally into 50% CGST (Central Goods & Services Tax) and 50% SGST (State Goods & Services Tax). For inter-state shipments across state lines, 100% of the tax is charged as IGST (Integrated Goods & Services Tax).
+          </p>
+
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            3. Claiming Input Tax Credit (ITC) on Marketplace Fees
+          </h3>
+          <p>
+            E-commerce platforms (such as Amazon, Flipkart, and Meesho) charge 18% GST on all seller referral fees, closing fees, and FBA storage surcharges. Online sellers with active GST registration can claim Input Tax Credit (ITC) on all marketplace fees and logistics invoices, reducing total monthly tax liability.
+          </p>
+        </div>
+      </article>
+
       {/* Related Tools */}
       <RelatedTools currentPath="/tools/gst-calculator" lang={lang} />
 
