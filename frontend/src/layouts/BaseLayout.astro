@@ -28,7 +28,7 @@ const {
   title = routeMeta.title || 'SellerKit – Free E-Commerce Fee & Profit Calculators & Tools',
   description = routeMeta.description || 'Free multi-marketplace profit and fee calculators for Amazon FBA, Etsy, eBay, Shopify, and Meesho.',
   keywords = routeMeta.keywords || 'amazon fee calculator, etsy fee calculator, ebay profit calculator, meesho profit calculator',
-  canonical = `${SITE_URL}${pathname}`,
+  canonical = `${SITE_URL}${normalizedCleanPath}`,
   ogTitle = routeMeta.ogTitle || title,
   ogDescription = routeMeta.ogDescription || description,
   ogImage = routeMeta.ogImage || DEFAULT_OG_IMAGE,
@@ -114,6 +114,8 @@ const hreflangAlternates = getAlternateHreflangs(pathname);
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
