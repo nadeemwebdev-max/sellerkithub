@@ -12,32 +12,36 @@ import {
   ShieldCheck,
   BookOpen,
   BarChart3,
-  Lightbulb
+  Lightbulb,
+  Share2
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useI18n } from '../i18n/utils';
 import { TOOLS_TRANSLATIONS } from '../i18n/tools';
 import { getFaqsForLang } from '../i18n/faqs';
 import { calculateMasterProfit, exportToCSV } from '../utils/calculations';
+import { getParamNumber, buildShareUrl } from '../utils/shareUtils';
 import RelatedTools from '../components/RelatedTools';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
 import AffiliateCTA from '../components/AffiliateCTA';
+import ShareModal from '../components/ShareModal';
 
 export default function MarketplaceComparison({ lang: propLang }) {
   const { activeCurrency, format } = useCurrency();
   const { lang, t } = useI18n(propLang);
   const ct = (TOOLS_TRANSLATIONS[lang] || TOOLS_TRANSLATIONS.en).comparison;
 
-  // Unified Input State
-  const [sellingPrice, setSellingPrice] = useState(activeCurrency.defaultPrice || 35.00);
-  const [productCost, setProductCost] = useState(activeCurrency.defaultCost || 9.50);
-  const [shippingCost, setShippingCost] = useState(activeCurrency.defaultShip || 4.50);
-  const [marketingSpend, setMarketingSpend] = useState(2.00);
-  const [returnRate, setReturnRate] = useState(3);
+  // Unified Input State initialized from URL query params
+  const [sellingPrice, setSellingPrice] = useState(() => getParamNumber('price', activeCurrency.defaultPrice || 35.00));
+  const [productCost, setProductCost] = useState(() => getParamNumber('cost', activeCurrency.defaultCost || 9.50));
+  const [shippingCost, setShippingCost] = useState(() => getParamNumber('shipping', activeCurrency.defaultShip || 4.50));
+  const [marketingSpend, setMarketingSpend] = useState(() => getParamNumber('marketing', 2.00));
+  const [returnRate, setReturnRate] = useState(() => getParamNumber('returns', 3));
   const [copied, setCopied] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   // Compute all 5 platforms simultaneously
   const comparisons = useMemo(() => {
@@ -259,21 +263,32 @@ export default function MarketplaceComparison({ lang: propLang }) {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-2 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2">
             <button
               onClick={handleDownloadExcel}
-              className="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition shadow-md shadow-emerald-600/20"
+              className="py-3 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-emerald-600/20"
+              title="Download spreadsheet breakdown"
             >
               {downloaded ? <Check className="w-4 h-4 text-emerald-200" /> : <FileSpreadsheet className="w-4 h-4" />}
-              <span>{downloaded ? 'Downloaded!' : 'Download CSV'}</span>
+              <span className="truncate">{downloaded ? 'Downloaded!' : 'Download CSV'}</span>
             </button>
 
             <button
               onClick={copySummary}
-              className="flex-1 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition shadow-md shadow-brand-600/20"
+              className="py-3 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 dark:bg-white/10 dark:hover:bg-white/20 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition shadow-sm"
+              title="Copy comparison rankings"
             >
               {copied ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
-              <span>{copied ? 'Copied!' : 'Copy Ranking'}</span>
+              <span className="truncate">{copied ? 'Copied!' : 'Copy Ranking'}</span>
+            </button>
+
+            <button
+              onClick={() => setIsShareModalOpen(true)}
+              className="py-3 px-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-brand-600/20"
+              title="Share comparison link on Reddit, Discord, or Forums"
+            >
+              <Share2 className="w-4 h-4" />
+              <span>Share Link</span>
             </button>
           </div>
         </div>
@@ -346,6 +361,21 @@ export default function MarketplaceComparison({ lang: propLang }) {
         </div>
 
       </div>
+
+      {/* Share Calculation Modal */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        toolName="Marketplace Comparison (Amazon vs Etsy vs eBay vs Shopify)"
+        shareUrl={buildShareUrl('/tools/marketplace-comparison', {
+          price: sellingPrice,
+          cost: productCost,
+          shipping: shippingCost,
+          marketing: marketingSpend,
+          returns: returnRate
+        })}
+        summaryText={`Marketplace Profit Rankings (Price: ${format(sellingPrice)} | Cost: ${format(productCost)}):\n#1 Winner: ${bestPlatform.name} — Net Profit: ${format(bestPlatform.netProfit)} (${bestPlatform.netMarginPercent.toFixed(1)}% Margin)\nCompare across 5 platforms at SellerKitHub.com`}
+      />
 
       {/* Author Bio & E-E-A-T Component */}
       <AuthorBio 

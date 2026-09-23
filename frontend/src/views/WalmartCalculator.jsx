@@ -12,17 +12,20 @@ import {
   Lightbulb, 
   Store, 
   Truck,
-  PackageCheck
+  PackageCheck,
+  Share2
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useI18n } from '../i18n/utils';
 import { exportToCSV } from '../utils/calculations';
 import { trackEvent, TRACKED_EVENTS } from '../utils/analytics';
+import { getParamNumber, getParamString, buildShareUrl } from '../utils/shareUtils';
 import RelatedTools from '../components/RelatedTools';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
 import AffiliateCTA from '../components/AffiliateCTA';
+import ShareModal from '../components/ShareModal';
 
 import { getFaqsForLang } from '../i18n/faqs';
 
@@ -50,24 +53,25 @@ export default function WalmartCalculator({ lang: propLang }) {
 
   const [copied, setCopied] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
-  // Form Inputs
-  const [sellingPrice, setSellingPrice] = useState(activeCurrency.defaultPrice || 38.00);
-  const [itemCost, setItemCost] = useState(activeCurrency.defaultCost || 10.50);
-  const [categoryId, setCategoryId] = useState('home');
-  const [fulfillmentType, setFulfillmentType] = useState('wfs'); // 'wfs' or 'mfn'
+  // Form Inputs initialized with URL params if present
+  const [sellingPrice, setSellingPrice] = useState(() => getParamNumber('price', activeCurrency.defaultPrice || 38.00));
+  const [itemCost, setItemCost] = useState(() => getParamNumber('cost', activeCurrency.defaultCost || 10.50));
+  const [categoryId, setCategoryId] = useState(() => getParamString('category', 'home'));
+  const [fulfillmentType, setFulfillmentType] = useState(() => getParamString('fulfillment', 'wfs')); // 'wfs' or 'mfn'
   
   // WFS fulfillment costs
-  const [wfsFulfillmentFee, setWfsFulfillmentFee] = useState(activeCurrency.defaultShip || 3.45);
-  const [inboundFreight, setInboundFreight] = useState(1.20);
-  const [monthlyStorage, setMonthlyStorage] = useState(0.30);
+  const [wfsFulfillmentFee, setWfsFulfillmentFee] = useState(() => getParamNumber('wfsFee', activeCurrency.defaultShip || 3.45));
+  const [inboundFreight, setInboundFreight] = useState(() => getParamNumber('inbound', 1.20));
+  const [monthlyStorage, setMonthlyStorage] = useState(() => getParamNumber('storage', 0.30));
   
   // MFN merchant costs
-  const [merchantShipping, setMerchantShipping] = useState(activeCurrency.defaultShip || 5.50);
+  const [merchantShipping, setMerchantShipping] = useState(() => getParamNumber('mfnShip', activeCurrency.defaultShip || 5.50));
   
   // Marketing & Returns
-  const [adSpendPerUnit, setAdSpendPerUnit] = useState(2.50);
-  const [returnRate, setReturnRate] = useState(3.0);
+  const [adSpendPerUnit, setAdSpendPerUnit] = useState(() => getParamNumber('ads', 2.50));
+  const [returnRate, setReturnRate] = useState(() => getParamNumber('returns', 3.0));
 
   const selectedCategory = WALMART_CATEGORIES.find(c => c.id === categoryId) || WALMART_CATEGORIES[0];
 
@@ -474,26 +478,56 @@ Calculated with SellerKitHub.com`;
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-2 pt-2">
-              <button
-                onClick={copySummary}
-                className="flex-1 py-3 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition"
-              >
-                {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
-                <span>{copied ? t('btn.copied') : t('btn.copySummary')}</span>
-              </button>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2">
               <button
                 onClick={handleDownloadExcel}
-                className="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-lg shadow-emerald-600/20"
+                className="py-3 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-emerald-600/20"
+                title="Download spreadsheet breakdown"
               >
                 {downloaded ? <Check className="w-4 h-4" /> : <FileSpreadsheet className="w-4 h-4" />}
-                <span>{downloaded ? t('btn.copied') : t('btn.downloadExcel')}</span>
+                <span className="truncate">{downloaded ? t('btn.copied') : t('btn.downloadExcel')}</span>
+              </button>
+              <button
+                onClick={copySummary}
+                className="py-3 px-3 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition"
+                title="Copy text summary"
+              >
+                {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                <span className="truncate">{copied ? t('btn.copied') : t('btn.copySummary')}</span>
+              </button>
+              <button
+                onClick={() => setIsShareModalOpen(true)}
+                className="py-3 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-blue-600/20"
+                title="Share calculation link on Reddit, Discord, or Forums"
+              >
+                <Share2 className="w-4 h-4" />
+                <span>Share Link</span>
               </button>
             </div>
           </div>
         </div>
 
       </div>
+
+      {/* Share Calculation Modal */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        toolName={`Walmart Seller Profit Calculator (${fulfillmentType.toUpperCase()})`}
+        shareUrl={buildShareUrl('/tools/walmart-fee-calculator', {
+          price: sellingPrice,
+          cost: itemCost,
+          category: categoryId,
+          fulfillment: fulfillmentType,
+          wfsFee: wfsFulfillmentFee,
+          inbound: inboundFreight,
+          storage: monthlyStorage,
+          mfnShip: merchantShipping,
+          ads: adSpendPerUnit,
+          returns: returnRate
+        })}
+        summaryText={`Walmart Marketplace Profit Analysis (${activeCurrency.code}):\nSelling Price: ${format(calculations.price)} | Sourcing (COGS): ${format(calculations.cogs)}\nWalmart Referral (${selectedCategory.rate}%): ${format(calculations.effectiveReferralFee)} | Fulfillment: ${format(calculations.totalFulfillmentCost)}\nNET PROFIT: ${format(calculations.netProfit)} (${calculations.netMarginPercent.toFixed(2)}% Margin)\nROI: ${calculations.roiPercent.toFixed(1)}%`}
+      />
 
       {/* Master Walmart Strategy Article */}
       <article className="my-12 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] text-slate-800 dark:text-slate-200 space-y-6 shadow-sm">

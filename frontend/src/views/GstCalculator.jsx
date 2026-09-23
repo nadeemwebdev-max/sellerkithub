@@ -8,18 +8,21 @@ import {
   BookOpen,
   Lightbulb,
   FileSpreadsheet,
-  Building2
+  Building2,
+  Share2
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useI18n } from '../i18n/utils';
 import { TOOLS_TRANSLATIONS } from '../i18n/tools';
 import { getFaqsForLang } from '../i18n/faqs';
 import { exportToCSV } from '../utils/calculations';
+import { getParamNumber, getParamString, buildShareUrl } from '../utils/shareUtils';
 import RelatedTools from '../components/RelatedTools';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
 import AffiliateCTA from '../components/AffiliateCTA';
+import ShareModal from '../components/ShareModal';
 
 export default function GstCalculator({ lang: propLang }) {
   const { activeCurrency, format } = useCurrency();
@@ -28,12 +31,13 @@ export default function GstCalculator({ lang: propLang }) {
 
   const [copied, setCopied] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
-  // Form Inputs
-  const [calculationMode, setCalculationMode] = useState('exclusive'); // 'exclusive' (Add GST) or 'inclusive' (Extract GST)
-  const [amount, setAmount] = useState(activeCurrency.code === 'INR' ? 1000 : 100);
-  const [gstRate, setGstRate] = useState(18); // 5, 12, 18, 28, or custom
-  const [transactionType, setTransactionType] = useState('intrastate');
+  // Form Inputs initialized with URL params if present
+  const [calculationMode, setCalculationMode] = useState(() => getParamString('mode', 'exclusive')); // 'exclusive' or 'inclusive'
+  const [amount, setAmount] = useState(() => getParamNumber('amount', activeCurrency.code === 'INR' ? 1000 : 100));
+  const [gstRate, setGstRate] = useState(() => getParamNumber('rate', 18)); // 5, 12, 18, 28, or custom
+  const [transactionType, setTransactionType] = useState(() => getParamString('type', 'intrastate'));
 
   const standardSlabs = [0, 5, 12, 18, 28];
 
@@ -327,21 +331,32 @@ export default function GstCalculator({ lang: propLang }) {
             </div>
           </div>
 
-          <div className="flex gap-2 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2">
             <button
               onClick={handleDownloadCSV}
-              className="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition"
+              className="py-3 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-emerald-600/20"
+              title="Download spreadsheet breakdown"
             >
               {downloaded ? <Check className="w-4 h-4" /> : <FileSpreadsheet className="w-4 h-4" />}
-              <span>Download CSV</span>
+              <span className="truncate">Download CSV</span>
             </button>
 
             <button
               onClick={copySummary}
-              className="flex-1 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition"
+              className="py-3 px-3 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition"
+              title="Copy tax invoice summary"
             >
               {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-              <span>Copy Tax Invoice</span>
+              <span className="truncate">Copy Invoice</span>
+            </button>
+
+            <button
+              onClick={() => setIsShareModalOpen(true)}
+              className="py-3 px-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-brand-600/20"
+              title="Share calculation link on Reddit, Discord, or Forums"
+            >
+              <Share2 className="w-4 h-4" />
+              <span>Share Link</span>
             </button>
           </div>
         </div>
@@ -396,6 +411,20 @@ export default function GstCalculator({ lang: propLang }) {
         </div>
 
       </div>
+
+      {/* Share Calculation Modal */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        toolName="GST & Sales Tax Calculator"
+        shareUrl={buildShareUrl('/tools/gst-calculator', {
+          mode: calculationMode,
+          amount,
+          rate: gstRate,
+          type: transactionType
+        })}
+        summaryText={`GST Tax Breakdown (${activeCurrency.code}):\nMode: ${calculationMode === 'exclusive' ? 'Exclusive (+Tax)' : 'Inclusive (Extracted)'} | Rate: ${gstRate}%\nNet Base Price: ${format(result.netBasePrice)} | Total Tax: ${format(result.gstAmount)}\nGross Total: ${format(result.grossTotalPrice)}`}
+      />
 
       {/* Author Bio Component */}
       <AuthorBio 

@@ -11,18 +11,21 @@ import {
   Target,
   FileSpreadsheet,
   Zap,
-  ArrowRight
+  ArrowRight,
+  Share2
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useI18n } from '../i18n/utils';
 import { TOOLS_TRANSLATIONS } from '../i18n/tools';
 import { getFaqsForLang } from '../i18n/faqs';
 import { exportToCSV } from '../utils/calculations';
+import { getParamNumber, buildShareUrl } from '../utils/shareUtils';
 import RelatedTools from '../components/RelatedTools';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
 import AffiliateCTA from '../components/AffiliateCTA';
+import ShareModal from '../components/ShareModal';
 
 export default function RoasCalculator({ lang: propLang }) {
   const { activeCurrency, format } = useCurrency();
@@ -31,15 +34,16 @@ export default function RoasCalculator({ lang: propLang }) {
 
   const [copied, setCopied] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
-  // Form Inputs
-  const [monthlyAdSpend, setMonthlyAdSpend] = useState(1500);
-  const [adRevenue, setAdRevenue] = useState(6000);
-  const [unitCost, setUnitCost] = useState(activeCurrency.defaultCost || 12.00);
-  const [unitSellingPrice, setUnitSellingPrice] = useState(activeCurrency.defaultPrice || 39.99);
-  const [platformFeePct, setPlatformFeePct] = useState(15);
-  const [shippingCost, setShippingCost] = useState(activeCurrency.defaultShip || 4.50);
-  const [totalOrders, setTotalOrders] = useState(150);
+  // Form Inputs initialized with URL params if present
+  const [monthlyAdSpend, setMonthlyAdSpend] = useState(() => getParamNumber('spend', 1500));
+  const [adRevenue, setAdRevenue] = useState(() => getParamNumber('revenue', 6000));
+  const [unitCost, setUnitCost] = useState(() => getParamNumber('cost', activeCurrency.defaultCost || 12.00));
+  const [unitSellingPrice, setUnitSellingPrice] = useState(() => getParamNumber('price', activeCurrency.defaultPrice || 39.99));
+  const [platformFeePct, setPlatformFeePct] = useState(() => getParamNumber('fee', 15));
+  const [shippingCost, setShippingCost] = useState(() => getParamNumber('shipping', activeCurrency.defaultShip || 4.50));
+  const [totalOrders, setTotalOrders] = useState(() => getParamNumber('orders', 150));
 
   // Calculations
   const result = useMemo(() => {
@@ -427,9 +431,54 @@ export default function RoasCalculator({ lang: propLang }) {
             </div>
           </div>
 
+          {/* Action Buttons */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2">
+            <button
+              onClick={handleDownloadCSV}
+              className="py-3 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-emerald-600/20"
+              title="Download spreadsheet breakdown"
+            >
+              {downloaded ? <Check className="w-4 h-4" /> : <FileSpreadsheet className="w-4 h-4" />}
+              <span className="truncate">{downloaded ? t('btn.copied') : 'Download CSV'}</span>
+            </button>
+            <button
+              onClick={copySummary}
+              className="py-3 px-3 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition"
+              title="Copy text summary"
+            >
+              {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+              <span className="truncate">{copied ? t('btn.copied') : t('btn.copySummary')}</span>
+            </button>
+            <button
+              onClick={() => setIsShareModalOpen(true)}
+              className="py-3 px-3 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-emerald-700/20"
+              title="Share calculation link on Reddit, Discord, or Forums"
+            >
+              <Share2 className="w-4 h-4" />
+              <span>Share Link</span>
+            </button>
+          </div>
+
         </div>
 
       </div>
+
+      {/* Share Calculation Modal */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        toolName="Target & Break-Even ROAS Calculator"
+        shareUrl={buildShareUrl('/tools/roas-calculator', {
+          spend: monthlyAdSpend,
+          revenue: adRevenue,
+          cost: unitCost,
+          price: unitSellingPrice,
+          fee: platformFeePct,
+          shipping: shippingCost,
+          orders: totalOrders
+        })}
+        summaryText={`ROAS & Ad Profitability Breakdown (${activeCurrency.code}):\nRealized ROAS: ${result.realisedRoasRatio.toFixed(2)}x | Break-Even ROAS Required: ${result.breakEvenRoasRatio.toFixed(2)}x\nMonthly Ad Spend: ${format(monthlyAdSpend)} | Attributed Revenue: ${format(adRevenue)}\nNet Ad Profit: ${format(result.netAdProfit)} (${result.netMarginPct.toFixed(1)}% Net Margin)\nCAC: ${format(result.cac)} | POAS: ${result.poasRatio.toFixed(2)}x`}
+      />
 
       {/* Author Bio Component */}
       <AuthorBio 

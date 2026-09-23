@@ -16,13 +16,16 @@ import {
   Image as ImageIcon,
   Barcode,
   ArrowRight,
-  Zap
+  Zap,
+  Share2
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useI18n } from '../i18n/utils';
 import { getFaqsForLang } from '../i18n/faqs';
+import { getSectionTranslations } from '../i18n/sections';
 import { calculateMasterProfit, exportToCSV } from '../utils/calculations';
 import { trackEvent, TRACKED_EVENTS } from '../utils/analytics';
+import { getParamNumber, getParamString, buildShareUrl } from '../utils/shareUtils';
 import RelatedTools from '../components/RelatedTools';
 import FAQSection from '../components/FAQSection';
 import SEOGuide from '../components/SEOGuide';
@@ -30,6 +33,7 @@ import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
 import AffiliateCTA from '../components/AffiliateCTA';
 import BarcodeSEOArticle from '../components/BarcodeSEOArticle';
+import ShareModal from '../components/ShareModal';
 import { SEO_GUIDE_TRANSLATIONS } from '../i18n/seoGuide';
 
 const SAMPLE_PRESETS = [
@@ -84,18 +88,19 @@ export default function Home({ lang: propLang }) {
   const { lang, t } = useI18n(propLang);
   const [copied, setCopied] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
-  // Form State
-  const [platform, setPlatform] = useState('amazon');
-  const [sellingPrice, setSellingPrice] = useState(activeCurrency.defaultPrice || 29.99);
-  const [productCost, setProductCost] = useState(activeCurrency.defaultCost || 8.50);
-  const [shippingCost, setShippingCost] = useState(activeCurrency.defaultShip || 4.50);
-  const [referralRate, setReferralRate] = useState(15);
-  const [fulfillmentType, setFulfillmentType] = useState('fba');
-  const [fbaFee, setFbaFee] = useState(3.86);
-  const [marketingSpend, setMarketingSpend] = useState(2.00);
-  const [returnRate, setReturnRate] = useState(3);
-  const [miscCost, setMiscCost] = useState(0.50);
+  // Form State initialized from URL query params if present
+  const [platform, setPlatform] = useState(() => getParamString('platform', 'amazon'));
+  const [sellingPrice, setSellingPrice] = useState(() => getParamNumber('price', activeCurrency.defaultPrice || 29.99));
+  const [productCost, setProductCost] = useState(() => getParamNumber('cost', activeCurrency.defaultCost || 8.50));
+  const [shippingCost, setShippingCost] = useState(() => getParamNumber('shipping', activeCurrency.defaultShip || 4.50));
+  const [referralRate, setReferralRate] = useState(() => getParamNumber('referral', 15));
+  const [fulfillmentType, setFulfillmentType] = useState(() => getParamString('fulfillment', 'fba'));
+  const [fbaFee, setFbaFee] = useState(() => getParamNumber('fba', 3.86));
+  const [marketingSpend, setMarketingSpend] = useState(() => getParamNumber('marketing', 2.00));
+  const [returnRate, setReturnRate] = useState(() => getParamNumber('returns', 3));
+  const [miscCost, setMiscCost] = useState(() => getParamNumber('misc', 0.50));
   const [offsiteAdsActive, setOffsiteAdsActive] = useState(false);
 
   // Synchronize defaults when platform changes
@@ -516,22 +521,33 @@ Calculated via SellerKitHub.com`;
               </div>
             </div>
 
-            {/* Copy & Excel Download Actions */}
-            <div className="flex flex-col sm:flex-row gap-2">
+            {/* Copy, Excel Download & Share Actions */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               <button
                 onClick={handleDownloadExcel}
-                className="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition shadow-md shadow-emerald-600/20"
+                className="py-3 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-emerald-600/20"
+                title="Download spreadsheet breakdown"
               >
                 {downloaded ? <Check className="w-4 h-4 text-emerald-200" /> : <FileSpreadsheet className="w-4 h-4" />}
-                <span>{downloaded ? t('btn.copied') : t('btn.downloadExcel')}</span>
+                <span className="truncate">{downloaded ? t('btn.copied') : t('btn.downloadExcel')}</span>
               </button>
 
               <button
                 onClick={copySummary}
-                className="flex-1 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition shadow-lg shadow-brand-600/20"
+                className="py-3 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 dark:bg-white/10 dark:hover:bg-white/20 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition shadow-sm"
+                title="Copy text summary"
               >
                 {copied ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
-                <span>{copied ? t('btn.copied') : t('btn.copySummary')}</span>
+                <span className="truncate">{copied ? t('btn.copied') : t('btn.copySummary')}</span>
+              </button>
+
+              <button
+                onClick={() => setIsShareModalOpen(true)}
+                className="py-3 px-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition shadow-lg shadow-brand-600/20"
+                title="Share calculation link on Reddit, Discord, or Forums"
+              >
+                <Share2 className="w-4 h-4" />
+                <span>Share Link</span>
               </button>
             </div>
 
@@ -540,6 +556,26 @@ Calculated via SellerKitHub.com`;
         </div>
 
       </div>
+
+      {/* Share Calculation Modal */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        toolName={`E-Commerce Profit Calculator (${platform.toUpperCase()})`}
+        shareUrl={buildShareUrl('/', {
+          platform,
+          price: sellingPrice,
+          cost: productCost,
+          shipping: shippingCost,
+          referral: referralRate,
+          fulfillment: fulfillmentType,
+          fba: fbaFee,
+          marketing: marketingSpend,
+          returns: returnRate,
+          misc: miscCost
+        })}
+        summaryText={`E-Commerce Profit Analysis (${platform.toUpperCase()} - ${activeCurrency.code}):\nSelling Price: ${format(result.grossRevenue)} | COGS: ${format(result.productCost)}\nPlatform & Fulfillment Fees: ${format(result.platformFee + result.fulfillmentFee)}\nNET PROFIT: ${format(result.netProfit)} (${result.netMarginPercent.toFixed(2)}% Margin)\nROI: ${result.roiPercent.toFixed(1)}%`}
+      />
 
       {/* Sticky Mobile Floating Profit Summary Banner */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-white/10 px-4 py-3 shadow-2xl flex items-center justify-between">

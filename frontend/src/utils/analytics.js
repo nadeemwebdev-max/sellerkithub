@@ -30,4 +30,5 @@ export const TRACKED_EVENTS = {
   BARCODE_GENERATE: 'generate_barcode',
   IMAGE_RESIZE: 'resize_image',
   TOOL_CLICK: 'click_related_tool',
+  SHARE_LINK: 'share_link',
 };

@@ -1,16 +1,18 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { TrendingUp, Copy, Check, RefreshCw, Layers, ShieldCheck, FileSpreadsheet, BookOpen, BarChart3, Lightbulb, DownloadCloud, Sparkles, Package } from 'lucide-react';
+import { TrendingUp, Copy, Check, RefreshCw, Layers, ShieldCheck, FileSpreadsheet, BookOpen, BarChart3, Lightbulb, DownloadCloud, Sparkles, Package, Share2 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useI18n } from '../i18n/utils';
 import { getFaqsForLang } from '../i18n/faqs';
 import { getSectionTranslations } from '../i18n/sections';
 import { calculateMasterProfit, exportToCSV } from '../utils/calculations';
 import { trackEvent, TRACKED_EVENTS } from '../utils/analytics';
+import { getParamNumber, getParamString, buildShareUrl } from '../utils/shareUtils';
 import RelatedTools from '../components/RelatedTools';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
 import AffiliateCTA from '../components/AffiliateCTA';
+import ShareModal from '../components/ShareModal';
 
 export default function EtsyCalculator({ isDigitalRoute: initialDigitalRoute = false, lang: propLang }) {
   const { activeCurrency, format } = useCurrency();
@@ -18,15 +20,16 @@ export default function EtsyCalculator({ isDigitalRoute: initialDigitalRoute = f
   const sec = getSectionTranslations(lang);
   const isDigitalRoute = initialDigitalRoute || (typeof window !== 'undefined' && window.location.pathname.includes('digital'));
 
-  // Input States
-  const [productType, setProductType] = useState(isDigitalRoute ? 'digital' : 'physical');
-  const [sellingPrice, setSellingPrice] = useState(isDigitalRoute ? 12.00 : 45.00);
-  const [shippingCharged, setShippingCharged] = useState(0.00);
-  const [itemCost, setItemCost] = useState(isDigitalRoute ? 0.50 : 12.00);
-  const [actualShippingCost, setActualShippingCost] = useState(isDigitalRoute ? 0.00 : 4.50);
-  const [offsiteAdsTier, setOffsiteAdsTier] = useState(0); // 0 = None, 15 = Optional 15%, 12 = Mandatory 12%
+  // Input States initialized from URL params if present
+  const [productType, setProductType] = useState(() => getParamString('type', isDigitalRoute ? 'digital' : 'physical'));
+  const [sellingPrice, setSellingPrice] = useState(() => getParamNumber('price', isDigitalRoute ? 12.00 : 45.00));
+  const [shippingCharged, setShippingCharged] = useState(() => getParamNumber('shipCharged', 0.00));
+  const [itemCost, setItemCost] = useState(() => getParamNumber('cost', isDigitalRoute ? 0.50 : 12.00));
+  const [actualShippingCost, setActualShippingCost] = useState(() => getParamNumber('actualShip', isDigitalRoute ? 0.00 : 4.50));
+  const [offsiteAdsTier, setOffsiteAdsTier] = useState(() => getParamNumber('offsite', 0)); // 0 = None, 15 = Optional 15%, 12 = Mandatory 12%
   const [copied, setCopied] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   useEffect(() => {
     if (isDigitalRoute) {
@@ -340,21 +343,32 @@ Calculated with SellerKitHub.com`;
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               <button
                 onClick={handleDownloadExcel}
-                className="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition shadow-md shadow-emerald-600/20"
+                className="py-3 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-emerald-600/20"
+                title="Download spreadsheet breakdown"
               >
                 {downloaded ? <Check className="w-4 h-4 text-emerald-200" /> : <FileSpreadsheet className="w-4 h-4" />}
-                <span>{downloaded ? t('btn.copied') : t('btn.downloadExcel')}</span>
+                <span className="truncate">{downloaded ? t('btn.copied') : t('btn.downloadExcel')}</span>
               </button>
 
               <button
                 onClick={copySummary}
-                className="flex-1 py-3 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition shadow-md shadow-orange-600/20"
+                className="py-3 px-3 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-orange-600/20"
+                title="Copy text summary"
               >
                 {copied ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
-                <span>{copied ? t('btn.copied') : t('btn.copySummary')}</span>
+                <span className="truncate">{copied ? t('btn.copied') : t('btn.copySummary')}</span>
+              </button>
+
+              <button
+                onClick={() => setIsShareModalOpen(true)}
+                className="py-3 px-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-brand-600/20"
+                title="Share calculation link on Reddit, Discord, or Forums"
+              >
+                <Share2 className="w-4 h-4" />
+                <span>Share Link</span>
               </button>
             </div>
           </div>
@@ -363,6 +377,22 @@ Calculated with SellerKitHub.com`;
         </div>
 
       </div>
+
+      {/* Share Calculation Modal */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        toolName={productType === 'digital' ? 'Etsy Digital Downloads Profit Calculator' : 'Etsy Fee & Net Profit Calculator'}
+        shareUrl={buildShareUrl(isDigitalRoute ? '/tools/etsy-digital-fee-calculator' : '/tools/etsy-fee-calculator', {
+          type: productType,
+          price: sellingPrice,
+          shipCharged: shippingCharged,
+          cost: itemCost,
+          actualShip: actualShippingCost,
+          offsite: offsiteAdsTier
+        })}
+        summaryText={`Etsy Seller Profit Breakdown (${activeCurrency.code}):\nSelling Price: ${format(sellingPrice)} | Item Cost: ${format(itemCost)}\nTotal Etsy Deductions: ${format(calculations.totalEtsyFees)}\nNET PROFIT: ${format(calculations.netProfit)} (${calculations.netMarginPercent.toFixed(2)}% Margin)`}
+      />
 
       {/* Author Bio & E-E-A-T Component */}
       <AuthorBio 

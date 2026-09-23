@@ -10,27 +10,31 @@ import {
   BookOpen,
   BarChart3,
   Lightbulb,
-  ShieldCheck
+  ShieldCheck,
+  Share2
 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useI18n } from '../i18n/utils';
 import { TOOLS_TRANSLATIONS } from '../i18n/tools';
 import { getFaqsForLang } from '../i18n/faqs';
 import { exportToCSV } from '../utils/calculations';
+import { getParamNumber, buildShareUrl } from '../utils/shareUtils';
 import RelatedTools from '../components/RelatedTools';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
 import AffiliateCTA from '../components/AffiliateCTA';
+import ShareModal from '../components/ShareModal';
 
 export default function MarginMatrix({ lang: propLang }) {
   const { activeCurrency, format } = useCurrency();
   const { lang, t } = useI18n(propLang);
   const mt = (TOOLS_TRANSLATIONS[lang] || TOOLS_TRANSLATIONS.en).margin;
 
-  const [cost, setCost] = useState(activeCurrency.defaultCost || 12.00);
+  const [cost, setCost] = useState(() => getParamNumber('cost', activeCurrency.defaultCost || 12.00));
   const [copied, setCopied] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const tiers = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 75, 80, 90];
 
@@ -128,10 +132,18 @@ export default function MarginMatrix({ lang: propLang }) {
 
             <button
               onClick={copyCSV}
-              className="px-3.5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs flex items-center gap-1.5 transition shadow-sm"
+              className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 dark:bg-white/10 dark:hover:bg-white/20 text-white font-semibold text-xs flex items-center gap-1.5 transition shadow-sm"
             >
               {copied ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
               <span>{copied ? t('btn.copied') : t('btn.copySummary')}</span>
+            </button>
+
+            <button
+              onClick={() => setIsShareModalOpen(true)}
+              className="px-3.5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs flex items-center gap-1.5 transition shadow-sm"
+            >
+              <Share2 className="w-4 h-4" />
+              <span>Share Link</span>
             </button>
           </div>
         </div>
@@ -248,6 +260,15 @@ export default function MarginMatrix({ lang: propLang }) {
 
       {/* Structured FAQ Section */}
       <FAQSection lang={lang} faqs={faqs} />
+
+      {/* Share Calculation Modal */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        toolName="E-Commerce Profit Margin & Wholesale Matrix"
+        shareUrl={buildShareUrl('/tools/profit-margin-calculator', { cost })}
+        summaryText={`Profit Margin & Pricing Matrix (${activeCurrency.code}):\nUnit Sourcing Cost: ${format(cost)}\nKeystone Price (50% Margin): ${format(cost * 2)} | 40% Margin Price: ${format(cost / 0.6)}\nCalculated via SellerKitHub.com`}
+      />
     </div>
   );
 }

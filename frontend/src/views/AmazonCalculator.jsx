@@ -1,16 +1,18 @@
 import React, { useState, useMemo } from 'react';
-import { TrendingUp, Copy, Check, RefreshCw, Layers, ShieldCheck, FileSpreadsheet, BookOpen, BarChart3, Lightbulb, PackageCheck, Truck } from 'lucide-react';
+import { TrendingUp, Copy, Check, RefreshCw, Layers, ShieldCheck, FileSpreadsheet, BookOpen, BarChart3, Lightbulb, PackageCheck, Truck, Share2 } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import { useI18n } from '../i18n/utils';
 import { getFaqsForLang } from '../i18n/faqs';
 import { getSectionTranslations } from '../i18n/sections';
 import { exportToCSV } from '../utils/calculations';
 import { trackEvent, TRACKED_EVENTS } from '../utils/analytics';
+import { getParamNumber, buildShareUrl } from '../utils/shareUtils';
 import RelatedTools from '../components/RelatedTools';
 import FAQSection from '../components/FAQSection';
 import AdPlaceholder from '../components/AdPlaceholder';
 import AuthorBio from '../components/AuthorBio';
 import AffiliateCTA from '../components/AffiliateCTA';
+import ShareModal from '../components/ShareModal';
 
 export default function AmazonCalculator({ isShippingRoute: initialShippingRoute = false, lang: propLang }) {
   const { activeCurrency, format } = useCurrency();
@@ -20,17 +22,18 @@ export default function AmazonCalculator({ isShippingRoute: initialShippingRoute
 
   const [copied, setCopied] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
-  // Form Inputs
-  const [sellingPrice, setSellingPrice] = useState(34.99);
-  const [itemCost, setItemCost] = useState(9.00);
-  const [shippingToAmazon, setShippingToAmazon] = useState(1.50);
-  const [merchantShippingCost, setMerchantShippingCost] = useState(6.00);
-  const [referralRate, setReferralRate] = useState(15);
-  const [fbaFee, setFbaFee] = useState(3.86);
-  const [monthlyStorage, setMonthlyStorage] = useState(0.35);
-  const [ppcSpend, setPpcSpend] = useState(3.00);
-  const [returnRate, setReturnRate] = useState(4);
+  // Form Inputs initialized with URL params if present
+  const [sellingPrice, setSellingPrice] = useState(() => getParamNumber('price', 34.99));
+  const [itemCost, setItemCost] = useState(() => getParamNumber('cost', 9.00));
+  const [shippingToAmazon, setShippingToAmazon] = useState(() => getParamNumber('shipToFba', 1.50));
+  const [merchantShippingCost, setMerchantShippingCost] = useState(() => getParamNumber('fbmShip', 6.00));
+  const [referralRate, setReferralRate] = useState(() => getParamNumber('referral', 15));
+  const [fbaFee, setFbaFee] = useState(() => getParamNumber('fba', 3.86));
+  const [monthlyStorage, setMonthlyStorage] = useState(() => getParamNumber('storage', 0.35));
+  const [ppcSpend, setPpcSpend] = useState(() => getParamNumber('ppc', 3.00));
+  const [returnRate, setReturnRate] = useState(() => getParamNumber('returns', 4));
 
   // FBA vs FBM Calculations
   const calculations = useMemo(() => {
@@ -355,21 +358,32 @@ Calculated with SellerKitHub.com`;
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               <button
                 onClick={handleDownloadExcel}
-                className="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition shadow-md shadow-emerald-600/20"
+                className="py-3 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-emerald-600/20"
+                title="Download spreadsheet breakdown"
               >
                 {downloaded ? <Check className="w-4 h-4 text-emerald-200" /> : <FileSpreadsheet className="w-4 h-4" />}
-                <span>{downloaded ? t('btn.copied') : t('btn.downloadExcel')}</span>
+                <span className="truncate">{downloaded ? t('btn.copied') : t('btn.downloadExcel')}</span>
               </button>
 
               <button
                 onClick={copySummary}
-                className="flex-1 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition shadow-md shadow-amber-600/20"
+                className="py-3 px-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-amber-600/20"
+                title="Copy text summary"
               >
                 {copied ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
-                <span>{copied ? t('btn.copied') : t('btn.copySummary')}</span>
+                <span className="truncate">{copied ? t('btn.copied') : t('btn.copySummary')}</span>
+              </button>
+
+              <button
+                onClick={() => setIsShareModalOpen(true)}
+                className="py-3 px-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition shadow-md shadow-brand-600/20"
+                title="Share calculation link on Reddit, Discord, or Forums"
+              >
+                <Share2 className="w-4 h-4" />
+                <span>Share Link</span>
               </button>
             </div>
           </div>
@@ -378,6 +392,25 @@ Calculated with SellerKitHub.com`;
         </div>
 
       </div>
+
+      {/* Share Calculation Modal */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        toolName={isShippingRoute ? 'Amazon FBA Shipping & Placement Calculator' : 'Amazon FBA vs FBM Profit Calculator'}
+        shareUrl={buildShareUrl(isShippingRoute ? '/tools/fba-shipping-calculator' : '/tools/amazon-fba-calculator', {
+          price: sellingPrice,
+          cost: itemCost,
+          shipToFba: shippingToAmazon,
+          fbmShip: merchantShippingCost,
+          referral: referralRate,
+          fba: fbaFee,
+          storage: monthlyStorage,
+          ppc: ppcSpend,
+          returns: returnRate
+        })}
+        summaryText={`Amazon FBA vs FBM Analysis (${activeCurrency.code}):\nSelling Price: ${format(sellingPrice)} | Item Cost: ${format(itemCost)}\nFBA Net Profit: ${format(calculations.fba.netProfit)} (${calculations.fba.margin.toFixed(2)}% Margin)\nFBM Net Profit: ${format(calculations.fbm.netProfit)} (${calculations.fbm.margin.toFixed(2)}% Margin)`}
+      />
 
       {/* Author Bio & E-E-A-T Component */}
       <AuthorBio 
