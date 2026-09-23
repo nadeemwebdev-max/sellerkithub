@@ -224,9 +224,32 @@ Calculated via SellerKitHub.com`;
         <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           {t('home.title')}
         </h1>
-        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">
           {t('home.subtitle')}
         </p>
+
+        {/* Quick Dual-Tool Switcher & Fast Navigation Pills */}
+        <div className="inline-flex flex-wrap items-center justify-center gap-2 mt-5 p-1.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-xs">
+          <span className="px-3.5 py-1.5 rounded-xl bg-brand-600 text-white text-xs font-bold shadow-xs flex items-center gap-1.5">
+            <TrendingUp className="w-3.5 h-3.5" />
+            <span>Profit &amp; Fee Calculator</span>
+          </span>
+          <Link
+            to="/tools/barcode-generator"
+            className="px-3.5 py-1.5 rounded-xl text-slate-700 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-white dark:hover:bg-white/10 text-xs font-semibold transition flex items-center gap-1.5"
+          >
+            <Barcode className="w-3.5 h-3.5 text-violet-500" />
+            <span>Free Barcode Generator</span>
+            <ArrowRight className="w-3 h-3 opacity-60" />
+          </Link>
+          <a
+            href="#all-calculators-directory"
+            className="px-3.5 py-1.5 rounded-xl text-slate-700 dark:text-slate-200 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-white dark:hover:bg-white/10 text-xs font-semibold transition flex items-center gap-1.5"
+          >
+            <Zap className="w-3.5 h-3.5 text-amber-500" />
+            <span>All 9 Tools</span>
+          </a>
+        </div>
       </div>
 
       {/* 1-Click Quick Sample Presets */}
@@ -236,7 +259,7 @@ Calculated via SellerKitHub.com`;
             <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
             <span>{t('home.presetsTitle')}</span>
           </div>
-          <span className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:inline">
+          <span className="text-[11px] text-slate-600 dark:text-slate-300 font-medium hidden sm:inline">
             Click to populate instant calculations
           </span>
         </div>
@@ -251,7 +274,7 @@ Calculated via SellerKitHub.com`;
                 <span>{preset.emoji}</span>
                 <span className="truncate">{preset.label}</span>
               </div>
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">
+              <span className="text-[10px] text-slate-600 dark:text-slate-300 mt-1 font-medium">
                 {preset.platform.toUpperCase()} • Live Demo
               </span>
             </button>
@@ -293,7 +316,7 @@ Calculated via SellerKitHub.com`;
               <h2 className="font-display text-lg font-bold text-slate-900 dark:text-white">
                 {t('home.inputHeading1')}
               </h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
+              <p className="text-xs text-slate-600 dark:text-slate-300 font-medium">
                 Values in {activeCurrency.code} ({activeCurrency.symbol})
               </p>
             </div>
@@ -304,7 +327,7 @@ Calculated via SellerKitHub.com`;
                 setShippingCost(activeCurrency.defaultShip);
                 setMarketingSpend(2.00);
               }}
-              className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition"
+              className="flex items-center gap-1 text-xs text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition font-medium"
               title="Reset values"
               aria-label="Reset calculator inputs to default"
             >
@@ -318,11 +341,11 @@ Calculated via SellerKitHub.com`;
             
             {/* Selling Price */}
             <div>
-              <label htmlFor="home-selling-price" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
+              <label htmlFor="home-selling-price" className="block text-xs font-semibold text-slate-900 dark:text-slate-100 mb-1.5">
                 {t('input.sellingPrice')} ({activeCurrency.symbol})
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 font-bold text-sm">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600 dark:text-slate-300 font-bold text-sm">
                   {activeCurrency.symbol}
                 </span>
                 <input
@@ -340,11 +363,11 @@ Calculated via SellerKitHub.com`;
 
             {/* Product Sourcing Cost */}
             <div>
-              <label htmlFor="home-product-cost" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
+              <label htmlFor="home-product-cost" className="block text-xs font-semibold text-slate-900 dark:text-slate-100 mb-1.5">
                 {t('input.itemCost')} ({activeCurrency.symbol})
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 font-bold text-sm">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600 dark:text-slate-300 font-bold text-sm">
                   {activeCurrency.symbol}
                 </span>
                 <input
@@ -367,11 +390,11 @@ Calculated via SellerKitHub.com`;
             
             {/* Outbound Shipping Cost */}
             <div>
-              <label htmlFor="home-shipping-cost" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
+              <label htmlFor="home-shipping-cost" className="block text-xs font-semibold text-slate-900 dark:text-slate-100 mb-1.5">
                 Outbound Shipping / Postage ({activeCurrency.symbol})
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 font-bold text-sm">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600 dark:text-slate-300 font-bold text-sm">
                   {activeCurrency.symbol}
                 </span>
                 <input
@@ -389,7 +412,7 @@ Calculated via SellerKitHub.com`;
 
             {/* Platform Referral Rate */}
             <div>
-              <label htmlFor="home-referral-rate" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
+              <label htmlFor="home-referral-rate" className="block text-xs font-semibold text-slate-900 dark:text-slate-100 mb-1.5">
                 Marketplace Referral Fee %
               </label>
               <div className="relative">
@@ -403,7 +426,7 @@ Calculated via SellerKitHub.com`;
                   onChange={(e) => setReferralRate(parseFloat(e.target.value) || 0)}
                   className="w-full pl-3 pr-8 py-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:border-brand-500"
                 />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400 font-bold text-sm">
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 dark:text-slate-300 font-bold text-sm">
                   %
                 </span>
               </div>
@@ -414,7 +437,7 @@ Calculated via SellerKitHub.com`;
           {/* Marketing & Return Overhead */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="home-marketing-spend" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
+              <label htmlFor="home-marketing-spend" className="block text-xs font-semibold text-slate-900 dark:text-slate-100 mb-1.5">
                 Estimated Ad Spend / PPC per Unit ({activeCurrency.symbol})
               </label>
               <input
@@ -430,7 +453,7 @@ Calculated via SellerKitHub.com`;
             </div>
 
             <div>
-              <label htmlFor="home-return-rate" className="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1.5">
+              <label htmlFor="home-return-rate" className="block text-xs font-semibold text-slate-900 dark:text-slate-100 mb-1.5">
                 Return Rate Buffer (%)
               </label>
               <input
@@ -466,13 +489,13 @@ Calculated via SellerKitHub.com`;
 
           <div className="space-y-4">
             <div className="p-4 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5 shadow-sm space-y-1">
-              <span className="text-xs text-slate-600 dark:text-slate-400 uppercase font-semibold">{t('metric.netProfit')}</span>
+              <span className="text-xs text-slate-700 dark:text-slate-300 uppercase font-semibold">{t('metric.netProfit')}</span>
               <p className={`font-mono text-3xl font-extrabold ${
                 isProfitable ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
               }`}>
                 {format(result.netProfit)}
               </p>
-              <p className="text-xs text-slate-600 dark:text-slate-400">
+              <p className="text-xs text-slate-700 dark:text-slate-300">
                 {t('metric.profitMargin')}: <span className="font-bold text-slate-900 dark:text-white font-mono">{result.netMarginPercent.toFixed(2)}%</span>
               </p>
             </div>
@@ -480,13 +503,13 @@ Calculated via SellerKitHub.com`;
             {/* Quick Metrics */}
             <div className="grid grid-cols-2 gap-3">
               <div className="p-3 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5 shadow-sm">
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold">{t('metric.roi')}</span>
+                <span className="text-[11px] text-slate-700 dark:text-slate-300 uppercase font-semibold">{t('metric.roi')}</span>
                 <p className="font-mono text-lg font-bold text-slate-900 dark:text-white mt-0.5">
                   {result.roiPercent.toFixed(1)}%
                 </p>
               </div>
               <div className="p-3 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5 shadow-sm">
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-semibold">{t('metric.breakEven')}</span>
+                <span className="text-[11px] text-slate-700 dark:text-slate-300 uppercase font-semibold">{t('metric.breakEven')}</span>
                 <p className="font-mono text-lg font-bold text-slate-900 dark:text-white mt-0.5">
                   {format(result.breakEvenPrice)}
                 </p>
@@ -521,7 +544,7 @@ Calculated via SellerKitHub.com`;
       {/* Sticky Mobile Floating Profit Summary Banner */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-white/10 px-4 py-3 shadow-2xl flex items-center justify-between">
         <div>
-          <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">
+          <span className="text-[10px] uppercase font-bold tracking-wider text-slate-300 block">
             Calculated Net Profit ({platform.toUpperCase()})
           </span>
           <div className="flex items-baseline gap-2">
@@ -552,7 +575,7 @@ Calculated via SellerKitHub.com`;
           <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white mt-1">
             {seoGuide.directoryTitle}
           </h2>
-          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+          <p className="text-xs text-slate-600 dark:text-slate-300 mt-1">
             {seoGuide.directorySubtitle}
           </p>
         </div>
